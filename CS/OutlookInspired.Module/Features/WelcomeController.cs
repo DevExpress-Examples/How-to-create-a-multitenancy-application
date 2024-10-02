@@ -5,14 +5,14 @@ using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.Module.Features{
     public class WelcomeController:ObjectViewController<DetailView,Welcome>{
-        private Welcome _welcome;
+        
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             if (Application.ServiceProvider.GetRequiredService<ITenantProvider>().TenantId == null) return;
             if (Frame.Context != TemplateContext.ApplicationWindow) return;
             Application.ObjectSpaceCreated-=ApplicationOnObjectSpaceCreated;
             Application.ObjectSpaceCreated+=ApplicationOnObjectSpaceCreated;
-            _welcome = Application.CreateObjectSpace(typeof(Welcome)).CreateObject<Welcome>();
+            
         }
         
         private void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e){
@@ -22,7 +22,7 @@ namespace OutlookInspired.Module.Features{
 
         private void nonPersistentObjectSpace_ObjectByKeyGetting(object sender, ObjectByKeyGettingEventArgs e){
             if (!e.ObjectType.IsAssignableFrom(typeof(Welcome))) return;
-            e.Object = _welcome;
+            e.Object = Application.CreateObjectSpace(typeof(Welcome)).CreateObject<Welcome>();
         }
     }
 }

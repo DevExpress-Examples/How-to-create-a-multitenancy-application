@@ -1,9 +1,9 @@
 ﻿using DevExpress.Blazor.PdfViewer;
 using DevExpress.Blazor.Reporting.Models;
-using Microsoft.AspNetCore.Components;
 using DevExpress.ExpressApp.Blazor.Components.Models;
+using Microsoft.AspNetCore.Components;
 
-namespace OutlookInspired.Blazor.Server.ComponentModels {
+namespace OutlookInspired.Blazor.Server.Editors.PdfViewer {
     public class PdfViewerModel : ComponentModelBase {
         public byte[] DocumentContent {
             get => GetPropertyValue<byte[]>();

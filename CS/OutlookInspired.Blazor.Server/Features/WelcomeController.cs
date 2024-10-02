@@ -1,5 +1,5 @@
 ﻿using DevExpress.ExpressApp;
-using OutlookInspired.Blazor.Server.Editors;
+using OutlookInspired.Blazor.Server.Editors.PdfViewer;
 
 namespace OutlookInspired.Blazor.Server.Features {
     public class WelcomeController : Module.Features.WelcomeController {

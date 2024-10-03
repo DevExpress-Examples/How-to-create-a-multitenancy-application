@@ -9,6 +9,7 @@ using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.Validation;
 using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.Features.CloneView;
+using OutlookInspired.Module.Services;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.BusinessObjects{
@@ -48,10 +49,10 @@ namespace OutlookInspired.Module.BusinessObjects{
 		[NotMapped]
 		public string Description{
 			get => DescriptionBytes.ToDocumentText();
-			set => DescriptionBytes=value.Bytes().ToDocumentBytes();
+			set => DescriptionBytes=value.Bytes().ToOpenXmlBytes();
 		}
 
-		[EditorAlias(DevExpress.ExpressApp.Editors.EditorAliases.RichTextPropertyEditor)]
+		[EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
 		[Column(nameof(Description))]
 		[XafDisplayName(nameof(Description))]
 		public virtual byte[] DescriptionBytes{ get; set; }

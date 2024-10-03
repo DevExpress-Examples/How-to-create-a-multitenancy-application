@@ -29,7 +29,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         
         [FontSizeDelta(8)][MaxLength(100)]
         public  virtual string Name { get; set; }
-        [EditorAlias(DevExpress.ExpressApp.Editors.EditorAliases.RichTextPropertyEditor)]
+        [EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
         public  virtual byte[] Description { get; set; }
 
         

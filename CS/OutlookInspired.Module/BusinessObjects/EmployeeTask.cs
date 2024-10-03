@@ -23,7 +23,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         
         public virtual byte[] Description { get; set; }
         
-        [EditorAlias(DevExpress.ExpressApp.Editors.EditorAliases.RichTextPropertyEditor)]
+        [EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
         public virtual byte[] RtfTextDescription { get; set; }
         public virtual DateTime? StartDate { get; set; }
         public virtual DateTime? DueDate { get; set; }

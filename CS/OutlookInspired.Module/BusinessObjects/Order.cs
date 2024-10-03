@@ -49,7 +49,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         public virtual int Year => OrderDate.Year;
         public  virtual DateTime? ShipDate { get; set; }
         public  virtual OrderShipMethod ShipMethod { get; set; }
-        [EditorAlias(DevExpress.ExpressApp.Editors.EditorAliases.RichTextPropertyEditor)]
+        [EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
         public  virtual byte[] OrderTerms { get; set; }
         [Aggregated]
         public virtual ObservableCollection<OrderItem> OrderItems{ get; set; } = new();
@@ -66,14 +66,14 @@ namespace OutlookInspired.Module.BusinessObjects{
         [EditorAlias(EditorAliases.PdfViewerEditor)]
         [VisibleInDetailView(false)]
         [NotMapped]
-        public virtual byte[] ShipmentDetail{ get; set; } = Array.Empty<byte>();
+        public virtual byte[] ShipmentDetail{ get; set; } = [];
         
         
         [EditorAlias(EditorAliases.PdfViewerEditor)]
         [VisibleInDetailView(false)]
         [NotMapped]
-        public virtual byte[] InvoiceDocument{ get; set; } = Array.Empty<byte>();
-        [EditorAlias(DevExpress.ExpressApp.Editors.EditorAliases.RichTextPropertyEditor)]
+        public virtual byte[] InvoiceDocument{ get; set; } = [];
+        [EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
         public  virtual byte[] Comments { get; set; }
         [Column(TypeName = CurrencyType)]
         public  virtual decimal RefundTotal { get; set; }

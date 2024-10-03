@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
+using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 namespace OutlookInspired.Module.BusinessObjects{
     [ImageName("ProductQuickComparisons")]
@@ -10,7 +11,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         public virtual DateTime Date { get; set; }
         [MaxLength(100)]
         public virtual string Type { get; set; }
-        [EditorAlias(EditorAliases.RichTextPropertyEditor)]
+        [EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
         public virtual byte[] Purpose { get; set; }
     }
 }

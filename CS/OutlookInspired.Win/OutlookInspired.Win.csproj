@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -79,7 +79,7 @@
     <PackageReference Include="DevExpress.Persistent.BaseImpl.EFCore" Version="24.2.1-alpha-24260" />
     <PackageReference Include="DevExpress.RichEdit.Export" Version="24.2.1-alpha-24260" />
     <PackageReference Include="DevExpress.Win.Design" Version="24.2.1-alpha-24260" />
-<!--    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />-->
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="8.0.91" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6" />
   </ItemGroup>

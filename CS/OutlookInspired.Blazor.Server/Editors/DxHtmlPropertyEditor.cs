@@ -1,31 +1,13 @@
-﻿using DevExpress.Blazor;
-using DevExpress.ExpressApp.Blazor.Components.Models;
+﻿using DevExpress.ExpressApp.Blazor.Components.Models;
 using DevExpress.ExpressApp.Blazor.Editors;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Microsoft.AspNetCore.Components;
+using OutlookInspired.Module.Blazor;
 using OutlookInspired.Module.Services.Internal;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 namespace OutlookInspired.Blazor.Server.Editors{
-    public class DxHtmlEditorModel : ComponentModelBase {
-        public string Markup {
-            get => GetPropertyValue<string>();
-            set => SetPropertyValue(value);
-        }
-
-        public string Height {
-            get => GetPropertyValue<string>();
-            set => SetPropertyValue(value);
-        }
-
-        public EventCallback<string> MarkupChanged {
-            get => GetPropertyValue<EventCallback<string>>();
-            set => SetPropertyValue(value);
-        }
-        public override Type ComponentType => typeof(DxHtmlEditor);
-    }    
-    
     [PropertyEditor(typeof(byte[]),EditorAliases.DxHtmlPropertyEditor, false)]
     public class DxHtmlPropertyEditor(Type objectType, IModelMemberViewItem model)
         : BlazorPropertyEditorBase(objectType, model){

@@ -5,35 +5,36 @@ using DevExpress.ExpressApp.Design;
 using DevExpress.ExpressApp.EFCore.DesignTime;
 using DevExpress.Persistent.BaseImpl.EF;
 using DevExpress.Persistent.BaseImpl.EF.MultiTenancy;
+using Microsoft.Extensions.Configuration;
 
 
 namespace OutlookInspired.Module.BusinessObjects;
 
 // This code allows our Model Editor to get relevant EF Core metadata at design time.
 // For details, please refer to https://supportcenter.devexpress.com/ticket/details/t933891.
-public class OutlookInspiredContextInitializer : DbContextTypesInfoInitializerBase {
+public class OutlookInspiredContextInitializer : DbContextTypesInfoInitializerBase{
+
 	protected override DbContext CreateDbContext() 
 		=> new OutlookInspiredEFCoreDbContext(new DbContextOptionsBuilder<OutlookInspiredEFCoreDbContext>()
-			.UseSqlite(";")
-			.UseChangeTrackingProxies()
-			.UseObjectSpaceLinkProxies().Options);
+			.UseSqlServer(";").UseChangeTrackingProxies().UseObjectSpaceLinkProxies().Options);
 }
 //This factory creates DbContext for design-time services. For example, it is required for database migration.
-public class OutlookInspiredDesignTimeDbContextFactory : IDesignTimeDbContextFactory<OutlookInspiredEFCoreDbContext> {
+public class OutlookInspiredDesignTimeDbContextFactory(IConfigurationManager configurationManager)
+	: IDesignTimeDbContextFactory<OutlookInspiredEFCoreDbContext>{
+	
+
 	public OutlookInspiredEFCoreDbContext CreateDbContext(string[] args) {
 		// throw new InvalidOperationException("Make sure that the database connection string and connection provider are correct. After that, uncomment the code below and remove this exception.");
 		var optionsBuilder = new DbContextOptionsBuilder<OutlookInspiredEFCoreDbContext>();
-		optionsBuilder.UseSqlite("Data Source=..\\\\..\\\\data\\\\OutlookInspired_Service.db");
+		optionsBuilder.UseSqlite(configurationManager["ConnectionString"]);
         optionsBuilder.UseChangeTrackingProxies();
         optionsBuilder.UseObjectSpaceLinkProxies();
 		return new OutlookInspiredEFCoreDbContext(optionsBuilder.Options);
 	}
 }
 [TypesInfoInitializer(typeof(OutlookInspiredContextInitializer))]
-public class OutlookInspiredEFCoreDbContext : DbContext {
-	public OutlookInspiredEFCoreDbContext(DbContextOptions<OutlookInspiredEFCoreDbContext> options) : base(options) {
-	}
-	
+public class OutlookInspiredEFCoreDbContext(DbContextOptions<OutlookInspiredEFCoreDbContext> options)
+	: DbContext(options){
 	public DbSet<Tenant> Tenants { get; set; }
 	public DbSet<ModelDifference> ModelDifferences { get; set; }
 	public DbSet<ModelDifferenceAspect> ModelDifferenceAspects { get; set; }

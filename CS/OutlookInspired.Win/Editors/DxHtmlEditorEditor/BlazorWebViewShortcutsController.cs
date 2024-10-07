@@ -8,12 +8,16 @@ using OutlookInspired.Module.Services.Internal;
 namespace OutlookInspired.Win.Editors.DxHtmlEditorEditor{
     public class BlazorWebViewKeyDownController:ViewController<DetailView>{
         TAction Find<TAction>( KeyboardEventArgs e) where TAction:ActionBase 
-            => Frame.Actions<TAction>().Where(@base => {
-                if (@base.Shortcut == null) return false;
-                var shortcut = ShortcutHelper.ParseBarShortcut(@base.Shortcut);
-                return (shortcut.Key & Keys.Control) == Keys.Control && (shortcut.Key & Keys.KeyCode).ToString()
-                    .Equals(e.Key, StringComparison.OrdinalIgnoreCase);
-            }).Take(1).FirstOrDefault(simpleAction => simpleAction.Available());
+            => Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).OfType<TAction>()
+                    .FirstOrDefault(action => action.Active && action.Enabled&&Find(e, action));
+
+
+        private static bool Find<TAction>(KeyboardEventArgs e, TAction action) where TAction : ActionBase{
+            if (action.Shortcut == null) return false;
+            var shortcut = ShortcutHelper.ParseBarShortcut(action.Shortcut);
+            return (shortcut.Key & Keys.Control) == Keys.Control && (shortcut.Key & Keys.KeyCode).ToString()
+                .Equals(e.Key, StringComparison.OrdinalIgnoreCase);
+        }
 
         protected override void OnActivated(){
             base.OnActivated();

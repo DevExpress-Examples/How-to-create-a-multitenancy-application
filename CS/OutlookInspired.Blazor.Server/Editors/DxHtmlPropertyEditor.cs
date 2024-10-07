@@ -31,7 +31,6 @@ namespace OutlookInspired.Blazor.Server.Editors{
 
         protected override void ReadValueCore() {
             base.ReadValueCore();
-
             ComponentModel.Markup = ((byte[])PropertyValue).ToDocumentText();
         }
 

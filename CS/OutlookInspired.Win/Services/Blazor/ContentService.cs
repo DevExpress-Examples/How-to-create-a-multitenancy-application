@@ -1,7 +1,7 @@
 ﻿using DevExpress.ExpressApp.Blazor.Components.Models;
 
-namespace OutlookInspired.Module.Blazor{
-    public class MarkupContentService{
+namespace OutlookInspired.Win.Services.Blazor{
+    public class ContentService{
         private IComponentModelRenderable _model;
         public event Action OnChange;
 

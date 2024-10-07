@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Components;
 
 namespace OutlookInspired.Module.Blazor{
     public class DxHtmlEditorModel : ComponentModelBase {
+        public override Type ComponentType => typeof(DxHtmlEditor);
+
         public string Markup {
             get => GetPropertyValue<string>();
             set => SetPropertyValue(value);
         }
-
+        
         public string Height {
             get => GetPropertyValue<string>();
             set => SetPropertyValue(value);
@@ -18,6 +20,6 @@ namespace OutlookInspired.Module.Blazor{
             get => GetPropertyValue<EventCallback<string>>();
             set => SetPropertyValue(value);
         }
-        public override Type ComponentType => typeof(DxHtmlEditor);
+        
     }
 }

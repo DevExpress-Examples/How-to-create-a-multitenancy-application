@@ -1,5 +1,5 @@
 ﻿namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps{
-    public class DxMapModel : MapModel<DxrMap>{
+    public class DxrMapModel : MapModel<DxrMap>{
 
         public DxMapOptions Options{ get; set; } = new();
         public string RouteMode{

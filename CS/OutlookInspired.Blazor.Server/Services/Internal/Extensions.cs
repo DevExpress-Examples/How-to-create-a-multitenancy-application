@@ -118,6 +118,8 @@ console.warn = function(...args) {
         
         public static RenderFragment Create<T>(this T componentModel,Func<T,RenderFragment> fragmentSelector) where T:IComponentModel 
             => ComponentModelObserver.Create(componentModel, fragmentSelector(componentModel));
+        public static RenderFragment Create<T>(this T componentModel)  where T:IComponentModelRenderable
+            => componentModel.Create(arg => arg.GetComponentContent());
         
     }
 }

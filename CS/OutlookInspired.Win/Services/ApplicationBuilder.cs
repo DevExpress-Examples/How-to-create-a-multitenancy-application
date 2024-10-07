@@ -17,7 +17,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Services.Internal;
-using OutlookInspired.Win.Editors;
 
 namespace OutlookInspired.Win.Services{
     public static class ApplicationBuilder{
@@ -26,8 +25,7 @@ namespace OutlookInspired.Win.Services{
             builder.AddModules();
             builder.UseMiddleTierModeSecurity();
             builder.AddMiddleTierMultiTenancy();
-            // builder.Services.AddTransient<MarkupContentService>();
-
+            
             builder.Services.AddDevExpressBlazor(options => {
                 options.BootstrapVersion = BootstrapVersion.v5;
                 options.SizeMode = SizeMode.Large;

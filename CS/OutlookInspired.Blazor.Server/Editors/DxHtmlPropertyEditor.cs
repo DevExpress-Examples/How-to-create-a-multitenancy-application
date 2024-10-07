@@ -23,7 +23,7 @@ namespace OutlookInspired.Blazor.Server.Editors{
                 OnControlValueChanged();
                 WriteValue();
             });
-
+            
             return model;
         }
 

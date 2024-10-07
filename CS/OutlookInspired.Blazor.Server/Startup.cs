@@ -7,10 +7,9 @@ using OutlookInspired.Blazor.Server.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server;
 
-public class Startup {
-    public Startup(IConfiguration configuration) => Configuration = configuration;
-    public IConfiguration Configuration { get; }
-    
+public class Startup(IConfiguration configuration){
+    public IConfiguration Configuration { get; } = configuration;
+
     public void ConfigureServices(IServiceCollection services) {
         services.AddSingleton(typeof(Microsoft.AspNetCore.SignalR.HubConnectionHandler<>), typeof(ProxyHubConnectionHandler<>));
         services.AddRazorPages();

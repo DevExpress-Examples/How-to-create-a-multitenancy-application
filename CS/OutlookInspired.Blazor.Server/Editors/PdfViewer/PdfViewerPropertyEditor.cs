@@ -11,10 +11,11 @@ namespace OutlookInspired.Blazor.Server.Editors.PdfViewer {
     public class PdfViewerPropertyEditor(Type objectType, IModelMemberViewItem model)
         : BlazorPropertyEditorBase(objectType, model){
         public override PdfViewerModel ComponentModel => (PdfViewerModel)base.ComponentModel;
-        protected override IComponentModel CreateComponentModel() => new PdfViewerModel {
-            CssClass = "pe-pdf-viewer",
-            CustomizeToolbar = EventCallback.Factory.Create<ToolbarModel>(this, m => m.AllItems.Clear())
-        };
+        protected override IComponentModel CreateComponentModel() 
+            => new PdfViewerModel {
+                CssClass = "pe-pdf-viewer",
+                CustomizeToolbar = EventCallback.Factory.Create<ToolbarModel>(this, m => m.AllItems.Clear())
+            };
         protected override void ReadValueCore() {
             base.ReadValueCore();
             ComponentModel.DocumentContent = (byte[])PropertyValue;

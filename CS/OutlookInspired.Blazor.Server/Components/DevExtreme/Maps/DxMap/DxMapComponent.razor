@@ -1,0 +1,18 @@
+﻿<DxMap>
+    <DxMapMarkers>
+        <DxMapMarkers>
+            @foreach(var entity in Markers) {
+                <DxMapMarker MarkerId="@entity.Key">
+                    @* <DxMapMarkerLocation GeoPosition="@entity.Value.Location" /> *@
+                    @* <DxMapMarkerTooltip Text="@entity.Value.Text" Visible="@(!string.IsNullOrEmpty(entity.Value.Text))" /> *@
+                </DxMapMarker>
+            }
+        </DxMapMarkers>
+    </DxMapMarkers>
+</DxMap>
+
+@code {
+
+    [Parameter][EditorRequired]
+    public Dictionary<string, Marker> Markers{ get; set; }
+}

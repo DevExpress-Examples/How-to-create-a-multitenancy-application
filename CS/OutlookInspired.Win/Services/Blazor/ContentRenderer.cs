@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace OutlookInspired.Module.Blazor{
-    public class MarkupRenderer : ComponentBase, IDisposable{
+namespace OutlookInspired.Win.Services.Blazor{
+    public class ContentRenderer : ComponentBase, IDisposable{
         [Parameter]
-        public MarkupContentService ContentService { get; set; }
+        public ContentService ContentService { get; set; }
 
         protected override void OnInitialized() => ContentService.OnChange += StateHasChanged;
 

@@ -24,37 +24,33 @@ public class Updater : ModuleUpdater {
     }
 
     private void SynchronizeDates(string parentTableName, string childTableName, string parentDateFieldName, string childForeignKeyFieldName, string groupingFieldName) {
-        using (var updateCommand = CreateCommand($@"
-    UPDATE {parentTableName}
-    SET {parentDateFieldName} = (
-        SELECT COALESCE(
-            DATE(
-                'now',
-                '-' || (JULIANDAY('now') - JULIANDAY(MAX(agg.MostRecentDate))) || ' days'
-            ),
-            {parentTableName}.{parentDateFieldName}
+        using var updateCommand = CreateCommand($@"
+        -- Step 1: Calculate the number of days to shift (based on the most recent date in the child table)
+        WITH DateShift AS (
+            SELECT JULIANDAY('now') - JULIANDAY(MAX(agg.MostRecentDate)) AS DayDifference
+            FROM (
+                SELECT 
+                    c.{groupingFieldName}, 
+                    MAX(p.{parentDateFieldName}) AS MostRecentDate
+                FROM {childTableName} c
+                INNER JOIN {parentTableName} p ON c.{childForeignKeyFieldName} = p.Id
+                GROUP BY c.{groupingFieldName}
+            ) agg
         )
-        FROM {childTableName} c
-        INNER JOIN (
-            SELECT
-                c.{groupingFieldName},
-                MAX(p.{parentDateFieldName}) AS MostRecentDate
+        
+        -- Step 2: Update all parent table dates by shifting them relative to the calculated DayDifference
+        UPDATE {parentTableName}
+        SET {parentDateFieldName} = DATE(
+            {parentDateFieldName}, 
+            (SELECT '+' || CAST(DayDifference AS TEXT) || ' days' FROM DateShift)
+        )
+        WHERE EXISTS (
+            SELECT 1
             FROM {childTableName} c
-            INNER JOIN {parentTableName} p ON c.{childForeignKeyFieldName} = p.Id
-            GROUP BY c.{groupingFieldName}
-        ) agg ON c.{groupingFieldName} = agg.{groupingFieldName}
-        WHERE {parentTableName}.Id = c.{childForeignKeyFieldName}
-    )
-    WHERE EXISTS (
-        SELECT 1
-        FROM {childTableName} c
-        WHERE {parentTableName}.Id = c.{childForeignKeyFieldName}
-    )")) {
-            if (updateCommand.Connection.State != System.Data.ConnectionState.Open) {
-                updateCommand.Connection.Open();
-            }
-            updateCommand.ExecuteNonQuery();
-        }
+            WHERE {parentTableName}.Id = c.{childForeignKeyFieldName}
+        );
+    ");
+        updateCommand.ExecuteNonQuery();
     }
 
 

@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.BaseImpl.EF;
 using OutlookInspired.Blazor.Server.Controllers;
 using OutlookInspired.Blazor.Server.Editors;
+using OutlookInspired.Blazor.Server.Editors.MapItemChart;
 using OutlookInspired.Blazor.Server.Features;
 using OutlookInspired.Blazor.Server.Features.Customers;
 using OutlookInspired.Blazor.Server.Features.Employees;
@@ -27,10 +28,10 @@ public sealed class OutlookInspiredBlazorModule : ModuleBase {
             typeof(CellDisplayTemplateController), typeof(SchedulerGroupTypeController), typeof(EnableDashboardMasterItemNewActionController),
             typeof(DxGridListEditorController),typeof(DetailRowController),typeof(RichTextPropertyEditorController),
             typeof(Features.Employees.Tasks.CellDisplayTemplateController),typeof(Features.Orders.DetailRowController),
-            typeof(TravelModeViewController),typeof(TravelModeViewController),typeof(MapsViewController),typeof(SalesMapsViewController),
-            typeof(Features.Products.SalesMapsViewController),typeof(Features.Orders.RouteMapsViewController),
+            typeof(TravelModeViewController),typeof(TravelModeViewController),typeof(MapsViewController),typeof(Features.Orders.RouteMapsViewController),
             typeof(BlazorMapsViewController),typeof(PaletteController),typeof(PopupWindowSizeController),typeof(ViewFilterController),
-            typeof(FunnelFilterController),typeof(WelcomeController), typeof(DisableInlineRowActionController)
+            typeof(FunnelFilterController),typeof(WelcomeController), typeof(DisableInlineRowActionController),
+            typeof(SalesMapItemDxChartListEditorController),typeof(SalesMapsViewController)
         };
 
     public override void Setup(XafApplication application) {

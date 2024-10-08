@@ -18,15 +18,23 @@ namespace OutlookInspired.Win.Editors.DxHtmlEditorEditor{
     [PropertyEditor(typeof(byte[]), EditorAliases.DxHtmlPropertyEditor, false)]  
     public class DxHtmlPropertyEditor(Type objectType, IModelMemberViewItem info) : WinPropertyEditor(objectType, info), IBlazorWebViewKeydown{
         public event EventHandler<KeyboardEventArgs> KeyDown;
-        private readonly ContentService _contentService = new();
         private DxHtmlEditorModel _htmlEditorModel;
 
         protected override object CreateControlCore(){
             var blazorWebView = new BlazorWebView(){
                 Dock = DockStyle.Fill, HostPage = "wwwroot\\index.html", Services = ServiceProvider,
             };
-            blazorWebView.RootComponents.Add<ContentRenderer>("#app", new Dictionary<string, object>{
-                { nameof(ContentRenderer.ContentService), _contentService }
+            _htmlEditorModel = new DxHtmlEditorModel(){ Height = "300px" };
+            blazorWebView.RootComponents.Add<BlazorWebviewComponent>("#app", new Dictionary<string, object>{
+                { nameof(BlazorWebviewComponent.Model), _htmlEditorModel }
+            });
+            _htmlEditorModel.SetAttribute("onkeydown", EventCallback.Factory.Create<KeyboardEventArgs>(this, OnKeyDown));
+            _htmlEditorModel.SetAttribute(nameof(DxHtmlEditor.BindMarkupMode), HtmlEditorBindMarkupMode.OnDelayedInput);
+            
+            _htmlEditorModel.MarkupChanged = EventCallback.Factory.Create<string>(this, value => {
+                _htmlEditorModel.Markup = value;
+                OnControlValueChanged();
+                WriteValue();
             });
             return blazorWebView;
         }
@@ -34,24 +42,9 @@ namespace OutlookInspired.Win.Editors.DxHtmlEditorEditor{
         protected override void WriteValueCore() => PropertyValue = $"{ControlValue}".Bytes().ToRtfBytes();
 
         protected override object GetControlValueCore() => _htmlEditorModel.Markup;
+
+        protected override void ReadValueCore() => _htmlEditorModel.Markup = ((byte[])PropertyValue).ToDocumentText();
         
-        protected override void ReadValueCore() => _htmlEditorModel = (DxHtmlEditorModel)(_contentService.Model = CreateModel());
-
-        private DxHtmlEditorModel CreateModel(){
-            var dxHtmlEditorModel = new DxHtmlEditorModel{
-                Markup = ((byte[])PropertyValue).ToDocumentText(), Height = "300px"
-            };
-            dxHtmlEditorModel.SetAttribute("onkeydown", EventCallback.Factory.Create<KeyboardEventArgs>(this, OnKeyDown));
-            dxHtmlEditorModel.SetAttribute(nameof(DxHtmlEditor.BindMarkupMode), HtmlEditorBindMarkupMode.OnDelayedInput);
-            
-            dxHtmlEditorModel.MarkupChanged = EventCallback.Factory.Create<string>(this, value => {
-                dxHtmlEditorModel.Markup = value;
-                OnControlValueChanged();
-                WriteValue();
-            });
-            return dxHtmlEditorModel;
-        }
-
         protected virtual void OnKeyDown(KeyboardEventArgs e) => KeyDown?.Invoke(this, e);
     }
 }

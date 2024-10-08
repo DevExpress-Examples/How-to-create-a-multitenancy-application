@@ -8,8 +8,8 @@ using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 namespace OutlookInspired.Win.Editors {
     [PropertyEditor(typeof(int), EditorAliases.ProgressEditor, false)]
     [PropertyEditor(typeof(double), EditorAliases.ProgressEditor, false)]
-    public class ProgressPropertyEditor : DXPropertyEditor {
-        public ProgressPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) { }
+    public class ProgressPropertyEditor(Type objectType, IModelMemberViewItem model)
+        : DXPropertyEditor(objectType, model){
         protected override object CreateControlCore() => new ProgressBarControl();
 
         class ProgressBarControl:DevExpress.XtraEditors.ProgressBarControl{

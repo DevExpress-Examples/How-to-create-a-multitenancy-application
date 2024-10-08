@@ -20,9 +20,9 @@
   </NavigationItems>
   <Options UIType="TabbedMDI" RestoreTabbedMdiLayout="True" />
   <SchemaModules>
-    <SchemaModule Name="SchedulerBlazorModule" Version="24.1.1.0" IsNewNode="True" />
-    <SchemaModule Name="SchedulerModuleBase" Version="24.1.1.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="24.1.1.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerBlazorModule" Version="24.2.1.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerModuleBase" Version="24.2.1.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="24.2.1.0" IsNewNode="True" />
   </SchemaModules>
   <Views DefaultListEditor="DevExpress.ExpressApp.Blazor.Editors.DxGridListEditor">
     <DetailView Id="Customer_DetailView_Child">
@@ -274,23 +274,23 @@
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Auto7f26b532-5e95-4984-975f-7d112e3f48be" Caption="Auto7f26b532-5e95-4984-975f-7d112e3f48be(3)" RelativeSize="66.93722943722943">
-              <LayoutItem Id="MapsControl" ViewItem="MapsControl" CaptionLocation="Left" Index="0" RelativeSize="3.7821482602118004" ShowCaption="False" IsNewNode="True" Removed="True" />
-              <LayoutItem Id="Item2" Index="1" RelativeSize="96.2178517397882" IsNewNode="True" />
+            <LayoutGroup Id="Auto7f26b532-5e95-4984-975f-7d112e3f48be" Caption="Auto7f26b532-5e95-4984-975f-7d112e3f48be(3)" RelativeSize="61.68639053254438">
+              <LayoutItem Id="Location" RelativeSize="8.970976253298153" />
+              <LayoutItem Id="Item2" Index="1" RelativeSize="91.02902374670185" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="Auto55738e8a-ad25-43c5-8135-f7030b1fbeb6" RelativeSize="33.06277056277056">
-              <LayoutGroup Id="Auto545e433b-2786-4e52-bd8b-09fc12509e50" RelativeSize="9.07715582450832">
-                <LayoutItem Id="Picture" RelativeSize="21.60392798690671" />
-                <LayoutGroup Id="Auto5ce01d17-5e7e-4055-b926-eeb5c8eef21e" RelativeSize="78.39607201309329">
+            <LayoutGroup Id="Auto55738e8a-ad25-43c5-8135-f7030b1fbeb6" RelativeSize="38.31360946745562">
+              <LayoutGroup Id="Auto545e433b-2786-4e52-bd8b-09fc12509e50" RelativeSize="31.662269129287598">
+                <LayoutItem Id="Picture" RelativeSize="50.965250965250966" />
+                <LayoutGroup Id="Auto5ce01d17-5e7e-4055-b926-eeb5c8eef21e" RelativeSize="49.034749034749034">
                   <LayoutItem Id="FullName" RelativeSize="44.166666666666664" />
                   <LayoutItem Id="Address" RelativeSize="55.833333333333336" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutItem Id="AAddress" SizeConstraintsType="Custom" MinSize="124, 42" RelativeSize="3.6308623298033282" Index="1" CaptionLocation="Right" />
-              <LayoutItem Id="BAddress" RelativeSize="3.177004538577912" Index="2" CaptionLocation="Right" />
-              <LayoutItem Id="Item1" RelativeSize="2.8744326777609683" Index="3" />
-              <LayoutItem Id="RouteResult" RelativeSize="3.40393343419062" Index="4" />
-              <LayoutItem Id="RoutePoints" RelativeSize="77.83661119515885" Index="5" />
+              <LayoutItem Id="AAddress" SizeConstraintsType="Custom" MinSize="124, 42" RelativeSize="11.08179419525066" Index="1" CaptionLocation="Right" />
+              <LayoutItem Id="BAddress" RelativeSize="6.860158311345646" Index="2" CaptionLocation="Right" />
+              <LayoutItem Id="Item1" RelativeSize="2.638522427440633" Index="3" />
+              <LayoutItem Id="RouteResult" RelativeSize="7.651715039577836" Index="4" />
+              <LayoutItem Id="RoutePoints" RelativeSize="40.105540897097626" Index="5" />
               <LayoutItem Id="Item2" RelativeSize="2.118003025718608" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
@@ -467,9 +467,6 @@
               <LayoutItem Id="Comments1" Removed="True" />
             </LayoutGroup>
           </TabbedGroup>
-          <LayoutGroup Id="OrderItems_Group" Caption="Order Items" RelativeSize="65.1778955336866" Removed="True">
-            <LayoutItem Id="OrderItems" Removed="True" />
-          </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
@@ -505,21 +502,21 @@
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Autoa0eb106e-c0d0-41bf-b74e-ed9302e3ce38" ShowCaption="False" Caption="" Index="0" RelativeSize="79.05027932960894" IsNewNode="True">
-              <LayoutItem Id="MapsControl" ShowCaption="True" ViewItem="MapsControl" CaptionLocation="Left" Index="0" RelativeSize="2.508650519031142" IsNewNode="True" />
-              <LayoutItem Id="Item3" Index="1" RelativeSize="97.49134948096886" IsNewNode="True" />
+            <LayoutGroup Id="Autoa0eb106e-c0d0-41bf-b74e-ed9302e3ce38" ShowCaption="False" Caption="Autoa0eb106e-c0d0-41bf-b74e-ed9302e3ce38(3)" Index="0" RelativeSize="57.582417582417584" IsNewNode="True">
+              <LayoutItem Id="Location" ViewItem="Location" Index="0" RelativeSize="4.551539491298527" ShowCaption="False" IsNewNode="True" />
+              <LayoutItem Id="Item3" Index="1" RelativeSize="95.44846050870147" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="Auto13cb3f67-43cc-480f-865f-41efcd1565e4" RelativeSize="20.949720670391063">
-              <LayoutGroup Id="Auto16c888c9-7e2d-4f16-b9ab-72572d60d7da" RelativeSize="15.7439446366782">
-                <LayoutItem Id="Logo" RelativeSize="43.55555555555556" />
-                <LayoutGroup Id="Auto80b2b6d7-3f7b-44f0-8196-2baca796151c" RelativeSize="56.44444444444444">
-                  <LayoutItem Id="Customer" RelativeSize="15.934065934065934" />
-                  <LayoutItem Id="Item1" RelativeSize="28.846153846153847" />
-                  <LayoutItem Id="InvoiceNumber" RelativeSize="12.087912087912088" />
-                  <LayoutItem Id="Item2" RelativeSize="43.13186813186813" />
+            <LayoutGroup Id="Auto13cb3f67-43cc-480f-865f-41efcd1565e4" RelativeSize="42.417582417582416">
+              <LayoutGroup Id="Auto16c888c9-7e2d-4f16-b9ab-72572d60d7da" RelativeSize="15.796519410977242">
+                <LayoutItem Id="Logo" RelativeSize="43.523316062176164" />
+                <LayoutGroup Id="Auto80b2b6d7-3f7b-44f0-8196-2baca796151c" RelativeSize="56.476683937823836">
+                  <LayoutItem Id="Customer" RelativeSize="28.8135593220339" />
+                  <LayoutItem Id="Item1" RelativeSize="24.576271186440678" />
+                  <LayoutItem Id="InvoiceNumber" RelativeSize="22.033898305084747" />
+                  <LayoutItem Id="Item2" RelativeSize="24.576271186440678" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutItem Id="ShipmentDetail" RelativeSize="84.2560553633218" />
+              <LayoutItem Id="ShipmentDetail" RelativeSize="84.20348058902276" />
             </LayoutGroup>
             <LayoutItem Id="MapsControl" Removed="True" />
           </LayoutGroup>
@@ -546,11 +543,9 @@
     <ListView Id="Order_ListView_Detail" AutoExpandAllGroups="True">
       <Columns>
         <ColumnInfo Id="ActualWeight" Index="-1" />
-        <ColumnInfo Id="Comments" Index="-1" />
         <ColumnInfo Id="Customer" Index="-1" />
         <ColumnInfo Id="Employee" Index="-1" />
         <ColumnInfo Id="OrderDate" Index="-1" />
-        <ColumnInfo Id="OrderTerms" Index="-1" />
         <ColumnInfo Id="PaymentStatusImage" Index="-1" />
         <ColumnInfo Id="PONumber" Index="-1" />
         <ColumnInfo Id="RefundTotal" Index="-1" />

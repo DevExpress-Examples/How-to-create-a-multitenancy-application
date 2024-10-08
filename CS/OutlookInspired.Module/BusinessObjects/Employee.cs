@@ -17,7 +17,10 @@ using OutlookInspired.Module.Services.Internal;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 namespace OutlookInspired.Module.BusinessObjects{
-	
+	public interface ILocationLink:IRouteMapsMarker{
+		Location Location{ get; }
+	}
+
 	[DefaultProperty(nameof(FullName))]
 	[ImageName("BO_Person")]
 	[CloneView(CloneViewType.DetailView, LayoutViewDetailView)]
@@ -25,7 +28,7 @@ namespace OutlookInspired.Module.BusinessObjects{
 	[CloneView(CloneViewType.DetailView, MapsDetailView)]
 	[VisibleInReports(true)]
 	[ForbidDelete()]
-	public class Employee :OutlookInspiredBaseObject,IViewFilter,IObjectSpaceLink,IResource,ITravelModeMapsMarker{
+	public class Employee :OutlookInspiredBaseObject,IViewFilter,IObjectSpaceLink,IResource,ITravelModeMapsMarker, ILocationLink{
 		public const string MapsDetailView = "Employee_DetailView_Maps";
 		public const string ChildDetailView = "Employee_DetailView_Child";
 		public const string LayoutViewDetailView = "EmployeeLayoutView_DetailView";
@@ -34,7 +37,9 @@ namespace OutlookInspired.Module.BusinessObjects{
 		public new IObjectSpace ObjectSpace{ get; set; }
 		[VisibleInListView(false), VisibleInDetailView(false), VisibleInLookupListView(false)]
 		object IResource.Id => ID;
-		
+
+		[EditorAlias(EditorAliases.MapRoutePropertyEditor)]
+		public Location Location => new(){Lat = AddressLatitude, Lng = AddressLongitude};
 
 		[Browsable(false)]
 		public Int32 OleColor => 0;
@@ -174,5 +179,12 @@ namespace OutlookInspired.Module.BusinessObjects{
 		[ImageName("OnLeave")]
 		OnLeave
 	}
+	[DomainComponent]
+	public class Location{
+		public double Lat{ get; init; }
+		public double Lng{ get; init; }
+	}
+
+	
 
 }

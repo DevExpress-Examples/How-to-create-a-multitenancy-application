@@ -5,7 +5,6 @@ using DevExpress.ExpressApp.Design;
 using DevExpress.ExpressApp.EFCore.DesignTime;
 using DevExpress.Persistent.BaseImpl.EF;
 using DevExpress.Persistent.BaseImpl.EF.MultiTenancy;
-using Microsoft.Extensions.Configuration;
 
 
 namespace OutlookInspired.Module.BusinessObjects;
@@ -19,14 +18,13 @@ public class OutlookInspiredContextInitializer : DbContextTypesInfoInitializerBa
 			.UseSqlServer(";").UseChangeTrackingProxies().UseObjectSpaceLinkProxies().Options);
 }
 //This factory creates DbContext for design-time services. For example, it is required for database migration.
-public class OutlookInspiredDesignTimeDbContextFactory(IConfigurationManager configurationManager)
-	: IDesignTimeDbContextFactory<OutlookInspiredEFCoreDbContext>{
+public class OutlookInspiredDesignTimeDbContextFactory : IDesignTimeDbContextFactory<OutlookInspiredEFCoreDbContext>{
 	
 
 	public OutlookInspiredEFCoreDbContext CreateDbContext(string[] args) {
 		// throw new InvalidOperationException("Make sure that the database connection string and connection provider are correct. After that, uncomment the code below and remove this exception.");
 		var optionsBuilder = new DbContextOptionsBuilder<OutlookInspiredEFCoreDbContext>();
-		optionsBuilder.UseSqlite(configurationManager["ConnectionString"]);
+		optionsBuilder.UseSqlite("Data Source=..\\\\..\\\\data\\\\OutlookInspired_Service.db");
         optionsBuilder.UseChangeTrackingProxies();
         optionsBuilder.UseObjectSpaceLinkProxies();
 		return new OutlookInspiredEFCoreDbContext(optionsBuilder.Options);

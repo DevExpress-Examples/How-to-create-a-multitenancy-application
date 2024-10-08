@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace OutlookInspired.Win.Services.Blazor{
-    public class ContentRenderer : ComponentBase, IDisposable{
+    public class BlazorWebviewComponent : ComponentBase, IDisposable{
         [Parameter]
         public ComponentModelBase Model { get; set; }
 

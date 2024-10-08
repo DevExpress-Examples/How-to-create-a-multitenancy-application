@@ -6,11 +6,8 @@ using RichTextPropertyEditor = DevExpress.ExpressApp.Office.Win.RichTextProperty
 
 namespace OutlookInspired.Win.Editors{
     [PropertyEditor(typeof(byte[]), EditorAliases.PrintLayoutRichTextEditor, false)]  
-    public class PrintLayoutRichTextEditor : RichTextPropertyEditor {
-        public PrintLayoutRichTextEditor(Type objectType, IModelMemberViewItem info)  
-            : base(objectType, info) {
-        }
-
+    public class PrintLayoutRichTextEditor(Type objectType, IModelMemberViewItem info)
+        : RichTextPropertyEditor(objectType, info){
         protected override object CreateControlCore(){
             var controlCore = base.CreateControlCore();
             RichEditControl.ActiveViewType=RichEditViewType.PrintLayout;

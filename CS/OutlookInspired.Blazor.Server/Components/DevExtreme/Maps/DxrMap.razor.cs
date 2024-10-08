@@ -1,4 +1,6 @@
-﻿namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps{
+﻿using OutlookInspired.Module.BusinessObjects;
+
+namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps{
     public class DxrMapModel : MapModel<DxrMap>{
 
         public DxMapOptions Options{ get; set; } = new();
@@ -8,10 +10,6 @@
         }
     }
     
-    public class Location{
-        public double Lat{ get; init; }
-        public double Lng{ get; init; }
-    }
     
     public class DxMapOptions{
         public ApiKey ApiKey{ get; set; } = new();

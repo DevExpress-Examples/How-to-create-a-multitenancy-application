@@ -7,6 +7,7 @@ using OutlookInspired.Blazor.Server.Editors;
 using OutlookInspired.Blazor.Server.Features;
 using OutlookInspired.Blazor.Server.Features.Customers;
 using OutlookInspired.Blazor.Server.Features.Employees;
+using OutlookInspired.Blazor.Server.Features.Employees.Maps;
 using OutlookInspired.Blazor.Server.Features.Evaluations;
 using OutlookInspired.Blazor.Server.Features.Maps;
 using OutlookInspired.Blazor.Server.Features.Quotes;
@@ -26,7 +27,7 @@ public sealed class OutlookInspiredBlazorModule : ModuleBase {
             typeof(CellDisplayTemplateController), typeof(SchedulerGroupTypeController), typeof(EnableDashboardMasterItemNewActionController),
             typeof(DxGridListEditorController),typeof(DetailRowController),typeof(RichTextPropertyEditorController),
             typeof(Features.Employees.Tasks.CellDisplayTemplateController),typeof(Features.Orders.DetailRowController),
-            typeof(RouteMapsViewController),typeof(RouteMapsViewController),typeof(MapsViewController),typeof(SalesMapsViewController),
+            typeof(TravelModeViewController),typeof(TravelModeViewController),typeof(MapsViewController),typeof(SalesMapsViewController),
             typeof(Features.Products.SalesMapsViewController),typeof(Features.Orders.RouteMapsViewController),
             typeof(BlazorMapsViewController),typeof(PaletteController),typeof(PopupWindowSizeController),typeof(ViewFilterController),
             typeof(FunnelFilterController),typeof(WelcomeController), typeof(DisableInlineRowActionController)

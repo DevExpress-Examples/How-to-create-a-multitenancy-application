@@ -24,7 +24,9 @@ namespace OutlookInspired.Module.Features.Employees{
         }
 
         private void OnRouteCalculated(object sender, RouteCalculatedArgs e){
-            ((Employee)View.CurrentObject).SetRoutePoints(e.RoutePoints);
+            var employee = ((Employee)View.CurrentObject);
+            employee.RoutePoints.Clear();
+            employee.RoutePoints.Do(employee.RoutePoints.Add).Enumerate();
             View.SetNonTrackedMemberValue<Employee, string>(employee1 => employee1.RouteResult,
                 _ => $"{e.Distance:F1} mi, {e.Time:hh\\:mm} min {e.TravelMode}");
         }

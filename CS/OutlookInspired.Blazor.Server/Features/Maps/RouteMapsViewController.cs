@@ -28,9 +28,12 @@ namespace OutlookInspired.Blazor.Server.Features.Maps{
         }
 
         private void CalculateRoute(DxMapOptions options) 
-            => this.Await(async () => OnRouteCalculated(await ObjectSpace.ManeuverInstructions(
-                options.Markers.First().Location, options.Markers.Last().Location, options.Routes.First().Mode,
-                options.ApiKey.Bing)));
+            => this.Await(async () => {
+                var routeCalculatedArgs = await ObjectSpace.ManeuverInstructions(
+                    options.Markers.First().Location, options.Markers.Last().Location, options.Routes.First().Mode,
+                    options.ApiKey.Bing);
+                OnRouteCalculated(routeCalculatedArgs);
+            });
         
         private void TravelModeActionOnExecuted(object sender, ActionBaseEventArgs e) 
             => CustomizeModel().RouteMode = ((string)Frame.GetController<MapsViewController>().TravelModeAction.SelectedItem.Data).ToLower();

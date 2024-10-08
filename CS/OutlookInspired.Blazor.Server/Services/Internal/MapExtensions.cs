@@ -42,6 +42,11 @@ namespace OutlookInspired.Blazor.Server.Services.Internal{
                 }
             };
 
+        public static async Task<RouteCalculatedArgs> ManeuverInstructions(this IObjectSpace objectSpace,
+            IMapsMarker locationA, IMapsMarker locationB, string travelMode, string apiKey){
+            throw new NotImplementedException();
+        }
+
         public static async Task<RouteCalculatedArgs> ManeuverInstructions(this IObjectSpace objectSpace, Location locationA, Location locationB, string travelMode, string apiKey){
             var url = $"https://dev.virtualearth.net/REST/V1/Routes/{travelMode}?wp.0={locationA.Lat},{locationA.Lng}&wp.1={locationB.Lat},{locationB.Lng}&key={apiKey}";
             using var httpClient = new HttpClient();

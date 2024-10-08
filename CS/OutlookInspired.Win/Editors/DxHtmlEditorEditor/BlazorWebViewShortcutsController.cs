@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components.Web;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Win.Editors.DxHtmlEditorEditor{
-    public class BlazorWebViewKeyDownController:ViewController<DetailView>{
+    public class BlazorWebViewShortcutsController:ViewController<DetailView>{
         TAction Find<TAction>( KeyboardEventArgs e) where TAction:ActionBase 
             => Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).OfType<TAction>()
                     .FirstOrDefault(action => action.Active && action.Enabled&&Find(e, action));

@@ -25,10 +25,6 @@ namespace OutlookInspired.Module.Services.Internal{
                 _ => throw new InvalidOperationException($"Invalid type provided. {salesMarkerType}")
             };
 
-        public static void SetRoutePoints(this Employee employee,params RoutePoint[] routePoints){
-            employee.RoutePoints.Clear();
-            routePoints.Do(employee.RoutePoints.Add).Enumerate();
-        }
         public static MapItem[] Sales(this ISalesMapsMarker salesMapsMarker, Period period, string city = null) 
             => salesMapsMarker.ObjectSpace.GetObjectsQuery<OrderItem>()
                 .Where(salesMapsMarker.SalesExpression)

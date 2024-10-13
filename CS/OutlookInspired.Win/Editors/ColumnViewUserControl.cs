@@ -2,18 +2,24 @@
 using System.Linq.Expressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.EFCore;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Utils.Serializing.Helpers;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
 using OutlookInspired.Module.Features.MasterDetail;
 using OutlookInspired.Module.Services.Internal;
-using OutlookInspired.Win.Services.Internal;
+using static DevExpress.ExpressApp.Security.SecurityOperations;
+
 
 namespace OutlookInspired.Win.Editors{
+    [Obsolete("remove inheritance")]
     public partial class ColumnViewUserControl : UserControl, IUserControl{
         private EFCoreObjectSpace _objectSpace;
         protected ColumnView ColumnView;
         protected IList DataSource;
         private string _criteria;
+        private XafApplication _application;
         public ColumnViewUserControl() => Load += (_, _) => Refresh();
         public event EventHandler CurrentObjectChanged;
         public event EventHandler SelectionChanged;
@@ -35,30 +41,44 @@ namespace OutlookInspired.Win.Editors{
         
         public virtual void Setup(IObjectSpace objectSpace, XafApplication application){
             _objectSpace = (EFCoreObjectSpace)objectSpace;
-            ColumnView = this.ColumnView();
+            _application=application;
+            ColumnView = (ColumnView)Controls.OfType<GridControl>().First().MainView;
             ColumnView.FocusedRowObjectChanged += (_, _) => {
                 SelectionChanged?.Invoke(this, EventArgs.Empty);
                 CurrentObjectChanged?.Invoke(this, EventArgs.Empty);
             };
             ColumnView.DoubleClick += (_, _) => {
-                if (!ColumnView.IsNotGroupedRow()) return;
+                if (!IsNotGroupedRow()) return;
                 ProcessObject?.Invoke(this, new ObjectEventArgs(SelectedObjects.Cast<object>().First()));
             };
             ColumnView.ColumnFilterChanged += (_, _) => OnDataSourceOfFilterChanged();
             ColumnView.DataSourceChanged += (_, _) => OnDataSourceOfFilterChanged();
             ColumnView.DataError+=(_, e) => throw new AggregateException(e.DataException.Message,e.DataException);
-            application.ProtectDetailViews(ColumnView.GridControl,ObjectType);
+            ProtectDetailViews();
         }
+        
+        bool IsNotGroupedRow( ) 
+            => ColumnView is not GridView view|| !view.IsGroupRow(ColumnView.FocusedRowHandle);
+        void ProtectDetailViews() 
+            => ColumnView.GridControl.LevelTree.Nodes.ToArray()
+                .Where(node => {
+                    var listElementType = _application.TypesInfo.FindTypeInfo(ObjectType)
+                        .FindMember(node.RelationName).ListElementType;
+                    return !_application.Security.IsGranted(new PermissionRequest(listElementType, Read));
+                })
+                .Do(node => ColumnView.GridControl.LevelTree.Nodes.Remove(node))
+                .Enumerate();
 
+        
         public override void Refresh() {
             if (ColumnView == null) return;
             ColumnView.GridControl.DataSource =
-                (object)DataSource ?? _objectSpace?.NewEntityServerModeSource(ObjectType, _criteria);
+                (object)DataSource ?? _objectSpace.GetObjects(ObjectType,_objectSpace.ParseCriteria(_criteria));
         }
+        
+        public virtual Type ObjectType{ get; set; }
 
-        public virtual Type ObjectType => throw new NotImplementedException();
-
-        public object CurrentObject => ColumnView.FocusedRowObject( _objectSpace,ObjectType);
+        public object CurrentObject => FocusedRowObject();
 
         public IList SelectedObjects{
             get{
@@ -68,7 +88,14 @@ namespace OutlookInspired.Win.Editors{
                         .Select(i => ColumnView.GetRow(i)).ToArray();
             }
         }
+        object FocusedRowObject() 
+            => ColumnView.FocusedRowObject == null || !ColumnView.IsServerMode ? ColumnView.FocusedRowObject
+                : !IsNotGroupedRow() || !IsNotInvalidRow() ? null
+                : _objectSpace.GetObjectByKey(ObjectType, ColumnView.FocusedRowObject);
 
+        
+        bool IsNotInvalidRow( ) 
+            => ColumnView.FocusedRowHandle!=GridControl.InvalidRowHandle;
         public SelectionType SelectionType => SelectionType.Full;
         public bool IsRoot => false;
 

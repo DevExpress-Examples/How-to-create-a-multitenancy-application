@@ -10,6 +10,7 @@ using OutlookInspired.Module.Features.MasterDetail;
 
 namespace OutlookInspired.Module.Services.Internal{
     internal static class ViewExtensions{
+        [Obsolete]
         public static void SetNonTrackedMemberValue<T,T2>(this CompositeView view, Expression<Func<T, T2>> expression,Func<T,T2> valueSelector){
             if (view.CurrentObject==null)return;
             var propertyEditor = view.GetItems<PropertyEditor>()

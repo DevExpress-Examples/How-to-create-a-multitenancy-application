@@ -5,7 +5,7 @@ using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
-namespace OutlookInspired.Win.Editors {
+namespace OutlookInspired.Win.Editors.ProgressEditor {
     [PropertyEditor(typeof(int), EditorAliases.ProgressEditor, false)]
     [PropertyEditor(typeof(double), EditorAliases.ProgressEditor, false)]
     public class ProgressPropertyEditor(Type objectType, IModelMemberViewItem model)

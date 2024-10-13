@@ -2,11 +2,10 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.EFCore;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Features.Maps;
 
 namespace OutlookInspired.Module.Services.Internal{
     internal static class MapExtensions{
-        static readonly double[] UsaBounds = { -124.566244, 49.384358, -66.934570, 24.396308 };
+        static readonly double[] UsaBounds =[-124.566244, 49.384358, -66.934570, 24.396308];
 
         public static string[] Palette(this MapItem[] mapItems,Type objectType) 
             => mapItems.Select(item => item.PropertyValue(objectType)).Distinct().Count().DistinctColors().ToArray();
@@ -18,6 +17,7 @@ namespace OutlookInspired.Module.Services.Internal{
                 .Concat(mapItems.Max(item => item.Longitude) + (mapItems.Max(item => item.Longitude) - mapItems.Min(item => item.Longitude)) * 0.1)
                 .Concat(mapItems.Min(item => item.Latitude) - (mapItems.Max(item => item.Latitude) - mapItems.Min(item => item.Latitude)) * 0.1).ToArray();
 
+        [Obsolete]
         public static string MapItemProperty(this Type salesMarkerType)
             => salesMarkerType switch{
                 _ when typeof(Customer).IsAssignableFrom(salesMarkerType) => nameof(MapItem.ProductName),
@@ -25,22 +25,21 @@ namespace OutlookInspired.Module.Services.Internal{
                 _ => throw new InvalidOperationException($"Invalid type provided. {salesMarkerType}")
             };
 
-        public static MapItem[] Sales(this ISalesMapsMarker salesMapsMarker, Period period, string city = null) 
-            => salesMapsMarker.ObjectSpace.GetObjectsQuery<OrderItem>()
-                .Where(salesMapsMarker.SalesExpression)
-                .Where(period,city)
-                .Select(item => new MapItem{
-                    CustomerName = item.Order.Customer.Name,
-                    ProductName = item.Product.Name,
-                    ProductCategory = item.Product.Category,
-                    Total = item.Total,
-                    Latitude = item.Order.Store.Latitude,
-                    Longitude = item.Order.Store.Longitude,
-                    City = item.Order.Store.City
-                }).ToArray().Do((item, i) => item.ID=i).ToArray();
+        [Obsolete]
+        public static MapItem[] Sales(this IObjectSpace objectSpace,Expression<Func<OrderItem,bool>> expression, Period period, string city = null) 
+            => objectSpace.GetObjectsQuery<OrderItem>().Where(expression).Where(period,city)
+                .Select(item => new {
+                    CustomerName = item.Order.Customer.Name, ProductName = item.Product.Name, ProductCategory = item.Product.Category,
+                    item.Total, item.Order.Store.Latitude, item.Order.Store.Longitude, item.Order.Store.City
+                }).ToArray().Select(t => new MapItem{
+                    ProductCategory = t.ProductCategory,ProductName = t.ProductName,City = t.City,Latitude = t.Latitude,Longitude = t.Longitude,
+                    Total = t.Total,CustomerName = t.CustomerName
+                })
+                .Do((item, i) => item.ID=i).ToArray();
 
-        public static IQueryable<CustomerStore> Stores(this ISalesMapsMarker salesMapsMarker,Period period,DateTime dateTime=default) 
-            => salesMapsMarker.ObjectSpace.GetObjectsQuery<Order>()
+        [Obsolete]
+        public static IQueryable<CustomerStore> Stores(this IObjectSpace objectSpace,Period period,DateTime dateTime=default) 
+            => objectSpace.GetObjectsQuery<Order>()
                 .Where(period, dateTime: dateTime).GroupBy(order => order.Store)
                 .Select(orders => orders.Key);
 
@@ -62,6 +61,7 @@ namespace OutlookInspired.Module.Services.Internal{
         public static decimal Opportunity(this IObjectSpace objectSpace,Stage stage,string city)    
             => objectSpace.Quotes(stage).Where(q => q.CustomerStore.City == city).TotalSum(q => q.Total);
 
+        [Obsolete]
         public static CustomerStore[] Stores(this IObjectSpace objectSpace, Stage stage) 
             => objectSpace.Quotes(stage).Select(quote => quote.CustomerStore).Distinct().ToArray();
 

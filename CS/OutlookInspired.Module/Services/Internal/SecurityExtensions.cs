@@ -22,6 +22,7 @@ namespace OutlookInspired.Module.Services.Internal{
         private static readonly Type[] EmployeeTypes = { typeof(Employee), typeof(EmployeeTask), typeof(Evaluation), typeof(Probation),typeof(Picture),typeof(TaskAttachedFile)};
         private static readonly Type[] QuoteTypes = { typeof(Quote), typeof(QuoteItem)};
         private static readonly Type[] OrderTypes = { typeof(Order), typeof(OrderItem)};
+        [Obsolete]
         public static bool CanRead(this XafApplication application,Type objectType) 
             => application.Security.IsGranted( new PermissionRequest(objectType, Read));
 

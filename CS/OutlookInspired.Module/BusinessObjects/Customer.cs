@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq.Expressions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
@@ -11,6 +11,7 @@ using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
 using OutlookInspired.Module.Features.ViewFilter;
 using OutlookInspired.Module.Services;
+using OutlookInspired.Module.Services.Internal;
 
 
 namespace OutlookInspired.Module.BusinessObjects {
@@ -57,8 +58,10 @@ namespace OutlookInspired.Module.BusinessObjects {
 		public virtual double BillingAddressLatitude { get; set; }
 		[VisibleInListView(false)][VisibleInLookupListView(false)]
 		public virtual double BillingAddressLongitude { get; set; }
-		[NotMapped][VisibleInDetailView(false)]
-		public virtual ObservableCollection<MapItem> CitySales{ get; set; } = new();
+
+		[NotMapped]
+		[VisibleInDetailView(false)]
+		public virtual ObservableCollection<MapItem> CitySales{ get; set; }
 		[Aggregated]
 		public virtual ObservableCollection<CustomerEmployee> Employees{ get; set; } = new(); 
 		[Attributes.Validation.Phone][MaxLength(20)]
@@ -102,9 +105,19 @@ namespace OutlookInspired.Module.BusinessObjects {
 		public virtual List<Order> RecentOrders => ObjectSpace.GetObjectsQuery<Order>()
 			.Where(order => order.Customer.ID == ID && order.OrderDate > DateTime.Now.AddMonths(-2)).ToList();
 
-		Expression<Func<OrderItem, bool>> ISalesMapsMarker.SalesExpression => item => item.Order.Customer.ID == ID;
+		
+
+		[NotMapped][Browsable(false)]
+		public Period SalesPeriod{ get; set ; }
+
+		[Browsable(false)][NotMapped]
+		public string SalesCity{ get; set; }
+
+		[VisibleInDetailView(false)][NotMapped]
+		public ObservableCollection<MapItem> Sales => new(ObjectSpace.Sales(item => item.Order.Customer.ID == ID,SalesPeriod));
 		
 		IEnumerable<Order> ISalesMapsMarker.Orders => Orders;
+		
 	}
 	public enum CustomerStatus {
 		Active, Suspended

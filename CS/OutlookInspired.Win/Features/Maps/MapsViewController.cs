@@ -2,6 +2,7 @@
 using DevExpress.Persistent.Base;
 
 namespace OutlookInspired.Win.Features.Maps{
+    [Obsolete]
     public class MapsViewController:Module.Features.Maps.MapsViewController{
         protected override PredefinedCategory PopupActionsCategory() => PredefinedCategory.View;
 

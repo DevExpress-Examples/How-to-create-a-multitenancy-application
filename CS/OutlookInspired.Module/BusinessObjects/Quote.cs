@@ -1,9 +1,12 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DevExpress.Persistent.Base;
+using DevExpress.XtraCharts;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.ViewFilter;
+using OutlookInspired.Module.Services.Internal;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 
@@ -37,6 +40,14 @@ namespace OutlookInspired.Module.BusinessObjects{
         double IBaseMapsMarker.Latitude => CustomerStore.Latitude;
 
         double IBaseMapsMarker.Longitude => CustomerStore.Longitude;
+        [NotMapped][Browsable(false)]
+        public Stage Stage { get; set; }
+
+        [NotMapped][VisibleInDetailView(false)]
+        public ObservableCollection<QuoteMapItem> Opportunities => new(ObjectSpace.Opportunities(Stage));
+
+        [NotMapped][Browsable(false)]
+        public PaletteEntry[] PaletteEntries{ get; set; }
     }
 
 

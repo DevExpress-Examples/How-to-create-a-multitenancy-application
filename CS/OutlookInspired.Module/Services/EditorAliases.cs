@@ -8,6 +8,6 @@
         public const string HyperLinkPropertyEditor = "HyperLinkPropertyEditor";
         public const string ProgressEditor = "ProgressEditor";
         public const string DxHtmlPropertyEditor = "DxHtmlPropertyEditor";
-        public const string MapRoutePropertyEditor = "MapRoutePropertyEditor";
+        public const string MapPropertyEditor = "MapPropertyEditor";
     }
 }

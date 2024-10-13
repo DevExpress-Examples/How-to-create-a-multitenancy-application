@@ -9,8 +9,8 @@ using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Features.Maps;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
-namespace OutlookInspired.Blazor.Server.Editors{
-    [PropertyEditor(typeof(Location),EditorAliases.MapRoutePropertyEditor, false)]
+namespace OutlookInspired.Blazor.Server.Editors.Maps{
+    [PropertyEditor(typeof(Location),EditorAliases.MapPropertyEditor, false)]
     public class DxMapPropertyEditor(Type objectType, IModelMemberViewItem model) : BlazorPropertyEditorBase(objectType, model){
         public event EventHandler<RouteCalculatedArgs> RouteCalculated;
         protected override IComponentModel CreateComponentModel() => new DxMapModel();

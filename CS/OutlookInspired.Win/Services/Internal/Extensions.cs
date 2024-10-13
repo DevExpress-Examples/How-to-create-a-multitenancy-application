@@ -33,10 +33,6 @@ namespace OutlookInspired.Win.Services.Internal{
             return chartControl;
         }
         
-        public static bool IsNotGroupedRow(this ColumnView columnView) 
-            => columnView is not GridView view|| !view.IsGroupRow(columnView.FocusedRowHandle);
-        public static bool IsNotInvalidRow(this ColumnView columnView) 
-            => columnView.FocusedRowHandle!=GridControl.InvalidRowHandle;
         
         public static void To(this IZoomToRegionService zoomService, GeoPoint pointA, GeoPoint pointB, double margin = 0.2){
             if (pointA == null || pointB == null || zoomService == null) return;
@@ -46,7 +42,11 @@ namespace OutlookInspired.Win.Services.Internal{
                 new GeoPoint(pointB.Latitude + latPad, pointB.Longitude + longPad),
                 new GeoPoint((pointA.Latitude + pointB.Latitude) / 2, (pointA.Longitude + pointB.Longitude) / 2));
         }
-        
+
+        [Obsolete]
+        public static IZoomToRegionService Zoom(this MapControl mapControl) 
+            => (IZoomToRegionService)((IServiceProvider)mapControl).GetService(typeof(IZoomToRegionService));
+
         public static void To(this IZoomToRegionService zoomService, IEnumerable<IMapsMarker> mapsMarkers, double margin = 0.25){
             var points = mapsMarkers.Select(m => m.ToGeoPoint()).Where(p => p != null && !Equals(p, new GeoPoint(0, 0))).ToList();
             if (!points.Any()) return;
@@ -54,16 +54,15 @@ namespace OutlookInspired.Win.Services.Internal{
                 new GeoPoint(points.Max(p => p.Latitude), points.Max(p => p.Longitude)), margin);
         }
         
+        [Obsolete]
         static double CalculatePadding(this double margin,double delta) 
             => delta > 0 ? Math.Max(0.1, delta * margin) : delta < 0 ? Math.Min(-0.1, delta * margin) : 0;
 
+        [Obsolete]
         public static GeoPoint ToGeoPoint(this IMapsMarker mapsMarker) 
             => new(mapsMarker.Latitude, mapsMarker.Longitude);
         
-        public static object FocusedRowObject(this ColumnView columnView, IObjectSpace objectSpace,Type objectType) 
-            => columnView.FocusedRowObject == null || !columnView.IsServerMode ? columnView.FocusedRowObject
-                : !columnView.IsNotGroupedRow() || !columnView.IsNotInvalidRow() ? null
-                : objectSpace.GetObjectByKey(objectType, columnView.FocusedRowObject);
+        
 
         public static Dictionary<PivotGridField, RepositoryItem> AddRepositoryItems(this PivotGridControl pivotGridControl,ListView view) 
             => view.Model.Columns.Where(column => column.Index>=0)
@@ -76,26 +75,10 @@ namespace OutlookInspired.Win.Services.Internal{
                 .Do(t => pivotGridControl.RepositoryItems.Add(t.repositoryItem))
                 .ToDictionary(t => t.pivotGridField, t => t.repositoryItem);
         
-        public static ColumnView ColumnView(this Control userControl) 
-            => (ColumnView)userControl.Controls.OfType<GridControl>().First().MainView;
-
-        public static T GridView<T>(this ListView listView) where T:GridView
-            => (listView.Editor.Control as GridControl)?.MainView as T;
         
-        public static void IncreaseFontSize(this GridView gridView, ITypeInfo typeInfo){
-            var columns = typeInfo.AttributedMembers<FontSizeDeltaAttribute>().ToDictionary(
-                attribute => gridView.Columns[attribute.memberInfo.BindingName].VisibleIndex,
-                attribute => attribute.attribute.Delta);
-            gridView.CustomDrawCell += (_, e) => {
-                if (columns.TryGetValue(e.Column.VisibleIndex, out var column)) e.DrawCell( column);
-            };
-        }
 
-        private static void DrawCell(this RowCellCustomDrawEventArgs e, int fontSizeDelta){
-            e.Appearance.FillRectangle(e.Cache, e.Bounds);
-            e.Appearance.FontSizeDelta = fontSizeDelta;
-            e.Appearance.DrawString(e.Cache, e.DisplayText, e.Bounds);
-            e.Handled = true;
-        }
+        
+        
+
     }
 }

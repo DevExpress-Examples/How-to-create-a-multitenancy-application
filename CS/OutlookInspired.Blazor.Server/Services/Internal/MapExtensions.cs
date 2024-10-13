@@ -48,7 +48,7 @@ namespace OutlookInspired.Blazor.Server.Services.Internal{
         }
 
         public static async Task<RouteCalculatedArgs> ManeuverInstructions(this IObjectSpace objectSpace, Location locationA, Location locationB, string travelMode, string apiKey){
-            var url = $"https://dev.virtualearth.net/REST/V1/Routes/{travelMode}?wp.0={locationA.Lat},{locationA.Lng}&wp.1={locationB.Lat},{locationB.Lng}&key={apiKey}";
+            var url = $"https://dev.virtualearth.net/REST/V1/Routes/{travelMode}?wp.0={locationA.Latitude},{locationA.Longitude}&wp.1={locationB.Latitude},{locationB.Longitude}&key={apiKey}";
             using var httpClient = new HttpClient();
             var httpResponseMessage = await httpClient.GetAsync(url);
             if (httpResponseMessage.IsSuccessStatusCode){
@@ -78,8 +78,8 @@ namespace OutlookInspired.Blazor.Server.Services.Internal{
         public static DxMapOptions DxMapOptions(this IMapsMarker mapsMarker, IMapsMarker homeOffice, string travelMode){
             var mode = travelMode.FirstCharacterToLower();
             var markers = new[]{
-                new Marker{ Location = new Location{ Lat = homeOffice.Latitude, Lng = homeOffice.Longitude } },
-                new Marker{ Location = new Location{ Lat = mapsMarker.Latitude, Lng = mapsMarker.Longitude } }
+                new Marker{ Location = new Location{ Latitude = homeOffice.Latitude, Longitude = homeOffice.Longitude } },
+                new Marker{ Location = new Location{ Latitude = mapsMarker.Latitude, Longitude = mapsMarker.Longitude } }
             }.ToList();
             return new DxMapOptions(){Markers =markers,
                 Routes = new List<Route>()

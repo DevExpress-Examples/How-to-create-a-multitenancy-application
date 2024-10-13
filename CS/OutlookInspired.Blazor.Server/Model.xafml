@@ -35,13 +35,11 @@
       <Items>
         <PropertyEditor Id="HomeOfficeLine" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
         <PropertyEditor Id="Logo" ImageSizeMode="StretchImage" />
-        <ControlDetailItem Id="MapsControl" ControlTypeName="OutlookInspired.Blazor.Server.Features.Maps.ModalDxVectorMapModel" />
         <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
-            <LayoutItem Id="MapsControl" RelativeSize="70.48062015503876" />
             <LayoutGroup Id="Autoccabc5ad-888d-46de-81d2-3a0d3424e090" RelativeSize="29.51937984496124">
               <LayoutGroup Id="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a" Caption="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a(5)" RelativeSize="10.285220397579948">
                 <LayoutItem Id="Logo" RelativeSize="25" MinSize="136, 136" MaxSize="136, 136" />
@@ -74,16 +72,6 @@
         <ColumnInfo Id="Phone" Index="6" />
       </Columns>
     </ListView>
-    <DetailView Id="CustomerGridView_DetailView">
-      <Items>
-        <ControlDetailItem Id="CustomerGridView" ControlTypeName="OutlookInspired.Blazor.Server.Features.Customers.GridView.Model" />
-      </Items>
-    </DetailView>
-    <DetailView Id="CustomerLayoutView_DetailView">
-      <Items>
-        <ControlDetailItem Id="CustomerLayoutView" ControlTypeName="OutlookInspired.Blazor.Server.Features.Customers.CardView.Model" />
-      </Items>
-    </DetailView>
     <DashboardView Id="CustomerListView">
       <Items>
         <DashboardViewItem Id="CustomerGridView_DetailView" ViewId="Customer_ListView" />
@@ -268,7 +256,6 @@
         <PropertyEditor Id="Address" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
         <PropertyEditor Id="BAddress" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
         <PropertyEditor Id="FullName" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
-        <ControlDetailItem Id="MapsControl" ControlTypeName="OutlookInspired.Blazor.Server.Features.Maps.ModalDxrMapModel" Caption=" " />
         <PropertyEditor Id="RouteResult" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
       </Items>
       <Layout>
@@ -333,11 +320,6 @@
         </LayoutGroup>
       </Layout>
     </DashboardView>
-    <DetailView Id="EmployeeLayoutView_DetailView">
-      <Items>
-        <ControlDetailItem Id="EmployeesLayoutView" ControlTypeName="OutlookInspired.Blazor.Server.Features.Employees.CardView.Model" />
-      </Items>
-    </DetailView>
     <DashboardView Id="EmployeeListView">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
@@ -497,7 +479,7 @@
       <Items>
         <PropertyEditor Id="Customer" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
         <PropertyEditor Id="InvoiceNumber" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
-        <ControlDetailItem Id="MapsControl" ControlTypeName="OutlookInspired.Blazor.Server.Features.Maps.ModalDxMapModel" />
+        <PropertyEditor Id="Logo" ImageEditorCustomHeight="100" ImageEditorFixedHeight="100" ImageEditorFixedWidth="100" AllowEdit="False" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
@@ -507,18 +489,18 @@
               <LayoutItem Id="Item3" Index="1" RelativeSize="95.44846050870147" IsNewNode="True" />
             </LayoutGroup>
             <LayoutGroup Id="Auto13cb3f67-43cc-480f-865f-41efcd1565e4" RelativeSize="42.417582417582416">
-              <LayoutGroup Id="Auto16c888c9-7e2d-4f16-b9ab-72572d60d7da" RelativeSize="15.796519410977242">
-                <LayoutItem Id="Logo" RelativeSize="43.523316062176164" />
-                <LayoutGroup Id="Auto80b2b6d7-3f7b-44f0-8196-2baca796151c" RelativeSize="56.476683937823836">
-                  <LayoutItem Id="Customer" RelativeSize="28.8135593220339" />
-                  <LayoutItem Id="Item1" RelativeSize="24.576271186440678" />
-                  <LayoutItem Id="InvoiceNumber" RelativeSize="22.033898305084747" />
-                  <LayoutItem Id="Item2" RelativeSize="24.576271186440678" />
+              <LayoutGroup Id="Auto16c888c9-7e2d-4f16-b9ab-72572d60d7da" RelativeSize="10.7095046854083">
+                <LayoutItem Id="Logo" RelativeSize="26.424870466321245" />
+                <LayoutGroup Id="Auto80b2b6d7-3f7b-44f0-8196-2baca796151c" RelativeSize="73.57512953367876">
+                  <LayoutItem Id="Customer" RelativeSize="42.5" />
+                  <LayoutItem Id="Item1" RelativeSize="12.5" />
+                  <LayoutItem Id="InvoiceNumber" RelativeSize="32.5" />
+                  <LayoutItem Id="Item2" RelativeSize="12.5" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutItem Id="ShipmentDetail" RelativeSize="84.20348058902276" />
+              <LayoutItem Id="ShipmentDetail" RelativeSize="89.2904953145917" />
             </LayoutGroup>
-            <LayoutItem Id="MapsControl" Removed="True" />
+            <LayoutItem Id="Location" Removed="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
@@ -640,14 +622,12 @@
       <Items>
         <PropertyEditor Id="Description" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
         <PropertyEditor Id="Image" AllowEdit="False" ImageSizeMode="Normal" />
-        <ControlDetailItem Id="MapsControl" ControlTypeName="OutlookInspired.Blazor.Server.Features.Maps.ModalDxVectorMapModel" />
         <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
         <PropertyEditor Id="PrimaryImage" AllowEdit="False" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
-            <LayoutItem Id="MapsControl" RelativeSize="62.121212121212125" />
             <LayoutGroup Id="Autod57882cd-856e-4ea1-b705-4f3947c6cd3a" RelativeSize="37.878787878787875">
               <LayoutGroup Id="Auto7232bb75-2212-4025-846c-d1f63f07de17" Caption="Auto7232bb75-2212-4025-846c-d1f63f07de17(5)" RelativeSize="11.063094209161624">
                 <LayoutItem Id="Image" MinSize="97, 56" MaxSize="0, 0" RelativeSize="22.122448979591837" />
@@ -688,11 +668,6 @@
         </LayoutGroup>
       </Layout>
     </DashboardView>
-    <DetailView Id="ProductCardView_DetailView">
-      <Items>
-        <ControlDetailItem Id="ProductCardView" ControlTypeName="OutlookInspired.Blazor.Server.Features.Products.Model" />
-      </Items>
-    </DetailView>
     <DashboardView Id="ProductListView">
       <Layout>
         <LayoutGroup Id="Main">
@@ -709,15 +684,7 @@
         </LayoutGroup>
       </Layout>
     </DashboardView>
-    <DetailView Id="Quote_DetailView_Maps">
-      <Items>
-        <ControlDetailItem Id="MapsControl" ControlTypeName="OutlookInspired.Blazor.Server.Features.Maps.ModalDxVectorMapModel" />
-      </Items>
-    </DetailView>
     <DetailView Id="Quote_DetailView_Pivot" FreezeLayout="True" AllowNew="False" AllowEdit="False" AllowDelete="False">
-      <Items>
-        <ControlDetailItem Id="Model" ControlTypeName="OutlookInspired.Blazor.Server.Features.Quotes.DxPivotGridModel" IsNewNode="True" />
-      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
           <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" IsNewNode="True">
@@ -728,9 +695,6 @@
     </DetailView>
     <ListView Id="Quote_ListView" DataAccessMode="Queryable" />
     <DetailView Id="QuoteMapItem_DetailView" FreezeLayout="True">
-      <Items>
-        <ControlDetailItem Id="Model" ControlTypeName="OutlookInspired.Blazor.Server.Features.Quotes.DxFunnelModel" IsNewNode="True" />
-      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
           <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" IsNewNode="True">

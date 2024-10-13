@@ -1,8 +1,7 @@
 ﻿using DevExpress.ExpressApp;
-using OutlookInspired.Win.Editors;
 using OutlookInspired.Win.Services.Internal;
 
-namespace OutlookInspired.Win.Features.Quotes{
+namespace OutlookInspired.Win.Editors.ProgressEditor{
     public class PropertyEditorController:ViewController<ListView>{
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();

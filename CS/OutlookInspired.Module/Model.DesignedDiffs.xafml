@@ -154,9 +154,6 @@
       </Layout>
     </DetailView>
     <DetailView Id="Customer_DetailView_Child" FreezeLayout="True" AllowEdit="False">
-      <Items>
-        <ControlDetailItem Id="CustomerStore" ControlTypeName="OutlookInspired.Blazor.Server.Features.Customers.Stores.Model" IsNewNode="True" />
-      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
           <LayoutGroup Id="Auto69942e97-e67a-46fc-be02-20a4e1119c26" ShowCaption="False" Caption="Auto69942e97-e67a-46fc-be02-20a4e1119c26(2)" Direction="Horizontal" Index="0" RelativeSize="8.692528735632184" IsNewNode="True">
@@ -174,24 +171,21 @@
       </Layout>
     </DetailView>
     <DetailView Id="Customer_DetailView_Maps" FreezeLayout="True">
-      <Items>
-        <ControlDetailItem Id="MapsControl" ControlTypeName="MapsControl" Caption="Map" IsNewNode="True" />
-      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
           <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" Direction="Horizontal" IsNewNode="True">
-            <LayoutItem Id="MapsControl" ViewItem="MapsControl" Index="0" RelativeSize="71.09777015437393" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
-            <LayoutGroup Id="Autoccabc5ad-888d-46de-81d2-3a0d3424e090" ShowCaption="False" Caption="Autoccabc5ad-888d-46de-81d2-3a0d3424e090(5)" Index="1" RelativeSize="28.90222984562607" IsNewNode="True">
-              <LayoutGroup Id="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="12.528735632183908" IsNewNode="True">
-                <LayoutItem Id="Logo" ShowCaption="False" ViewItem="Logo" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="111, 109" MaxSize="111, 109" Index="0" RelativeSize="32.93768545994065" IsNewNode="True" />
-                <LayoutGroup Id="Auto343e42f6-3e00-47a0-b213-aa06147e97a9" ShowCaption="False" Caption="" Index="1" RelativeSize="67.06231454005935" IsNewNode="True">
-                  <LayoutItem Id="Name" ShowCaption="False" ViewItem="Name" CaptionLocation="Top" Index="0" RelativeSize="29.357798165137616" IsNewNode="True" />
-                  <LayoutItem Id="Item1" Index="1" RelativeSize="9.174311926605505" IsNewNode="True" />
-                  <LayoutItem Id="HomeOfficeLine" ShowCaption="False" ViewItem="HomeOfficeLine" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="65, 24" Index="2" RelativeSize="22.01834862385321" IsNewNode="True" />
-                  <LayoutItem Id="Item2" Index="3" RelativeSize="39.44954128440367" IsNewNode="True" />
+            <LayoutItem Id="Sales" ViewItem="Sales" Index="0" RelativeSize="71.0758377425044" IsNewNode="True" />
+            <LayoutGroup Id="Autoccabc5ad-888d-46de-81d2-3a0d3424e090" ShowCaption="False" Caption="Autoccabc5ad-888d-46de-81d2-3a0d3424e090(5)" Index="1" RelativeSize="28.924162257495592" IsNewNode="True">
+              <LayoutGroup Id="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a" ShowCaption="False" Caption="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a(5)" Direction="Horizontal" Index="0" RelativeSize="14.592274678111588" IsNewNode="True">
+                <LayoutItem Id="Logo" ShowCaption="False" ViewItem="Logo" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="111, 109" MaxSize="111, 109" Index="0" RelativeSize="42.3780487804878" IsNewNode="True" />
+                <LayoutGroup Id="Auto343e42f6-3e00-47a0-b213-aa06147e97a9" ShowCaption="False" Caption="Auto343e42f6-3e00-47a0-b213-aa06147e97a9(7)" Index="1" RelativeSize="57.6219512195122" IsNewNode="True">
+                  <LayoutItem Id="Name" ShowCaption="False" ViewItem="Name" CaptionLocation="Top" Index="0" RelativeSize="26.470588235294116" IsNewNode="True" />
+                  <LayoutItem Id="Item1" Index="1" RelativeSize="9.558823529411764" IsNewNode="True" />
+                  <LayoutItem Id="HomeOfficeLine" ShowCaption="False" ViewItem="HomeOfficeLine" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="65, 24" Index="2" RelativeSize="23.529411764705884" IsNewNode="True" />
+                  <LayoutItem Id="Item2" Index="3" RelativeSize="40.44117647058823" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutItem Id="CitySales" ViewItem="CitySales" Index="1" RelativeSize="87.47126436781609" SizeConstraintsType="Custom" MinSize="115, 87" IsNewNode="True" />
+              <LayoutItem Id="CitySales" ViewItem="CitySales" Index="1" RelativeSize="85.4077253218884" SizeConstraintsType="Custom" MinSize="115, 87" IsNewNode="True" />
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
@@ -323,9 +317,6 @@
       </Layout>
     </DetailView>
     <DetailView Id="CustomerGridView_DetailView" FreezeLayout="True">
-      <Items>
-        <ControlDetailItem Id="CustomerGridView" ControlTypeName="CustomerGridView" IsNewNode="True" />
-      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Main" IsNewNode="True">
           <LayoutItem Id="CustomerGridView" ViewItem="CustomerGridView" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
@@ -333,9 +324,6 @@
       </Layout>
     </DetailView>
     <DetailView Id="CustomerLayoutView_DetailView" FreezeLayout="True">
-      <Items>
-        <ControlDetailItem Id="CustomerLayoutView" ControlTypeName="CustomerLayoutView" IsNewNode="True" />
-      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" Caption="Main" IsNewNode="True">
           <LayoutItem Id="CustomerLayoutView" ViewItem="CustomerLayoutView" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
@@ -670,29 +658,13 @@
     </DetailView>
     <DetailView Id="Employee_DetailView_Maps" FreezeLayout="True">
       <Items>
-        <ControlDetailItem Id="MapsControl" ControlTypeName="MapsControl" Caption="" IsNewNode="True" />
         <PropertyEditor Id="Picture" PropertyName="Picture.Data" />
       </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
-          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" Direction="Horizontal" IsNewNode="True">
-            <LayoutGroup Id="Auto7f26b532-5e95-4984-975f-7d112e3f48be" ShowCaption="False" Caption="Auto7f26b532-5e95-4984-975f-7d112e3f48be(3)" Index="0" RelativeSize="61.5727002967359" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" Direction="Vertical" IsNewNode="True">
+            <LayoutGroup Id="Auto7f26b532-5e95-4984-975f-7d112e3f48be" ShowCaption="False" Caption="Auto7f26b532-5e95-4984-975f-7d112e3f48be(3)" Index="0" RelativeSize="100" IsNewNode="True">
               <LayoutItem Id="Location" ViewItem="Location" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="Auto55738e8a-ad25-43c5-8135-f7030b1fbeb6" ShowCaption="False" Caption="Auto55738e8a-ad25-43c5-8135-f7030b1fbeb6(7)" Index="1" RelativeSize="38.4272997032641" IsNewNode="True">
-              <LayoutGroup Id="Auto545e433b-2786-4e52-bd8b-09fc12509e50" ShowCaption="False" Caption="Auto545e433b-2786-4e52-bd8b-09fc12509e50(5)" Direction="Horizontal" Index="0" RelativeSize="31.57894736842105" IsNewNode="True">
-                <LayoutItem Id="Picture" ShowCaption="False" ViewItem="Picture" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="132, 120" MaxSize="132, 120" Index="0" RelativeSize="50.965250965250966" IsNewNode="True" />
-                <LayoutGroup Id="Auto5ce01d17-5e7e-4055-b926-eeb5c8eef21e" ShowCaption="False" Caption="Auto5ce01d17-5e7e-4055-b926-eeb5c8eef21e(7)" Index="1" RelativeSize="49.034749034749034" IsNewNode="True">
-                  <LayoutItem Id="FullName" ShowCaption="False" ViewItem="FullName" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="127, 32" Index="0" RelativeSize="44.166666666666664" IsNewNode="True" />
-                  <LayoutItem Id="Address" ShowCaption="False" ViewItem="Address" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="65, 24" Index="1" RelativeSize="55.833333333333336" IsNewNode="True" />
-                </LayoutGroup>
-              </LayoutGroup>
-              <LayoutItem Id="Item2" Index="1" RelativeSize="2.6315789473684212" IsNewNode="True" />
-              <LayoutItem Id="AAddress" ViewItem="AAddress" Index="2" RelativeSize="6.842105263157895" IsNewNode="True" />
-              <LayoutItem Id="BAddress" ViewItem="BAddress" Index="3" RelativeSize="6.842105263157895" IsNewNode="True" />
-              <LayoutItem Id="Item1" Index="4" RelativeSize="2.6315789473684212" IsNewNode="True" />
-              <LayoutItem Id="RouteResult" ViewItem="RouteResult" Index="5" RelativeSize="7.631578947368421" CaptionLocation="Top" ShowCaption="False" IsNewNode="True" />
-              <LayoutItem Id="RoutePoints" ViewItem="RoutePoints" Index="6" RelativeSize="41.8421052631579" IsNewNode="True" />
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
@@ -767,9 +739,6 @@
       </Layout>
     </DashboardView>
     <DetailView Id="EmployeeLayoutView_DetailView" FreezeLayout="True">
-      <Items>
-        <ControlDetailItem Id="EmployeesLayoutView" ControlTypeName="EmployeesLayoutView" IsNewNode="True" />
-      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Main" IsNewNode="True">
           <LayoutItem Id="EmployeesLayoutView" ViewItem="EmployeesLayoutView" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
@@ -982,7 +951,6 @@
       <Items>
         <PropertyEditor Id="Customer" PropertyName="Customer.Name" IsNewNode="True" />
         <PropertyEditor Id="Logo" PropertyName="Customer.Logo" IsNewNode="True" />
-        <ControlDetailItem Id="MapsControl" ControlTypeName="MapsControl" Caption="Map" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
@@ -990,7 +958,7 @@
             <LayoutItem Id="Location" ViewItem="Location" Index="0" RelativeSize="57.44211686879824" ShowCaption="False" IsNewNode="True" />
             <LayoutGroup Id="Auto13cb3f67-43cc-480f-865f-41efcd1565e4" ShowCaption="False" Caption="Auto13cb3f67-43cc-480f-865f-41efcd1565e4(4)" Index="1" RelativeSize="42.55788313120176" IsNewNode="True">
               <LayoutGroup Id="Auto16c888c9-7e2d-4f16-b9ab-72572d60d7da" ShowCaption="False" Caption="Auto16c888c9-7e2d-4f16-b9ab-72572d60d7da(3)" Direction="Horizontal" Index="0" RelativeSize="15.796519410977242" IsNewNode="True">
-                <LayoutItem Id="Logo" ShowCaption="False" ViewItem="Logo" SizeConstraintsType="Custom" MinSize="168, 38" MaxSize="168, 0" Index="0" RelativeSize="43.523316062176164" IsNewNode="True" />
+                <LayoutItem Id="Logo" ShowCaption="False" ViewItem="Logo" Index="0" IsNewNode="True" />
                 <LayoutGroup Id="Auto80b2b6d7-3f7b-44f0-8196-2baca796151c" ShowCaption="False" Caption="Auto80b2b6d7-3f7b-44f0-8196-2baca796151c(4)" Index="1" RelativeSize="56.476683937823836" IsNewNode="True">
                   <LayoutItem Id="Customer" ShowCaption="False" ViewItem="Customer" CaptionLocation="Top" Index="0" RelativeSize="28.8135593220339" IsNewNode="True" />
                   <LayoutItem Id="Item1" Index="1" RelativeSize="24.576271186440678" IsNewNode="True" />
@@ -1059,9 +1027,6 @@
       </Layout>
     </DashboardView>
     <DetailView Id="OrderGridView_DetailView" FreezeLayout="True">
-      <Items>
-        <ControlDetailItem Id="OrderGridView" ControlTypeName="OrderGridView" IsNewNode="True" />
-      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
           <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" IsNewNode="True">
@@ -1193,22 +1158,19 @@
       </Layout>
     </DetailView>
     <DetailView Id="Product_DetailView_Maps" FreezeLayout="True">
-      <Items>
-        <ControlDetailItem Id="MapsControl" ControlTypeName="MapsControl" Caption="Map" IsNewNode="True" />
-      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
           <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" Direction="Horizontal" IsNewNode="True">
-            <LayoutItem Id="MapsControl" ViewItem="MapsControl" Index="0" RelativeSize="62.95025728987993" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
-            <LayoutGroup Id="Autod57882cd-856e-4ea1-b705-4f3947c6cd3a" ShowCaption="False" Caption="Autod57882cd-856e-4ea1-b705-4f3947c6cd3a(5)" Index="1" RelativeSize="37.04974271012007" IsNewNode="True">
-              <LayoutGroup Id="Auto7232bb75-2212-4025-846c-d1f63f07de17" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="14.022988505747126" IsNewNode="True">
-                <LayoutItem Id="Image" ShowCaption="False" ViewItem="Image" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="141, 122" MaxSize="141, 122" Index="0" RelativeSize="32.638888888888886" IsNewNode="True" />
-                <LayoutGroup Id="Auto078d352c-0e3c-4dfd-863f-4a3da43bd08c" ShowCaption="False" Caption="" Index="1" RelativeSize="67.36111111111111" IsNewNode="True">
-                  <LayoutItem Id="Name" ShowCaption="False" ViewItem="Name" CaptionLocation="Top" Index="0" RelativeSize="26.229508196721312" IsNewNode="True" />
-                  <LayoutItem Id="Description" ShowCaption="False" ViewItem="Description" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="65, 24" Index="1" RelativeSize="73.77049180327869" IsNewNode="True" />
+            <LayoutItem Id="Sales" ViewItem="Sales" Index="0" RelativeSize="62.954796030871" IsNewNode="True" />
+            <LayoutGroup Id="Autod57882cd-856e-4ea1-b705-4f3947c6cd3a" ShowCaption="False" Caption="Autod57882cd-856e-4ea1-b705-4f3947c6cd3a(5)" Index="1" RelativeSize="37.045203969129" IsNewNode="True">
+              <LayoutGroup Id="Auto7232bb75-2212-4025-846c-d1f63f07de17" ShowCaption="False" Caption="Auto7232bb75-2212-4025-846c-d1f63f07de17(5)" Direction="Horizontal" Index="0" RelativeSize="16.331994645247658" IsNewNode="True">
+                <LayoutItem Id="Image" ShowCaption="False" ViewItem="Image" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="141, 122" MaxSize="141, 122" Index="0" RelativeSize="41.964285714285715" IsNewNode="True" />
+                <LayoutGroup Id="Auto078d352c-0e3c-4dfd-863f-4a3da43bd08c" ShowCaption="False" Caption="Auto078d352c-0e3c-4dfd-863f-4a3da43bd08c(7)" Index="1" RelativeSize="58.035714285714285" IsNewNode="True">
+                  <LayoutItem Id="Name" ShowCaption="False" ViewItem="Name" CaptionLocation="Top" Index="0" RelativeSize="27.868852459016395" IsNewNode="True" />
+                  <LayoutItem Id="Description" ShowCaption="False" ViewItem="Description" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="65, 24" Index="1" RelativeSize="72.1311475409836" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutItem Id="CitySales" ViewItem="CitySales" Index="1" RelativeSize="85.97701149425288" IsNewNode="True" />
+              <LayoutItem Id="CitySales" ViewItem="CitySales" Index="1" RelativeSize="83.66800535475234" IsNewNode="True" />
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
@@ -1296,9 +1258,6 @@
       </Layout>
     </DashboardView>
     <DetailView Id="ProductCardView_DetailView" FreezeLayout="True">
-      <Items>
-        <ControlDetailItem Id="ProductCardView" ControlTypeName="ProductCardView" IsNewNode="True" />
-      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
           <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" IsNewNode="True">
@@ -1348,13 +1307,10 @@
       </Layout>
     </DetailView>
     <DetailView Id="Quote_DetailView_Maps">
-      <Items>
-        <ControlDetailItem Id="MapsControl" ControlTypeName="MapsControl" Caption="Map" IsNewNode="True" />
-      </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100" Caption="SimpleEditors">
-            <LayoutItem Id="MapsControl" ViewItem="MapsControl" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
+            <LayoutItem Id="Opportunities" ViewItem="Opportunities" Index="0" RelativeSize="100" IsNewNode="True" />
             <LayoutGroup Id="Quote" Removed="True" />
           </LayoutGroup>
           <LayoutGroup Id="QuoteItems_Group" Direction="Vertical" RelativeSize="81.92133131618759" Removed="True">

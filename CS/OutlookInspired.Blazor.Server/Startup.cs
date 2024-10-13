@@ -4,6 +4,8 @@ using DevExpress.ExpressApp.Blazor.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Server.Circuits;
 using OutlookInspired.Blazor.Server.Services.Internal;
+using OutlookInspired.Module.Features.Maps;
+using OutlookInspired.Module.Services;
 
 namespace OutlookInspired.Blazor.Server;
 
@@ -19,6 +21,7 @@ public class Startup(IConfiguration configuration){
         services.AddXaf(Configuration, builder => builder.UseApplication<OutlookInspiredBlazorApplication>().AddModules()
             .AddObjectSpaceProviders().AddSecurity().AddMultiTenancy(Configuration).AddBuildStep());
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/LoginPage");
+        services.AddSingleton<IMapApiKeyProvider, MapApiKeyProvider>();
         
     }
 

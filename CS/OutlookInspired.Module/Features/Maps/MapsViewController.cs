@@ -10,9 +10,10 @@ using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Features.Maps{
+    [Obsolete]
     public abstract class MapsViewController:ObjectViewController<ObjectView,IMapsMarker>,IModelExtender{
         public static readonly string BindKey = Environment.GetEnvironmentVariable("BingKey");
-        public const string MapItActionId = "MapIt";
+        public const string MapItActionId = "MapIt_old";
 
         protected MapsViewController(){
             MapItAction = MapIt();
@@ -25,10 +26,10 @@ namespace OutlookInspired.Module.Features.Maps{
         }
 
         private SingleChoiceAction SalesPeriod() 
-            => NewSingleChoiceAction("SalesPeriod","Period", Enum.GetValues<Period>().Where(period => period!=Period.FixedDate)
+            => NewSingleChoiceAction("SalesPeriod_old","Period", Enum.GetValues<Period>().Where(period => period!=Period.FixedDate)
                     .Select(period => new ChoiceActionItem(period.ToString(), period){ImageName = period.ImageName()}).ToArray());
         private SingleChoiceAction Stage() 
-            => NewSingleChoiceAction("Stage",Enum.GetValues<Stage>().Where(stage => stage!=BusinessObjects.Stage.Summary)
+            => NewSingleChoiceAction("Stage_old",Enum.GetValues<Stage>().Where(stage => stage!=BusinessObjects.Stage.Summary)
                     .Select(stage => new ChoiceActionItem(stage.ToString(), stage){ImageName = stage.ImageName()}).ToArray());
 
         private SimpleAction Print() 
@@ -41,7 +42,7 @@ namespace OutlookInspired.Module.Features.Maps{
             => new(this,"MapExport",PopupActionsCategory()){ImageName = "Export"};
 
         private SingleChoiceAction TravelMode() 
-            => NewSingleChoiceAction("TravelMode", new ChoiceActionItem("Driving", "Driving"){ ImageName = "Driving" },
+            => NewSingleChoiceAction("TravelMode_ols", new ChoiceActionItem("Driving", "Driving"){ ImageName = "Driving" },
                 new ChoiceActionItem("Walking", "Walking"){ ImageName = "Walking" });
 
         protected abstract PredefinedCategory PopupActionsCategory();
@@ -107,7 +108,7 @@ namespace OutlookInspired.Module.Features.Maps{
             if (typeof(ISalesMapsMarker).IsAssignableFrom(View.ObjectTypeInfo.Type)){
                 MapItAction.Active[nameof(ISalesMapsMarker)] = Application.CanRead(typeof(OrderItem));    
             }
-            TravelModeAction.Active[nameof(MapsViewController)] = typeof(ITravelModeMapsMarker).IsAssignableFrom(View.ObjectTypeInfo.Type);
+            TravelModeAction.Active[nameof(MapsViewController)] = View.ObjectTypeInfo.Type==typeof(Employee);
             TravelModeAction.Active[nameof(MapItAction)] =!MapItAction.Active&& Frame.Context==FrameContext()&&!Frame.View.IsRoot;
             if (View.Id==Employee.MapsDetailView){
                 Frame.GetController<RichTextShowInDocumentControllerBase>().ShowInDocumentAction

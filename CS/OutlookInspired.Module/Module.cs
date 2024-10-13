@@ -11,6 +11,7 @@ using OutlookInspired.Module.Features.Customers;
 using OutlookInspired.Module.Features.Employees;
 using OutlookInspired.Module.Features.MasterDetail;
 using OutlookInspired.Module.Features.Orders;
+using OutlookInspired.Module.Features.Products;
 using OutlookInspired.Module.Features.Quotes;
 using OutlookInspired.Module.Features.ViewFilter;
 using OutlookInspired.Module.ModelUpdaters;
@@ -51,13 +52,12 @@ public sealed class OutlookInspiredModule : ModuleBase{
     }
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes() 
-	    => new []{
-		    typeof(MailMergeController),typeof(ReportController),typeof(QuoteMapItemController),typeof(HideToolBarController),
-		    typeof(CommunicationController),typeof(RoutePointController), typeof(WelcomeController),
+	    =>[typeof(MailMergeController),typeof(ReportController),typeof(QuoteMapItemController),typeof(HideToolBarController),
+		    typeof(CommunicationController),typeof(WelcomeController),
 		    typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.ReportController),typeof(ShipmentDetailController),
-		    typeof(Features.Products.ReportController),
-		    typeof(MasterDetailController),typeof(SplitterPositionController),typeof(ViewFilterController)
-	    };
+		    typeof(Features.Products.ReportController),typeof(MapOrderController), typeof(MasterDetailController),typeof(ViewFilterController),
+		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController)
+	    ];
 
     public override void Setup(XafApplication application) {
 	    base.Setup(application);

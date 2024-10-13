@@ -24,7 +24,7 @@
     </ListView>
     <DetailView Id="Customer_DetailView_Child">
       <Items>
-        <ControlDetailItem Id="CustomerStore" ControlTypeName="OutlookInspired.Win.Features.Customers.CustomerStoreView" />
+        <ControlViewItem Id="CustomerStore" ControlTypeName="OutlookInspired.Win.Features.Customers.CustomerStoreView" />
         <PropertyEditor Id="HomeOfficeLine" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
         <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
       </Items>
@@ -32,7 +32,7 @@
     <DetailView Id="Customer_DetailView_Maps" AllowEdit="False">
       <Items>
         <PropertyEditor Id="HomeOfficeLine" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
-        <ControlDetailItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
+        <ControlViewItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
         <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
       </Items>
       <Layout>
@@ -63,7 +63,7 @@
     </ListView>
     <DetailView Id="CustomerLayoutView_DetailView">
       <Items>
-        <ControlDetailItem Id="CustomerLayoutView" ControlTypeName="OutlookInspired.Win.Features.Customers.CustomerLayoutView" />
+        <ControlViewItem Id="CustomerLayoutView" ControlTypeName="OutlookInspired.Win.Features.Customers.CustomerLayoutView" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main" TextAlignMode="AlignWithChildren" RelativeSize="100" />
@@ -183,7 +183,7 @@
         <PropertyEditor Id="Address" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
         <PropertyEditor Id="BAddress" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
         <PropertyEditor Id="FullName" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
-        <ControlDetailItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
+        <ControlViewItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
         <PropertyEditor Id="RouteResult" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
       </Items>
       <Layout>
@@ -272,7 +272,7 @@
     </DashboardView>
     <DetailView Id="EmployeeLayoutView_DetailView">
       <Items>
-        <ControlDetailItem Id="EmployeesLayoutView" ControlTypeName="OutlookInspired.Win.Features.Employees.EmployeesLayoutView" />
+        <ControlViewItem Id="EmployeesLayoutView" ControlTypeName="OutlookInspired.Win.Features.Employees.EmployeesLayoutView" />
       </Items>
     </DetailView>
     <DashboardView Id="EmployeeListView">
@@ -342,7 +342,7 @@
       <Items>
         <PropertyEditor Id="Customer" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
         <PropertyEditor Id="InvoiceNumber" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
-        <ControlDetailItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
+        <ControlViewItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
       </Items>
     </DetailView>
     <DetailView Id="Order_Invoice_DetailView">
@@ -361,7 +361,7 @@
     </ListView>
     <DetailView Id="OrderGridView_DetailView">
       <Items>
-        <ControlDetailItem Id="OrderGridView" ControlTypeName="OutlookInspired.Win.Features.Orders.OrderGridView" />
+        <ControlViewItem Id="OrderGridView" ControlTypeName="OutlookInspired.Win.Features.Orders.OrderGridView" />
       </Items>
     </DetailView>
     <DetailView Id="Product_Brochure_DetailView">
@@ -377,7 +377,7 @@
     <DetailView Id="Product_DetailView_Maps">
       <Items>
         <PropertyEditor Id="Description" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
-        <ControlDetailItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
+        <ControlViewItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
         <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
       </Items>
       <Layout>
@@ -401,7 +401,7 @@
     <ListView Id="Product_ListView" ShowFindPanel="True" />
     <DetailView Id="Quote_DetailView_Maps">
       <Items>
-        <ControlDetailItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
+        <ControlViewItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
       </Items>
     </DetailView>
     <ListView Id="Quote_ListView" EditorTypeName="DevExpress.ExpressApp.PivotGrid.Win.PivotGridListEditor" DataAccessMode="DataView">

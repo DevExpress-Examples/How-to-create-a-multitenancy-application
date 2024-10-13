@@ -3,17 +3,21 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.Map.Dashboard;
+using DevExpress.Persistent.Base;
 using DevExpress.XtraMap;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Win.Features.Maps{
-    public abstract class WinMapsViewController<T>:ObjectViewController<DetailView,T>{
+    
+    public class WinMapsViewController:ObjectViewController<DetailView,IMapsMarker>{
         readonly BingMapDataProvider _mapDataProvider=new(){ BingKey = Module.Features.Maps.MapsViewController.BindKey,Kind = BingMapKind.Road};
         protected MapControl MapControl;
         protected IZoomToRegionService Zoom;
-        protected MapsViewController MapsViewController;
         private ImageLayer _imageLayer;
+        protected MapsViewController MapsViewController;
+        
 
+        // public event EventHandler<MapControlEventArgs> MapControlLoaded; 
         static WinMapsViewController() => _ = typeof(MapControl);
 
         protected override void OnDeactivated(){
@@ -39,13 +43,13 @@ namespace OutlookInspired.Win.Features.Maps{
                 _imageLayer = new ImageLayer{ DataProvider = _mapDataProvider };
                 _imageLayer.Error+=ImageLayerOnError;
                 MapControl.Layers.Add(_imageLayer);
-                CustomizeMapControl();
+                
             });
         }
 
         private void ImageLayerOnError(object sender, MapErrorEventArgs e) => throw new AggregateException(e.Exception.Message, e.Exception);
 
-        protected abstract void CustomizeMapControl();
+        
 
         private void PrintActionOnExecuted(object sender, ActionBaseEventArgs e) 
             => MapControl.Print();
@@ -57,10 +61,16 @@ namespace OutlookInspired.Win.Features.Maps{
             using var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "PNG files (*.png)|*.png";
             saveFileDialog.RestoreDirectory = true;
-            saveFileDialog.FileName = View.DefaultMemberValue().ToString();
+            saveFileDialog.FileName = $"{View.DefaultMemberValue()}";
             if (saveFileDialog.ShowDialog() == DialogResult.OK){
                 MapControl.ExportToImage(saveFileDialog.FileName,DXImageFormat.Png);
             }
         }
+
+        
+    }
+
+    public class MapControlEventArgs(MapControl mapControl) :EventArgs{
+        public MapControl MapControl{ get; } = mapControl;
     }
 }

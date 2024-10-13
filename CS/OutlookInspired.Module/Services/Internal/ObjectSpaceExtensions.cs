@@ -45,12 +45,9 @@ namespace OutlookInspired.Module.Services.Internal{
             return richTextMailMergeData;
         }
         
-        public static EntityServerModeSource NewEntityServerModeSource(this EFCoreObjectSpace objectSpace,Type objectType,string criteria) 
-            => new(){
-                KeyExpression = objectSpace.TypesInfo.FindTypeInfo(objectType).KeyMember.Name,
-                QueryableSource = objectSpace.Query(objectType, criteria)
-            };
+        
 
+        [Obsolete]
         public static IQueryable Query(this EFCoreObjectSpace objectSpace,Type objectType, string criteria){
             var queryable = objectSpace.GetQueryable(objectType.FullName);
             return criteria != null ? queryable.AppendWhere(

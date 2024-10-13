@@ -2,11 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
+using Aqua.EnumerableExtensions;
+using DevExpress.Blazor.Scheduler.Internal;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.Validation;
+using DevExpress.Utils;
 using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Services;
@@ -29,7 +32,22 @@ namespace OutlookInspired.Module.BusinessObjects{
 		    if (ObjectSpace == null || !_isUpdateResourcesDelayed)
 			    return;
 		    _isUpdateResourcesDelayed = false;
-		    this.Update(Resources);
+		    Update();
+	    }
+
+	    void Update(){
+		    while (Resources.Count > 0)
+			    Resources.RemoveAt(Resources.Count - 1);
+		    if (string.IsNullOrEmpty(ResourceId))
+			    return;
+		    var list = SafeXml.CreateDocument(ResourceId).DocumentElement!.ChildNodes;
+		    for (var index = 0; index < list.Count; index++){
+			    var childNode = list[index];
+			    var objectByKey = ObjectSpace.GetObjectByKey(typeof(Employee),
+				    new AppointmentResourceIdXmlLoader(childNode).ObjectFromXml());
+			    if (objectByKey != null)
+				    Resources.Add((Employee)objectByKey);
+		    }
 	    }
 
 		public override void OnCreated() {
@@ -70,18 +88,23 @@ namespace OutlookInspired.Module.BusinessObjects{
 
 		[NotMapped, Browsable(false)]
 		public virtual String ResourceId{
-			get => _resourceId ??= Resources.ToIds();
+			get => _resourceId ??= ToIds();
 			set{
 				if (_resourceId == value)
 					return;
 				_resourceId = value;
 				if (ObjectSpace != null)
-					this.Update(Resources);
+					Update();
 				else
 					_isUpdateResourcesDelayed = true;
 			}
 		}
-		
+
+		string ToIds() => "<ResourceIds>\r\n".YieldItem()
+			.Concat(Resources.Select(employee
+				=> $"<ResourceId Type=\"{typeof(Guid)}\" Value=\"{employee.ID}\" />\r\n"))
+			.Concat("</ResourceIds>").StringJoin("");
+
 		[Browsable(false)]
 		public Object AppointmentId => ID;
 		

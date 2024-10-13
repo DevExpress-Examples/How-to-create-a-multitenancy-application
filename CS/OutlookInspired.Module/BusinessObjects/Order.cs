@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
 using OutlookInspired.Module.Features.ViewFilter;
-using OutlookInspired.Module.Services.Internal;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 
@@ -61,7 +61,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         [XafDisplayName(nameof(ShipmentStatus))]
         [ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
             DetailViewImageEditorMode = ImageEditorMode.PictureEdit,ImageSizeMode = ImageSizeMode.Zoom)]
-        public virtual byte[] ShipmentStatusImage => ShipmentStatus.ImageInfo().ImageBytes;
+        public virtual byte[] ShipmentStatusImage => ImageLoader.Instance.GetEnumValueImageInfo(@ShipmentStatus).ImageBytes;
 
         [EditorAlias(EditorAliases.PdfViewerEditor)]
         [VisibleInDetailView(false)]
@@ -89,14 +89,14 @@ namespace OutlookInspired.Module.BusinessObjects{
         [XafDisplayName(nameof(ShipmentStatus))]
         [ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
             DetailViewImageEditorMode = ImageEditorMode.PictureEdit,ImageSizeMode = ImageSizeMode.Zoom)]
-        public byte[] PaymentStatusImage => PaymentStatus.ImageInfo().ImageBytes;
+        public byte[] PaymentStatusImage => ImageLoader.Instance.GetEnumValueImageInfo(PaymentStatus).ImageBytes;
         
         public double ActualWeight 
             => OrderItems == null ? 0 : OrderItems.Where(item => item.Product != null)
                     .Sum(item => item.Product.Weight * item.ProductUnits);
 
-        [EditorAlias(EditorAliases.MapRoutePropertyEditor)]
-        public Location Location => new(){Lat = ((IBaseMapsMarker)this).Latitude, Lng = ((IBaseMapsMarker)this).Longitude };
+        [EditorAlias(EditorAliases.MapPropertyEditor)]
+        public Location Location => new(){Latitude = ((IBaseMapsMarker)this).Latitude, Longitude = ((IBaseMapsMarker)this).Longitude };
         string IBaseMapsMarker.Title => Store?.Customer.Name;
 
         double IBaseMapsMarker.Latitude => Store?.Latitude??0;

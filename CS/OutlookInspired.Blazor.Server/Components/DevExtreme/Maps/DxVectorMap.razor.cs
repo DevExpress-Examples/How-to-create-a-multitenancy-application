@@ -19,10 +19,8 @@ namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps{
         }
     }
     
-    public class MapItemSelectedArgs : EventArgs{
-        public JsonElement Item{ get; }
-
-        public MapItemSelectedArgs(JsonElement item) => Item = item;
+    public class MapItemSelectedArgs(JsonElement item) : EventArgs{
+        public JsonElement Item{ get; } = item;
     }
     
     public class VectorMapOptions{
@@ -31,9 +29,7 @@ namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps{
         public string Width{ get; set; } = "100%";
         public string Provider{ get; set; } = "bing";
         public ApiKey ApiKey{ get; set; } = new();
-        public List<object> Layers{ get;  } = new(){
-            new PredefinedLayer{DataSource = "DevExpress.viz.map.sources.usa"}
-        };
+        public List<object> Layers{ get;  } =[new PredefinedLayer{ DataSource = "DevExpress.viz.map.sources.usa" }];
         public Tooltip Tooltip{ get; set; } = new();
         public double[] Bounds{ get; set; }
         public string[] Attributes{ get; set; }

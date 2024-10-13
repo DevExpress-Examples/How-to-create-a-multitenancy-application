@@ -3,10 +3,8 @@ using OutlookInspired.Win.Editors;
 
 namespace OutlookInspired.Win.Features.Employees
 {
-    public partial class EmployeesLayoutView : ColumnViewUserControl
-    {
-        public EmployeesLayoutView()
-        {
+    public partial class EmployeesLayoutView : ColumnViewUserControl{
+        public EmployeesLayoutView(){
             InitializeComponent();
             labelControl1.Text = @"RECORDS: 0";
         }

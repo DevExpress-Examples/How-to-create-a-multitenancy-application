@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.AspNetCore.DesignTime;
 using DevExpress.ExpressApp.Design;
 using DevExpress.ExpressApp.Utils;
+using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.MiddleTier;
 
@@ -10,7 +11,8 @@ public class Program : IDesignTimeApplicationFactory {
     private static bool ContainsArgument(string[] args, string argument) {
         return args.Any(arg => arg.TrimStart('/').TrimStart('-').ToLower() == argument.ToLower());
 	}
-    public static int Main(string[] args) {
+    public static int Main(string[] args){
+        DevExpress.Utils.DeserializationSettings.RegisterTrustedClass(typeof(MapItem));
         if(ContainsArgument(args, "help") || ContainsArgument(args, "h")) {
             Console.WriteLine("Updates the database when its version does not match the application's version.");
             Console.WriteLine();

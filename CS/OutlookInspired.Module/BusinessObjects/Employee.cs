@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.Validation;
@@ -13,22 +14,17 @@ using OutlookInspired.Module.Attributes.Validation;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
 using OutlookInspired.Module.Features.ViewFilter;
-using OutlookInspired.Module.Services.Internal;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 namespace OutlookInspired.Module.BusinessObjects{
-	public interface ILocationLink:IRouteMapsMarker{
-		Location Location{ get; }
-	}
-
-	[DefaultProperty(nameof(FullName))]
+		[DefaultProperty(nameof(FullName))]
 	[ImageName("BO_Person")]
 	[CloneView(CloneViewType.DetailView, LayoutViewDetailView)]
 	[CloneView(CloneViewType.DetailView, ChildDetailView)]
 	[CloneView(CloneViewType.DetailView, MapsDetailView)]
 	[VisibleInReports(true)]
 	[ForbidDelete()]
-	public class Employee :OutlookInspiredBaseObject,IViewFilter,IObjectSpaceLink,IResource,ITravelModeMapsMarker, ILocationLink{
+	public class Employee :OutlookInspiredBaseObject,IViewFilter,IObjectSpaceLink,IResource,IRouteMapsMarker{
 		public const string MapsDetailView = "Employee_DetailView_Maps";
 		public const string ChildDetailView = "Employee_DetailView_Child";
 		public const string LayoutViewDetailView = "EmployeeLayoutView_DetailView";
@@ -38,8 +34,8 @@ namespace OutlookInspired.Module.BusinessObjects{
 		[VisibleInListView(false), VisibleInDetailView(false), VisibleInLookupListView(false)]
 		object IResource.Id => ID;
 
-		[EditorAlias(EditorAliases.MapRoutePropertyEditor)]
-		public Location Location => new(){Lat = AddressLatitude, Lng = AddressLongitude};
+		[EditorAlias(EditorAliases.MapPropertyEditor)]
+		public Location Location =>new(){Latitude = AddressLatitude,Longitude = AddressLongitude,Title = FullName};
 
 		[Browsable(false)]
 		public Int32 OleColor => 0;
@@ -87,7 +83,7 @@ namespace OutlookInspired.Module.BusinessObjects{
 
 		[VisibleInDetailView(false)]
 		[XafDisplayName(nameof(Prefix))]
-		public virtual byte[] PrefixImage => Prefix.ImageInfo().ImageBytes;
+		public virtual byte[] PrefixImage => ImageLoader.Instance.GetEnumValueImageInfo(Prefix).ImageBytes;
 		
 		[Attributes.Validation.Phone][VisibleInListView(false)][MaxLength(100)]
 		public virtual string HomePhone { get; set; }
@@ -180,9 +176,13 @@ namespace OutlookInspired.Module.BusinessObjects{
 		OnLeave
 	}
 	[DomainComponent]
-	public class Location{
-		public double Lat{ get; init; }
-		public double Lng{ get; init; }
+	public class Location:IMapsMarker{
+		public double Latitude{ get; init; }
+		public double Longitude{ get; init; }
+
+		[MaxLength(100)]
+		public string Title{ get; set; }
+		
 	}
 
 	

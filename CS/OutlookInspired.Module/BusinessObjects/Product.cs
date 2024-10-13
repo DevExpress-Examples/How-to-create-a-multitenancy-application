@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq.Expressions;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
@@ -48,6 +47,10 @@ namespace OutlookInspired.Module.BusinessObjects{
         public  virtual int? CurrentInventory { get; set; }
         public  virtual int Backorder { get; set; }
         public  virtual int Manufacturing { get; set; }
+
+        [NotMapped]
+        public ObservableCollection<MapItem> Sales => new(ObjectSpace.Sales(item => item.Product.ID == ID,SalesPeriod));
+
         [NotMapped][VisibleInDetailView(false)]
         public virtual ObservableCollection<MapItem> CitySales{ get; set; } = new();
         public virtual Picture PrimaryImage { get; set; }
@@ -63,7 +66,10 @@ namespace OutlookInspired.Module.BusinessObjects{
 
         [InverseProperty(nameof(ProductCatalog.Product))][Aggregated]
         public virtual ObservableCollection<ProductCatalog> Catalogs{ get; set; } = new();
-        Expression<Func<OrderItem, bool>> ISalesMapsMarker.SalesExpression => item => item.Product.ID == ID;
+        
+
+        [NotMapped][Browsable(false)]
+        public Period SalesPeriod{ get; set; }
 
         [Aggregated]
         public virtual ObservableCollection<ProductImage> Images{ get; set; } = new();

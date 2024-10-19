@@ -5,7 +5,6 @@ using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.ReportsV2;
 using OutlookInspired.Module.Controllers;
-using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Customers;
 using OutlookInspired.Module.Features.Employees;
@@ -52,9 +51,7 @@ public sealed class OutlookInspiredModule : ModuleBase{
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes() 
 	    =>[typeof(MailMergeController),typeof(ReportController),typeof(QuoteMapItemController),typeof(HideToolBarController),
-		    typeof(CommunicationController),typeof(WelcomeController),
-		    typeof(CommunicationController),typeof(RoutePointController),
-		    typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.ReportController),typeof(ShipmentDetailController),
+		    typeof(CommunicationController),typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.ReportController),typeof(ShipmentDetailController),
 		    typeof(Features.Products.ReportController),typeof(MapOrderController), typeof(MasterDetailController),typeof(ViewFilterController),
 		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController)
 	    ];

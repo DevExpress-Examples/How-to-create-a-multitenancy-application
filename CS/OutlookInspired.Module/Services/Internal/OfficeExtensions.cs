@@ -9,6 +9,7 @@ namespace OutlookInspired.Module.Services.Internal{
         
         public static string ToDocumentText(this byte[] bytes) => bytes.ToDocument(server => server.Text);
         public static byte[] ToOpenXmlBytes(this byte[] bytes) => bytes.ToDocument(server => server.OpenXmlBytes);
+        [Obsolete]
         public static byte[] ToRtfBytes(this byte[] bytes) => bytes.ToDocument(server => server.RtfText).Bytes().ToOpenXmlBytes();
 
         public static T ToDocument<T>(this IRichEditDocumentServer server,byte[] bytes,Func<T> data,DocumentFormat? documentFormat=null){

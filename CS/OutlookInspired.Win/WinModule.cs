@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl.EF;
 using OutlookInspired.Module;
 using OutlookInspired.Win.Controllers;
-using OutlookInspired.Win.Editors.DxHtmlEditorEditor;
+using OutlookInspired.Win.Editors.DxHtmlEditor;
 using OutlookInspired.Win.Editors.GridListEditor;
 using OutlookInspired.Win.Editors.ProgressEditor;
 using OutlookInspired.Win.Features.Customers;
@@ -35,8 +35,8 @@ public sealed class OutlookInspiredWinModule : ModuleBase {
         =>[typeof(MapsViewController), typeof(FontSizeController), typeof(NewItemRowHandlingModeController),
             typeof(PaletteEntriesController),typeof(FunnelFilterController),
             typeof(MapsTravelModeViewController),typeof(MapsSalesPeriodViewController),typeof(PropertyEditorController), typeof(DisableSkinsController), 
-            typeof(SplitterPositionController),typeof(Features.Maps.Sales.MapItemListEditorController),
-            typeof(SchedulerListEditorController),typeof(BlazorWebViewShortcutsController),typeof(WinMapsViewController),
+            typeof(SplitterPositionController),typeof(MapItemListEditorController),
+            typeof(SchedulerListEditorController),typeof(BlazorWebViewKeyDownController),typeof(WinMapsViewController),
             typeof(MapItemChartListEditorController),typeof(QuoteMapItemListEditorController),typeof(MapQuoteController),
             typeof(StageViewController)
         ];

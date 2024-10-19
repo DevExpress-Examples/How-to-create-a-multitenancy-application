@@ -37,6 +37,7 @@ namespace OutlookInspired.Module.Services.Internal{
         }
     }
     
+    [Obsolete]
     public static Color ColorFromHex(this string hex){
         hex = hex.Replace("#", "");
         return Color.FromArgb(hex.Substring(0, 2).ToByte( 16), hex.Substring(2, 2).ToByte( 16), hex.Substring(4, 2).ToByte(16));
@@ -117,7 +118,7 @@ namespace OutlookInspired.Module.Services.Internal{
         
         await stream.CopyToAsync(fileStream);
     }
-    
+    [Obsolete]
     public static string FirstCharacterToLower(this string str) =>
         string.IsNullOrEmpty(str) || char.IsLower(str, 0) ? str : char.ToLowerInvariant(str[0]) + str.Substring(1);
     

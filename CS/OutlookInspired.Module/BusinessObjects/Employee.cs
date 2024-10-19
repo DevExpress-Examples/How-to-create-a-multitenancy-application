@@ -34,7 +34,7 @@ namespace OutlookInspired.Module.BusinessObjects{
 		[VisibleInListView(false), VisibleInDetailView(false), VisibleInLookupListView(false)]
 		object IResource.Id => ID;
 
-		[EditorAlias(EditorAliases.MapPropertyEditor)]
+		[EditorAlias(EditorAliases.MapHomeOfficePropertyEditor)]
 		public Location Location =>new(){Latitude = AddressLatitude,Longitude = AddressLongitude,Title = FullName};
 
 		[Browsable(false)]

@@ -4,6 +4,7 @@ using DevExpress.Persistent.Base;
 using static DevExpress.ExpressApp.Blazor.SystemModule.BlazorModificationsController;
 
 namespace OutlookInspired.Blazor.Server.Features.Maps{
+    [Obsolete]
     public class MapsViewController:Module.Features.Maps.MapsViewController{
         protected override PredefinedCategory PopupActionsCategory() => PredefinedCategory.PopupActions;
 

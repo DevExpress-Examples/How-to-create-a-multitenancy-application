@@ -34,25 +34,29 @@
     <DetailView Id="Customer_DetailView_Maps" AllowEdit="False">
       <Items>
         <PropertyEditor Id="HomeOfficeLine" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
-        <PropertyEditor Id="Logo" ImageSizeMode="StretchImage" />
+        <PropertyEditor Id="Logo" ImageSizeMode="StretchImage" ImageEditorCustomHeight="100" ImageEditorFixedHeight="100" ImageEditorFixedWidth="100" />
         <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Autoccabc5ad-888d-46de-81d2-3a0d3424e090" RelativeSize="29.51937984496124">
-              <LayoutGroup Id="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a" Caption="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a(5)" RelativeSize="10.285220397579948">
-                <LayoutItem Id="Logo" RelativeSize="25" MinSize="136, 136" MaxSize="136, 136" />
-                <LayoutGroup Id="Auto343e42f6-3e00-47a0-b213-aa06147e97a9" Caption="Auto343e42f6-3e00-47a0-b213-aa06147e97a9(7)" RelativeSize="75">
-                  <LayoutItem Id="Name" RelativeSize="24.369747899159663" />
-                  <LayoutItem Id="Item1" RelativeSize="8.823529411764707" />
-                  <LayoutItem Id="HomeOfficeLine" RelativeSize="21.008403361344538" />
-                  <LayoutItem Id="Item2" RelativeSize="45.79831932773109" />
+            <LayoutGroup Id="Item4" ShowCaption="False" CaptionLocation="Top" Index="0" RelativeSize="70.56239015817224" Caption="Item4" IsNewNode="True">
+              <LayoutItem Id="Sales" ViewItem="Sales" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Autoccabc5ad-888d-46de-81d2-3a0d3424e090" RelativeSize="29.43760984182777">
+              <LayoutGroup Id="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a" Caption="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a(5)" RelativeSize="18.201284796573876">
+                <LayoutItem Id="Logo" RelativeSize="50.74626865671642" MinSize="136, 136" MaxSize="136, 136" />
+                <LayoutGroup Id="Auto343e42f6-3e00-47a0-b213-aa06147e97a9" Caption="Auto343e42f6-3e00-47a0-b213-aa06147e97a9(7)" RelativeSize="49.25373134328358">
+                  <LayoutItem Id="Name" RelativeSize="21.176470588235293" />
+                  <LayoutItem Id="Item1" RelativeSize="7.647058823529412" />
+                  <LayoutItem Id="HomeOfficeLine" RelativeSize="21.764705882352942" />
+                  <LayoutItem Id="Item2" RelativeSize="49.411764705882355" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutItem Id="Item3" Index="1" RelativeSize="8.383751080380295" SizeConstraintsType="Custom" MinSize="10, 111" MaxSize="0, 111" IsNewNode="True" />
-              <LayoutItem Id="CitySales" Index="2" RelativeSize="81.33102852203976" />
+              <LayoutItem Id="Item3" Index="1" RelativeSize="14.882226980728051" SizeConstraintsType="Custom" MinSize="10, 111" MaxSize="0, 111" IsNewNode="True" />
+              <LayoutItem Id="CitySales" Index="2" RelativeSize="66.91648822269808" />
             </LayoutGroup>
+            <LayoutItem Id="Sales" Removed="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
@@ -72,6 +76,7 @@
         <ColumnInfo Id="Phone" Index="6" />
       </Columns>
     </ListView>
+    <ListView Id="Customer_Sales_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Maps.MapItemListEditor" />
     <DashboardView Id="CustomerListView">
       <Items>
         <DashboardViewItem Id="CustomerGridView_DetailView" ViewId="Customer_ListView" />
@@ -265,21 +270,6 @@
               <LayoutItem Id="Location" RelativeSize="8.970976253298153" />
               <LayoutItem Id="Item2" Index="1" RelativeSize="91.02902374670185" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="Auto55738e8a-ad25-43c5-8135-f7030b1fbeb6" RelativeSize="38.31360946745562">
-              <LayoutGroup Id="Auto545e433b-2786-4e52-bd8b-09fc12509e50" RelativeSize="31.662269129287598">
-                <LayoutItem Id="Picture" RelativeSize="50.965250965250966" />
-                <LayoutGroup Id="Auto5ce01d17-5e7e-4055-b926-eeb5c8eef21e" RelativeSize="49.034749034749034">
-                  <LayoutItem Id="FullName" RelativeSize="44.166666666666664" />
-                  <LayoutItem Id="Address" RelativeSize="55.833333333333336" />
-                </LayoutGroup>
-              </LayoutGroup>
-              <LayoutItem Id="AAddress" SizeConstraintsType="Custom" MinSize="124, 42" RelativeSize="11.08179419525066" Index="1" CaptionLocation="Right" />
-              <LayoutItem Id="BAddress" RelativeSize="6.860158311345646" Index="2" CaptionLocation="Right" />
-              <LayoutItem Id="Item1" RelativeSize="2.638522427440633" Index="3" />
-              <LayoutItem Id="RouteResult" RelativeSize="7.651715039577836" Index="4" />
-              <LayoutItem Id="RoutePoints" RelativeSize="40.105540897097626" Index="5" />
-              <LayoutItem Id="Item2" RelativeSize="2.118003025718608" Removed="True" />
-            </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
@@ -393,20 +383,18 @@
       </Layout>
     </DetailView>
     <ListView Id="Evaluation_ListView" SchedulerViewType="Month" SelectedIntervalEnd="2019-12-31" SelectedIntervalStart="2019-12-01" ResourceClass="OutlookInspired.Module.BusinessObjects.Employee" />
-    <DashboardView Id="Opportunities" MasterDetail="True">
+    <DashboardView Id="Opportunities" MasterDetail="False" HideToolBar="True">
       <Items>
-        <DashboardViewItem Id="Quote_ListView" ViewId="Quote_DetailView_Pivot" />
-        <DashboardViewItem Id="QuoteMapItem_ListView" ViewId="QuoteMapItem_DetailView" />
+        <DashboardViewItem Id="Quote_ListView" ViewId="Quote_ListView" />
+        <DashboardViewItem Id="QuoteMapItem_ListView" ViewId="QuoteMapItem_ListView" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
-          <LayoutGroup Id="Auto67f2f388-f812-49a1-afec-7535c1484e94" ShowCaption="False" Caption="" Index="0" RelativeSize="49.97287032013022" IsNewNode="True">
-            <LayoutItem Id="Quote_ListView" ViewItem="Quote_ListView" Index="0" RelativeSize="50" IsNewNode="True" />
-            <LayoutItem Id="Item1" Index="1" RelativeSize="50" IsNewNode="True" />
+          <LayoutGroup Id="Auto67f2f388-f812-49a1-afec-7535c1484e94" ShowCaption="False" Caption="Auto67f2f388-f812-49a1-afec-7535c1484e94(2)" Index="0" RelativeSize="49.90746452806909" IsNewNode="True">
+            <LayoutItem Id="Quote_ListView" ViewItem="Quote_ListView" Index="0" RelativeSize="100" IsNewNode="True" />
           </LayoutGroup>
-          <LayoutGroup Id="Auto29c30a3b-4f0a-47ae-982d-0952afc3a504" ShowCaption="False" Caption="" Index="1" RelativeSize="50.02712967986978" IsNewNode="True">
-            <LayoutItem Id="QuoteMapItem_ListView" ViewItem="QuoteMapItem_ListView" Index="0" RelativeSize="50" IsNewNode="True" />
-            <LayoutItem Id="Item2" Index="1" RelativeSize="50" IsNewNode="True" />
+          <LayoutGroup Id="Auto29c30a3b-4f0a-47ae-982d-0952afc3a504" ShowCaption="False" Caption="Auto29c30a3b-4f0a-47ae-982d-0952afc3a504(5)" Index="1" RelativeSize="50.09253547193091" IsNewNode="True">
+            <LayoutItem Id="QuoteMapItem_ListView" ViewItem="QuoteMapItem_ListView" Index="0" RelativeSize="100" IsNewNode="True" />
           </LayoutGroup>
           <LayoutItem Id="Quote_ListView" Removed="True" />
           <LayoutItem Id="QuoteMapItem_ListView" RelativeSize="50.02712967986978" Removed="True" />
@@ -628,16 +616,20 @@
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Autod57882cd-856e-4ea1-b705-4f3947c6cd3a" RelativeSize="37.878787878787875">
-              <LayoutGroup Id="Auto7232bb75-2212-4025-846c-d1f63f07de17" Caption="Auto7232bb75-2212-4025-846c-d1f63f07de17(5)" RelativeSize="11.063094209161624">
-                <LayoutItem Id="Image" MinSize="97, 56" MaxSize="0, 0" RelativeSize="22.122448979591837" />
-                <LayoutGroup Id="Auto078d352c-0e3c-4dfd-863f-4a3da43bd08c" Caption="Auto078d352c-0e3c-4dfd-863f-4a3da43bd08c(7)" RelativeSize="77.87755102040816">
-                  <LayoutItem Id="Name" RelativeSize="42.578125" SizeConstraintsType="Custom" MinSize="102, 50" />
-                  <LayoutItem Id="Description" RelativeSize="57.421875" />
+            <LayoutGroup Id="Item1" ShowCaption="False" CaptionLocation="Top" Index="0" RelativeSize="55.529775715390564" Caption="Item1" IsNewNode="True">
+              <LayoutItem Id="Sales" ViewItem="Sales" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Autod57882cd-856e-4ea1-b705-4f3947c6cd3a" RelativeSize="44.470224284609436">
+              <LayoutGroup Id="Auto7232bb75-2212-4025-846c-d1f63f07de17" Caption="Auto7232bb75-2212-4025-846c-d1f63f07de17(5)" RelativeSize="10.977242302543507">
+                <LayoutItem Id="Image" MinSize="97, 56" MaxSize="0, 0" RelativeSize="24" />
+                <LayoutGroup Id="Auto078d352c-0e3c-4dfd-863f-4a3da43bd08c" Caption="Auto078d352c-0e3c-4dfd-863f-4a3da43bd08c(7)" RelativeSize="76">
+                  <LayoutItem Id="Name" RelativeSize="60.97560975609756" SizeConstraintsType="Custom" MinSize="102, 50" />
+                  <LayoutItem Id="Description" RelativeSize="39.02439024390244" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutItem Id="CitySales" ViewItem="CitySales" SizeConstraintsType="Custom" MinSize="115, 87" Index="1" RelativeSize="88.93690579083838" IsNewNode="True" Removed="True" />
+              <LayoutItem Id="CitySales" ViewItem="CitySales" SizeConstraintsType="Custom" MinSize="115, 87" Index="1" RelativeSize="89.0227576974565" IsNewNode="True" Removed="True" />
             </LayoutGroup>
+            <LayoutItem Id="Sales" RelativeSize="55.529775715390564" Removed="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
@@ -652,6 +644,7 @@
         <ColumnInfo Id="Available" Index="7" />
       </Columns>
     </ListView>
+    <ListView Id="Product_Sales_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Maps.MapItemListEditor" />
     <DashboardView Id="ProductCardView">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
@@ -685,7 +678,10 @@
       </Layout>
     </DashboardView>
     <DetailView Id="Quote_DetailView_Pivot" FreezeLayout="True" AllowNew="False" AllowEdit="False" AllowDelete="False">
-      <Layout IsNewNode="True" Removed="True">
+      <Items>
+        <ControlDetailItem Id="Model" ControlTypeName="OutlookInspired.Blazor.Server.Features.Quotes.DxPivotGridModel" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
           <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" IsNewNode="True">
             <LayoutItem Id="Model" ViewItem="Model" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
@@ -693,16 +689,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Quote_ListView" DataAccessMode="Queryable" />
-    <DetailView Id="QuoteMapItem_DetailView" FreezeLayout="True">
-      <Layout IsNewNode="True" Removed="True">
-        <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
-          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" IsNewNode="True">
-            <LayoutItem Id="Model" ViewItem="Model" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
+    <ListView Id="Quote_ListView" DataAccessMode="Client" HideToolBar="False" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Pivot.PivotGridListEditor" />
     <ListView Id="ViewFilter_ListView" AllowEdit="False">
       <Columns>
         <ColumnInfo Id="Name" AllowEdit="True" />

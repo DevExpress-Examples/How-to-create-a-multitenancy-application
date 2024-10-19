@@ -47,8 +47,6 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	    yield return new PredefinedReportsUpdater(Application, objectSpace, versionFromDB)
 		    .AddOrderReports().AddCustomerReports().AddProductReports();
 	    yield return new DatabaseUpdate.Updater(objectSpace, versionFromDB);
-	    
-        
     }
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes() 
@@ -68,6 +66,7 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	    if (e.ObjectSpace is not CompositeObjectSpace{ Owner: not CompositeObjectSpace } compositeObjectSpace) return;
 	    compositeObjectSpace.PopulateAdditionalObjectSpaces((XafApplication)sender);
     }
+
     
     public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
 	    base.AddGeneratorUpdaters(updaters);

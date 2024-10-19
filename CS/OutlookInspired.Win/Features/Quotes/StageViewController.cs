@@ -27,7 +27,7 @@ namespace OutlookInspired.Win.Features.Quotes{
         private void ActionOnExecuted(object sender, ActionBaseEventArgs e){
             ((Quote)View.CurrentObject).Stage = (Stage)StageAction.SelectedItem.Data;
             var vectorMapListEditor = View.GetItems<ListPropertyEditor>()
-                .Select(editor => editor.ListView?.Editor).OfType<VectorMapListEditor>().First();
+                .Select(editor => editor.ListView?.Editor).OfType<MapItemListEditor>().First();
             vectorMapListEditor.Refresh();
         }
 

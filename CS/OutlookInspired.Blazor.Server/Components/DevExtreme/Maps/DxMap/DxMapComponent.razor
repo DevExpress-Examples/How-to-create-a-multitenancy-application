@@ -1,10 +1,5 @@
-﻿@using System.Text.Json
-@using System.Text.RegularExpressions
-@using DevExpress.Map.Native
-@using DevExpress.Persistent.Base
-@using OutlookInspired.Module.BusinessObjects
+﻿@using DevExpress.Persistent.Base
 @using OutlookInspired.Module.Features.Maps
-@using OutlookInspired.Module.Services
 @inject IMapApiKeyProvider ApiKeyProvider
 <DxMap Provider="MapProvider.Bing" Width="100%" Height="600px" Zoom="16">
     <DxMapCenter GeoPosition="@GetLocation(Center)" />
@@ -31,56 +26,11 @@
 
 @code {
     [Parameter][EditorRequired]
-    public EventCallback<RouteCalculatedArgs> RouteCalculated{ get; set; }
-    [Parameter][EditorRequired]
     public Dictionary<string, IMapsMarker> Markers{ get; set; }
     [Parameter][EditorRequired]
     public IMapsMarker Center{ get; set; }
     [Parameter][EditorRequired]
     public MapRouteMode MapRouteMode{ get; set; }
-    [Parameter][EditorRequired]
-    public bool CalculateRoute{ get; set; }
-
     private string GetLocation(IMapsMarker mapsMarker) => $"{mapsMarker.Latitude}, {mapsMarker.Longitude}";
-
-    protected override async Task OnAfterRenderAsync(bool firstRender){
-        if (!CalculateRoute)return;
-        var e = await ManeuverInstructions();
-        await RouteCalculated.InvokeAsync(e);
-    }
-    
-    async Task<RouteCalculatedArgs> ManeuverInstructions(){
-        var locationA = Markers.Values.First();
-        var locationB=Markers.Values.Last();
-        var url = $"https://dev.virtualearth.net/REST/V1/Routes/{MapRouteMode}?wp.0={locationA.Latitude},{locationA.Longitude}&wp.1={locationB.Latitude},{locationB.Longitude}&key={ApiKeyProvider.Key}";
-        using var httpClient = new HttpClient();
-        var httpResponseMessage = await httpClient.GetAsync(url);
-        var travelMode = Enum.Parse<TravelMode>(MapRouteMode.ToString(), true);
-        if (!httpResponseMessage.IsSuccessStatusCode) return new RouteCalculatedArgs([], 0, TimeSpan.Zero, travelMode);
-        var jsonString = await httpResponseMessage.Content.ReadAsStringAsync();
-        using var jsonDoc = JsonDocument.Parse(jsonString);
-        return ManeuverInstructions(jsonDoc, travelMode);
-    }
-
-    private static RouteCalculatedArgs ManeuverInstructions(JsonDocument jsonDoc, TravelMode travelMode){
-        var result = jsonDoc.RootElement.GetProperty("resourceSets").EnumerateArray().First().GetProperty("resources").EnumerateArray().First();
-        var routeLegs = result.GetProperty("routeLegs").EnumerateArray().SelectMany(leg => leg.GetProperty("itineraryItems").EnumerateArray());
-        var routePoints = routeLegs.Select(RoutePoint).ToArray();
-        var travelDistance = result.GetProperty("travelDistance").GetDouble();
-        var travelDuration = result.GetProperty("travelDuration").GetDouble();
-        return new RouteCalculatedArgs(routePoints, travelDistance, TimeSpan.FromMinutes(travelDuration), travelMode);
-    }
-
-    private static readonly Regex RemoveTagRegex = new(@"<[^>]*>", RegexOptions.Compiled);
-    private static RoutePoint RoutePoint( JsonElement item){
-        var point = new RoutePoint{
-            ManeuverInstruction = RemoveTagRegex.Replace(item.GetProperty("instruction").GetProperty("text").GetString()!, string.Empty),
-            Maneuver = Enum.Parse<BingManeuverType>(item.GetProperty("details").EnumerateArray().First().GetProperty("maneuverType").GetString()!)
-        };
-        var distance = item.GetProperty("travelDistance").GetDouble();
-        point.Distance = distance > 0.9 ? $"{Math.Ceiling(distance):0} mi" : $"{Math.Ceiling(distance * 52.8) * 100:0} ft";
-        return point;
-    }
-
 
 }

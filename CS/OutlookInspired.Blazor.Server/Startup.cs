@@ -3,6 +3,7 @@ using DevExpress.ExpressApp.Blazor.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Server.Circuits;
+using OutlookInspired.Blazor.Server.Services;
 using OutlookInspired.Blazor.Server.Services.Internal;
 using OutlookInspired.Module.Features.Maps;
 using OutlookInspired.Module.Services;
@@ -13,6 +14,7 @@ public class Startup(IConfiguration configuration){
     public IConfiguration Configuration { get; } = configuration;
 
     public void ConfigureServices(IServiceCollection services) {
+        services.AddSingleton<IColorService,ColorService>();
         services.AddSingleton(typeof(Microsoft.AspNetCore.SignalR.HubConnectionHandler<>), typeof(ProxyHubConnectionHandler<>));
         services.AddRazorPages();
         services.AddServerSideBlazor();

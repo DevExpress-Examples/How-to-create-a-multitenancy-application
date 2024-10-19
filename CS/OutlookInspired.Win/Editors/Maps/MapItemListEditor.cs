@@ -7,13 +7,11 @@ using DevExpress.XtraMap;
 using Microsoft.Extensions.DependencyInjection;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Services;
 using OutlookInspired.Win.Features.Maps;
-using OutlookInspired.Win.Services;
 
 namespace OutlookInspired.Win.Editors.Maps{
     [ListEditor(typeof(IMapItem),true)]
-    public class VectorMapListEditor(IModelListView model) : ListEditor(model),IComplexListEditor{
+    public class MapItemListEditor(IModelListView model) : ListEditor(model),IComplexListEditor{
         public event EventHandler<DataAdapterArgs> CreateDataAdapter; 
         private ImageLayer _imageLayer;
         private VectorItemsLayer _itemsLayer;
@@ -27,7 +25,6 @@ namespace OutlookInspired.Win.Editors.Maps{
 
         public new MapControl Control => (MapControl)base.Control;
         
-
         protected override object CreateControlsCore(){
             var bingKey = ServiceProvider.GetService<IMapApiKeyProvider>().Key;
             var mapControl = new MapControl();
@@ -49,6 +46,11 @@ namespace OutlookInspired.Win.Editors.Maps{
         private void MapControlOnSelectionChanged(object sender, MapSelectionChangedEventArgs e) 
             => OnSelectionChanged();
 
+        protected override void OnSelectionChanged(){
+            base.OnSelectionChanged();
+            OnProcessSelectedItem();
+        }
+
         private VectorItemsLayer NewVectorItemsLayer(){
             _itemsLayer = new VectorItemsLayer{
                 Colorizer = new Colorizer{ ItemKeyProvider = new ArgumentItemKeyProvider() }
@@ -64,7 +66,8 @@ namespace OutlookInspired.Win.Editors.Maps{
             _itemsLayer.SelectedItem = item != null ? _itemsLayer.Data.GetItemSourceObject(item) : null;
         }
 
-        private void ImageLayerOnError(object sender, MapErrorEventArgs e) => throw new AggregateException(e.Exception.Message, e.Exception);
+        private void ImageLayerOnError(object sender, MapErrorEventArgs e) 
+            => throw new AggregateException(e.Exception.Message, e.Exception);
 
         public override void BreakLinksToControls(){
             base.BreakLinksToControls();

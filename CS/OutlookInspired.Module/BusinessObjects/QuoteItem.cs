@@ -19,5 +19,9 @@ namespace OutlookInspired.Module.BusinessObjects{
         public  virtual decimal Discount { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public  virtual decimal Total { get; set; }
+
+        
+        
+        
     }
 }

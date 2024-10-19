@@ -14,12 +14,14 @@ namespace OutlookInspired.Module.BusinessObjects{
         string IBaseMapsMarker.Title => City;
         public double Latitude{ get; set; }
         public double Longitude { get; set; }
-        decimal IMapItem.Total{
+
+        public decimal Total{
             get => Value;
             init => Value=value;
         }
 
-        
+        public string Color{ get; set; }
+
 
         public string Name => Enum.GetName(typeof (Stage), Stage);
         public int Index => (int) Stage;

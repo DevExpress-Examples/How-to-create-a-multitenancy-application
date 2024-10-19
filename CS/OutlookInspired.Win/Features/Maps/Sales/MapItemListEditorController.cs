@@ -8,22 +8,22 @@ using OutlookInspired.Win.Services.Internal;
 using MapItem = OutlookInspired.Module.BusinessObjects.MapItem;
 
 namespace OutlookInspired.Win.Features.Maps.Sales{
-    public class MapItemVectorMapListEditorController:ObjectViewController<ListView,MapItem>{
-        private VectorMapListEditor _vectorMapListEditor;
+    public class MapItemListEditorController:ObjectViewController<ListView,MapItem>{
+        private MapItemListEditor _mapItemListEditor;
 
         protected override void OnActivated(){
             base.OnActivated();
-            _vectorMapListEditor = View.Editor as VectorMapListEditor;
-            if (_vectorMapListEditor == null){
+            _mapItemListEditor = View.Editor as MapItemListEditor;
+            if (_mapItemListEditor == null){
                 Active["editor"] = false;
                 return;
             }
-            _vectorMapListEditor.CreateDataAdapter+=OnCreateAdapter;
+            _mapItemListEditor.CreateDataAdapter+=OnCreateAdapter;
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            if (_vectorMapListEditor != null) _vectorMapListEditor.CreateDataAdapter -= OnCreateAdapter;
+            if (_mapItemListEditor != null) _mapItemListEditor.CreateDataAdapter -= OnCreateAdapter;
         }
 
         private string GetPieSegmentPropertyName(){
@@ -32,7 +32,7 @@ namespace OutlookInspired.Win.Features.Maps.Sales{
         }
 
         private void OnCreateAdapter(object sender, DataAdapterArgs e){
-            _vectorMapListEditor.ItemsLayer.ToolTipPattern = $"{nameof(MapItem.City)}:%A% {nameof(MapItem.Total)}:%V%";
+            _mapItemListEditor.ItemsLayer.ToolTipPattern = $"{nameof(MapItem.City)}:%A% {nameof(MapItem.Total)}:%V%";
             e.Adapter = new PieChartDataAdapter(){
                 Mappings ={
                     Latitude = nameof(MapItem.Latitude), Longitude = nameof(MapItem.Longitude),
@@ -44,11 +44,11 @@ namespace OutlookInspired.Win.Features.Maps.Sales{
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
-            _vectorMapListEditor.ItemsLayer.DataLoaded+=ItemsLayerOnDataLoaded;
+            _mapItemListEditor.ItemsLayer.DataLoaded+=ItemsLayerOnDataLoaded;
         }
 
         private void ItemsLayerOnDataLoaded(object sender, DataLoadedEventArgs e){
-            var zoomToRegionService = _vectorMapListEditor.ZoomService;
+            var zoomToRegionService = _mapItemListEditor.ZoomService;
             var salesPeriod = ((ISalesMapsMarker)((PropertyCollectionSource)View.CollectionSource).MasterObject).SalesPeriod;
             var customerStores = ObjectSpace.Stores(salesPeriod);
             zoomToRegionService.To(customerStores);

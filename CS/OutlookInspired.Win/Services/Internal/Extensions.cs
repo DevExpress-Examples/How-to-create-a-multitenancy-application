@@ -33,7 +33,7 @@ namespace OutlookInspired.Win.Services.Internal{
             return chartControl;
         }
         
-        
+        [Obsolete]
         public static void To(this IZoomToRegionService zoomService, GeoPoint pointA, GeoPoint pointB, double margin = 0.2){
             if (pointA == null || pointB == null || zoomService == null) return;
             var (latDiff, longDiff) = (pointB.Latitude - pointA.Latitude, pointB.Longitude - pointA.Longitude);
@@ -43,9 +43,7 @@ namespace OutlookInspired.Win.Services.Internal{
                 new GeoPoint((pointA.Latitude + pointB.Latitude) / 2, (pointA.Longitude + pointB.Longitude) / 2));
         }
 
-        [Obsolete]
-        public static IZoomToRegionService Zoom(this MapControl mapControl) 
-            => (IZoomToRegionService)((IServiceProvider)mapControl).GetService(typeof(IZoomToRegionService));
+        
 
         public static void To(this IZoomToRegionService zoomService, IEnumerable<IMapsMarker> mapsMarkers, double margin = 0.25){
             var points = mapsMarkers.Select(m => m.ToGeoPoint()).Where(p => p != null && !Equals(p, new GeoPoint(0, 0))).ToList();

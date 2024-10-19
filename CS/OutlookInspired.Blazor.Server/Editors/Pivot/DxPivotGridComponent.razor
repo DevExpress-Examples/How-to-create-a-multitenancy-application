@@ -1,0 +1,41 @@
+﻿<MyPivotGrid @ref="@_pivotGrid" Data="@Data">
+    @foreach (var field in Fields){
+        <DxPivotGridField Field="@field.Name" SortOrder="@field.SortOrder" Area="@field.Area"
+                          GroupInterval="@field.GroupInterval" Caption="@field.Caption" SummaryType="@field.SummaryType">
+            <DataTemplate>
+                @if (field.IsProgressBar){
+                    <DxProgressBar Value="@((double)context)" MaxValue="1" ></DxProgressBar>
+                }
+                else if (!string.IsNullOrEmpty(field.DisplayFormat)){
+                    @string.Format(field.DisplayFormat, context)
+                }
+                else{
+                    @context
+                }
+            </DataTemplate>
+    </DxPivotGridField>
+    }
+    
+</MyPivotGrid>
+
+
+@code {
+    private MyPivotGrid<object> _pivotGrid;
+
+    [Parameter][EditorRequired] 
+    public IEnumerable<object> Data { get; set; }
+    [Parameter][EditorRequired] 
+    public IEnumerable<IPivotField> Fields { get; set; }
+    [Parameter]
+    public bool ExpandAllRows{ get; set; } 
+    protected override void OnAfterRender(bool firstRender){
+        base.OnAfterRender(firstRender);
+        if (!ExpandAllRows)return;
+        foreach (var row in _pivotGrid.Model.State.Data.Rows){
+            row.IsExpanded = true;
+        }
+        _pivotGrid.Model.Update();
+    }
+
+    
+}

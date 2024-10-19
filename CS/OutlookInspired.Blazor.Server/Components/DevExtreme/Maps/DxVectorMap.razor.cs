@@ -43,10 +43,11 @@ namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps{
     
     public class PredefinedLayer:BaseLayer{
         public bool HoverEnabled{ get; set; }
+        
     }
 
     public interface IPaletteLayer{
-        string[] Palette{ get; init; }
+        string[] Palette{ get; set; }
     }
 
     public interface INamedLayer{
@@ -58,7 +59,7 @@ namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps{
         public string Name{ get; set; } = "bubbles";
         public string ElementType{ get; } = "bubble";
         public string DataField{ get; set; } = nameof(Properties.Values).FirstCharacterToLower();
-        public string[] Palette{ get; init; }
+        public string[] Palette{ get; set; }
         public int MinSize{ get; init; } = 20;
         public int MaxSize{ get; init; } = 40;
         public double Opacity{ get; init; } = 0.8;
@@ -77,7 +78,7 @@ namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps{
         public string Name{ get; set; } = "pies";
         public string ElementType{ get; } = "pie"; 
         public string DataField{ get; set; }= nameof(Properties.Values).FirstCharacterToLower();
-        public string[] Palette{ get; init; }
+        public string[] Palette{ get; set; }
     }
     
     public class Tooltip{

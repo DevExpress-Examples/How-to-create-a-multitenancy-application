@@ -12,10 +12,12 @@ using Route = OutlookInspired.Blazor.Server.Components.DevExtreme.Maps.Route;
 namespace OutlookInspired.Blazor.Server.Services.Internal{
     internal static class MapExtensions{
         private static readonly Regex RemoveTagRegex = new(@"<[^>]*>", RegexOptions.Compiled);
+        [Obsolete]
         public static MapItem[] Colorize(this MapItem[] mapItems, string[] palette,Type markerType) 
             => mapItems.GroupBy(item => item.PropertyValue(markerType))
                 .SelectMany((items, i) => items.Do(item => item.Color = palette[i])).ToArray();
 
+        [Obsolete]
         public static object FeatureCollection(this IMapItem[] mapItems,Func<IGrouping<string,IMapItem>,List<decimal>> valuesSelector) 
             => new FeatureCollection{ Features = mapItems.Features(valuesSelector) };
 
@@ -32,6 +34,7 @@ namespace OutlookInspired.Blazor.Server.Services.Internal{
         public static List<Feature> Features(this IMapItem[] mapItems,Func<IGrouping<string,IMapItem>,List<decimal>> valuesSelector) 
             => mapItems.GroupBy(item => item.City).Select(group => group.First().NewFeature(group,valuesSelector)).ToList();
 
+        [Obsolete]
         private static Feature NewFeature(this IMapItem mapItem, IGrouping<string, IMapItem> group,Func<IGrouping<string,IMapItem>,List<decimal>> valuesSelector) 
             => new(){
                 Geometry = new Geometry{ Coordinates = new List<double>{ mapItem.Longitude, mapItem.Latitude } },

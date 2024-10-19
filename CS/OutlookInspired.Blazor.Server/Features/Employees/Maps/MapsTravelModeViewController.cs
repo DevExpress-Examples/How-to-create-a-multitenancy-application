@@ -27,7 +27,7 @@ namespace OutlookInspired.Blazor.Server.Features.Employees.Maps{
         }
 
         private void ActionOnExecuted(object sender, ActionBaseEventArgs e) 
-            => View.GetItems<DxMapPropertyEditor>().First().ComponentModel.MapRouteMode = (MapRouteMode)_action.SelectedItem.Data;
+            => View.GetItems<DxMapHomeOfficePropertyEditor>().First().ComponentModel.MapRouteMode = (MapRouteMode)_action.SelectedItem.Data;
 
         
     }

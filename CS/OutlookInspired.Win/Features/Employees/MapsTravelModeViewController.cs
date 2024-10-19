@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraMap;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Win.Features.Maps;
+using OutlookInspired.Win.Editors.Maps;
 
 namespace OutlookInspired.Win.Features.Employees{
     public class MapsTravelModeViewController:ObjectViewController<DetailView,Employee>{
@@ -26,8 +26,8 @@ namespace OutlookInspired.Win.Features.Employees{
 
 
         private void ActionOnExecuted(object sender, ActionBaseEventArgs e){
-            var routeMapsViewController = Frame.GetController<RouteMapsViewController>();
-            routeMapsViewController.CalculateRoute((BingTravelMode)_action.SelectedItem.Data);
+            var editor = View.GetItems<MapControlHomeOfficePropertyEditor>().First();
+            editor.CalculateRoute((BingTravelMode)_action.SelectedItem.Data);
         }
     }
 

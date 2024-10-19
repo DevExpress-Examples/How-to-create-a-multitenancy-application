@@ -95,7 +95,7 @@ namespace OutlookInspired.Module.BusinessObjects{
             => OrderItems == null ? 0 : OrderItems.Where(item => item.Product != null)
                     .Sum(item => item.Product.Weight * item.ProductUnits);
 
-        [EditorAlias(EditorAliases.MapPropertyEditor)]
+        [EditorAlias(EditorAliases.MapHomeOfficePropertyEditor)]
         public Location Location => new(){Latitude = ((IBaseMapsMarker)this).Latitude, Longitude = ((IBaseMapsMarker)this).Longitude };
         string IBaseMapsMarker.Title => Store?.Customer.Name;
 

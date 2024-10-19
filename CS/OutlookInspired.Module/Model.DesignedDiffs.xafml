@@ -317,6 +317,9 @@
       </Layout>
     </DetailView>
     <DetailView Id="CustomerGridView_DetailView" FreezeLayout="True">
+      <Items>
+        <ControlDetailItem Id="CustomerGridView" ControlTypeName="CustomerGridView" IsNewNode="True" />
+      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Main" IsNewNode="True">
           <LayoutItem Id="CustomerGridView" ViewItem="CustomerGridView" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
@@ -324,6 +327,9 @@
       </Layout>
     </DetailView>
     <DetailView Id="CustomerLayoutView_DetailView" FreezeLayout="True">
+      <Items>
+        <ControlDetailItem Id="CustomerLayoutView" ControlTypeName="CustomerLayoutView" IsNewNode="True" />
+      </Items>
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" Caption="Main" IsNewNode="True">
           <LayoutItem Id="CustomerLayoutView" ViewItem="CustomerLayoutView" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />

@@ -12,18 +12,23 @@ namespace OutlookInspired.Blazor.Server.Editors.MapItemChart {
     [ListEditor(typeof(MapItem),true)]
     public class MapItemDxChartListEditor(IModelListView info)
         : ListEditor(info), IComponentContentHolder{
-        public MapItemDxChartModel MapItemDxChartModel => (MapItemDxChartModel)Control;
+        public new MapItemDxChartModel Control => (MapItemDxChartModel)base.Control;
         protected override object CreateControlsCore() => new MapItemDxChartModel();
         protected override void AssignDataSourceToControl(object dataSource) {
-            if(MapItemDxChartModel == null) return;
-            MapItemDxChartModel.Data = dataSource as IEnumerable<MapItem>;
+            if(Control == null) return;
+            Control.Data = dataSource as IEnumerable<MapItem>;
         }
-        public override void Refresh() { }
+        
+        public override void Refresh(){ }
+        
         public override object FocusedObject { get; set; }
         public override IList GetSelectedObjects() => Array.Empty<object>();
         public override SelectionType SelectionType => SelectionType.None;
 
         private RenderFragment _componentContent;
-        RenderFragment IComponentContentHolder.ComponentContent => _componentContent ??= ComponentModelObserver.Create(MapItemDxChartModel, MapItemDxChartModel.GetComponentContent());
+        private MapItemDxChart _instance;
+
+        RenderFragment IComponentContentHolder.ComponentContent 
+            => _componentContent ??= ComponentModelObserver.Create(Control, Control.GetComponentContent(o => _instance=(MapItemDxChart)o));
     }
 }

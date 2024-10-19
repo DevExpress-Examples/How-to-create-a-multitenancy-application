@@ -42,11 +42,13 @@ namespace OutlookInspired.Module.Services.Internal{
                     yield return child;
             }
         }
+        [Obsolete]
         public static void Enumerate<T>(this IEnumerable<T> source) {
             using var e = source.GetEnumerator();
             while (e.MoveNext()) { }
         }
 
+        [Obsolete]
         public static IEnumerable<TSource> Do<TSource>(
             this IEnumerable<TSource> source, Action<TSource> action)
             => source.Select(item => {

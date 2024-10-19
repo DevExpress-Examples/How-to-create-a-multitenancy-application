@@ -1,0 +1,60 @@
+﻿@using OutlookInspired.Blazor.Server.Components.DevExtreme.Maps
+@using OutlookInspired.Module.Services.Internal
+@implements IAsyncDisposable
+@inject IJSRuntime JSRuntime
+<div @ref="_mapElement"></div>
+
+@code {
+    private IJSObjectReference _mapModule;
+    private IJSObjectReference _map;
+    private ElementReference _mapElement;
+    private DotNetObjectReference<DevExtremeMap> _dotNetHelper;
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender){
+        if (firstRender){
+            _dotNetHelper = DotNetObjectReference.Create(this);
+            _mapModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Editors/Maps/DevExtremeMap.razor.js");
+        }
+
+        if (_map == null){
+            var layers = Layers.Select(layer => layer.GetType().GetProperties()
+                .ToDictionary(prop => prop.Name.FirstCharacterToLower(), prop => prop.GetValue(layer)));
+            var customAttributes = CustomAttributes.Select(s => s.FirstCharacterToLower()).ToArray();
+            _map = await _mapModule.InvokeAsync<IJSObjectReference>("addMapToElement", _mapElement,layers,
+                Bounds,customAttributes,  _dotNetHelper);
+        }
+    }
+
+    [Parameter][EditorRequired]
+    public IEnumerable<BaseLayer> Layers{ get; set; }
+    [Parameter]
+    public double[] Bounds{ get; set; }
+    [Parameter]
+    public string[] CustomAttributes{ get; set; }
+    [Parameter]
+    public EventCallback<string[]> SelectionChanged { get; set; }
+    
+    // protected override bool ShouldRender() => true;
+    public void Refresh(){
+        Console.WriteLine();
+        _mapModule.InvokeVoidAsync("dispose", _mapElement);
+        _map = null;
+        // await _mapModule.InvokeVoidAsync("refresh", _mapElement);
+        // StateHasChanged();
+    }
+
+    [JSInvokable]
+    public async Task OnSelectionChanged(string[] keys)
+        => await SelectionChanged.InvokeAsync(keys);
+    
+    public async ValueTask DisposeAsync(){
+        try{
+            // if (_mapModule is not null) await _mapModule.InvokeVoidAsync("dispose", _mapElement);
+        }
+        catch (Exception exception) when (exception is JSException or JSDisconnectedException or OperationCanceledException) { }
+        if (_map is not null) await _map.DisposeAsync();
+        if (_mapModule is not null) await _mapModule.DisposeAsync();
+        _dotNetHelper?.Dispose();
+    }
+
+}

@@ -23,15 +23,14 @@ function AssignAnnotation(model, annotationData) {
             const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             svg.setAttribute("class", "annotation");
 
-            const foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-            
-            foreignObject.setAttribute("width", annotation.width);
-            foreignObject.setAttribute("height", annotation.height);
+            const element = document.createElementNS("http://www.w3.org/2000/svg", "element");
+            element.setAttribute("width", annotation.width);
+            element.setAttribute("height", annotation.height);
             const div = document.createElement("div");
             div.innerHTML = annotation.data; 
 
-            foreignObject.appendChild(div);
-            svg.appendChild(foreignObject);
+            element.appendChild(div);
+            svg.appendChild(element);
             container.appendChild(svg);
         }
     };

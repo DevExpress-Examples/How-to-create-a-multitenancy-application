@@ -1,7 +1,5 @@
-﻿using DevExpress.ExpressApp.Blazor.Components.Models;
-
-namespace OutlookInspired.Blazor.Server.ComponentModels {
-    public class HyperlinkModel : ComponentModelBase {
+﻿namespace OutlookInspired.Blazor.Server.Components {
+    public class HyperlinkModel : DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase {
         public string Text {
             get => GetPropertyValue<string>();
             set => SetPropertyValue(value);

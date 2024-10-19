@@ -8,6 +8,7 @@ using OutlookInspired.Module.Features.ViewFilter;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server.Features.Quotes {
+    [Obsolete]
     public class PaletteController : ViewController<DashboardView> {
         private (string color, Stage stage)[] _palette;
         public PaletteController() => TargetViewId = "Opportunities";
@@ -20,7 +21,7 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes {
         private void OncChildItemControlCreated(object sender, EventArgs e) {
             var dashboardViewItem = ((DashboardViewItem)sender);
             dashboardViewItem.ControlCreated -= OnMasterItemControlCreated;
-            dashboardViewItem.Frame.View.ToDetailView().GetItems<ControlViewItem>().First().ControlCreated += OnChartControlCreated;
+            // dashboardViewItem.Frame.View.ToDetailView().GetItems<ControlViewItem>().First().ControlCreated += OnChartControlCreated;
         }
 
         private void OnChartControlCreated(object sender, EventArgs e) {

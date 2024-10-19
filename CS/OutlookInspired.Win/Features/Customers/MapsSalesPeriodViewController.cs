@@ -29,14 +29,14 @@ namespace OutlookInspired.Win.Features.Customers{
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
             var hasMapItemVectorMapListEditor = View.GetItems<ListPropertyEditor>()
-                .Any(editor => editor.ListView?.Editor is VectorMapListEditor);
+                .Any(editor => editor.ListView?.Editor is MapItemListEditor);
             Active["hasMapItemVectorMapListEditor"] = hasMapItemVectorMapListEditor;
         }
 
         private void SalesPeriodActionOnExecuted(object sender, ActionBaseEventArgs e){
             ((ISalesMapsMarker)View.CurrentObject).SalesPeriod = (Period)SalesPeriodAction.SelectedItem.Data;
             var vectorMapListEditor = View.GetItems<ListPropertyEditor>()
-                .Select(editor => editor.ListView?.Editor).OfType<VectorMapListEditor>().First();
+                .Select(editor => editor.ListView?.Editor).OfType<MapItemListEditor>().First();
             vectorMapListEditor.Refresh();
         }
     }

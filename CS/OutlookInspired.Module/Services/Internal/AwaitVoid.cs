@@ -3,6 +3,7 @@
 namespace OutlookInspired.Module.Services.Internal{
     public delegate Task AsyncEventHandler<in TEventArgs>(object sender, TEventArgs e);
     internal static class AwaitVoidService{
+        [Obsolete]
         public static void Await(this object any, Func<Task> invoker) {
             var originalContext = SynchronizationContext.Current;
             try {

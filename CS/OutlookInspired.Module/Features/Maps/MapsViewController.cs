@@ -21,7 +21,7 @@ namespace OutlookInspired.Module.Features.Maps{
             ExportMapAction = Export();
             PrintPreviewMapAction = PrintPreview();
             PrintAction = Print();
-            SalesPeriodAction=SalesPeriod();
+            // SalesPeriodAction=SalesPeriod();
             StageAction=Stage();
         }
 
@@ -92,7 +92,7 @@ namespace OutlookInspired.Module.Features.Maps{
             };
 
         public SingleChoiceAction StageAction{ get;  }
-        public SingleChoiceAction SalesPeriodAction{ get; }
+        // public SingleChoiceAction SalesPeriodAction{ get; }
         public SimpleAction PrintAction{ get;  }
         public SimpleAction PrintPreviewMapAction{ get;  }
         public SingleChoiceAction TravelModeAction{ get; }
@@ -115,12 +115,12 @@ namespace OutlookInspired.Module.Features.Maps{
                     .Active[nameof(TravelModeAction)] = false;    
             }
             
-            SalesPeriodAction.Active[nameof(MapsViewController)]= typeof(ISalesMapsMarker).IsAssignableFrom(View.ObjectTypeInfo.Type);
-            SalesPeriodAction.Active[nameof(MapItAction)] =TravelModeAction.Active[nameof(MapItAction)];
+            // SalesPeriodAction.Active[nameof(MapsViewController)]= typeof(ISalesMapsMarker).IsAssignableFrom(View.ObjectTypeInfo.Type);
+            // SalesPeriodAction.Active[nameof(MapItAction)] =TravelModeAction.Active[nameof(MapItAction)];
             StageAction.Active[nameof(MapsViewController)]= typeof(Quote).IsAssignableFrom(View.ObjectTypeInfo.Type);
             StageAction.Active[nameof(MapItAction)] =TravelModeAction.Active[nameof(MapItAction)];
             ExportMapAction.Active[nameof(MapsViewController)] = TravelModeAction.Active[nameof(MapItAction)] ||
-                                                                 SalesPeriodAction.Active[nameof(MapItAction)] ||
+                                                                 // SalesPeriodAction.Active[nameof(MapItAction)] ||
                                                                  StageAction.Active[nameof(MapItAction)];
             PrintAction.Active[nameof(MapsViewController)] =ExportMapAction.Active;
             PrintPreviewMapAction.Active[nameof(MapsViewController)] =ExportMapAction.Active;

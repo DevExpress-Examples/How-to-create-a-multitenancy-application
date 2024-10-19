@@ -15,8 +15,15 @@ namespace OutlookInspired.Module.BusinessObjects{
     [CloneView(CloneViewType.DetailView, MapsDetailView)]
     [CloneView(CloneViewType.DetailView, PivotDetailView)]
     public class Quote :OutlookInspiredBaseObject, IViewFilter,IMapsMarker{
+        [Obsolete]
+        public string City => CustomerStore.City;
+        [Obsolete]
+        public StateEnum State => CustomerStore.State;
+        [Obsolete]
         public const string MapsDetailView = "Quote_DetailView_Maps";
+        
         public const string PivotDetailView = "Quote_DetailView_Pivot";
+        
         [MaxLength(20)]
         public  virtual string Number { get; set; }
         public virtual Customer Customer { get; set; }
@@ -44,7 +51,12 @@ namespace OutlookInspired.Module.BusinessObjects{
         public Stage Stage { get; set; }
 
         [NotMapped][VisibleInDetailView(false)]
-        public ObservableCollection<QuoteMapItem> Opportunities => new(ObjectSpace.Opportunities(Stage));
+        public ObservableCollection<QuoteMapItem> Opportunities{
+            get{
+                var quoteMapItems = ObjectSpace.Opportunities(Stage);
+                return new(quoteMapItems);
+            }
+        }
 
         [NotMapped][Browsable(false)]
         public PaletteEntry[] PaletteEntries{ get; set; }

@@ -8,6 +8,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         double Latitude{ get; set; }
         double Longitude{ get; set; }
         decimal Total{ get; init; }
+        string Color{ get; set; }
     }
 
     [DomainComponent]

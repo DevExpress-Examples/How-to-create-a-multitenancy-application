@@ -1,7 +1,5 @@
 ﻿using DevExpress.Blazor;
 using DevExpress.Persistent.Base;
-using Microsoft.AspNetCore.Components;
-using OutlookInspired.Module.Features.Maps;
 
 namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps.DxMap{
     public class DxMapModel : ComponentModelBase {
@@ -19,15 +17,5 @@ namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps.DxMap{
             get => GetPropertyValue<MapRouteMode>();
             set => SetPropertyValue(value);
         }
-        public bool CalculateRoute{
-            get => GetPropertyValue<bool>();
-            set => SetPropertyValue(value);
-        }
-        public EventCallback<RouteCalculatedArgs> RouteCalculated{
-            get => GetPropertyValue<EventCallback<RouteCalculatedArgs>>();
-            set => SetPropertyValue(value);
-        }
-        
-        
     }
 }

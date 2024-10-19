@@ -1,7 +1,7 @@
 ﻿using DevExpress.ExpressApp.Blazor.Editors;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using OutlookInspired.Blazor.Server.ComponentModels;
+using OutlookInspired.Blazor.Server.Components;
 using OutlookInspired.Blazor.Server.Services.Internal;
 using OutlookInspired.Module.Services.Internal;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;

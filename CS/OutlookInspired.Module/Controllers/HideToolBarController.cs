@@ -4,20 +4,21 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
 
 namespace OutlookInspired.Module.Controllers{
-    public interface IModelListViewHideToolbar{
+    public interface IModelViewHideToolbar{
         [Category(OutlookInspiredModule.ModelCategory)]
         bool HideToolBar{ get; set; }
     }
 
-    public class HideToolBarController:ViewController<ListView>,IModelExtender{
+    public class HideToolBarController:ViewController,IModelExtender{
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
-            if (((IModelListViewHideToolbar)View.Model).HideToolBar){
-                ((ISupportActionsToolbarVisibility)Frame.Template).SetVisible(false);    
-            }
+            if (View.Model is not IModelViewHideToolbar{ HideToolBar: true }) return;
+            ((ISupportActionsToolbarVisibility)Frame.Template).SetVisible(false);
         }
 
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) 
-            => extenders.Add<IModelListView,IModelListViewHideToolbar>();
+        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+            extenders.Add<IModelListView, IModelViewHideToolbar>();
+            extenders.Add<IModelDashboardView, IModelViewHideToolbar>();
+        }
     }
 }

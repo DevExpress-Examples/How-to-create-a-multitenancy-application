@@ -3,7 +3,7 @@ using DevExpress.ExpressApp.Blazor.Editors;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Microsoft.AspNetCore.Components;
-using OutlookInspired.Blazor.Server.ComponentModels;
+using OutlookInspired.Blazor.Server.Components;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 namespace OutlookInspired.Blazor.Server.Editors {

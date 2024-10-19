@@ -8,7 +8,7 @@ using OutlookInspired.Win.Services.Internal;
 using MapItem = OutlookInspired.Module.BusinessObjects.MapItem;
 
 namespace OutlookInspired.Win.Features.Maps.Sales{
-    public class MapItemViewController:ObjectViewController<DetailView,ISalesMapsMarker>{
+    public class MapItemChartListEditorController:ObjectViewController<DetailView,ISalesMapsMarker>{
         protected override void OnActivated(){
             base.OnActivated();
             View.CustomizeViewItemControl<ListPropertyEditor>(this,
@@ -21,8 +21,8 @@ namespace OutlookInspired.Win.Features.Maps.Sales{
         private void ListViewEditorOnSelectionChanged(object sender, EventArgs e){
             var chartListEditor = (ChartListEditor)View.GetItems<ListPropertyEditor>()
                 .First(editor => editor.ListView?.Editor is ChartListEditor).ListView.Editor;
-            var vectorMapItemListEditor = (VectorMapListEditor)View.GetItems<ListPropertyEditor>()
-                .First(editor => editor.ListView?.Editor is VectorMapListEditor).ListView.Editor;
+            var vectorMapItemListEditor = (MapItemListEditor)View.GetItems<ListPropertyEditor>()
+                .First(editor => editor.ListView?.Editor is MapItemListEditor).ListView.Editor;
             var city = ((MapItem)vectorMapItemListEditor.ItemsLayer.SelectedItem)?.City;
             var proxyCollection = (ProxyCollection)vectorMapItemListEditor.DataSource;
             chartListEditor.DataSource= ((IEnumerable<MapItem>)proxyCollection.OriginalCollection).Where(item => item.City==city).ToArray();

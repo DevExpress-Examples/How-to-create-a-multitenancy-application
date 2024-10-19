@@ -3,20 +3,24 @@ using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.Blazor.Server.Editors.MapItemChart;
 public class MapItemDxChartModel : DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase {
-    public IEnumerable<MapItem> Data {
+    public IEnumerable<IMapItem> Data {
         get => GetPropertyValue<IEnumerable<MapItem>>();
         set => SetPropertyValue(value);
     }
-    public Expression<Func<MapItem, string>> ArgumentField {
-        get => GetPropertyValue<Expression<Func<MapItem, String>>>();
+    public Expression<Func<IMapItem, string>> ArgumentField {
+        get => GetPropertyValue<Expression<Func<IMapItem, String>>>();
         set => SetPropertyValue(value);
     }
-    public Expression<Func<MapItem, decimal>> ValueField {
-        get => GetPropertyValue<Expression<Func<MapItem, Decimal>>>();
+    public Expression<Func<IMapItem, decimal>> ValueField {
+        get => GetPropertyValue<Expression<Func<IMapItem, Decimal>>>();
         set => SetPropertyValue(value);
     }
-    public Expression<Func<MapItem, string>> NameField {
-        get => GetPropertyValue<Expression<Func<MapItem, String>>>();
+    public Expression<Func<IMapItem, string>> NameField {
+        get => GetPropertyValue<Expression<Func<IMapItem, String>>>();
+        set => SetPropertyValue(value);
+    }
+    public Func<IEnumerable<decimal>, decimal> SummaryMethod  {
+        get => GetPropertyValue<Func<IEnumerable<decimal>, decimal>>();
         set => SetPropertyValue(value);
     }
     public string Height {

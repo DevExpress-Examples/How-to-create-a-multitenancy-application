@@ -13,10 +13,10 @@
   </NavigationItems>
   <Options UIType="SingleWindowSDI" FormStyle="Ribbon" EnableHtmlFormatting="True" Palette="Office Dark Gray" />
   <SchemaModules>
-    <SchemaModule Name="SchedulerModuleBase" Version="24.1.2.0" IsNewNode="True" />
-    <SchemaModule Name="SchedulerWindowsFormsModule" Version="24.1.2.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="24.1.2.0" IsNewNode="True" />
-    <SchemaModule Name="SystemWindowsFormsModule" Version="24.1.2.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerModuleBase" Version="24.2.1.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerWindowsFormsModule" Version="24.2.1.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="24.2.1.0" IsNewNode="True" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="24.2.1.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
     <ListView Id="Customer_CitySales_ListView" EditorTypeName="DevExpress.ExpressApp.Chart.Win.ChartListEditor">
@@ -24,7 +24,6 @@
     </ListView>
     <DetailView Id="Customer_DetailView_Child">
       <Items>
-        <ControlViewItem Id="CustomerStore" ControlTypeName="OutlookInspired.Win.Features.Customers.CustomerStoreView" />
         <PropertyEditor Id="HomeOfficeLine" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
         <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
       </Items>
@@ -32,25 +31,25 @@
     <DetailView Id="Customer_DetailView_Maps" AllowEdit="False">
       <Items>
         <PropertyEditor Id="HomeOfficeLine" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
-        <ControlViewItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
+        <PropertyEditor Id="Logo" ImageEditorCustomHeight="100" ImageEditorFixedHeight="100" ImageEditorFixedWidth="100" AllowEdit="False" ImageSizeMode="Normal" />
         <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors" TextAlignMode="AlignWithChildren">
-            <LayoutItem Id="MapsControl" RelativeSize="71.04846373139056" />
-            <LayoutGroup Id="Autoccabc5ad-888d-46de-81d2-3a0d3424e090" TextAlignMode="AlignWithChildren" RelativeSize="28.951536268609438">
-              <LayoutGroup Id="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a" Caption="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a(5)" TextAlignMode="AlignWithChildren" RelativeSize="8.25410544511668">
-                <LayoutItem Id="Logo" RelativeSize="21.2253829321663" />
-                <LayoutGroup Id="Auto343e42f6-3e00-47a0-b213-aa06147e97a9" Caption="Auto343e42f6-3e00-47a0-b213-aa06147e97a9(7)" TextAlignMode="AlignWithChildren" RelativeSize="78.7746170678337">
-                  <LayoutItem Id="Name" RelativeSize="30.36649214659686" />
-                  <LayoutItem Id="Item1" RelativeSize="12.041884816753926" />
-                  <LayoutItem Id="HomeOfficeLine" RelativeSize="28.272251308900522" />
-                  <LayoutItem Id="Item2" RelativeSize="29.319371727748692" />
+            <LayoutItem Id="Sales" RelativeSize="70.82872928176796" />
+            <LayoutGroup Id="Autoccabc5ad-888d-46de-81d2-3a0d3424e090" TextAlignMode="AlignWithChildren" RelativeSize="29.171270718232044">
+              <LayoutGroup Id="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a" Caption="Auto9632c72e-5893-4578-9d35-b6fb74fe1c9a(5)" TextAlignMode="AlignWithChildren" RelativeSize="16.331994645247658">
+                <LayoutItem Id="Logo" RelativeSize="43.18181818181818" SizeConstraintsType="Custom" MinSize="114, 122" MaxSize="114, 122" />
+                <LayoutGroup Id="Auto343e42f6-3e00-47a0-b213-aa06147e97a9" Caption="Auto343e42f6-3e00-47a0-b213-aa06147e97a9(7)" TextAlignMode="AlignWithChildren" RelativeSize="56.81818181818182">
+                  <LayoutItem Id="Name" RelativeSize="27.868852459016395" SizeConstraintsType="Custom" MinSize="77, 34" />
+                  <LayoutItem Id="Item1" RelativeSize="19.672131147540984" SizeConstraintsType="Custom" MinSize="115, 24" MaxSize="0, 24" />
+                  <LayoutItem Id="HomeOfficeLine" RelativeSize="38.52459016393443" />
+                  <LayoutItem Id="Item2" RelativeSize="13.934426229508198" SizeConstraintsType="Custom" MinSize="10, 17" MaxSize="0, 17" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutItem Id="Item3" Index="1" RelativeSize="6.050129645635264" SizeConstraintsType="Custom" MinSize="10, 80" MaxSize="0, 80" IsNewNode="True" />
-              <LayoutItem Id="CitySales" Index="2" RelativeSize="85.69576490924806" />
+              <LayoutItem Id="Item3" Index="1" RelativeSize="3.21285140562249" SizeConstraintsType="Custom" MinSize="115, 24" MaxSize="0, 24" IsNewNode="True" />
+              <LayoutItem Id="CitySales" Index="2" RelativeSize="80.45515394912985" MinSize="264, 87" MaxSize="264, 0" />
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
@@ -62,9 +61,6 @@
       </Columns>
     </ListView>
     <DetailView Id="CustomerLayoutView_DetailView">
-      <Items>
-        <ControlViewItem Id="CustomerLayoutView" ControlTypeName="OutlookInspired.Win.Features.Customers.CustomerLayoutView" />
-      </Items>
       <Layout>
         <LayoutGroup Id="Main" TextAlignMode="AlignWithChildren" RelativeSize="100" />
       </Layout>
@@ -183,30 +179,12 @@
         <PropertyEditor Id="Address" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
         <PropertyEditor Id="BAddress" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
         <PropertyEditor Id="FullName" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
-        <ControlViewItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
         <PropertyEditor Id="RouteResult" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Auto7f26b532-5e95-4984-975f-7d112e3f48be" RelativeSize="66.82494460272238" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="MapsControl" ShowCaption="False" CaptionLocation="Top" />
-            </LayoutGroup>
-            <LayoutGroup Id="Auto55738e8a-ad25-43c5-8135-f7030b1fbeb6" RelativeSize="33.17505539727762">
-              <LayoutGroup Id="Auto545e433b-2786-4e52-bd8b-09fc12509e50" TextAlignMode="AlignWithChildren" RelativeSize="9.083044982698961">
-                <LayoutItem Id="Picture" RelativeSize="22.041984732824428" />
-                <LayoutGroup Id="Auto5ce01d17-5e7e-4055-b926-eeb5c8eef21e" TextAlignMode="AlignWithChildren" RelativeSize="77.95801526717557">
-                  <LayoutItem Id="FullName" RelativeSize="44.285714285714285" />
-                  <LayoutItem Id="Address" RelativeSize="55.714285714285715" />
-                </LayoutGroup>
-              </LayoutGroup>
-              <LayoutItem Id="Item2" RelativeSize="1.9031141868512111" />
-              <LayoutItem Id="AAddress" RelativeSize="1.9031141868512111" />
-              <LayoutItem Id="BAddress" RelativeSize="1.9031141868512111" />
-              <LayoutItem Id="Item1" RelativeSize="1.3840830449826989" />
-              <LayoutItem Id="RouteResult" RelativeSize="2.292387543252595" />
-              <LayoutItem Id="RoutePoints" RelativeSize="81.53114186851211" />
-            </LayoutGroup>
+            <LayoutGroup Id="Auto7f26b532-5e95-4984-975f-7d112e3f48be" RelativeSize="66.82494460272238" TextAlignMode="AlignWithChildren" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
@@ -270,11 +248,6 @@
         </LayoutGroup>
       </Layout>
     </DashboardView>
-    <DetailView Id="EmployeeLayoutView_DetailView">
-      <Items>
-        <ControlViewItem Id="EmployeesLayoutView" ControlTypeName="OutlookInspired.Win.Features.Employees.EmployeesLayoutView" />
-      </Items>
-    </DetailView>
     <DashboardView Id="EmployeeListView">
       <Layout>
         <LayoutGroup Id="Main" TextAlignMode="AlignWithChildren">
@@ -325,9 +298,6 @@
               <LayoutItem Id="Comments1" Removed="True" />
             </LayoutGroup>
           </TabbedGroup>
-          <LayoutGroup Id="OrderItems_Group" Caption="Order Items" Index="1" RelativeSize="65.20423600605143" Removed="True">
-            <LayoutItem Id="OrderItems" Removed="True" />
-          </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
@@ -342,7 +312,6 @@
       <Items>
         <PropertyEditor Id="Customer" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
         <PropertyEditor Id="InvoiceNumber" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
-        <ControlViewItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
       </Items>
     </DetailView>
     <DetailView Id="Order_Invoice_DetailView">
@@ -359,11 +328,6 @@
         <ColumnInfo Id="ShipmentStatus" ImageEditorFixedWidth="30" />
       </Columns>
     </ListView>
-    <DetailView Id="OrderGridView_DetailView">
-      <Items>
-        <ControlViewItem Id="OrderGridView" ControlTypeName="OutlookInspired.Win.Features.Orders.OrderGridView" />
-      </Items>
-    </DetailView>
     <DetailView Id="Product_Brochure_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
@@ -377,13 +341,11 @@
     <DetailView Id="Product_DetailView_Maps">
       <Items>
         <PropertyEditor Id="Description" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
-        <ControlViewItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
         <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors" TextAlignMode="AlignWithChildren">
-            <LayoutItem Id="MapsControl" RelativeSize="62.83634061411839" />
             <LayoutGroup Id="Autod57882cd-856e-4ea1-b705-4f3947c6cd3a" TextAlignMode="AlignWithChildren" RelativeSize="37.16365938588161">
               <LayoutGroup Id="Auto7232bb75-2212-4025-846c-d1f63f07de17" Caption="Auto7232bb75-2212-4025-846c-d1f63f07de17(5)" TextAlignMode="AlignWithChildren" RelativeSize="9.204840103716508">
                 <LayoutItem Id="Image" RelativeSize="21.039182282793867" />
@@ -399,11 +361,6 @@
       </Layout>
     </DetailView>
     <ListView Id="Product_ListView" ShowFindPanel="True" />
-    <DetailView Id="Quote_DetailView_Maps">
-      <Items>
-        <ControlViewItem Id="MapsControl" ControlTypeName="DevExpress.XtraMap.MapControl" />
-      </Items>
-    </DetailView>
     <ListView Id="Quote_ListView" EditorTypeName="DevExpress.ExpressApp.PivotGrid.Win.PivotGridListEditor" DataAccessMode="DataView">
       <Columns>
         <ColumnInfo Id="Opportunity" Width="127" />

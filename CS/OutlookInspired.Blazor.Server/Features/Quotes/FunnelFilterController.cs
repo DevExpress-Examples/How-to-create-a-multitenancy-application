@@ -10,8 +10,8 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes{
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
-            View.MasterItem().ControlCreated+=MasterDashboardViewItemOnControlCreated;
-            View.ChildItem().ControlCreated += ChildDashboardViewItemOnControlCreated;
+            // View.MasterItem().ControlCreated+=MasterDashboardViewItemOnControlCreated;
+            // View.ChildItem().ControlCreated += ChildDashboardViewItemOnControlCreated;
         }
 
         private void ChildDashboardViewItemOnControlCreated(object sender, EventArgs e){
@@ -31,7 +31,7 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes{
         private void MasterDashboardViewItemOnControlCreated(object sender, EventArgs e){
             var dashboardViewItem = ((DashboardViewItem)sender);
             dashboardViewItem.ControlCreated-=MasterDashboardViewItemOnControlCreated;
-            dashboardViewItem.Frame.View.ToDetailView().GetItems<ControlViewItem>().First().ControlCreated+=OnMasterControlCreated;
+            // dashboardViewItem.Frame.View.ToDetailView().GetItems<ControlViewItem>().First().ControlCreated+=OnMasterControlCreated;
         }
 
         private void OnMasterControlCreated(object sender, EventArgs e){

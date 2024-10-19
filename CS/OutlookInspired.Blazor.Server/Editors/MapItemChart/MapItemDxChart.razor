@@ -1,11 +1,12 @@
-﻿@using System.Linq.Expressions
+﻿@using System.Drawing
+@using System.Linq.Expressions
 @using OutlookInspired.Module.BusinessObjects
 @using OutlookInspired.Module.Services.Internal
 
 
-<DxChart Data="@Data" Width="100%" Rotated="true" Height="@Height" CustomizeSeriesPoint="CustomizeSeriesPoint">
+<DxChart @ref="Chart"  Data="@Data" Width="100%" Rotated="true" Height="@Height" CustomizeSeriesPoint="CustomizeSeriesPoint">
     <DxChartCommonSeries ArgumentField="@ArgumentField" ValueField="@ValueField"
-                         SeriesType="ChartSeriesType.Bar" SummaryMethod="@(values => values.DynamicSum())" NameField="@NameField" />
+                         SeriesType="ChartSeriesType.Bar" SummaryMethod="@SummaryMethod" NameField="@NameField" />
     <DxChartLegend Visible="false" />
     <DxChartTooltip Enabled="true" Position="RelativePosition.Outside">
         <div style="background-color: #505050;color: white">
@@ -14,12 +15,27 @@
     </DxChartTooltip>
 </DxChart>
 @code {
-    [Parameter] public IEnumerable<MapItem> Data { get; set; }
-    [Parameter] public Expression<Func<MapItem, string>> ArgumentField { get; set; }
-    [Parameter] public Expression<Func<MapItem, decimal>> ValueField { get; set; }
-    [Parameter] public Expression<Func<MapItem, string>> NameField { get; set; }
+    [Parameter][EditorRequired] 
+    public IEnumerable<IMapItem> Data { get; set; }
+    [Parameter][EditorRequired] 
+    public Expression<Func<IMapItem, string>> ArgumentField { get; set; }
+    [Parameter][EditorRequired] 
+    public Expression<Func<IMapItem, decimal>> ValueField { get; set; }
+    [Parameter][EditorRequired] 
+    public Expression<Func<IMapItem, string>> NameField { get; set; }
+    [Parameter][EditorRequired] 
+    public Func<IEnumerable<decimal>, decimal> SummaryMethod { get; set; }
     [Parameter] public string Height { get; set; } = "70vh";
 
-    private static void CustomizeSeriesPoint(ChartSeriesPointCustomizationSettings obj)
-        => obj.PointAppearance.Color = obj.Point.DataItems.Cast<MapItem>().First().Color.ColorFromHex();
+    
+    public DxChart Chart;
+    protected override void OnAfterRender(bool firstRender){
+        base.OnAfterRender(firstRender);
+        Chart.RefreshData();
+    }
+
+    private static void CustomizeSeriesPoint(ChartSeriesPointCustomizationSettings obj){
+        obj.PointAppearance.Color = ColorTranslator.FromHtml(obj.Point.DataItems.Cast<IMapItem>().First().Color);
+    }
+
 }

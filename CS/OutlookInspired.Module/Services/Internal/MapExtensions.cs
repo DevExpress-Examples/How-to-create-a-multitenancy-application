@@ -10,6 +10,7 @@ namespace OutlookInspired.Module.Services.Internal{
         public static string[] Palette(this MapItem[] mapItems,Type objectType) 
             => mapItems.Select(item => item.PropertyValue(objectType)).Distinct().Count().DistinctColors().ToArray();
 
+        [Obsolete]
         public static double[] Bounds<TMapItem>(this TMapItem[] mapItems) where TMapItem:IMapItem
             => !mapItems.Any() ? UsaBounds : 
                 (mapItems.Min(item => item.Longitude) - (mapItems.Max(item => item.Longitude) - mapItems.Min(item => item.Longitude)) * 0.1).YieldItem()

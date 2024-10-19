@@ -21,7 +21,7 @@ public class RouteMapsViewController:ObjectViewController<DetailView,IRouteMapsM
     protected override void OnActivated(){
         base.OnActivated();
         
-        View.CustomizeViewItemControl<MapControlPropertyEditor>(this, editor => {
+        View.CustomizeViewItemControl<MapControlHomeOfficePropertyEditor>(this, editor => {
             var bingKey = Application.ServiceProvider.GetService<IMapApiKeyProvider>().Key;
             _routeDataProvider = new BingRouteDataProvider(){ BingKey = bingKey,RouteOptions = { DistanceUnit = DistanceMeasureUnit.Mile} };
             _routeDataProvider.RouteCalculated+=OnRouteCalculated;
@@ -63,21 +63,21 @@ public class RouteMapsViewController:ObjectViewController<DetailView,IRouteMapsM
     }
 
     private void OnRouteCalculated(object sender, BingRouteCalculatedEventArgs e){
-        if(e.Error != null || e.Cancelled || e.CalculationResult is not{ ResultCode: RequestResultCode.Success })
-            return;
-        var bingRouteResult = e.CalculationResult.RouteResults.First();
-        var args = new RouteCalculatedArgs(bingRouteResult.Legs.SelectMany(leg => leg.Itinerary)
-            .Select(item => {
-                var point = ObjectSpace.CreateObject<RoutePoint>();
-                point.ManeuverInstruction = _removeTagRegex.Replace(item.ManeuverInstruction, string.Empty);
-                point.Distance = (item.Distance > 0.9) ? $"{Math.Ceiling(item.Distance):0} mi"
-                    : $"{Math.Ceiling(item.Distance * 52.8) * 100:0} ft";
-                point.Maneuver = (Module.BusinessObjects.BingManeuverType)item.Maneuver;
-                return point;
-            }).ToArray(),bingRouteResult.Distance,bingRouteResult.Time,(TravelMode)_routeDataProvider.RouteOptions.Mode);
-        OnRouteCalculated(args);
-        var mapsMarker = ((IMapsMarker)View.CurrentObject);
-        _mapControl.Zoom().To((GeoPoint)_mapControl.CenterPoint, new GeoPoint(mapsMarker.Latitude,mapsMarker.Longitude));
+        // if(e.Error != null || e.Cancelled || e.CalculationResult is not{ ResultCode: RequestResultCode.Success })
+        //     return;
+        // var bingRouteResult = e.CalculationResult.RouteResults.First();
+        // var args = new RouteCalculatedArgs(bingRouteResult.Legs.SelectMany(leg => leg.Itinerary)
+        //     .Select(item => {
+        //         var point = ObjectSpace.CreateObject<RoutePoint>();
+        //         point.ManeuverInstruction = _removeTagRegex.Replace(item.ManeuverInstruction, string.Empty);
+        //         point.Distance = (item.Distance > 0.9) ? $"{Math.Ceiling(item.Distance):0} mi"
+        //             : $"{Math.Ceiling(item.Distance * 52.8) * 100:0} ft";
+        //         point.Maneuver = (Module.BusinessObjects.BingManeuverType)item.Maneuver;
+        //         return point;
+        //     }).ToArray(),bingRouteResult.Distance,bingRouteResult.Time,(TravelMode)_routeDataProvider.RouteOptions.Mode);
+        // OnRouteCalculated(args);
+        // var mapsMarker = ((IMapsMarker)View.CurrentObject);
+        // _mapControl.Zoom().To((GeoPoint)_mapControl.CenterPoint, new GeoPoint(mapsMarker.Latitude,mapsMarker.Longitude));
     }
 
     protected virtual void OnRouteCalculated(RouteCalculatedArgs e) => RouteCalculated?.Invoke(this, e);

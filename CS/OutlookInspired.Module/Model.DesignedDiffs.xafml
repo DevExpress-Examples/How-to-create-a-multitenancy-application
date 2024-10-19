@@ -23,7 +23,7 @@
       </Item>
       <Item Id="Default">
         <Items>
-          <Item Id="Welcome_DetailView" Index="0" ImageName="About" />
+          <Item Id="Welcome_DetailView" Index="0" ImageName="About" ObjectKey="{8B8DF685-AD96-4BE9-A08A-8DD8C2A9F4C2}" />
           <Item Id="EmployeeListView" Index="1" ImageName="BO_Employee" />
           <Item Id="Evaluation_ListView" Index="2" ImageName="EvaluationYes" />
           <Item Id="CustomerListView" Index="3" ImageName="BO_Customer" />

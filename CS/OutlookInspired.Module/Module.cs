@@ -17,6 +17,7 @@ using OutlookInspired.Module.Features.ViewFilter;
 using OutlookInspired.Module.ModelUpdaters;
 using OutlookInspired.Module.Services.Internal;
 using ReportController = OutlookInspired.Module.Features.Customers.ReportController;
+using OutlookInspired.Module.BusinessObjects;
 
 
 [assembly:InternalsVisibleTo("OutlookInspired.Win")]
@@ -52,6 +53,7 @@ public sealed class OutlookInspiredModule : ModuleBase{
     protected override IEnumerable<Type> GetDeclaredControllerTypes() 
 	    =>[typeof(MailMergeController),typeof(ReportController),typeof(QuoteMapItemController),typeof(HideToolBarController),
 		    typeof(CommunicationController),typeof(WelcomeController),
+		    typeof(CommunicationController),typeof(RoutePointController),
 		    typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.ReportController),typeof(ShipmentDetailController),
 		    typeof(Features.Products.ReportController),typeof(MapOrderController), typeof(MasterDetailController),typeof(ViewFilterController),
 		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController)
@@ -61,16 +63,24 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	    base.Setup(application);
 	    application.ObjectSpaceCreated += Application_ObjectSpaceCreated;
     }
-    
-    private void Application_ObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e){
-	    if (e.ObjectSpace is not CompositeObjectSpace{ Owner: not CompositeObjectSpace } compositeObjectSpace) return;
-	    compositeObjectSpace.PopulateAdditionalObjectSpaces((XafApplication)sender);
-    }
+
+	private void Application_ObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e) {
+		if(e.ObjectSpace is NonPersistentObjectSpace nonPersistentObjectSpace) {
+            nonPersistentObjectSpace.ObjectByKeyGetting += nonPersistentObjectSpace_ObjectByKeyGetting;
+        }
+		if (e.ObjectSpace is not CompositeObjectSpace { Owner: not CompositeObjectSpace } compositeObjectSpace) return;
+		compositeObjectSpace.PopulateAdditionalObjectSpaces((XafApplication)sender);
+	}
 
     
     public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
 	    base.AddGeneratorUpdaters(updaters);
 	    updaters.Add(new CloneViewUpdater(),  new DataAccessModeUpdater(),new NavigationItemsModelUpdater(),new DashboardViewsModelUpdater());
+    }
+
+    private void nonPersistentObjectSpace_ObjectByKeyGetting(object sender, ObjectByKeyGettingEventArgs e) {
+        if (!e.ObjectType.IsAssignableFrom(typeof(Welcome))) return;
+        e.Object = ((IObjectSpace)sender).CreateObject<Welcome>();
     }
 }
 

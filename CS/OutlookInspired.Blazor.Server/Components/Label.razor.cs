@@ -1,5 +1,10 @@
 ﻿namespace OutlookInspired.Blazor.Server.Components{
-    public class LabelModel : DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase{
+    public interface ILabelModel{
+        string Text{ get; set; }
+        string Style{ get; set; }
+    }
+
+    public class LabelModel : DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase, ILabelModel{
         public string Text{
             get => GetPropertyValue<string>();
             set => SetPropertyValue(value);

@@ -1,0 +1,44 @@
+﻿@using System.Linq.Expressions
+@implements IDxChartModel
+
+<DxPieChart Data="@Data" @ref="@Chart"
+            Diameter="1" InnerDiameter="0.5" StartAngle="0" SegmentDirection="PieChartSegmentDirection.Clockwise" CustomizeSeriesPoint="CustomizeSeriesPoint">
+    <DxPieChartSeries ValueField="@ValueField" ArgumentField="@ArgumentField" SummaryMethod="@SummaryMethod">
+        <DxChartSeriesLabel Visible="true" Position="RelativePosition.Outside" ValueFormat="ChartElementFormat.Thousands(1)">
+            <DxChartSeriesLabelConnector Visible="true" />
+        </DxChartSeriesLabel>
+    </DxPieChartSeries>
+    <DxChartTooltip Enabled="true" Position="RelativePosition.Outside">
+        <div style="margin: 0.75rem">
+            <div class="fw-bold">@context.Point.Argument</div>
+            <div>Sales: @($"${context.Point.Value:#,0.}")</div>
+        </div>
+    </DxChartTooltip>
+    <DxChartLegend HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalEdge.Bottom"
+                   Position="RelativePosition.Outside" Orientation="Orientation.Horizontal" />
+</DxPieChart>
+@code {
+    [Parameter][EditorRequired] 
+    public IEnumerable<object> Data { get; set; }
+    
+    [Parameter][EditorRequired] 
+    public Expression<Func<object, string>> ArgumentField { get; set; }
+    [Parameter][EditorRequired] 
+    public Expression<Func<object, decimal>> ValueField { get; set; }
+    [Parameter][EditorRequired] 
+    public Expression<Func<object, string>> NameField { get; set; }
+    [Parameter][EditorRequired] 
+    public Func<IEnumerable<decimal>, decimal> SummaryMethod { get; set; }
+    [Parameter][EditorRequired] 
+    public Action<ChartSeriesPointCustomizationSettings> CustomizeSeriesPoint { get; set; }
+    [Parameter] public string Height { get; set; } = "70vh";
+
+    
+    public DxPieChart<object> Chart;
+    protected override void OnAfterRender(bool firstRender){
+        base.OnAfterRender(firstRender);
+        Chart.RefreshData();
+    }
+    
+    ChartSeriesType IDxChartModel.SeriesType{ get; set; }
+}

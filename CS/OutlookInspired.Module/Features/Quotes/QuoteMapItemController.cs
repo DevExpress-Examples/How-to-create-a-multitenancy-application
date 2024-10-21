@@ -3,6 +3,7 @@ using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Features.Quotes{
+    [Obsolete]
     public class QuoteMapItemController:ViewController<DashboardView>{
         public QuoteMapItemController() => TargetViewId = "Opportunities";
         
@@ -14,11 +15,11 @@ namespace OutlookInspired.Module.Features.Quotes{
         }
 
         private void Application_ObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e){
-            if (e.ObjectSpace is not NonPersistentObjectSpace objectSpace) return;
-            objectSpace.ObjectsGetting+= (o, args) => {
-                if (args.ObjectType != typeof(QuoteMapItem)) return;
-                args.Objects = ((NonPersistentObjectSpace)o)!.Opportunities(args.Criteria?.ToString()).ToBindingList();
-            };
+            // if (e.ObjectSpace is not NonPersistentObjectSpace objectSpace) return;
+            // objectSpace.ObjectsGetting+= (o, args) => {
+            //     if (args.ObjectType != typeof(QuoteMapItem)) return;
+            //     args.Objects = ((NonPersistentObjectSpace)o)!.Opportunities(args.Criteria?.ToString()).ToBindingList();
+            // };
         }
 
     }

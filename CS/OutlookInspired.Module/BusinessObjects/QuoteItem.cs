@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using DevExpress.Persistent.Base;
+using OutlookInspired.Module.Features.CloneView;
 
 
 namespace OutlookInspired.Module.BusinessObjects{
     [ImageName("Shopping_Sales")]
+    // [CloneView(CloneViewType.ListView, MapsListView)]
     public class QuoteItem :OutlookInspiredBaseObject{
+        // public const string MapsListView = "QuoteItem_ListView_Maps";
         public virtual Quote Quote { get; set; }
         [Browsable(false)]
         public virtual Guid? QuoteID { get; set; }

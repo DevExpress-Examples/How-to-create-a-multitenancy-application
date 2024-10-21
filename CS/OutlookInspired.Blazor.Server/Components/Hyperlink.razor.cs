@@ -1,5 +1,11 @@
 ﻿namespace OutlookInspired.Blazor.Server.Components {
-    public class HyperlinkModel : DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase {
+    public interface IHyperlinkModel{
+        string Text{ get; set; }
+        string Style{ get; set; }
+        string Href{ get; set; }
+    }
+
+    public class HyperlinkModel : DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase, IHyperlinkModel{
         public string Text {
             get => GetPropertyValue<string>();
             set => SetPropertyValue(value);

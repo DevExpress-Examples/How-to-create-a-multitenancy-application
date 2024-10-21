@@ -6,6 +6,7 @@ using MapItem = OutlookInspired.Module.BusinessObjects.MapItem;
 
 namespace OutlookInspired.Blazor.Server.Features.Maps.Sales{
     public class MapItemListEditorController:ObjectViewController<ListView,MapItem>{
+        
         private MapItemListEditor _mapItemListEditor;
 
         protected override void OnActivated(){
@@ -25,7 +26,7 @@ namespace OutlookInspired.Blazor.Server.Features.Maps.Sales{
         }
 
         private void MapItemListEditorOnCustomizeLayers(object sender, CustomizeLayersArgs e){
-            var groupedMapItems = e.MapItems.Cast<MapItem>()
+            var mapItems = e.MapItems.Cast<MapItem>()
                 .GroupBy(item => new { item.City, itemName=IsCustomer?item.ProductName:item.CustomerName })
                 .Select(items => new MapItem{
                     City = items.Key.City,
@@ -35,11 +36,14 @@ namespace OutlookInspired.Blazor.Server.Features.Maps.Sales{
                     ProductName = IsCustomer?items.Key.itemName:null,
                     CustomerName = !IsCustomer?items.Key.itemName:null
                 }).Cast<IMapItem>().ToArray();
-            var pieLayer = new PieLayer{
-                DataSource = _mapItemListEditor.CreateFeatureCollection(groupedMapItems),
-                Palette =_mapItemListEditor.CreatePalette(e.MapItems.Cast<MapItem>().Select(item =>IsCustomer?item.ProductName: item.CustomerName)).Values.ToArray() 
+            
+            var dataSource = MapItemListEditor.CreateFeatureCollection(mapItems, items => items.Select(item => item.Total).ToList());
+            var pieLayer = new PieLayer{ DataSource = dataSource,
+                Palette =_mapItemListEditor.CreatePalette(dataSource.Features.Select(feature => feature.Properties.City)).Values.ToArray() 
             };
-            e.Layers.AddRange([new PredefinedLayer(){DataSource ="usa" },pieLayer]);
+            var predefinedLayer = new PredefinedLayer(){DataSource ="usa" };
+            e.Layers.AddRange([predefinedLayer,pieLayer]);
+            _mapItemListEditor.Control.Bounds= MapItemListEditor.GetBounds(mapItems,predefinedLayer.Bounds());
         }
         
     }

@@ -66,6 +66,7 @@ namespace OutlookInspired.Module.Services.Internal{
         public static CustomerStore[] Stores(this IObjectSpace objectSpace, Stage stage) 
             => objectSpace.Quotes(stage).Select(quote => quote.CustomerStore).Distinct().ToArray();
 
+        [Obsolete]
         public static QuoteMapItem[] Opportunities(this IObjectSpace objectSpace, Stage stage,string criteria=null)
             => objectSpace.Quotes(stage,criteria).ToArray().Select(quote => {
                 var mapItem = objectSpace.CreateObject<QuoteMapItem>();
@@ -83,9 +84,10 @@ namespace OutlookInspired.Module.Services.Internal{
                     Value = ((IQueryable<Quote>)objectSpace.YieldAll().OfType<EFCoreObjectSpace>().First().Query(typeof(Quote), criteria))
                         .Where(stage1).TotalSum(q => q.Total) }).Do((item, i) => item.ID=i);
 
-        private static IQueryable<Quote> Quotes(this IObjectSpace objectSpace, Stage stage,string criteria=null) 
+        public static IQueryable<Quote> Quotes(this IObjectSpace objectSpace, Stage stage,string criteria=null) 
             => ((IQueryable<Quote>)((EFCoreObjectSpace)objectSpace).Query(typeof(Quote), criteria)).Where(stage);
 
+        [Obsolete]
         public static decimal TotalSum<T>(this IEnumerable<T> query, Expression<Func<T, decimal>> selector){
             var source = query.AsQueryable().Select(selector);
             return !source.Any() ? 0M : source.AsEnumerable().Sum();

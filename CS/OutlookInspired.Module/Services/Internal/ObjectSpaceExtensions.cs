@@ -55,6 +55,7 @@ namespace OutlookInspired.Module.Services.Internal{
                     objectSpace.ParseCriteria(criteria)) : queryable;
         }
         
+        [Obsolete]
         public static IEnumerable<IObjectSpace> YieldAll(this IObjectSpace objectSpace)
             => objectSpace is not CompositeObjectSpace compositeObjectSpace ? objectSpace.YieldItem()
                 : objectSpace.YieldItem().Concat(compositeObjectSpace.AdditionalObjectSpaces);

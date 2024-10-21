@@ -2,7 +2,9 @@
 using OutlookInspired.Blazor.Server.Components.DevExtreme.Maps;
 
 namespace OutlookInspired.Blazor.Server.Editors.Maps{
+
     public class DevExtremeVectorMapModel:DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase{
+        
         public override Type ComponentType => typeof(DevExtremeMap);
 
         public IEnumerable<BaseLayer> Layers{
@@ -22,6 +24,9 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
             set => SetPropertyValue(value);
         }
 
-        
+        public List<Annotation> Annotations{
+            get => GetPropertyValue<List<Annotation>>();
+            set => SetPropertyValue(value);
+        }
     }
 }

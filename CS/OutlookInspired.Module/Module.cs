@@ -53,7 +53,7 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	    =>[typeof(MailMergeController),typeof(ReportController),typeof(QuoteMapItemController),typeof(HideToolBarController),
 		    typeof(CommunicationController),typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.ReportController),typeof(ShipmentDetailController),
 		    typeof(Features.Products.ReportController),typeof(MapOrderController), typeof(MasterDetailController),typeof(ViewFilterController),
-		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController)
+		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController),typeof(MapOpportunitiesController)
 	    ];
 
     public override void Setup(XafApplication application) {
@@ -64,19 +64,40 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	private void Application_ObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e) {
 		if(e.ObjectSpace is NonPersistentObjectSpace nonPersistentObjectSpace) {
             nonPersistentObjectSpace.ObjectByKeyGetting += nonPersistentObjectSpace_ObjectByKeyGetting;
+            nonPersistentObjectSpace.ObjectsGetting+=NonPersistentObjectSpaceOnObjectsGetting;
         }
 		if (e.ObjectSpace is not CompositeObjectSpace { Owner: not CompositeObjectSpace } compositeObjectSpace) return;
 		compositeObjectSpace.PopulateAdditionalObjectSpaces((XafApplication)sender);
 	}
 
-    
-    public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
+	[Obsolete]
+	private void NonPersistentObjectSpaceOnObjectsGetting(object sender, ObjectsGettingEventArgs e) {
+		// if (e.ObjectType == typeof(QuoteMapItem)){
+		// 	e.Objects=Enum.GetValues<Stage>().Where(stage1 => stage1!=Stage.Summary)
+		// 		.SelectMany(stage => NewQuoteMapItem(stage, (IObjectSpace)sender, Opportunity.Map.GetValueOrDefault(stage, (0.0, 0.12))))
+		// 		.ToArray()
+		// 		;
+		// }
+		//  if (e.ObjectType == typeof(Opportunity)){
+		// 	e.Objects = Enum.GetValues<Stage>().Where(stage1 => stage1!=Stage.Summary)
+		// 		.Select(stage => NewOpportunity(stage, (IObjectSpace)sender, Map.GetValueOrDefault(stage, (0.0, 0.12))))
+		// 		.Select((item, i) => {
+		// 			item.ID = i;
+		// 			return item;
+		// 		}).ToList();
+		// }
+	}
+
+
+
+
+	public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
 	    base.AddGeneratorUpdaters(updaters);
 	    updaters.Add(new CloneViewUpdater(),  new DataAccessModeUpdater(),new NavigationItemsModelUpdater(),new DashboardViewsModelUpdater());
     }
 
     private void nonPersistentObjectSpace_ObjectByKeyGetting(object sender, ObjectByKeyGettingEventArgs e) {
-        if (!e.ObjectType.IsAssignableFrom(typeof(Welcome))) return;
+        if (e.ObjectType!=typeof(Welcome)) return;
         e.Object = ((IObjectSpace)sender).CreateObject<Welcome>();
     }
 }

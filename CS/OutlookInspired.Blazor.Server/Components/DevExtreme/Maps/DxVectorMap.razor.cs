@@ -43,23 +43,30 @@ namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps{
     
     public class PredefinedLayer:BaseLayer{
         public bool HoverEnabled{ get; set; }
+
         
+        public double[] Bounds(){
+            switch (DataSource){
+                case "usa":
+                    return[-124.566244, 49.384358, -66.934570, 24.396308];
+                
+            }
+
+            throw new InvalidOperationException(DataSource.ToString());
+        }
     }
 
-    public interface IPaletteLayer{
-        string[] Palette{ get; set; }
-    }
 
     public interface INamedLayer{
         string Name{ get; set; }
     }
 
-    public class BubbleLayer:BaseLayer, IPaletteLayer, INamedLayer{
+    public class BubbleLayer:BaseLayer, INamedLayer{
         public string SelectionMode{ get; set; } = "single";
         public string Name{ get; set; } = "bubbles";
         public string ElementType{ get; } = "bubble";
         public string DataField{ get; set; } = nameof(Properties.Values).FirstCharacterToLower();
-        public string[] Palette{ get; set; }
+        public string Color{ get; set; }
         public int MinSize{ get; init; } = 20;
         public int MaxSize{ get; init; } = 40;
         public double Opacity{ get; init; } = 0.8;
@@ -73,7 +80,7 @@ namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps{
         public object Data{ get; set; }
     }
     
-    public class PieLayer:BaseLayer, IPaletteLayer, INamedLayer{
+    public class PieLayer:BaseLayer, INamedLayer{
         public string SelectionMode{ get; set; }= "single";
         public string Name{ get; set; } = "pies";
         public string ElementType{ get; } = "pie"; 

@@ -29,8 +29,8 @@ public sealed class OutlookInspiredBlazorModule : ModuleBase {
             typeof(BlazorMapsViewController),typeof(PaletteController),
             typeof(PopupWindowSizeController),typeof(ViewFilterController),typeof(MapsSalesPeriodViewController),
             typeof(FunnelFilterController),typeof(WelcomeController), typeof(DisableInlineRowActionController),
-            typeof(MapItemDxChartListEditorController),typeof(MapItemListEditorController),typeof(QuoteMapItemListEditorController),
-            typeof(QuotePivotGridListEditorController)
+            typeof(SalesMapItemDxChartListEditorController),typeof(MapItemListEditorController),typeof(QuoteMapItemListViewController),
+            typeof(QuoteListViewController),typeof(OpportunitiesListViewController)
         ];
 
     public override void Setup(XafApplication application) {

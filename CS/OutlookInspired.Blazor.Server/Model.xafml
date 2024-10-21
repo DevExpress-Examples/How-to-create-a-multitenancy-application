@@ -25,8 +25,10 @@
     <SchemaModule Name="SystemModule" Version="24.2.1.0" IsNewNode="True" />
   </SchemaModules>
   <Views DefaultListEditor="DevExpress.ExpressApp.Blazor.Editors.DxGridListEditor">
+    <ListView Id="Customer_CitySales_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Charts.DxChartListEditor" />
     <DetailView Id="Customer_DetailView_Child">
       <Items>
+        <ControlDetailItem Id="CustomerStore" ControlTypeName="OutlookInspired.Blazor.Server.Features.Customers.Stores.Model" IsNewNode="True" />
         <PropertyEditor Id="HomeOfficeLine" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
         <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
       </Items>
@@ -383,24 +385,8 @@
       </Layout>
     </DetailView>
     <ListView Id="Evaluation_ListView" SchedulerViewType="Month" SelectedIntervalEnd="2019-12-31" SelectedIntervalStart="2019-12-01" ResourceClass="OutlookInspired.Module.BusinessObjects.Employee" />
-    <DashboardView Id="Opportunities" MasterDetail="False" HideToolBar="True">
-      <Items>
-        <DashboardViewItem Id="Quote_ListView" ViewId="Quote_ListView" />
-        <DashboardViewItem Id="QuoteMapItem_ListView" ViewId="QuoteMapItem_ListView" />
-      </Items>
-      <Layout>
-        <LayoutGroup Id="Main" Caption="Main">
-          <LayoutGroup Id="Auto67f2f388-f812-49a1-afec-7535c1484e94" ShowCaption="False" Caption="Auto67f2f388-f812-49a1-afec-7535c1484e94(2)" Index="0" RelativeSize="49.90746452806909" IsNewNode="True">
-            <LayoutItem Id="Quote_ListView" ViewItem="Quote_ListView" Index="0" RelativeSize="100" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="Auto29c30a3b-4f0a-47ae-982d-0952afc3a504" ShowCaption="False" Caption="Auto29c30a3b-4f0a-47ae-982d-0952afc3a504(5)" Index="1" RelativeSize="50.09253547193091" IsNewNode="True">
-            <LayoutItem Id="QuoteMapItem_ListView" ViewItem="QuoteMapItem_ListView" Index="0" RelativeSize="100" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutItem Id="Quote_ListView" Removed="True" />
-          <LayoutItem Id="QuoteMapItem_ListView" RelativeSize="50.02712967986978" Removed="True" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
+    <DashboardView Id="Opportunities" MasterDetail="False" HideToolBar="False" />
+    <ListView Id="Opportunity_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Charts.DxChartPieListEditor" />
     <DetailView Id="Order_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
@@ -562,6 +548,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="Product_CitySales_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Charts.DxChartListEditor" />
     <DetailView Id="Product_DetailView">
       <Items>
         <PropertyEditor Id="Image" ImageSizeMode="AutoSize" />
@@ -690,6 +677,7 @@
       </Layout>
     </DetailView>
     <ListView Id="Quote_ListView" DataAccessMode="Client" HideToolBar="False" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Pivot.PivotGridListEditor" />
+    <ListView Id="QuoteMapItem_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Maps.MapItemListEditor" />
     <ListView Id="ViewFilter_ListView" AllowEdit="False">
       <Columns>
         <ColumnInfo Id="Name" AllowEdit="True" />

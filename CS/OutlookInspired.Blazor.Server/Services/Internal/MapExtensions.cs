@@ -22,10 +22,11 @@ namespace OutlookInspired.Blazor.Server.Services.Internal{
             => new FeatureCollection{ Features = mapItems.Features(valuesSelector) };
 
         public static VectorMapOptions VectorMapOptions<TMapItem, TLayer>(this TMapItem[] mapItems,
-            string[] palette,Func<IGrouping<string,IMapItem>,List<decimal>> valuesSelector) where TMapItem : IMapItem where TLayer : BaseLayer,IPaletteLayer,INamedLayer, new() 
+            string[] palette,Func<IGrouping<string,IMapItem>,List<decimal>> valuesSelector) where TMapItem : IMapItem where TLayer : BaseLayer,INamedLayer, new() 
             => new(){
                 Layers = {new TLayer(){
-                    DataSource = mapItems.Cast<IMapItem>().ToArray().FeatureCollection(valuesSelector), Palette =palette
+                    // DataSource = mapItems.Cast<IMapItem>().ToArray().FeatureCollection(valuesSelector)
+                    // , Color =palette
                 }},
                 Bounds =mapItems.Bounds(),Tooltip = {Enabled = true,ZIndex = 10000},
                 Attributes=new[]{nameof(IMapItem.City).FirstCharacterToLower()}

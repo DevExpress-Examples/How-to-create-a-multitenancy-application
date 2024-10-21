@@ -21,7 +21,7 @@
                 .ToDictionary(prop => prop.Name.FirstCharacterToLower(), prop => prop.GetValue(layer)));
             var customAttributes = CustomAttributes.Select(s => s.FirstCharacterToLower()).ToArray();
             _map = await _mapModule.InvokeAsync<IJSObjectReference>("addMapToElement", _mapElement,layers,
-                Bounds,customAttributes,  _dotNetHelper);
+                Bounds,customAttributes,Annotations,  _dotNetHelper);
         }
     }
 
@@ -33,14 +33,12 @@
     public string[] CustomAttributes{ get; set; }
     [Parameter]
     public EventCallback<string[]> SelectionChanged { get; set; }
+    [Parameter]
+    public List<Annotation> Annotations { get; set; }
     
-    // protected override bool ShouldRender() => true;
     public void Refresh(){
-        Console.WriteLine();
         _mapModule.InvokeVoidAsync("dispose", _mapElement);
         _map = null;
-        // await _mapModule.InvokeVoidAsync("refresh", _mapElement);
-        // StateHasChanged();
     }
 
     [JSInvokable]
@@ -48,10 +46,6 @@
         => await SelectionChanged.InvokeAsync(keys);
     
     public async ValueTask DisposeAsync(){
-        try{
-            // if (_mapModule is not null) await _mapModule.InvokeVoidAsync("dispose", _mapElement);
-        }
-        catch (Exception exception) when (exception is JSException or JSDisconnectedException or OperationCanceledException) { }
         if (_map is not null) await _map.DisposeAsync();
         if (_mapModule is not null) await _mapModule.DisposeAsync();
         _dotNetHelper?.Dispose();

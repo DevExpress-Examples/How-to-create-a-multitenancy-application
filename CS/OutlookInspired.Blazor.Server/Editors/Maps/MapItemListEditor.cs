@@ -10,12 +10,13 @@ using Microsoft.AspNetCore.Components;
 using OutlookInspired.Blazor.Server.Components.DevExtreme.Maps;
 using OutlookInspired.Blazor.Server.Services;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server.Editors.Maps{
     [ListEditor(typeof(IMapItem),true)]
     public class MapItemListEditor(IModelListView model)
         : ListEditor(model), IComplexListEditor, IComponentContentHolder{
+        
+        
         public event EventHandler<CustomizeLayersArgs> CustomizeLayers; 
         private RenderFragment _componentContent;
         private DevExtremeMap _mapInstance;
@@ -34,7 +35,6 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
                 newBindingList.ListChanged += BindingList_ListChanged;
             }
         }
-
         
         IEnumerable<string> GenerateAppColors(int count) {
             var appColors = ServiceProvider.GetRequiredService<IColorService>().AppColors;
@@ -52,29 +52,11 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
             var e = new CustomizeLayersArgs(mapItems);
             OnCustomizeLayers(e);
             Control.Layers =e.Layers;
-            Control.Bounds = mapItems.Bounds();
             Control.CustomAttributes = [nameof(IMapItem.City)];
             Control.SelectionChanged = EventCallback.Factory.Create<string[]>(this, items => {
                 _selectedItems =mapItems.Where(item => items.Contains(item.City)).ToList();
                 OnSelectionChanged();
             });
-        }
-
-        public FeatureCollection CreateFeatureCollection(IMapItem[] groupedMapItems) 
-            => new(){ Features = groupedMapItems.GroupBy(item => item.City)
-                .Select(group => NewFeature(group, items => items.Select(item => item.Total).ToList())).ToList()
-            };
-
-        Feature NewFeature(IGrouping<string, IMapItem> group,Func<IGrouping<string,IMapItem>,List<decimal>> valuesSelector){
-            var mapItem = group.First();
-            return new Feature{
-                Geometry = new Geometry{ Coordinates =[mapItem.Longitude, mapItem.Latitude] },
-                Properties = new Properties{
-                    Values = valuesSelector(group),
-                    Tooltip = $"<span class='{mapItem.City}'>{mapItem.City} Total: {group.Sum(item => item.Total)}</span>",
-                    City = mapItem.City
-                }
-            };
         }
 
         protected override void OnSelectionChanged(){
@@ -88,6 +70,23 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
             if (_mapInstance == null) return;
             _collectionSource.ResetCollection();
             _mapInstance?.Refresh();
+        }
+        
+        public static FeatureCollection CreateFeatureCollection(IMapItem[] mapItems, Func<IGrouping<string,IMapItem>,List<decimal>> itemsSelector) 
+            => new(){ Features = mapItems.GroupBy(item => item.City)
+                .Select(items => NewFeature(items, itemsSelector)).ToList()
+            };
+
+        static Feature NewFeature(IGrouping<string, IMapItem> group,Func<IGrouping<string,IMapItem>,List<decimal>> valuesSelector){
+            var mapItem = group.First();
+            return new Feature{
+                Geometry = new Geometry{ Coordinates =[mapItem.Longitude, mapItem.Latitude] },
+                Properties = new Properties{
+                    Values = valuesSelector(group),
+                    Tooltip = $"<span class='{mapItem.City}'>{mapItem.City} Total: {group.Sum(item => item.Total)}</span>",
+                    City = mapItem.City
+                }
+            };
         }
 
         public new DevExtremeVectorMapModel Control => (DevExtremeVectorMapModel)base.Control;
@@ -106,7 +105,7 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
             _collectionSource=collectionSource;
         }
 
-        public void ApplyColors<TItem>(TItem[] mapItems,Func<TItem,string> propertySelector) where TItem:IMapItem{
+        public void ApplyColors<TItem>(TItem[] mapItems,Func<TItem,string> propertySelector) where TItem: class, IMapItem{
             var palette = CreatePalette(mapItems.Select(propertySelector));
             foreach (var item in mapItems){
                 item.Color = palette[propertySelector(item)];
@@ -114,6 +113,13 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
         }
 
         protected virtual void OnCustomizeLayers(CustomizeLayersArgs e) => CustomizeLayers?.Invoke(this, e);
+
+        public static double[] GetBounds<TMapItem>( TMapItem[] mapItems,double[] defaultBounds) where TMapItem:IMapItem
+            => !mapItems.Any() ? defaultBounds : 
+                new[]{(mapItems.Min(item => item.Longitude) - (mapItems.Max(item => item.Longitude) - mapItems.Min(item => item.Longitude)) * 0.1)}
+                    .Concat(new[]{mapItems.Max(item => item.Latitude) + (mapItems.Max(item => item.Latitude) - mapItems.Min(item => item.Latitude)) * 0.1}.AsEnumerable())
+                    .Concat(new[]{mapItems.Max(item => item.Longitude) + (mapItems.Max(item => item.Longitude) - mapItems.Min(item => item.Longitude)) * 0.1}.AsEnumerable())
+                    .Concat(new[]{mapItems.Min(item => item.Latitude) - (mapItems.Max(item => item.Latitude) - mapItems.Min(item => item.Latitude)) * 0.1}.AsEnumerable()).ToArray();
     }
 
     public class CustomizeLayersArgs(IMapItem[] mapItems){

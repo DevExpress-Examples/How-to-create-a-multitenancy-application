@@ -847,13 +847,19 @@
     <ListView Id="Evaluation_ListView" DataAccessMode="Client" />
     <DashboardView Id="Opportunities" Caption="Opportunities" ImageName="BO_Opportunity" IsNewNode="True">
       <Items IsNewNode="True">
+        <DashboardViewItem Id="Opportunity_ListView" ActionsToolbarVisibility="Hide" ViewId="Opportunity_ListView" IsNewNode="True" />
         <DashboardViewItem Id="Quote_ListView" ViewId="Quote_ListView" ActionsToolbarVisibility="Default" IsNewNode="True" />
-        <DashboardViewItem Id="QuoteMapItem_ListView" ViewId="QuoteMapItem_ListView" ActionsToolbarVisibility="Hide" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
-          <LayoutItem Id="Quote_ListView" ViewItem="Quote_ListView" Index="0" RelativeSize="50" IsNewNode="True" />
-          <LayoutItem Id="QuoteMapItem_ListView" ViewItem="QuoteMapItem_ListView" Index="1" RelativeSize="50" IsNewNode="True" />
+        <LayoutGroup Id="Main" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" Caption="Main" IsNewNode="True">
+          <LayoutGroup Id="Auto81410ab4-601e-4341-b37e-b0f53c99f3b9" ShowCaption="False" Caption="" Index="0" RelativeSize="49.94523548740416" IsNewNode="True">
+            <LayoutItem Id="Quote_ListView" ViewItem="Quote_ListView" Index="0" RelativeSize="49.9330655957162" IsNewNode="True" />
+            <LayoutItem Id="Item2" Index="1" RelativeSize="50.0669344042838" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="Auto129563ec-d000-49a3-bc95-d5d5a9356fc7" ShowCaption="False" Caption="" Index="1" RelativeSize="50.05476451259584" IsNewNode="True">
+            <LayoutItem Id="Opportunity_ListView" ViewItem="Opportunity_ListView" Index="0" RelativeSize="49.9330655957162" IsNewNode="True" />
+            <LayoutItem Id="Item1" Index="1" RelativeSize="50.0669344042838" IsNewNode="True" />
+          </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DashboardView>
@@ -1297,7 +1303,6 @@
                 <LayoutItem Id="Number" RelativeSize="28.855721393034827" CaptionLocation="Left" />
                 <LayoutItem Id="Employee" RelativeSize="21.890547263681594" CaptionLocation="Left" />
                 <LayoutItem Id="Date" RelativeSize="21.890547263681594" CaptionLocation="Left" />
-                <LayoutItem Id="SubTotal" RelativeSize="27.36318407960199" CaptionLocation="Left" />
               </LayoutGroup>
               <LayoutGroup Id="Quote_col2" RelativeSize="50.01569858712716">
                 <LayoutItem Id="ShippingAmount" RelativeSize="28.855721393034827" CaptionLocation="Left" />

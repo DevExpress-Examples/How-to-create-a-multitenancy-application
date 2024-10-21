@@ -1,4 +1,5 @@
-﻿<div style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-top: 5px;@Style;">@Text</div>
+﻿@implements ILabelModel;
+<div style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-top: 5px;@Style;">@Text</div>
 
 @code {
     [Parameter] public string Text { get; set; }

@@ -4,7 +4,7 @@ using OutlookInspired.Blazor.Server.Editors.Pivot;
 using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.Blazor.Server.Features.Quotes{
-    public class QuotePivotGridListEditorController:ObjectViewController<ListView,Quote>{
+    public class QuoteListViewController:ObjectViewController<ListView,Quote>{
         protected override void OnActivated(){
             base.OnActivated();
             Active["editor"] = View.Editor is PivotGridListEditor;
@@ -28,7 +28,7 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes{
                 },
                 new PivotField{
                     Name = nameof(Quote.Total), SortOrder = PivotGridSortOrder.Descending, Caption = "Opportunities",
-                    Area = PivotGridFieldArea.Data, SummaryType = PivotGridSummaryType.Sum, DisplayFormat = "{0:C}"
+                    Area = PivotGridFieldArea.Data, SummaryType = PivotGridSummaryType.Sum, DisplayFormat = "{0:C0}"
                 },
                 new PivotField{
                     Name = nameof(Quote.Opportunity), SortOrder = PivotGridSortOrder.Descending, Caption = "PERCENTAGE",

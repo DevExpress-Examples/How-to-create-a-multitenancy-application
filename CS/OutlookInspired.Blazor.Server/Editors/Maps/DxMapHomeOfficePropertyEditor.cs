@@ -9,7 +9,7 @@ using OutlookInspired.Module.Features.Maps;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 namespace OutlookInspired.Blazor.Server.Editors.Maps{
-    [PropertyEditor(typeof(Location),EditorAliases.MapHomeOfficePropertyEditor, false)]
+    [PropertyEditor(typeof(IMapsMarker),EditorAliases.MapHomeOfficePropertyEditor, false)]
     public class DxMapHomeOfficePropertyEditor(Type objectType, IModelMemberViewItem model) : BlazorPropertyEditorBase(objectType, model){
         
         protected override IComponentModel CreateComponentModel() => new DxMapModel();

@@ -98,4 +98,9 @@
   <ItemGroup>
     <None Remove="Components\DevExtreme\Maps\Some.razor.js" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="UnusableNodes.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+    </None>
+  </ItemGroup>
 </Project>

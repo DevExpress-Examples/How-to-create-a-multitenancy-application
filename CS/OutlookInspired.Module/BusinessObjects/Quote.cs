@@ -2,11 +2,13 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraCharts;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.ViewFilter;
-using OutlookInspired.Module.Services.Internal;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 
@@ -14,6 +16,7 @@ namespace OutlookInspired.Module.BusinessObjects{
     [ImageName("BO_Quote")]
     [CloneView(CloneViewType.DetailView, MapsDetailView)]
     [CloneView(CloneViewType.DetailView, PivotDetailView)]
+    [Appearance("Hide FullTextSearch action",AppearanceItemType.Action, "1=1",TargetItems = FilterController.FullTextSearchActionId,Visibility = ViewItemVisibility.Hide)]
     public class Quote :OutlookInspiredBaseObject, IViewFilter,IMapsMarker{
         [Obsolete]
         public string City => CustomerStore.City;
@@ -47,16 +50,8 @@ namespace OutlookInspired.Module.BusinessObjects{
         double IBaseMapsMarker.Latitude => CustomerStore.Latitude;
 
         double IBaseMapsMarker.Longitude => CustomerStore.Longitude;
-        [NotMapped][Browsable(false)]
-        public Stage Stage { get; set; }
+        
 
-        [NotMapped][VisibleInDetailView(false)]
-        public ObservableCollection<QuoteMapItem> Opportunities{
-            get{
-                var quoteMapItems = ObjectSpace.Opportunities(Stage);
-                return new(quoteMapItems);
-            }
-        }
 
         [NotMapped][Browsable(false)]
         public PaletteEntry[] PaletteEntries{ get; set; }

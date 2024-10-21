@@ -1,4 +1,5 @@
-﻿<a href="@Href" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-top: 5px;@Style;">@Text</a>
+﻿@implements IHyperlinkModel
+<a href="@Href" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-top: 5px;@Style;">@Text</a>
 @code {
     [Parameter] public string Text { get; set; }
     [Parameter] public string Style { get; set; }

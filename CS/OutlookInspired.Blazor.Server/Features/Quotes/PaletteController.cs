@@ -14,8 +14,8 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes {
         public PaletteController() => TargetViewId = "Opportunities";
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            View.MasterItem().ControlCreated += OnMasterItemControlCreated;
-            View.ChildItem().ControlCreated += OncChildItemControlCreated;
+            // View.MasterItem().ControlCreated += OnMasterItemControlCreated;
+            // View.ChildItem().ControlCreated += OncChildItemControlCreated;
         }
 
         private void OncChildItemControlCreated(object sender, EventArgs e) {

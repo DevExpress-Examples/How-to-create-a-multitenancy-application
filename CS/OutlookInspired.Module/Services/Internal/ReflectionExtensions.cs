@@ -31,6 +31,7 @@ namespace OutlookInspired.Module.Services.Internal{
         
         public static object DefaultValue(this Type t) => t.IsValueType ? Activator.CreateInstance(t) : null;
         
+        [Obsolete]
         public static IEnumerable<TSource> YieldItem<TSource>(this TSource source){
             yield return source;
         }

@@ -22,8 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     
-    <EmbeddedResource Include="Components\DevExtreme\Maps\DxrMap.razor.js" />
-    
     <Content Include="Model.xafml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -83,18 +81,21 @@
     <_ContentIncludedByDefault Remove="Components\CardView\SideBySideInfoCard.razor" />
     <_ContentIncludedByDefault Remove="Components\CardView\StackedCardView.razor" />
     <_ContentIncludedByDefault Remove="Components\CardView\StackedInfoCard.razor" />
+    <_ContentIncludedByDefault Remove="Components\DevExtreme\Charts\DxFunnel.razor" />
+    <_ContentIncludedByDefault Remove="Components\DevExtreme\Maps\DxMap\DxMapComponent.razor" />
+    <_ContentIncludedByDefault Remove="Components\DevExtreme\Maps\DxrMap.razor" />
+    <_ContentIncludedByDefault Remove="Components\DevExtreme\Maps\DxVectorMap.razor" />
+    <_ContentIncludedByDefault Remove="Components\DevExtreme\Pivot\DxPivotGrid.razor" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="Features\Employees\Tasks\ColumnTemplate.razor" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Components\DevExtreme\Charts\DxFunnel.razor.js" />
-    <EmbeddedResource Include="Components\DevExtreme\Maps\DxVectorMap.razor.js" />
-    <EmbeddedResource Include="Components\DevExtreme\Pivot\DxPivotGrid.razor.js" />
     <None Remove="Components\DevExtreme\DevExtremeComponent.cs.js" />
     <None Remove="Components\DevExtreme\PivotGrid\DevExtremePivotGrid.razor.js" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Components\DevExtreme\Maps\DxMap\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
   <ItemGroup>

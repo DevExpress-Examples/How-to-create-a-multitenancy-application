@@ -1,9 +1,9 @@
 ﻿namespace OutlookInspired.Blazor.Server.Services{
-    public interface IColorService{
+    public interface IMapColorService{
         List<string> AppColors{ get; }
     }
 
-    public class ColorService : IColorService{
+    public class MapColorService : IMapColorService{
         public List<string> AppColors { get; } =[
             "#FF5733", // Orange-red 
             "#33FF57", // Green

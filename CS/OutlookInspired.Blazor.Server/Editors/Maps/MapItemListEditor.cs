@@ -45,7 +45,7 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
         }
         
         IEnumerable<string> GenerateAppColors(int count) {
-            var appColors = ServiceProvider.GetRequiredService<IColorService>().AppColors;
+            var appColors = ServiceProvider.GetRequiredService<IMapColorService>().AppColors;
             return Enumerable.Range(0, count).Select(i => appColors[i % appColors.Count]);
         }
 

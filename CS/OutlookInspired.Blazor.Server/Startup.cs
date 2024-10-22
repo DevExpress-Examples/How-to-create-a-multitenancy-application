@@ -14,7 +14,7 @@ public class Startup(IConfiguration configuration){
     public IConfiguration Configuration { get; } = configuration;
 
     public void ConfigureServices(IServiceCollection services) {
-        services.AddSingleton<IColorService,ColorService>();
+        services.AddSingleton<IMapColorService,MapColorService>();
         services.AddSingleton(typeof(Microsoft.AspNetCore.SignalR.HubConnectionHandler<>), typeof(ProxyHubConnectionHandler<>));
         services.AddRazorPages();
         services.AddServerSideBlazor();
@@ -38,7 +38,6 @@ public class Startup(IConfiguration configuration){
         app.UseHttpsRedirection();
         app.UseRequestLocalization();
         app.UseStaticFiles();
-        app.UseComponentStaticFiles(env);
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();

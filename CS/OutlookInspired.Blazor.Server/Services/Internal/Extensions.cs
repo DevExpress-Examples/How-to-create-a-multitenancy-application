@@ -13,37 +13,7 @@ using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server.Services.Internal{
     internal static class Extensions{
-        public static void UseComponentStaticFiles(this IApplicationBuilder builder, IWebHostEnvironment environment){
-            var root = $"{environment.ContentRootPath}/{Components.ComponentBase.JsPath}";
-            if (!Directory.Exists(root)){
-                Directory.CreateDirectory(root);
-            }
-            builder.UseStaticFiles(new StaticFileOptions{
-                FileProvider = new PhysicalFileProvider(root),
-                RequestPath =  $"/{Components.ComponentBase.JsPath}"
-            });
-        }
 
-        public static async Task<string> ModalBodyHeight(this IJSRuntime js){
-            await js.EvalAsync(@"window.getClientHeight = (element) => {
-        const startTime = new Date().getTime();
-        let elem = null;
-        let clientHeight = null;
-
-        while (new Date().getTime() - startTime < 1000) {
-            elem = document.querySelector(element);
-            if (elem) {
-                clientHeight = elem.closest('.dxbl-modal-body')?.clientHeight;
-                if (clientHeight) break;
-            }
-        }
-
-        return clientHeight;
-    };");
-
-            var result = await js.InvokeAsync<object>("getClientHeight", ".dxbl-modal-body");
-            return result?.ToString();
-        }
         
         public static RenderFragment BootFragment(this Evaluation evaluation,Func<Evaluation,Enum> boost ) 
             => builder =>{

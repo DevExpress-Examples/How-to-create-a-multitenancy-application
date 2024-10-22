@@ -1,10 +1,11 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Layout;
-using OutlookInspired.Blazor.Server.Components.Models;
+
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server.Features.Quotes{
+    [Obsolete]
     public class FunnelFilterController:ViewController<DashboardView>{
         public FunnelFilterController() => TargetViewId = "Opportunities";
 
@@ -25,7 +26,7 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes{
 
         private void OnChildControlCreated(object sender, EventArgs e){
             ((ControlViewItem)sender).ControlCreated-=OnMasterControlCreated;
-            SetCriteria((UserControlComponentModel)UserControl(View.MasterItem()).Control);
+            // SetCriteria((UserControlComponentModel)UserControl(View.MasterItem()).Control);
         }
 
         private void MasterDashboardViewItemOnControlCreated(object sender, EventArgs e){
@@ -37,15 +38,15 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes{
         private void OnMasterControlCreated(object sender, EventArgs e){
             var controlViewItem = ((ControlViewItem)sender);
             controlViewItem.ControlCreated-=OnMasterControlCreated;
-            ((UserControlComponentModel)controlViewItem.Control).CriteriaChanged+=OnCriteriaChanged;
+            // ((UserControlComponentModel)controlViewItem.Control).CriteriaChanged+=OnCriteriaChanged;
         }
 
-        private void OnCriteriaChanged(object sender, EventArgs e) 
-            => SetCriteria((UserControlComponentModel)sender);
+        // private void OnCriteriaChanged(object sender, EventArgs e) 
+        //     => SetCriteria((UserControlComponentModel)sender);
 
-        private void SetCriteria(UserControlComponentModel model)
-            => View.ChildItem().Frame.View.ToDetailView().GetItems<ControlViewItem>()
-                .Select(item => item.Control).Cast<UserControlComponentModel>().First()
-                .SetCriteria(model.Criteria?.ToString());
+        // private void SetCriteria(UserControlComponentModel model)
+        //     => View.ChildItem().Frame.View.ToDetailView().GetItems<ControlViewItem>()
+        //         .Select(item => item.Control).Cast<UserControlComponentModel>().First()
+        //         .SetCriteria(model.Criteria?.ToString());
     }
 }

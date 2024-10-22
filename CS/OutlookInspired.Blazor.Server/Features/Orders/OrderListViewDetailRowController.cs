@@ -8,7 +8,7 @@ using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.Blazor.Server.Features.Orders {
     public class OrderListViewDetailRowController : ViewController<ListView> {
-        public OrderListViewDetailRowController() => TargetViewId = $"{nameof(Order)}_ListView";
+        public OrderListViewDetailRowController() => TargetViewId = Order.ListViewDetail;
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();

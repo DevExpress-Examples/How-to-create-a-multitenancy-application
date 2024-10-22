@@ -848,17 +848,17 @@
     <DashboardView Id="Opportunities" Caption="Opportunities" ImageName="BO_Opportunity" IsNewNode="True">
       <Items IsNewNode="True">
         <DashboardViewItem Id="Opportunity_ListView" ActionsToolbarVisibility="Hide" ViewId="Opportunity_ListView" IsNewNode="True" />
-        <DashboardViewItem Id="Quote_ListView" ViewId="Quote_ListView" ActionsToolbarVisibility="Default" IsNewNode="True" />
+        <DashboardViewItem Id="QuoteAnalysis_ListView" ViewId="QuoteAnalysis_ListView" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" Caption="Main" IsNewNode="True">
-          <LayoutGroup Id="Auto81410ab4-601e-4341-b37e-b0f53c99f3b9" ShowCaption="False" Caption="" Index="0" RelativeSize="49.94523548740416" IsNewNode="True">
-            <LayoutItem Id="Quote_ListView" ViewItem="Quote_ListView" Index="0" RelativeSize="49.9330655957162" IsNewNode="True" />
-            <LayoutItem Id="Item2" Index="1" RelativeSize="50.0669344042838" IsNewNode="True" />
+          <LayoutGroup Id="Auto81410ab4-601e-4341-b37e-b0f53c99f3b9" ShowCaption="False" Caption="Auto81410ab4-601e-4341-b37e-b0f53c99f3b9(2)" Index="0" RelativeSize="49.86853637160386" IsNewNode="True">
+            <LayoutItem Id="QuoteAnalysis_ListView" ViewItem="QuoteAnalysis_ListView" Index="0" RelativeSize="49.78586723768736" IsNewNode="True" />
+            <LayoutItem Id="Item2" Index="1" RelativeSize="50.21413276231264" IsNewNode="True" />
           </LayoutGroup>
-          <LayoutGroup Id="Auto129563ec-d000-49a3-bc95-d5d5a9356fc7" ShowCaption="False" Caption="" Index="1" RelativeSize="50.05476451259584" IsNewNode="True">
-            <LayoutItem Id="Opportunity_ListView" ViewItem="Opportunity_ListView" Index="0" RelativeSize="49.9330655957162" IsNewNode="True" />
-            <LayoutItem Id="Item1" Index="1" RelativeSize="50.0669344042838" IsNewNode="True" />
+          <LayoutGroup Id="Auto129563ec-d000-49a3-bc95-d5d5a9356fc7" ShowCaption="False" Caption="Auto129563ec-d000-49a3-bc95-d5d5a9356fc7(5)" Index="1" RelativeSize="50.13146362839614" IsNewNode="True">
+            <LayoutItem Id="Opportunity_ListView" ViewItem="Opportunity_ListView" Index="0" RelativeSize="49.78586723768736" IsNewNode="True" />
+            <LayoutItem Id="Item1" Index="1" RelativeSize="50.21413276231264" IsNewNode="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>

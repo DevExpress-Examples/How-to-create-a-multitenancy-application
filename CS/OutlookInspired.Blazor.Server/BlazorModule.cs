@@ -31,7 +31,7 @@ public sealed class OutlookInspiredBlazorModule : ModuleBase {
             typeof(MapsTravelModeViewController),typeof(MapsTravelModeViewController),typeof(PopupWindowSizeController),typeof(ViewFilterDeleteController),typeof(MapsSalesPeriodViewController),
             typeof(FunnelFilterController),typeof(WelcomeController), typeof(DisableInlineRowActionController),
             typeof(SalesMapItemDxChartListEditorController),typeof(MapItemListEditorController),typeof(QuoteMapItemListViewController),
-            typeof(QuoteListViewPivotController),typeof(OpportunitiesListViewController),typeof(EmployeeLayoutViewController),typeof(CustomerLayoutViewController),
+            typeof(QuoteAnalysisPivotController),typeof(OpportunitiesListViewController),typeof(EmployeeLayoutViewController),typeof(CustomerLayoutViewController),
             typeof(CustomerLayoutViewController),typeof(CustomerStoresLayoutViewController),typeof(ProductLayoutViewController),
             typeof(OrderListViewDetailRowController)
         ];

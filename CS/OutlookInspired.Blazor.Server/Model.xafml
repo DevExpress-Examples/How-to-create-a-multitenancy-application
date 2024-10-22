@@ -721,6 +721,7 @@
       </Layout>
     </DetailView>
     <ListView Id="Quote_ListView" DataAccessMode="Client" HideToolBar="False" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Pivot.PivotGridListEditor" />
+    <ListView Id="QuoteAnalysis_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Pivot.PivotGridListEditor" />
     <ListView Id="QuoteMapItem_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Maps.MapItemListEditor" />
     <ListView Id="ViewFilter_ListView" AllowEdit="False">
       <Columns>

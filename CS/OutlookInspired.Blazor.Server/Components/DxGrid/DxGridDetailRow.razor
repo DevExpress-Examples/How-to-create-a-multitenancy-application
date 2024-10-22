@@ -1,0 +1,16 @@
+﻿@using OutlookInspired.Blazor.Server.Components
+<DxTabs ActiveTabIndexChanged="@ActiveTabIndexChanged">
+    @foreach (var tab in Tabs){
+        <DxTab><TextTemplate><BOImage ObjectType="tab.objectType" /> @tab.caption</TextTemplate></DxTab>    
+    }
+</DxTabs>
+@RenderFragment
+
+@code {
+    [Parameter]
+    public EventCallback<int> ActiveTabIndexChanged{ get; set; }
+    [Parameter]
+    public RenderFragment RenderFragment{ get; set; }
+    [Parameter]
+    public IEnumerable<(string caption,Type objectType)> Tabs { get; set; }
+}

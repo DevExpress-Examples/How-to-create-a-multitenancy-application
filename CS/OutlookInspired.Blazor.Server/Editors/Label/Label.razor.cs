@@ -1,4 +1,4 @@
-﻿namespace OutlookInspired.Blazor.Server.Components{
+﻿namespace OutlookInspired.Blazor.Server.Editors.Label{
     public interface ILabelModel{
         string Text{ get; set; }
         string Style{ get; set; }

@@ -15,22 +15,31 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
     [ListEditor(typeof(IMapItem),true)]
     public class MapItemListEditor(IModelListView model)
         : ListEditor(model), IComplexListEditor, IComponentContentHolder{
-        
-        
         public event EventHandler<CustomizeLayersArgs> CustomizeLayers; 
         private RenderFragment _componentContent;
         private DevExtremeMap _mapInstance;
         private List<IMapItem> _selectedItems=new();
         private CollectionSourceBase _collectionSource;
+        private IMapItem[] _mapItems;
 
-        protected override object CreateControlsCore() 
-            => new DevExtremeVectorMapModel();
+        protected override object CreateControlsCore()
+            => new DevExtremeVectorMapModel{
+                SelectionChanged = EventCallback.Factory.Create<string[]>(this, items => {
+                    _selectedItems =_mapItems.Where(item => items.Contains(item.City)).ToList();
+                    OnSelectionChanged();
+                })
+        };
 
         protected override void AssignDataSourceToControl(object dataSource){
             if (dataSource is IBindingList bindingList){
                 bindingList.ListChanged -= BindingList_ListChanged;
             }
-            UpdateDataSource(dataSource);
+            if (Control is null) return;
+            _mapItems = ((IEnumerable)dataSource).Cast<IMapItem>().ToArray();
+            var e = new CustomizeLayersArgs(_mapItems);
+            OnCustomizeLayers(e);
+            Control.Layers =e.Layers;
+            Control.CustomAttributes = [nameof(IMapItem.City)];
             if (dataSource is IBindingList newBindingList){
                 newBindingList.ListChanged += BindingList_ListChanged;
             }
@@ -45,18 +54,6 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
             var distinctProducts = itemNames.Distinct().ToList();
             var colors = GenerateAppColors(distinctProducts.Count).ToArray(); 
             return distinctProducts.ToDictionary(product => product, product => colors[distinctProducts.IndexOf(product)]);
-        }
-        private void UpdateDataSource(object datasource){
-            if (Control is null) return;
-            var mapItems = ((IEnumerable)datasource).Cast<IMapItem>().ToArray();
-            var e = new CustomizeLayersArgs(mapItems);
-            OnCustomizeLayers(e);
-            Control.Layers =e.Layers;
-            Control.CustomAttributes = [nameof(IMapItem.City)];
-            Control.SelectionChanged = EventCallback.Factory.Create<string[]>(this, items => {
-                _selectedItems =mapItems.Where(item => items.Contains(item.City)).ToList();
-                OnSelectionChanged();
-            });
         }
 
         protected override void OnSelectionChanged(){

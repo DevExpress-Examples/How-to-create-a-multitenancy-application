@@ -1,7 +1,4 @@
-@implements IDisposable
 @using System.ComponentModel
-@using OutlookInspired.Module.Services.Internal
-@inject IJSRuntime JsRuntime
 <!--suppress CssInvalidHtmlTagReference, CssUnusedSymbol -->
 <style>
     dxbl-form-layout-item > div:has(.nested-frame) {    margin-top: 0 !important;}
@@ -52,11 +49,11 @@
     private void SelectedCardsOnListChanged(object sender, ListChangedEventArgs e){
         if (e.ListChangedType != ListChangedType.ItemAdded) return;
         var selectedCard = SelectedCards[e.NewIndex];
-        SelectedCards.Where(card => card != selectedCard).ToArray()
-            .Do(card =>{
-                card.IsSelected = false;
-                SelectedCards.Remove(card);
-            }).Finally(StateHasChanged).Enumerate();
+        foreach (var card in SelectedCards.Where(card => card != selectedCard).ToArray()){
+            card.IsSelected = false;
+            SelectedCards.Remove(card);
+        }
+        StateHasChanged();
     }
     
     [Parameter]

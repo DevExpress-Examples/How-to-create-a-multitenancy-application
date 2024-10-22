@@ -1,0 +1,29 @@
+﻿/*dxbl-form-layout-item > div:has(.nested-frame) {    margin-top: 0 !important;}*/
+.store-card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100vh;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.store-card-container > div {
+    margin-bottom: 8px;
+}
+
+.store-card-container::-webkit-scrollbar {
+    width: 12px;
+}
+
+.store-card-container::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+.store-card-container {
+    scrollbar-width: thin;
+    scrollbar-color: darkgrey slategrey;
+}

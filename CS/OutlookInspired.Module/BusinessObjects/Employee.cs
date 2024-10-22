@@ -17,9 +17,10 @@ using OutlookInspired.Module.Features.ViewFilter;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 namespace OutlookInspired.Module.BusinessObjects{
-		[DefaultProperty(nameof(FullName))]
+	[DefaultProperty(nameof(FullName))]
 	[ImageName("BO_Person")]
 	[CloneView(CloneViewType.DetailView, LayoutViewDetailView)]
+	[CloneView(CloneViewType.ListView, LayoutViewListView)]
 	[CloneView(CloneViewType.DetailView, ChildDetailView)]
 	[CloneView(CloneViewType.DetailView, MapsDetailView)]
 	[VisibleInReports(true)]
@@ -27,7 +28,9 @@ namespace OutlookInspired.Module.BusinessObjects{
 	public class Employee :OutlookInspiredBaseObject,IViewFilter,IObjectSpaceLink,IResource,IRouteMapsMarker{
 		public const string MapsDetailView = "Employee_DetailView_Maps";
 		public const string ChildDetailView = "Employee_DetailView_Child";
+		[Obsolete]
 		public const string LayoutViewDetailView = "EmployeeLayoutView_DetailView";
+		public const string LayoutViewListView = "EmployeeLayoutView_ListView";
 		
 		[NotMapped][Browsable(false)]
 		public new IObjectSpace ObjectSpace{ get; set; }

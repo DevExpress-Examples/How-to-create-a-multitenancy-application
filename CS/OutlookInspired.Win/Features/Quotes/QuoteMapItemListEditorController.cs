@@ -46,7 +46,8 @@ namespace OutlookInspired.Win.Features.Quotes{
         private void OnCreateAdapter(object sender, DataAdapterArgs e){
             _mapItemListEditor.ItemsLayer.ToolTipPattern = $"{nameof(QuoteMapItem.City)}:%A% {nameof(QuoteMapItem.Value)}:%V%";
             var quote = ((Quote)((PropertyCollectionSource)View.CollectionSource).MasterObject);
-            _mapItemListEditor.ItemsLayer.ItemStyle.Fill = quote.PaletteEntries[Array.IndexOf(Enum.GetValues(typeof(Stage)), quote.Stage)].Color;
+            throw new NotImplementedException();
+            // _mapItemListEditor.ItemsLayer.ItemStyle.Fill = quote.PaletteEntries[Array.IndexOf(Enum.GetValues(typeof(Stage)), quote.Stage)].Color;
             e.Adapter = new BubbleChartDataAdapter(){
                 Mappings ={
                     Latitude = nameof(QuoteMapItem.Latitude), Longitude = nameof(QuoteMapItem.Longitude),
@@ -61,7 +62,8 @@ namespace OutlookInspired.Win.Features.Quotes{
             _mapItemListEditor.ItemsLayer.DataLoaded+=ItemsLayerOnDataLoaded;
         }
 
-        private Stage SalesPeriod => ((Quote)((PropertyCollectionSource)View.CollectionSource).MasterObject).Stage;
+        // private Stage SalesPeriod => ((Quote)((PropertyCollectionSource)View.CollectionSource).MasterObject).Stage;
+        private Stage SalesPeriod => throw new NotImplementedException();
         private void ItemsLayerOnDataLoaded(object sender, DataLoadedEventArgs e) 
             => _mapItemListEditor.ZoomService.To(ObjectSpace.Stores(SalesPeriod));
     }

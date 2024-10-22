@@ -31,6 +31,10 @@
     <Content Remove="UserControls\CustomerEmployees.razor" />
     <EmbeddedResource Remove="js\**" />
     <Content Remove="js\**" />
+    <None Remove="Editors\LayoutViewStacked\StackedLayoutView.razor.css" />
+    <Content Include="Editors\LayoutViewStacked\StackedLayoutView.razor.css" />
+    <None Remove="Editors\LayoutView\LayoutView.razor.css" />
+    <Content Include="Editors\LayoutView\LayoutView.razor.css" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="24.2.1-alpha-24260" />
@@ -87,7 +91,6 @@
     <EmbeddedResource Include="Components\DevExtreme\Charts\DxFunnel.razor.js" />
     <EmbeddedResource Include="Components\DevExtreme\Maps\DxVectorMap.razor.js" />
     <EmbeddedResource Include="Components\DevExtreme\Pivot\DxPivotGrid.razor.js" />
-    <Content Include="Components\ProgressBar.razor.css" />
     <None Remove="Components\DevExtreme\DevExtremeComponent.cs.js" />
     <None Remove="Components\DevExtreme\PivotGrid\DevExtremePivotGrid.razor.js" />
   </ItemGroup>
@@ -100,6 +103,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="UnusableNodes.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes2.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes3.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes4.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes5.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes6.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes7.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes8.xml">
       <DependentUpon>Model.xafml</DependentUpon>
     </None>
   </ItemGroup>

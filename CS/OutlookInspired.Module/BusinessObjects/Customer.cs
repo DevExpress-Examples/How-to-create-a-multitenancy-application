@@ -18,13 +18,17 @@ namespace OutlookInspired.Module.BusinessObjects {
 	[ImageName("BO_Customer")]
 	[CloneView(CloneViewType.DetailView, ChildDetailView)]
 	[CloneView(CloneViewType.DetailView, LayoutViewDetailView)]
+	[CloneView(CloneViewType.ListView, LayoutViewListView)]
 	[CloneView(CloneViewType.DetailView, GridViewDetailView)]
 	[CloneView(CloneViewType.DetailView, MapsDetailView)]
 	[XafDefaultProperty(nameof(Name))]
 	public class Customer:OutlookInspiredBaseObject,IViewFilter,ISalesMapsMarker{
+		
 		public const string ChildDetailView = "Customer_DetailView_Child";
+		
 		public const string GridViewDetailView = "CustomerGridView_DetailView";
 		public const string LayoutViewDetailView = "CustomerLayoutView_DetailView";
+		public const string LayoutViewListView = "CustomerLayoutView_ListView";
 		public const string MapsDetailView = "Customer_DetailView_Maps";
 		[FontSizeDelta(4)][MaxLength(255)]
 		public  virtual string HomeOfficeLine { get; set; }

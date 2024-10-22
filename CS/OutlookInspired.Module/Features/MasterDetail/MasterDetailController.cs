@@ -11,7 +11,7 @@ using DevExpress.Utils.Serializing.Helpers;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Features.MasterDetail{
-    public interface IModelDashboardViewMasterDetail{
+    public interface IModelDashboardViewItemMasterDetail{
         [Category(OutlookInspiredModule.ModelCategory)]
         bool MasterDetail{ get; set; }
     }
@@ -31,7 +31,7 @@ namespace OutlookInspired.Module.Features.MasterDetail{
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            if (!((IModelDashboardViewMasterDetail)View.Model).MasterDetail)return;
+            if (!IsMasterDetail())return;
             if (_userControl != null){
                 _userControl.CurrentObjectChanged-=UserControlOnCurrentObjectChanged;
                 _userControl.ProcessObject-=UserControlOnProcessObject;
@@ -47,23 +47,31 @@ namespace OutlookInspired.Module.Features.MasterDetail{
             }
 
             if (_childFrame != null) _childFrame.View.ObjectSpace.ModifiedChanged -= ObjectSpaceOnModifiedChanged;
-            View.ChildItem().ControlCreated-=OnChildItemControlCreated;
-            View.MasterItem().ControlCreated-=OnChildItemControlCreated;
+            ChildItem().ControlCreated-=OnChildItemControlCreated;
+            MasterItem().ControlCreated-=OnChildItemControlCreated;
         }
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
-            if (!((IModelDashboardViewMasterDetail)View.Model).MasterDetail)return;
-            var dashboardViewItem = View.MasterItem();
-            if (dashboardViewItem.Frame != null){
-                OnMasterItemControlCreated(dashboardViewItem, EventArgs.Empty);
-                OnChildItemControlCreated(View.ChildItem(),EventArgs.Empty);
+            if (!IsMasterDetail())return;
+            var masterItem = MasterItem();
+            if (masterItem.Frame != null){
+                OnMasterItemControlCreated(masterItem, EventArgs.Empty);
+                OnChildItemControlCreated(ChildItem(),EventArgs.Empty);
             }
             else{
-                dashboardViewItem.ControlCreated+= OnMasterItemControlCreated;
-                View.ChildItem().ControlCreated+=OnChildItemControlCreated;    
+                masterItem.ControlCreated+= OnMasterItemControlCreated;
+                ChildItem().ControlCreated+=OnChildItemControlCreated;    
             }
         }
+
+        private DashboardViewItem ChildItem() 
+            => View.Items.OfType<DashboardViewItem>().First(item => !((IModelDashboardViewItemMasterDetail)item.Model).MasterDetail);
+
+        private DashboardViewItem MasterItem() 
+            => View.Items.OfType<DashboardViewItem>().First(item => ((IModelDashboardViewItemMasterDetail)item.Model).MasterDetail);
+
+        private bool IsMasterDetail() => View.Model.Items.OfType<IModelDashboardViewItemMasterDetail>().Any(detail => detail.MasterDetail);
 
         private void OnChildItemControlCreated(object sender, EventArgs e){
             _childFrame = (NestedFrame)((DashboardViewItem)sender)!.Frame;
@@ -118,6 +126,6 @@ namespace OutlookInspired.Module.Features.MasterDetail{
                 .ForEach(control => control.Refresh(_childFrame.View.CurrentObject));
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) 
-            => extenders.Add<IModelDashboardView, IModelDashboardViewMasterDetail>();
+            => extenders.Add<IModelDashboardViewItem, IModelDashboardViewItemMasterDetail>();
     }
 }

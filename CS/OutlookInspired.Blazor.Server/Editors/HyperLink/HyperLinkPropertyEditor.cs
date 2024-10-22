@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Components;
 using OutlookInspired.Blazor.Server.Components;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
-namespace OutlookInspired.Blazor.Server.Editors {
+namespace OutlookInspired.Blazor.Server.Editors.HyperLink {
     [PropertyEditor(typeof(string), EditorAliases.HyperLinkPropertyEditor, false)]
-    public class HyperLinkPropertyEditor : StringPropertyEditor {
-        public HyperLinkPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) { }
+    public class HyperLinkPropertyEditor(Type objectType, IModelMemberViewItem model)
+        : StringPropertyEditor(objectType, model){
         protected override RenderFragment CreateViewComponentCore(object dataContext) {
             var displayValue = this.GetPropertyDisplayValue(dataContext);
             var hyperLinkModel = new HyperlinkModel {

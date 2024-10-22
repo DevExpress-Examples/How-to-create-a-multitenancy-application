@@ -17,12 +17,14 @@ namespace OutlookInspired.Module.BusinessObjects{
     [ImageName("BO_Product")]
     [CloneView(CloneViewType.DetailView, BrochureDetailView)]
     [CloneView(CloneViewType.DetailView, CardViewDetailView)]
+    [CloneView(CloneViewType.ListView, LayoutViewListView)]
     [CloneView(CloneViewType.DetailView, MapsDetailView)]
     [Appearance("UnAvailable",AppearanceItemType.ViewItem, "!"+nameof(Available),TargetItems = "*",FontStyle = DevExpress.Drawing.DXFontStyle.Strikeout)]
     [XafDefaultProperty(nameof(Name))]
     public class Product :OutlookInspiredBaseObject, IViewFilter,ISalesMapsMarker{
-        
+        [Obsolete]
         public const string CardViewDetailView = "ProductCardView_DetailView";
+        public const string LayoutViewListView = "ProductLayoutView_ListView";
         public const string BrochureDetailView = "Product_Brochure_DetailView";
         public const string MapsDetailView = "Product_DetailView_Maps";
         

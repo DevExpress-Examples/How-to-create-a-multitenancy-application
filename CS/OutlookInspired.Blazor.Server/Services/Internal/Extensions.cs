@@ -82,7 +82,9 @@ namespace OutlookInspired.Blazor.Server.Services.Internal{
 
         public static string FontSize(this IMemberInfo info){
             var fontSizeDeltaAttribute = info.FindAttribute<FontSizeDeltaAttribute>();
-            return fontSizeDeltaAttribute != null ? $"font-size: {(fontSizeDeltaAttribute.Delta == 8 ? "1.8" : "1.2")}rem" : null;
+            if (fontSizeDeltaAttribute == null) return null;
+            var size = (fontSizeDeltaAttribute.Delta == 8 ? "1.8" : "1.2");
+            return $"line-height: {size}rem;font-size: {size}rem";
         }
         public static async ValueTask EvalAsync(this IJSRuntime runtime,bool firstRender,params object[] args){
             if (firstRender){

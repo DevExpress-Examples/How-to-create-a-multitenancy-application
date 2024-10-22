@@ -1,0 +1,37 @@
+﻿@using OutlookInspired.Module.Services.Internal
+<div class="store-card-container">
+    @if (_data != null){
+        if (_data.Any()){
+            @foreach (var entity in _data){
+                <div class="stacked-card">
+                    <div class="stacked-body">
+                        @BodySelector(entity)
+                    </div>
+                    <div class="stacked-footer">
+                        <img src="@(ImageSelector?.Invoke(entity).ToBase64Image())" class="img-fluid" alt="Store Crest">
+                    </div>
+                </div>
+            }
+        }
+        <p>RECORDS: @_data.Length</p>
+    }
+</div>
+
+
+@code {
+    private object[] _data;
+
+    [Parameter][EditorRequired]
+    public IEnumerable<object> Data { get; set; }
+    [Parameter]
+    public Func<object,byte[]> ImageSelector { get; set; }
+    [Parameter]
+    public Func<object,string> BodySelector { get; set; }
+
+
+    protected override void OnParametersSet(){
+        base.OnParametersSet();
+        _data = Data as object[] ?? Data?.ToArray();
+    }
+
+}

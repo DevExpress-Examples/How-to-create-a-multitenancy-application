@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.ComponentModel;
-using DevExpress.Blazor;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Blazor;
 using DevExpress.ExpressApp.Blazor.Components;
@@ -9,13 +8,17 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Microsoft.AspNetCore.Components;
 
-namespace OutlookInspired.Blazor.Server.Editors.Pivot {
+namespace OutlookInspired.Blazor.Server.Editors.LayoutViewStacked{
     [ListEditor(typeof(object))]
-    public class PivotGridListEditor(IModelListView info)
-        : ListEditor(info), IComponentContentHolder{
-        public new DxPivotGridModel Control => (DxPivotGridModel)base.Control;
-        protected override object CreateControlsCore() => new DxPivotGridModel{ Data = [] };
+    public class StackedLayoutViewEditor(IModelListView model) : ListEditor(model), IComponentContentHolder,IComplexListEditor{
+        private RenderFragment _componentContent;
+        private readonly IList _selectedObjects = new List<object>();
+        private CollectionSourceBase _collectionSource;
 
+        protected override object CreateControlsCore() 
+            => new StackedLayoutViewModel();
+
+        public new StackedLayoutViewModel Control => (StackedLayoutViewModel)base.Control;
         protected override void AssignDataSourceToControl(object dataSource) {
             if(Control == null||dataSource==null) return;
             if (dataSource is IBindingList bindingList){
@@ -30,30 +33,16 @@ namespace OutlookInspired.Blazor.Server.Editors.Pivot {
         private void BindingList_ListChanged(object sender, ListChangedEventArgs e) => Refresh();
 
         public override void Refresh(){
-            if (DataSource == null) return;
-            Control.Data = ((IEnumerable)DataSource).Cast<object>();
+            if (Control==null||DataSource is not IEnumerable) return;
+            _collectionSource.ResetCollection();
         }
-        
+        public void Setup(CollectionSourceBase collectionSource, XafApplication application) => _collectionSource=collectionSource;
         public override object FocusedObject { get; set; }
-        public override IList GetSelectedObjects() => Array.Empty<object>();
-        public override SelectionType SelectionType => SelectionType.None;
+        public override IList GetSelectedObjects() => _selectedObjects;
+        public override SelectionType SelectionType => SelectionType.Full;
 
-        private RenderFragment _componentContent;
-        
         RenderFragment IComponentContentHolder.ComponentContent 
             => _componentContent ??= ComponentModelObserver.Create(Control, Control.GetComponentContent());
-    }
 
-    public class PivotField:IPivotField{
-        public string Format{ get; set; }
-        public string Name{ get; set; }
-        public PivotGridSortOrder SortOrder{ get; set; }
-        public PivotGridFieldArea Area{ get; set; }
-        public PivotGridGroupInterval GroupInterval{ get; set; }
-        public string Caption{ get; set; }
-        public PivotGridSummaryType SummaryType{ get; set; }
-        public string DisplayFormat{ get; set; }
-        public bool IsProgressBar{ get; set; }
-        
     }
 }

@@ -25,7 +25,7 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
         }
 
         public List<Annotation> Annotations{
-            get => GetPropertyValue<List<Annotation>>();
+            get => GetPropertyValue<List<Annotation>>()??new();
             set => SetPropertyValue(value);
         }
     }

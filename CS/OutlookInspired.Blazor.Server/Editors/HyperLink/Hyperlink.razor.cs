@@ -1,4 +1,4 @@
-﻿namespace OutlookInspired.Blazor.Server.Components {
+﻿namespace OutlookInspired.Blazor.Server.Editors.HyperLink {
     public interface IHyperlinkModel{
         string Text{ get; set; }
         string Style{ get; set; }
@@ -18,6 +18,6 @@
             get => GetPropertyValue<string>();
             set => SetPropertyValue(value);
         }
-        public override Type ComponentType => typeof(Components.Hyperlink);
+        public override Type ComponentType => typeof(Hyperlink);
     }
 }

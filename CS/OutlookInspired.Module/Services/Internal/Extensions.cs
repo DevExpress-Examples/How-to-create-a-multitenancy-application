@@ -65,6 +65,7 @@ namespace OutlookInspired.Module.Services.Internal{
         => Convert.ToBase64String(bytes);
     
 
+    [Obsolete]
     public static string ToBase64Image(this byte[] bytes) 
         => $"data:{bytes.FileType()};base64,{bytes?.ToBase64String()}";
     
@@ -72,6 +73,7 @@ namespace OutlookInspired.Module.Services.Internal{
         => byteArray != null && byteArray.Length >= offset + mask.Length &&
            !mask.Where((t, i) => byteArray[offset + i] != t).Any();
 
+    [Obsolete]
     public static string FileType(this byte[] value) 
         => value switch{
             { Length: > 0 } when value.IsMaskMatch( 0, 77, 77) || value.IsMaskMatch(0, 73, 73) => "tiff",

@@ -5,6 +5,7 @@
         public const string PrintLayoutRichTextEditor = "PrintLayoutRichTextEditor";
         public const string PdfViewerEditor = "PdfViewerEditor";
         public const string LabelPropertyEditor = "LabelPropertyEditor";
+        [Obsolete("check implementation")]
         public const string HyperLinkPropertyEditor = "HyperLinkPropertyEditor";
         public const string ProgressEditor = "ProgressEditor";
         public const string DxHtmlPropertyEditor = "DxHtmlPropertyEditor";

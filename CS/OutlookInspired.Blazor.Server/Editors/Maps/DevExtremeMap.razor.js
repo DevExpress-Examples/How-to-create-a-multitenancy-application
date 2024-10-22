@@ -2,6 +2,7 @@ const dataSourceMap = {
     'usa': DevExpress.viz.map.sources.usa,
 };
 
+
 export function addMapToElement(element, layers, bounds, attributes, annotationData, dotNetHelper) {
     layers[0].dataSource = dataSourceMap[layers[0].dataSource];
 
@@ -22,24 +23,11 @@ export function addMapToElement(element, layers, bounds, attributes, annotationD
                 dotNetHelper.invokeMethodAsync('OnSelectionChanged', attributes.map(f => clickedElement.attribute(f)).filter(val => val != null));
             }
         },
-        annotations: annotationData,
+        annotations: annotationData.map(s => { return { coordinates: s.coordinates, text: s.data} }),
         commonAnnotationSettings : {
-            type: 'custom',
-            template: function (annotation, container) {
-                const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                svg.setAttribute("class", "annotation");
-
-                const foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-                foreignObject.setAttribute("width", annotation.width);
-                foreignObject.setAttribute("height", annotation.height);
-
-                const div = document.createElement("div");
-                div.innerHTML = annotation.data;
-                div.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-
-                foreignObject.appendChild(div);
-                svg.appendChild(foreignObject);
-                container.appendChild(svg);
+            type: 'text',
+            font:{
+                color:"#FFFFFF"
             }
         }
     }).dxVectorMap('instance');

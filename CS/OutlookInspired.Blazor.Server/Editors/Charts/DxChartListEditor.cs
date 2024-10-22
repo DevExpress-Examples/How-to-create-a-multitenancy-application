@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Blazor;
 using DevExpress.ExpressApp.Blazor.Components;
@@ -14,8 +15,16 @@ namespace OutlookInspired.Blazor.Server.Editors.Charts {
         public new DxChartModel Control => (DxChartModel)base.Control;
         protected override void AssignDataSourceToControl(object dataSource) {
             if(Control == null||dataSource==null) return;
+            if (dataSource is IBindingList bindingList){
+                bindingList.ListChanged -= BindingList_ListChanged;
+            }
             Control.Data = ((IEnumerable)dataSource).Cast<object>();
+            if (dataSource is IBindingList newBindingList){
+                newBindingList.ListChanged += BindingList_ListChanged;
+            }
         }
+
+        private void BindingList_ListChanged(object sender, ListChangedEventArgs e) => Refresh();
 
         public override void Refresh(){
             if (Control==null||DataSource is not IEnumerable dataSource) return;

@@ -95,7 +95,6 @@
     <None Remove="Components\DevExtreme\PivotGrid\DevExtremePivotGrid.razor.js" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\DevExtreme\Maps\DxMap\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
   <ItemGroup>
@@ -126,5 +125,8 @@
     <None Update="UnusableNodes8.xml">
       <DependentUpon>Model.xafml</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\DevExtreme\Charts\DxFunnel.razor" />
   </ItemGroup>
 </Project>

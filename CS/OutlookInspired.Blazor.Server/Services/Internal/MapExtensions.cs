@@ -3,11 +3,10 @@ using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.Map.Native;
 using DevExpress.Persistent.Base;
-using OutlookInspired.Blazor.Server.Components.DevExtreme.Maps;
+using OutlookInspired.Blazor.Server.Editors.Maps;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Features.Maps;
 using OutlookInspired.Module.Services.Internal;
-using Route = OutlookInspired.Blazor.Server.Components.DevExtreme.Maps.Route;
 
 namespace OutlookInspired.Blazor.Server.Services.Internal{
     internal static class MapExtensions{
@@ -21,16 +20,6 @@ namespace OutlookInspired.Blazor.Server.Services.Internal{
         public static object FeatureCollection(this IMapItem[] mapItems,Func<IGrouping<string,IMapItem>,List<decimal>> valuesSelector) 
             => new FeatureCollection{ Features = mapItems.Features(valuesSelector) };
 
-        public static VectorMapOptions VectorMapOptions<TMapItem, TLayer>(this TMapItem[] mapItems,
-            string[] palette,Func<IGrouping<string,IMapItem>,List<decimal>> valuesSelector) where TMapItem : IMapItem where TLayer : BaseLayer,INamedLayer, new() 
-            => new(){
-                Layers = {new TLayer(){
-                    // DataSource = mapItems.Cast<IMapItem>().ToArray().FeatureCollection(valuesSelector)
-                    // , Color =palette
-                }},
-                Bounds =mapItems.Bounds(),Tooltip = {Enabled = true,ZIndex = 10000},
-                Attributes=new[]{nameof(IMapItem.City).FirstCharacterToLower()}
-            };
 
         public static List<Feature> Features(this IMapItem[] mapItems,Func<IGrouping<string,IMapItem>,List<decimal>> valuesSelector) 
             => mapItems.GroupBy(item => item.City).Select(group => group.First().NewFeature(group,valuesSelector)).ToList();
@@ -79,18 +68,5 @@ namespace OutlookInspired.Blazor.Server.Services.Internal{
         }
 
         
-        public static DxMapOptions DxMapOptions(this IMapsMarker mapsMarker, IMapsMarker homeOffice, string travelMode){
-            var mode = travelMode.FirstCharacterToLower();
-            var markers = new[]{
-                new Marker{ Location = new Location{ Latitude = homeOffice.Latitude, Longitude = homeOffice.Longitude } },
-                new Marker{ Location = new Location{ Latitude = mapsMarker.Latitude, Longitude = mapsMarker.Longitude } }
-            }.ToList();
-            return new DxMapOptions(){Markers =markers,
-                Routes = new List<Route>()
-                    { new(){Mode =mode,Color = mode=="driving"?"orange":"blue", Locations = markers.Select(marker => marker.Location).ToList() } },
-                Controls = true,
-                Center = markers.First().Location
-            };
-        }    
     }
 }

@@ -1,5 +1,4 @@
 ﻿using DevExpress.ExpressApp;
-using OutlookInspired.Blazor.Server.Components.DevExtreme.Maps;
 using OutlookInspired.Blazor.Server.Editors.Maps;
 using OutlookInspired.Module.BusinessObjects;
 using MapItem = OutlookInspired.Module.BusinessObjects.MapItem;

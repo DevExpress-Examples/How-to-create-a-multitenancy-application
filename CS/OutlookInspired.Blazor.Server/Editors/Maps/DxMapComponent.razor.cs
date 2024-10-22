@@ -1,7 +1,8 @@
 ﻿using DevExpress.Blazor;
 using DevExpress.Persistent.Base;
+using OutlookInspired.Blazor.Server.Components;
 
-namespace OutlookInspired.Blazor.Server.Components.DevExtreme.Maps.DxMap{
+namespace OutlookInspired.Blazor.Server.Editors.Maps{
     public class DxMapModel : ComponentModelBase {
         public override Type ComponentType => typeof(DxMapComponent);
 

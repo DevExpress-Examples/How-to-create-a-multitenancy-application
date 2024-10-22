@@ -1,5 +1,4 @@
-﻿/*dxbl-form-layout-item > div:has(.nested-frame) {    margin-top: 0 !important;}*/
-.store-card-container {
+﻿.store-card-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

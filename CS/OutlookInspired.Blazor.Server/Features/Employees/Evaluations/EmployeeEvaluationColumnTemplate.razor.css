@@ -1,0 +1,7 @@
+.evaluations-td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    visibility: visible;
+    width: 270px;
+}

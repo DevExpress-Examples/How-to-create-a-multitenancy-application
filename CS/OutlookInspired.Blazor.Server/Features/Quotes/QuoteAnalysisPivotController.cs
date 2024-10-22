@@ -4,7 +4,7 @@ using OutlookInspired.Blazor.Server.Editors.Pivot;
 using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.Blazor.Server.Features.Quotes{
-    public class QuoteListViewController:ObjectViewController<ListView,Quote>{
+    public class QuoteListViewPivotController:ObjectViewController<ListView,Quote>{
         protected override void OnActivated(){
             base.OnActivated();
             Active["editor"] = View.Editor is PivotGridListEditor;
@@ -12,7 +12,7 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes{
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
-            var pivotGridModel = ((Editors.Pivot.DxPivotGridModel)View.Editor.Control);
+            var pivotGridModel = ((DxPivotGridModel)View.Editor.Control);
             pivotGridModel.Fields =[
                 new PivotField{
                     Name = $"{nameof(Quote.CustomerStore)}.{nameof(CustomerStore.State)}",

@@ -3,13 +3,8 @@ using DevExpress.Blazor.Internal;
 using DevExpress.Blazor.PivotGrid.Internal;
 
 namespace OutlookInspired.Blazor.Server.Editors.Pivot;
-public interface IDxPivotGridModel{
-    IEnumerable<object> Data{ get; set; }
-    IEnumerable<IPivotField> Fields{ get; set; }
-    bool ExpandAllRows{ get; set; }
-}
 
-public class DxPivotGridModel : DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase, IDxPivotGridModel{
+public class DxPivotGridModel : DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase{
     public IEnumerable<object> Data {
         get => GetPropertyValue<IEnumerable<object>>()??Enumerable.Empty<object>();
         set => SetPropertyValue(value);

@@ -3,20 +3,25 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Office;
 using OutlookInspired.Module.BusinessObjects;
+using OutlookInspired.Module.Features.Employees;
 using OutlookInspired.Module.Features.Maps;
 using static OutlookInspired.Module.Services.Internal.MailMergeExtensions;
 
 namespace OutlookInspired.Module.Features.Customers{
     public class MailMergeController:ObjectViewController<ObjectView,Employee>{
+        private RichTextShowInDocumentControllerBase _textShowInDocumentController;
+
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            Frame.GetController<RichTextShowInDocumentControllerBase>().ShowInDocumentAction.ItemsChanged-=ShowInDocumentActionOnItemsChanged;
+            if (_textShowInDocumentController==null)return;
+            _textShowInDocumentController.ShowInDocumentAction.ItemsChanged-=ShowInDocumentActionOnItemsChanged;
         }
 
-        protected override void OnViewControllersActivated(){
-            base.OnViewControllersActivated();
-            if (!(Active[nameof(MapsViewController)] = Frame.GetController<MapsViewController>().MapItAction.Active))return;
-            Frame.GetController<RichTextShowInDocumentControllerBase>().ShowInDocumentAction.ItemsChanged+=ShowInDocumentActionOnItemsChanged;
+        protected override void OnActivated(){
+            base.OnActivated();
+            _textShowInDocumentController = Frame.GetController<RichTextShowInDocumentControllerBase>();
+            if (_textShowInDocumentController==null)return;
+            _textShowInDocumentController.ShowInDocumentAction.ItemsChanged+=ShowInDocumentActionOnItemsChanged;
         }
 
         private void ShowInDocumentActionOnItemsChanged(object sender, ItemsChangedEventArgs e){

@@ -1,0 +1,35 @@
+﻿@inject IJSRuntime JsRuntime
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 tasks-div">
+            @Subject
+        </div>
+        <div class="col-md-6 text-end" style="font-weight: bold;">
+            @Date
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 tasks-div">
+            @Description
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <DxProgressBar Value=Progress CssClass="progress-bar" style="width:100%" ShowLabel="false"  />
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public string Subject { get; set; }
+    [Parameter]
+    public string Description { get; set; }
+    [Parameter]
+    public int Progress { get; set; }
+    [Parameter]
+    public string Date { get; set; }
+    
+
+    
+}
+

@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 namespace OutlookInspired.Blazor.Server.Editors.LayoutView{
-    public interface ILayoutViewModel{
-        Func<object, byte[]> ImageSelector{ get; set; }
-    }
 
-    public class LayoutViewModel:DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase, ILayoutViewModel{
+    public class LayoutViewModel:DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase{
         public Func<object,byte[]> ImageSelector{
             get => GetPropertyValue<Func<object,byte[]>>();
             set => SetPropertyValue(value);

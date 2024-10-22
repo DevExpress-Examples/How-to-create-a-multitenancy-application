@@ -2,18 +2,8 @@
 using DevExpress.Blazor;
 
 namespace OutlookInspired.Blazor.Server.Editors.Charts;
-public interface IDxChartModel{
-    ChartSeriesType SeriesType{ get; set; }
-    IEnumerable<object> Data{ get; set; }
-    Expression<Func<object, string>> ArgumentField{ get; set; }
-    Expression<Func<object, decimal>> ValueField{ get; set; }
-    Expression<Func<object, string>> NameField{ get; set; }
-    Func<IEnumerable<decimal>, decimal> SummaryMethod{ get; set; }
-    Action<ChartSeriesPointCustomizationSettings> CustomizeSeriesPoint { get; set; }
-    string Height{ get; set; }
-}
 
-public class DxChartModel : DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase,IDxChartModel {
+public class DxChartModel : DevExpress.ExpressApp.Blazor.Components.Models.ComponentModelBase {
     public ChartSeriesType SeriesType{
         get => GetPropertyValue<ChartSeriesType>();
         set => SetPropertyValue(value);

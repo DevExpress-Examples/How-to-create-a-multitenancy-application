@@ -12,7 +12,9 @@ using Microsoft.AspNetCore.Components;
 namespace OutlookInspired.Blazor.Server.Editors.Pivot {
     [ListEditor(typeof(object))]
     public class PivotGridListEditor(IModelListView info)
-        : ListEditor(info), IComponentContentHolder{
+        : ListEditor(info), IComponentContentHolder,IComplexListEditor{
+        private RenderFragment _componentContent;
+        private CollectionSourceBase _collectionSource;
         public new DxPivotGridModel Control => (DxPivotGridModel)base.Control;
         protected override object CreateControlsCore() => new DxPivotGridModel{ Data = [] };
 
@@ -31,17 +33,17 @@ namespace OutlookInspired.Blazor.Server.Editors.Pivot {
 
         public override void Refresh(){
             if (DataSource == null) return;
-            Control.Data = ((IEnumerable)DataSource).Cast<object>();
+            _collectionSource.ResetCollection();
         }
         
         public override object FocusedObject { get; set; }
         public override IList GetSelectedObjects() => Array.Empty<object>();
         public override SelectionType SelectionType => SelectionType.None;
 
-        private RenderFragment _componentContent;
-        
         RenderFragment IComponentContentHolder.ComponentContent 
             => _componentContent ??= ComponentModelObserver.Create(Control, Control.GetComponentContent());
+
+        public void Setup(CollectionSourceBase collectionSource, XafApplication application) => _collectionSource = collectionSource;
     }
 
     public class PivotField:IPivotField{

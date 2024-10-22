@@ -1,5 +1,4 @@
 ﻿using DevExpress.ExpressApp;
-using OutlookInspired.Blazor.Server.Editors.LayoutView;
 using OutlookInspired.Blazor.Server.Editors.LayoutViewStacked;
 using OutlookInspired.Module.BusinessObjects;
 

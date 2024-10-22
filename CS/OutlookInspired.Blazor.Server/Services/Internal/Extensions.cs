@@ -1,11 +1,9 @@
-﻿using System.Text.Json;
-using DevExpress.Blazor;
+﻿using DevExpress.Blazor;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Blazor.Components;
 using DevExpress.ExpressApp.Blazor.Components.Models;
 using DevExpress.ExpressApp.DC;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.JSInterop;
 using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.BusinessObjects;
@@ -60,20 +58,6 @@ namespace OutlookInspired.Blazor.Server.Services.Internal{
             if (firstRender){
                 await runtime.InvokeVoidAsync("eval", args);
             }
-        }
-
-        public static async ValueTask Console(this IJSRuntime runtime, Action<JsonElement> onError){
-            await runtime.EvalAsync(@"
-window.registerErrorBroker = function(errorBroker) {
-    window.errorBroker = errorBroker;
-};");
-            await runtime.InvokeVoidAsync("registerErrorBroker", new JsInterop(onError).DotNetReference());
-            await runtime.EvalAsync(@"
-const originalConsoleWarn = console.warn;
-console.warn = function(...args) {
-  window.errorBroker.invokeMethodAsync('Invoke', args);
-  originalConsoleWarn.apply(console, args);
-};");
         }
         
         public static async ValueTask EvalAsync(this IJSRuntime runtime,params object[] args) 

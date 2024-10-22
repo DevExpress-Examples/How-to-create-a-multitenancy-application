@@ -1,5 +1,4 @@
-﻿@implements IDxPivotGridModel;
-
+﻿
 <MyPivotGrid @ref="@_pivotGrid" Data="@Data">
     @foreach (var field in Fields){
         <DxPivotGridField Field="@field.Name" SortOrder="@field.SortOrder" Area="@field.Area"

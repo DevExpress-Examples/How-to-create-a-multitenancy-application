@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Updating;
@@ -17,6 +18,7 @@ using OutlookInspired.Module.ModelUpdaters;
 using OutlookInspired.Module.Services.Internal;
 using ReportController = OutlookInspired.Module.Features.Customers.ReportController;
 using OutlookInspired.Module.BusinessObjects;
+using OutlookInspired.Module.Features.Maps;
 
 
 [assembly:InternalsVisibleTo("OutlookInspired.Win")]
@@ -64,32 +66,15 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	private void Application_ObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e) {
 		if(e.ObjectSpace is NonPersistentObjectSpace nonPersistentObjectSpace) {
             nonPersistentObjectSpace.ObjectByKeyGetting += nonPersistentObjectSpace_ObjectByKeyGetting;
-            nonPersistentObjectSpace.ObjectsGetting+=NonPersistentObjectSpaceOnObjectsGetting;
         }
 		if (e.ObjectSpace is not CompositeObjectSpace { Owner: not CompositeObjectSpace } compositeObjectSpace) return;
 		compositeObjectSpace.PopulateAdditionalObjectSpaces((XafApplication)sender);
 	}
 
-	[Obsolete]
-	private void NonPersistentObjectSpaceOnObjectsGetting(object sender, ObjectsGettingEventArgs e) {
-		// if (e.ObjectType == typeof(QuoteMapItem)){
-		// 	e.Objects=Enum.GetValues<Stage>().Where(stage1 => stage1!=Stage.Summary)
-		// 		.SelectMany(stage => NewQuoteMapItem(stage, (IObjectSpace)sender, Opportunity.Map.GetValueOrDefault(stage, (0.0, 0.12))))
-		// 		.ToArray()
-		// 		;
-		// }
-		//  if (e.ObjectType == typeof(Opportunity)){
-		// 	e.Objects = Enum.GetValues<Stage>().Where(stage1 => stage1!=Stage.Summary)
-		// 		.Select(stage => NewOpportunity(stage, (IObjectSpace)sender, Map.GetValueOrDefault(stage, (0.0, 0.12))))
-		// 		.Select((item, i) => {
-		// 			item.ID = i;
-		// 			return item;
-		// 		}).ToList();
-		// }
+	public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+		base.ExtendModelInterfaces(extenders);
+		extenders.Add<IModelOptions,IModelOptionsHomeOffice>();
 	}
-
-
-
 
 	public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
 	    base.AddGeneratorUpdaters(updaters);

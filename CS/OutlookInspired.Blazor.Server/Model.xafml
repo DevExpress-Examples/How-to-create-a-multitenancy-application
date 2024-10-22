@@ -245,6 +245,7 @@
     <DetailView Id="Employee_DetailView_Child">
       <Items>
         <PropertyEditor Id="FullName" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.Label.LabelPropertyEditor" />
+        <PropertyEditor Id="Picture" AllowEdit="False" />
         <PropertyEditor Id="Title" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.Label.LabelPropertyEditor" />
       </Items>
       <Layout>

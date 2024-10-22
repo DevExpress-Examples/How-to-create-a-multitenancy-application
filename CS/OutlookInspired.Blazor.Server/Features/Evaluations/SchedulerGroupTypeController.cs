@@ -1,6 +1,5 @@
 ﻿using DevExpress.Blazor;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Scheduler.Blazor;
 using DevExpress.ExpressApp.Scheduler.Blazor.Components.Models;
 using DevExpress.ExpressApp.Scheduler.Blazor.Editors;
 using OutlookInspired.Module.BusinessObjects;

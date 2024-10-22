@@ -1,40 +1,4 @@
 ﻿@using OutlookInspired.Module.Services.Internal
-<style>
-  .ellipsis3Lines {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-    line-height: 1.2em;
-    max-height: 4.4em;
-  }
-
-  .card {
-    flex: 0 0 auto;
-    margin-right: 16px;
-    max-width: calc(50% - 16px);
-  }
-  .ellipsis {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
-  .col-md-8 p {
-    word-wrap: break-word;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
-  .card-footer {
-    .card-footer {
-      padding: 10px 10px 20px 10px;
-    }
-  }
-</style>
-
 <div class="card" @onclick="CardClicked" @ondblclick="CardDoubleClicked" style="@(LayoutView.SelectedCards.Contains(this) ? "background-color: grey;" : "")" >
   <div class="card-header">
     <strong>@(LayoutView.HeaderSelector?.Invoke(CurrentObject)!)</strong>

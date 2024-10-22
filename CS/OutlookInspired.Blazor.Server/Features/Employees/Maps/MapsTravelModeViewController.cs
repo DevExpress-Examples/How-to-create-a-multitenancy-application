@@ -3,7 +3,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
-using OutlookInspired.Blazor.Server.Editors;
 using OutlookInspired.Blazor.Server.Editors.Maps;
 using OutlookInspired.Module.BusinessObjects;
 

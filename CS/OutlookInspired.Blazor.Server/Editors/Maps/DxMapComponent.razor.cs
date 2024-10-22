@@ -1,6 +1,6 @@
 ﻿using DevExpress.Blazor;
+using DevExpress.ExpressApp.Blazor.Components.Models;
 using DevExpress.Persistent.Base;
-using OutlookInspired.Blazor.Server.Components;
 
 namespace OutlookInspired.Blazor.Server.Editors.Maps{
     public class DxMapModel : ComponentModelBase {

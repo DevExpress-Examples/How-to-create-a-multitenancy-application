@@ -16,7 +16,6 @@ using OutlookInspired.Module.Features.Quotes;
 using OutlookInspired.Module.Features.ViewFilter;
 using OutlookInspired.Module.ModelUpdaters;
 using OutlookInspired.Module.Services.Internal;
-using ReportController = OutlookInspired.Module.Features.Customers.ReportController;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Features.Maps;
 
@@ -52,10 +51,11 @@ public sealed class OutlookInspiredModule : ModuleBase{
     }
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes() 
-	    =>[typeof(MailMergeController),typeof(ReportController),typeof(QuoteMapItemController),typeof(HideToolBarController),
+	    =>[typeof(MailMergeController),typeof(CustomerReportController),typeof(QuoteMapItemController),typeof(HideToolBarController),
 		    typeof(CommunicationController),typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.ReportController),typeof(ShipmentDetailController),
-		    typeof(Features.Products.ReportController),typeof(MapOrderController), typeof(MasterDetailController),typeof(ViewFilterController),
-		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController),typeof(MapOpportunitiesController)
+		    typeof(Features.Products.ProductReportController),typeof(MapOrderController), typeof(MasterDetailController),typeof(ViewFilterController),
+		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController),typeof(MapOpportunitiesController),
+		    typeof(MapsSalesPeriodViewController),typeof(MapItemSalesViewController)
 	    ];
 
     public override void Setup(XafApplication application) {

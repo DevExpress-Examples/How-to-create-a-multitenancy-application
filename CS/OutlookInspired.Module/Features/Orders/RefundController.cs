@@ -4,10 +4,9 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Features.Maps;
 
 namespace OutlookInspired.Module.Features.Orders{
-    public class RefundController:ViewController{
+    public class RefundController:ObjectViewController<ObjectView,Order>{
         public RefundController(){
             TargetObjectType = typeof(Order);
             var refundAction = new SimpleAction(this, "RefundOrder", PredefinedCategory.Edit){
@@ -24,9 +23,5 @@ namespace OutlookInspired.Module.Features.Orders{
             ObjectSpace.CommitChanges();
         }
 
-        protected override void OnViewControllersActivated(){
-            base.OnViewControllersActivated();
-            Active[nameof(MapsViewController)] = Frame.GetController<MapsViewController>().MapItAction.Active;
-        }
     }
 }

@@ -6,7 +6,7 @@ using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.Module.Features.Orders{
-    public class MapOrderController:ObjectViewController<ListView,Order>{
+    public class MapOrderController:ObjectViewController<ObjectView,Order>{
         public const string MapItActionId = "MapOrder";
         public MapOrderController(){
             MapCustomerAction = new SimpleAction(this, MapItActionId, PredefinedCategory.View){

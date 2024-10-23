@@ -7,7 +7,7 @@ using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Features.Maps;
 
 namespace OutlookInspired.Module.Features.Orders{
-    public class PayController:ViewController{
+    public class PayController:ObjectViewController<ObjectView,Order>{
         public PayController(){
             TargetObjectType = typeof(Order);
             var payOrderAction = new SimpleAction(this, "PayOrder", PredefinedCategory.Edit){
@@ -24,9 +24,5 @@ namespace OutlookInspired.Module.Features.Orders{
             ObjectSpace.CommitChanges();
         }
 
-        protected override void OnViewControllersActivated(){
-            base.OnViewControllersActivated();
-            Active[nameof(MapsViewController)] = Frame.GetController<MapsViewController>().MapItAction.Active;
-        }
     }
 }

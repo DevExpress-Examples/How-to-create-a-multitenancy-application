@@ -26,4 +26,5 @@ namespace OutlookInspired.Module.Features.Employees{
         public SimpleAction MapEmployeeAction{ get; }
         
     }
+
 }

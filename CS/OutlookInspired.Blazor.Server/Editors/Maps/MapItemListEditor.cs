@@ -63,7 +63,6 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
         private void BindingList_ListChanged(object sender, ListChangedEventArgs e) => Refresh();
 
         public override void Refresh(){
-            if (_mapInstance == null) return;
             _collectionSource.ResetCollection();
             _mapInstance?.Refresh();
         }

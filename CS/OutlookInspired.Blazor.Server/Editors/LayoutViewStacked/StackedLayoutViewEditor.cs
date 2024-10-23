@@ -32,10 +32,7 @@ namespace OutlookInspired.Blazor.Server.Editors.LayoutViewStacked{
 
         private void BindingList_ListChanged(object sender, ListChangedEventArgs e) => Refresh();
 
-        public override void Refresh(){
-            if (Control==null||DataSource is not IEnumerable) return;
-            _collectionSource.ResetCollection();
-        }
+        public override void Refresh() => _collectionSource.ResetCollection();
         public void Setup(CollectionSourceBase collectionSource, XafApplication application) => _collectionSource=collectionSource;
         public override object FocusedObject { get; set; }
         public override IList GetSelectedObjects() => _selectedObjects;

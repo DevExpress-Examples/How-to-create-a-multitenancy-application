@@ -11,7 +11,6 @@ using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
 using OutlookInspired.Module.Features.ViewFilter;
 using OutlookInspired.Module.Services;
-using OutlookInspired.Module.Services.Internal;
 
 
 namespace OutlookInspired.Module.BusinessObjects {
@@ -65,7 +64,8 @@ namespace OutlookInspired.Module.BusinessObjects {
 
 		[NotMapped]
 		[VisibleInDetailView(false)]
-		public virtual ObservableCollection<MapItem> CitySales{ get; set; }
+		public virtual ObservableCollection<MapItem> CitySales{ get; set; } = new();
+
 		[Aggregated]
 		public virtual ObservableCollection<CustomerEmployee> Employees{ get; set; } = new(); 
 		[Attributes.Validation.Phone][MaxLength(20)]
@@ -109,16 +109,9 @@ namespace OutlookInspired.Module.BusinessObjects {
 		public virtual List<Order> RecentOrders => ObjectSpace.GetObjectsQuery<Order>()
 			.Where(order => order.Customer.ID == ID && order.OrderDate > DateTime.Now.AddMonths(-2)).ToList();
 
-		
-
-		[NotMapped][Browsable(false)]
-		public Period SalesPeriod{ get; set ; }
-
-		[Browsable(false)][NotMapped]
-		public string SalesCity{ get; set; }
-
-		[VisibleInDetailView(false)][NotMapped]
-		public ObservableCollection<MapItem> Sales => new(ObjectSpace.Sales(item => item.Order.Customer.ID == ID,SalesPeriod));
+		[VisibleInDetailView(false)]
+		[NotMapped]
+		public ObservableCollection<MapItem> Sales{ get; set; } = new();
 		
 		IEnumerable<Order> ISalesMapsMarker.Orders => Orders;
 		

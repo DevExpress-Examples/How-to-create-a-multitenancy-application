@@ -79,9 +79,7 @@ namespace OutlookInspired.Win.Editors.Maps{
             if (_dataAdapter != null) _dataAdapter.DataSource = dataSource;
         }
 
-        public override void Refresh(){
-            _collectionSource.ResetCollection();
-        }
+        public override void Refresh() => _collectionSource.ResetCollection();
 
         public override IList GetSelectedObjects() => ItemsLayer?.SelectedItems.Cast<IMapItem>().ToList()??new ();
 

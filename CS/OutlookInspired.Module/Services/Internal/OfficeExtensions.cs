@@ -1,4 +1,5 @@
-﻿using DevExpress.Pdf;
+﻿using System.Drawing;
+using DevExpress.Pdf;
 using DevExpress.XtraRichEdit;
 
 namespace OutlookInspired.Module.Services.Internal{
@@ -21,15 +22,6 @@ namespace OutlookInspired.Module.Services.Internal{
             return data();
         }
 
-        public static byte[] AddWaterMark(this byte[] bytes,string text){
-            using var processor = new PdfDocumentProcessor();
-            using var memoryStream = new MemoryStream(bytes);
-            processor.LoadDocument(memoryStream);
-            processor.AddWatermark(text);
-            using var stream = new MemoryStream();
-            processor.SaveDocument(stream);
-            return stream.ToArray();
-        }
 
         public static byte[] ToPdf(this byte[] bytes){
             using var richEditDocumentServer = new RichEditDocumentServer();

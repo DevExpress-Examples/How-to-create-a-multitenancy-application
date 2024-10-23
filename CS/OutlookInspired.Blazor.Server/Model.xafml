@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <BOModel>
-    <Class Name="DevExpress.Persistent.BaseImpl.EF.PermissionPolicy.PermissionPolicyUser">
-      <OwnMembers>
-        <Member Name="UserName" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.HyperLinkPropertyEditor" />
-      </OwnMembers>
-    </Class>
-  </BOModel>
   <NavigationItems NavigationStyle="Accordion">
     <Items>
       <Item Id="Default">
@@ -51,9 +44,9 @@
     </DetailView>
     <DetailView Id="Customer_DetailView_Maps" AllowEdit="False">
       <Items>
-        <PropertyEditor Id="HomeOfficeLine" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
+        <PropertyEditor Id="HomeOfficeLine" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.Label.LabelPropertyEditor" />
         <PropertyEditor Id="Logo" ImageSizeMode="StretchImage" ImageEditorCustomHeight="100" ImageEditorFixedHeight="100" ImageEditorFixedWidth="100" />
-        <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
+        <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.Label.LabelPropertyEditor" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
@@ -292,13 +285,6 @@
       </Layout>
     </DetailView>
     <DetailView Id="Employee_DetailView_Maps">
-      <Items>
-        <PropertyEditor Id="AAddress" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
-        <PropertyEditor Id="Address" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
-        <PropertyEditor Id="BAddress" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
-        <PropertyEditor Id="FullName" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
-        <PropertyEditor Id="RouteResult" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
-      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
@@ -323,11 +309,6 @@
         <ColumnInfo Id="Raise" Index="-1" />
         <ColumnInfo Id="Subject" Index="0" SortIndex="-1" SortOrder="None" />
         <ColumnInfo Id="StartOn" Index="1" SortIndex="0" SortOrder="Descending" />
-      </Columns>
-    </ListView>
-    <ListView Id="Employee_ListView">
-      <Columns>
-        <ColumnInfo Id="User" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.HyperLinkPropertyEditor" />
       </Columns>
     </ListView>
     <DashboardView Id="EmployeeCardListView">
@@ -490,8 +471,8 @@
     </DetailView>
     <DetailView Id="Order_DetailView_Maps">
       <Items>
-        <PropertyEditor Id="Customer" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
-        <PropertyEditor Id="InvoiceNumber" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
+        <PropertyEditor Id="Customer" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.Label.LabelPropertyEditor" />
+        <PropertyEditor Id="InvoiceNumber" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.Label.LabelPropertyEditor" />
         <PropertyEditor Id="Logo" ImageEditorCustomHeight="100" ImageEditorFixedHeight="100" ImageEditorFixedWidth="100" AllowEdit="False" />
       </Items>
       <Layout>
@@ -634,9 +615,9 @@
     </DetailView>
     <DetailView Id="Product_DetailView_Maps" AllowEdit="False">
       <Items>
-        <PropertyEditor Id="Description" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
+        <PropertyEditor Id="Description" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.Label.LabelPropertyEditor" />
         <PropertyEditor Id="Image" AllowEdit="False" ImageSizeMode="Normal" />
-        <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.LabelPropertyEditor" />
+        <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.Label.LabelPropertyEditor" />
         <PropertyEditor Id="PrimaryImage" AllowEdit="False" />
       </Items>
       <Layout>

@@ -51,7 +51,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         public  virtual int Manufacturing { get; set; }
 
         [NotMapped]
-        public ObservableCollection<MapItem> Sales => new(ObjectSpace.Sales(item => item.Product.ID == ID,SalesPeriod));
+        public ObservableCollection<MapItem> Sales { get; set; } = new();
 
         [NotMapped][VisibleInDetailView(false)]
         public virtual ObservableCollection<MapItem> CitySales{ get; set; } = new();
@@ -69,9 +69,6 @@ namespace OutlookInspired.Module.BusinessObjects{
         [InverseProperty(nameof(ProductCatalog.Product))][Aggregated]
         public virtual ObservableCollection<ProductCatalog> Catalogs{ get; set; } = new();
         
-
-        [NotMapped][Browsable(false)]
-        public Period SalesPeriod{ get; set; }
 
         [Aggregated]
         public virtual ObservableCollection<ProductImage> Images{ get; set; } = new();

@@ -9,14 +9,14 @@ using OutlookInspired.Module.Controllers;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Customers;
 using OutlookInspired.Module.Features.Employees;
-using OutlookInspired.Module.Features.MasterDetail;
 using OutlookInspired.Module.Features.Orders;
 using OutlookInspired.Module.Features.Products;
 using OutlookInspired.Module.Features.Quotes;
-using OutlookInspired.Module.Features.ViewFilter;
 using OutlookInspired.Module.ModelUpdaters;
 using OutlookInspired.Module.Services.Internal;
 using OutlookInspired.Module.BusinessObjects;
+using OutlookInspired.Module.Common;
+using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.Maps;
 
 
@@ -52,10 +52,10 @@ public sealed class OutlookInspiredModule : ModuleBase{
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes() 
 	    =>[typeof(MailMergeController),typeof(CustomerReportController),typeof(QuoteMapItemController),typeof(HideToolBarController),
-		    typeof(CommunicationController),typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.ReportController),typeof(ShipmentDetailController),
+		    typeof(CommunicationController),typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.OrdersReportController),typeof(ShipmentDetailController),
 		    typeof(Features.Products.ProductReportController),typeof(MapOrderController), typeof(MasterDetailController),typeof(ViewFilterController),
 		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController),typeof(MapOpportunitiesController),
-		    typeof(MapsSalesPeriodViewController),typeof(MapItemSalesViewController)
+		    typeof(MapsSalesPeriodViewController),typeof(MapItemSalesViewController),typeof(ProtectReportActionItemsViewController),typeof(OpportunitiesListViewController)
 	    ];
 
     public override void Setup(XafApplication application) {

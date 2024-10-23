@@ -3,4 +3,9 @@
 public class DxChartPieModel : DxChartModel{
     
     public override Type ComponentType => typeof(MyDxPieChart);
+
+    public bool Stick{
+        get => GetPropertyValue<bool>();
+        set => SetPropertyValue(value);
+    }
 }

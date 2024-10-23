@@ -1,42 +1,50 @@
-﻿@using System.Linq.Expressions
+﻿@inject IJSRuntime JSRuntime
+@implements IAsyncDisposable;
+@using System.Linq.Expressions
 
-<DxPieChart Data="@Data" @ref="@Chart"
-            Diameter="1" InnerDiameter="0.5" StartAngle="0" SegmentDirection="PieChartSegmentDirection.Clockwise" CustomizeSeriesPoint="CustomizeSeriesPoint">
-    <DxPieChartSeries ValueField="@ValueField" ArgumentField="@ArgumentField" SummaryMethod="@SummaryMethod">
-        <DxChartSeriesLabel Visible="true" Position="RelativePosition.Outside" ValueFormat="ChartElementFormat.Thousands(1)">
-            <DxChartSeriesLabelConnector Visible="true" />
-        </DxChartSeriesLabel>
-    </DxPieChartSeries>
-    <DxChartTooltip Enabled="true" Position="RelativePosition.Outside">
-        <div style="margin: 0.75rem">
-            <div class="fw-bold">@context.Point.Argument</div>
-            <div>Sales: @($"${context.Point.Value:#,0.}")</div>
-        </div>
-    </DxChartTooltip>
-    <DxChartLegend HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalEdge.Bottom"
-                   Position="RelativePosition.Outside" Orientation="Orientation.Horizontal" />
-</DxPieChart>
+
+<div @ref="_pieChartDiv">
+    <DxPieChart Data="@Data" Diameter="1" InnerDiameter="0.5" StartAngle="0" SegmentDirection="PieChartSegmentDirection.Clockwise" CustomizeSeriesPoint="CustomizeSeriesPoint"
+                style="@Style">
+        <DxPieChartSeries ValueField="@ValueField" ArgumentField="@ArgumentField" SummaryMethod="@SummaryMethod">
+            <DxChartSeriesLabel Visible="true" Position="RelativePosition.Outside" ValueFormat="ChartElementFormat.Thousands(1)">
+                <DxChartSeriesLabelConnector Visible="true" />
+            </DxChartSeriesLabel>
+        </DxPieChartSeries>
+        <DxChartTooltip Enabled="true" Position="RelativePosition.Outside">
+            <div style="margin: 0.75rem">
+                <div class="fw-bold">@context.Point.Argument</div>
+                <div>Sales: @($"${context.Point.Value:#,0.}")</div>
+            </div>
+        </DxChartTooltip>
+        <DxChartLegend HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalEdge.Bottom"
+                       Position="RelativePosition.Outside" Orientation="Orientation.Horizontal" />
+    </DxPieChart>
+</div>
+
 @code {
-    [Parameter][EditorRequired] 
-    public IEnumerable<object> Data { get; set; }
-    
-    [Parameter][EditorRequired] 
-    public Expression<Func<object, string>> ArgumentField { get; set; }
-    [Parameter][EditorRequired] 
-    public Expression<Func<object, decimal>> ValueField { get; set; }
-    [Parameter][EditorRequired] 
-    public Expression<Func<object, string>> NameField { get; set; }
-    [Parameter][EditorRequired] 
-    public Func<IEnumerable<decimal>, decimal> SummaryMethod { get; set; }
-    [Parameter][EditorRequired] 
-    public Action<ChartSeriesPointCustomizationSettings> CustomizeSeriesPoint { get; set; }
-    [Parameter] public string Height { get; set; } = "70vh";
+    private ElementReference _pieChartDiv;
+    private IJSObjectReference _module;
+    [Parameter] public IEnumerable<object> Data { get; set; }
+    [Parameter] public Expression<Func<object, string>> ArgumentField { get; set; }
+    [Parameter] public Expression<Func<object, decimal>> ValueField { get; set; }
+    [Parameter] public Expression<Func<object, string>> NameField { get; set; }
+    [Parameter] public Func<IEnumerable<decimal>, decimal> SummaryMethod { get; set; }
+    [Parameter] public bool Stick { get; set; }
+    [Parameter] public Action<ChartSeriesPointCustomizationSettings> CustomizeSeriesPoint { get; set; }
+    [Parameter] public string Style{ get; set; }
 
-    
-    public DxPieChart<object> Chart;
-    protected override void OnAfterRender(bool firstRender){
-        base.OnAfterRender(firstRender);
-        Chart.RefreshData();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender){
+        if (!firstRender||!Stick)return;
+        _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Editors/Charts/MyDxPieChart.razor.js");        
+        await _module.InvokeVoidAsync("moveElementOnScroll", _pieChartDiv);
     }
-    
+
+
+    public async ValueTask DisposeAsync(){
+        if (_module == null) return;
+        await _module.DisposeAsync();
+    }
+
 }

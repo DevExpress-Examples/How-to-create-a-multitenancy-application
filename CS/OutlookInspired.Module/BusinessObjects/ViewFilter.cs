@@ -11,7 +11,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.EF;
 using DevExpress.Persistent.Validation;
 using OutlookInspired.Module.Attributes.Appearance;
-using OutlookInspired.Module.Features.ViewFilter;
+using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Services.Internal;
 using EditorAliases = DevExpress.ExpressApp.Editors.EditorAliases;
 

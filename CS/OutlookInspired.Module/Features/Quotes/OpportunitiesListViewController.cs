@@ -1,15 +1,11 @@
-﻿using System.Drawing;
-using DevExpress.ExpressApp;
-using OutlookInspired.Blazor.Server.Editors.Charts;
+﻿using DevExpress.ExpressApp;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Services;
 
-namespace OutlookInspired.Blazor.Server.Features.Quotes{
+namespace OutlookInspired.Module.Features.Quotes{
     public class OpportunitiesListViewController:ObjectViewController<ListView,Opportunity>{
         protected override void OnActivated(){
             base.OnActivated();
-            Active[$"not {nameof(DxChartPieListEditor)}"] = View.Editor is DxChartPieListEditor;
-            if (!Active)return;
             ((NonPersistentObjectSpace)ObjectSpace).ObjectsGetting+=OnObjectsGetting;
             View.CollectionSource.ResetCollection(true);
         }
@@ -35,15 +31,5 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes{
         }
 
 
-        protected override void OnViewControlsCreated(){
-            base.OnViewControlsCreated();
-            var mapItemDxChartListEditor = ((DxChartPieListEditor)View.Editor);
-            var chartModel = mapItemDxChartListEditor.Control;
-            chartModel.ArgumentField = item => ((Opportunity)item).Stage.ToString();
-            chartModel.ValueField = item => ((Opportunity)item).Value;
-            chartModel.SummaryMethod = items => items.Sum();
-            chartModel.CustomizeSeriesPoint = e
-                => e.PointAppearance.Color = ColorTranslator.FromHtml(e.Point.DataItems.Cast<Opportunity>().First().Stage.Color());
-        }
     }
 }

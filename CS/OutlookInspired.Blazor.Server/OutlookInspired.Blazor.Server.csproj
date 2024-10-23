@@ -39,6 +39,9 @@
     <Content Include="Features\Employees\Evaluations\EmployeeEvaluationColumnTemplate.razor.css" />
     <None Remove="Features\Employees\Tasks\EmployeeTasksColumnTemplate.razor.css" />
     <Content Include="Features\Employees\Tasks\EmployeeTasksColumnTemplate.razor.css" />
+    <None Remove="Editors\Charts\MyDxPieChart.razor.css" />
+    <None Remove="Editors\Charts\MyDxPieChart.razor.js" />
+    <Content Include="Editors\Charts\MyDxPieChart.razor.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="24.2.1-alpha-24260" />
@@ -92,9 +95,6 @@
     <_ContentIncludedByDefault Remove="Components\DevExtreme\Maps\DxrMap.razor" />
     <_ContentIncludedByDefault Remove="Components\DevExtreme\Maps\DxVectorMap.razor" />
     <_ContentIncludedByDefault Remove="Components\DevExtreme\Pivot\DxPivotGrid.razor" />
-  </ItemGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="Features\Employees\Tasks\ColumnTemplate.razor" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Components\DevExtreme\DevExtremeComponent.cs.js" />

@@ -6,11 +6,12 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.EF;
 using OutlookInspired.Module.BusinessObjects;
+using OutlookInspired.Module.Controllers;
 using OutlookInspired.Module.Services.Internal;
 using static OutlookInspired.Module.Services.Internal.ReportsExtensions;
 
 namespace OutlookInspired.Module.Features.Customers{
-    public class CustomerReportController:ObjectViewController<ListView,Customer>{
+    public class CustomerReportController:ObjectViewController<ListView,Customer>,IReportController{
         public const string ReportActionId = "CustomerReport";
         public CustomerReportController(){
             TargetObjectType = typeof(Customer);
@@ -44,17 +45,6 @@ namespace OutlookInspired.Module.Features.Customers{
             }
         }
 
-        protected override void OnViewControllersActivated(){
-            base.OnViewControllersActivated();
-            var items = ReportAction.Items.SelectManyRecursive(item => item.Items);
-            foreach (var item in items.Where(item => item.Data!=null)){
-                var reportDataV2 = ObjectSpace.GetObjectsQuery<ReportDataV2>().First(v2 => v2.DisplayName==(string)item.Data);
-                var isGranted = Application.Security.IsGranted(new PermissionRequest(ObjectSpace,
-                    reportDataV2.GetType(), SecurityOperations.Read, reportDataV2));
-                item.Active["ReportProtection"] = isGranted;
-            }
-            
-        }
 
     }
 }

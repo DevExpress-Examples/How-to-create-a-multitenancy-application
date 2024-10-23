@@ -6,7 +6,8 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
-using OutlookInspired.Module.Features.MasterDetail;
+using OutlookInspired.Module.Common;
+using OutlookInspired.Module.Features;
 
 namespace OutlookInspired.Module.Services.Internal{
     internal static class ViewExtensions{

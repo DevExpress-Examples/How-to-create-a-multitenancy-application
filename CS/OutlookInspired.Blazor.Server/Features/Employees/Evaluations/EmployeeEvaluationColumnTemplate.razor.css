@@ -1,7 +1,17 @@
+table {
+    table-layout: auto;
+    width: 100%;
+}
 .evaluations-td {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 100%;
     visibility: visible;
-    width: 270px;
+}
+.evaluations-description {
+    white-space: normal; 
+}
+td {
+    vertical-align: top; 
 }

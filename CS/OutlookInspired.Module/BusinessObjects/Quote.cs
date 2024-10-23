@@ -7,8 +7,8 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraCharts;
+using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
-using OutlookInspired.Module.Features.ViewFilter;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 

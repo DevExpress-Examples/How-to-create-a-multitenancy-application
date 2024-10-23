@@ -2,7 +2,8 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Features.MasterDetail;
+using OutlookInspired.Module.Common;
+using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Services{

@@ -6,13 +6,14 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.EF;
 using OutlookInspired.Module.BusinessObjects;
+using OutlookInspired.Module.Controllers;
 using OutlookInspired.Module.Services.Internal;
 using static OutlookInspired.Module.Services.Internal.ReportsExtensions;
 
 namespace OutlookInspired.Module.Features.Orders{
-    public class ReportController:ObjectViewController<ObjectView,Order>{
+    public class OrdersReportController:ObjectViewController<ObjectView,Order>,IReportController{
         public const string ReportActionId = "OrderReport";
-        public ReportController(){
+        public OrdersReportController(){
             TargetObjectType = typeof(Order);
             ReportAction = new SingleChoiceAction(this, ReportActionId, PredefinedCategory.Reports){
                 ImageName = "BO_Report", SelectionDependencyType = SelectionDependencyType.RequireSingleObject,PaintStyle = ActionItemPaintStyle.Image,

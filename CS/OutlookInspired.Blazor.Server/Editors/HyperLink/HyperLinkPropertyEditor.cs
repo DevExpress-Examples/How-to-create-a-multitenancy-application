@@ -17,5 +17,7 @@ namespace OutlookInspired.Blazor.Server.Editors.HyperLink {
             };
             return hyperLinkModel.GetComponentContent();
         }
+        
+        
     }
 }

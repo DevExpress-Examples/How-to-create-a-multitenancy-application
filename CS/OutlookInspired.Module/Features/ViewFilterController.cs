@@ -9,7 +9,11 @@ using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Services.Internal;
 
-namespace OutlookInspired.Module.Features.ViewFilter{
+namespace OutlookInspired.Module.Features{
+    public interface IViewFilter{
+        
+    }
+
     public class ViewFilterController:ObjectViewController<ObjectView,IViewFilter>{
         public const string FilterViewActionId = "FilterView";
         public ViewFilterController(){
@@ -25,7 +29,7 @@ namespace OutlookInspired.Module.Features.ViewFilter{
         public SingleChoiceAction FilterAction{ get; }
         
         private void FilterView(){
-            var criteria = FilterAction.SelectedItem.Data is BusinessObjects.ViewFilter viewFilter ? viewFilter.Criteria : null;
+            var criteria = FilterAction.SelectedItem.Data is ViewFilter viewFilter ? viewFilter.Criteria : null;
             var userControl = View.UserControl();
             if (userControl != null){
                 userControl.SetCriteria(criteria);
@@ -64,13 +68,13 @@ namespace OutlookInspired.Module.Features.ViewFilter{
 
         private void OnObjectCreated(object sender, ObjectCreatedEventArgs e){
             ((NewObjectViewController)sender).ObjectCreated-=OnObjectCreated;
-            ((BusinessObjects.ViewFilter)e.CreatedObject).DataType = View.ObjectTypeInfo.Type;
+            ((ViewFilter)e.CreatedObject).DataType = View.ObjectTypeInfo.Type;
         }
         
         private void CreateViewFilterListView(ShowViewParameters showViewParameters){
-            var listView = Application.CreateListView(typeof(BusinessObjects.ViewFilter), true);
-            listView.Editor.NewObjectCreated += (_, args) => ((BusinessObjects.ViewFilter)((ObjectManipulatingEventArgs)args).Object).DataType = View.ObjectTypeInfo.Type;
-            listView.CollectionSource.SetCriteria<BusinessObjects.ViewFilter>(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName);
+            var listView = Application.CreateListView(typeof(ViewFilter), true);
+            listView.Editor.NewObjectCreated += (_, args) => ((ViewFilter)((ObjectManipulatingEventArgs)args).Object).DataType = View.ObjectTypeInfo.Type;
+            listView.CollectionSource.SetCriteria<ViewFilter>(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName);
             showViewParameters.TargetWindow=TargetWindow.NewModalWindow;
             showViewParameters.CreatedView=listView;
         }
@@ -87,6 +91,12 @@ namespace OutlookInspired.Module.Features.ViewFilter{
             if(!active)
                 return;
 
+            
+            Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
+        }
+
+        protected override void OnViewControlsCreated(){
+            base.OnViewControlsCreated();
             AddFilterItems();
             if(View is DetailView detailView) {
                 detailView.CustomizeViewItemControl<ControlViewItem>(this, _ => {
@@ -95,7 +105,6 @@ namespace OutlookInspired.Module.Features.ViewFilter{
                     }
                 });
             }
-            Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
         }
 
         private void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e){
@@ -128,12 +137,12 @@ namespace OutlookInspired.Module.Features.ViewFilter{
             FilterAction.Items.Add(new ChoiceActionItem("Manage...", "Manage"));
 
             var count = View is ListView listView ? listView.CollectionSource.GetCount() : ObjectSpace.GetObjectsCount(View.ObjectTypeInfo.Type, null);
-            var criteria = View is ListView _listView ? _listView.CollectionSource.GetTotalCriteria() : null;
+            var criteria = View is ListView listView1 ? listView1.CollectionSource.GetTotalCriteria() : null;
 
             var allItem = new ChoiceActionItem($"All ({count})", "All");
             FilterAction.Items.Add(allItem);
 
-            var viewFilters = ObjectSpace.GetObjectsQuery<BusinessObjects.ViewFilter>().Where(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName).ToList();
+            var viewFilters = ObjectSpace.GetObjectsQuery<ViewFilter>().Where(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName).ToList();
             var choiceActionItems = viewFilters.Select(viewFilter => new ChoiceActionItem($"{viewFilter.Name} ({viewFilter.Count(criteria)})", viewFilter)).ToList();
             FilterAction.Items.AddRange(choiceActionItems);
 

@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl.EF.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Features.ViewFilter;
+using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.DatabaseUpdate;
@@ -70,7 +70,7 @@ public class Updater(IObjectSpace objectSpace, Version currentDBVersion) : Modul
         CustomerFilters();
         ProductFilters();
         OrderFilters();
-        DateFilters<Quote>(nameof(Quote.Date));
+        DateFilters<QuoteAnalysis>(nameof(Quote.Date));
     }
 
     private void OrderFilters(){

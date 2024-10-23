@@ -1,6 +1,6 @@
 ﻿@using System.Linq.Expressions
 
-<DxChart @ref="Chart"  Data="@Data" Width="100%" Rotated="true" Height="@Height" CustomizeSeriesPoint="CustomizeSeriesPoint">
+<DxChart @ref="Chart"  Data="@Data" Width="100%" Rotated="true" Height="@Height" CustomizeSeriesPoint="CustomizeSeriesPoint" style="@Style">
     <DxChartCommonSeries ArgumentField="@ArgumentField" ValueField="@ValueField"
                          SeriesType="@SeriesType" SummaryMethod="@SummaryMethod" NameField="@NameField" />
     <DxChartLegend Visible="false" />
@@ -27,7 +27,7 @@
     public string Height { get; set; } = "70vh";
     [Parameter][EditorRequired]
     public ChartSeriesType SeriesType{ get; set; }
-
+    [Parameter] public string Style{ get; set; }
 
     public DxChart Chart;
     protected override void OnAfterRender(bool firstRender){

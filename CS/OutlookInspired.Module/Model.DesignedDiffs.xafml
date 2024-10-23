@@ -848,7 +848,7 @@
     <DashboardView Id="Opportunities" Caption="Opportunities" ImageName="BO_Opportunity" IsNewNode="True">
       <Items IsNewNode="True">
         <DashboardViewItem Id="Opportunity_ListView" ActionsToolbarVisibility="Hide" ViewId="Opportunity_ListView" IsNewNode="True" />
-        <DashboardViewItem Id="QuoteAnalysis_ListView" ViewId="QuoteAnalysis_ListView" IsNewNode="True" />
+        <DashboardViewItem Id="QuoteAnalysis_ListView" ViewId="QuoteAnalysis_ListView" ActionsToolbarVisibility="Show" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" Caption="Main" IsNewNode="True">

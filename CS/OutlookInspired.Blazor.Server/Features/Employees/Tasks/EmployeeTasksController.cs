@@ -7,7 +7,7 @@ using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server.Features.Employees.Tasks{
     public class EmployeeTasksController:ObjectViewController<ListView,EmployeeTask>{
-        public EmployeeTasksController() => TargetViewNesting=Nesting.Nested;
+        public EmployeeTasksController() => TargetViewId=Employee.ChildDetailView;
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();

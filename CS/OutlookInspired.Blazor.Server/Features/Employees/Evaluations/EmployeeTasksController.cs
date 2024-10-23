@@ -2,14 +2,13 @@
 using DevExpress.ExpressApp.Blazor.Components;
 using DevExpress.ExpressApp.Blazor.Components.Models;
 using DevExpress.ExpressApp.Blazor.Editors;
-using OutlookInspired.Blazor.Server.Features.Employees.Tasks;
 using OutlookInspired.Blazor.Server.Services.Internal;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server.Features.Employees.Evaluations{
     public class EmployeeEvaluationsController:ObjectViewController<ListView,Evaluation>{
-        public EmployeeEvaluationsController() => TargetViewNesting=Nesting.Nested;
+        public EmployeeEvaluationsController() => TargetViewId=Employee.ChildDetailView;
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();

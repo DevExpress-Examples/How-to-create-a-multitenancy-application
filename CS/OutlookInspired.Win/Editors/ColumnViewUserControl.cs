@@ -7,7 +7,8 @@ using DevExpress.Utils.Serializing.Helpers;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
-using OutlookInspired.Module.Features.MasterDetail;
+using OutlookInspired.Module.Common;
+using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Services.Internal;
 using static DevExpress.ExpressApp.Security.SecurityOperations;
 

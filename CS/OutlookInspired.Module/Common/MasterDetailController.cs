@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Linq.Expressions;
 using Aqua.EnumerableExtensions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -10,12 +11,20 @@ using DevExpress.Persistent.Base;
 using DevExpress.Utils.Serializing.Helpers;
 using OutlookInspired.Module.Services.Internal;
 
-namespace OutlookInspired.Module.Features.MasterDetail{
+namespace OutlookInspired.Module.Common{
     public interface IModelDashboardViewItemMasterDetail{
         [Category(OutlookInspiredModule.ModelCategory)]
         bool MasterDetail{ get; set; }
     }
-    
+    public interface IUserControl:ISelectionContext,IComplexControl{
+        void Refresh(object currentObject);
+        event EventHandler<ObjectEventArgs> ProcessObject;
+        void SetCriteria<T>(Expression<Func<T, bool>> lambda);
+        void SetCriteria(string criteria);
+        void SetCriteria(LambdaExpression lambda);
+        Type ObjectType{ get; }
+    }
+
     public class MasterDetailController:ViewController<DashboardView>,IModelExtender{
         private readonly SimpleAction _processMasterViewSelectedObjectAction;
         private NestedFrame _masterFrame;

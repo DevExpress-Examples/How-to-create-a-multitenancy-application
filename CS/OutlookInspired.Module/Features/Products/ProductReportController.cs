@@ -1,16 +1,16 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl.EF;
 using OutlookInspired.Module.BusinessObjects;
+using OutlookInspired.Module.Controllers;
 using OutlookInspired.Module.Services.Internal;
 using static OutlookInspired.Module.Services.Internal.ReportsExtensions;
 
 namespace OutlookInspired.Module.Features.Products{
-    public class ProductReportController:ObjectViewController<ObjectView,Product>{
+
+    public class ProductReportController:ObjectViewController<ObjectView,Product>,IReportController{
         public const string ReportActionId = "ProductReport";
         public ProductReportController(){
             TargetObjectType = typeof(Product);
@@ -34,15 +34,5 @@ namespace OutlookInspired.Module.Features.Products{
                 product => product.ID == ((Product)View.CurrentObject).ID):CriteriaOperator.FromLambda<OrderItem>(
                 orderItem => orderItem.Product.ID == ((Product)View.CurrentObject).ID),"Product");
 
-        protected override void OnViewControllersActivated(){
-            base.OnViewControllersActivated();
-            var items = ReportAction.Items.SelectManyRecursive(item => item.Items);
-            foreach (var item in items.Where(item => item.Data!=null)){
-                var reportDataV2 = ObjectSpace.GetObjectsQuery<ReportDataV2>().First(v2 => v2.DisplayName==(string)item.Data);
-                var isGranted = Application.Security.IsGranted(new PermissionRequest(ObjectSpace,
-                    reportDataV2.GetType(), SecurityOperations.Read, reportDataV2));
-                item.Active["ReportProtection"] = isGranted;
-            }
-        }
     }
 }

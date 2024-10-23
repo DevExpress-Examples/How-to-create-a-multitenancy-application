@@ -6,9 +6,9 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.Attributes;
+using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Features.ViewFilter;
 using OutlookInspired.Module.Services;
 using OutlookInspired.Module.Services.Internal;
 

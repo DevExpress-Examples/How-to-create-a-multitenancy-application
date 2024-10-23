@@ -3,12 +3,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Data;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
+using OutlookInspired.Module.Features;
 
 namespace OutlookInspired.Module.BusinessObjects{
     [DomainComponent][ImageName("BO_Quote")]
     public class Opportunity:IObjectSpaceLink{
 
-        [DevExpress.ExpressApp.Data.Key][Browsable(false)]
+        [Key][Browsable(false)]
         public int ID{ get; set; }
         
         
@@ -17,10 +18,11 @@ namespace OutlookInspired.Module.BusinessObjects{
 
         IObjectSpace IObjectSpaceLink.ObjectSpace{ get; set; }
         public decimal Value{ get; set; }
+        public DateTime Date{ get; set; }
     }
 
     [DomainComponent]
-    public class QuoteAnalysis{
+    public class QuoteAnalysis:IViewFilter{
         [Key]
         public int ID{ get; set; }
         public StateEnum State { get; set; }

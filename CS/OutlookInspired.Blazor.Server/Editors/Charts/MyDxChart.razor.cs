@@ -13,6 +13,10 @@ public class DxChartModel : DevExpress.ExpressApp.Blazor.Components.Models.Compo
         get => GetPropertyValue<IEnumerable<object>>();
         set => SetPropertyValue(value);
     }
+    public string Style {
+        get => GetPropertyValue<string>();
+        set => SetPropertyValue(value);
+    }
     public Expression<Func<object, string>> ArgumentField {
         get => GetPropertyValue<Expression<Func<object, String>>>();
         set => SetPropertyValue(value);

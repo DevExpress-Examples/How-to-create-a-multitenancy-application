@@ -34,10 +34,11 @@ namespace OutlookInspired.Win.Features.Customers{
         }
 
         private void SalesPeriodActionOnExecuted(object sender, ActionBaseEventArgs e){
-            ((ISalesMapsMarker)View.CurrentObject).SalesPeriod = (Period)SalesPeriodAction.SelectedItem.Data;
-            var vectorMapListEditor = View.GetItems<ListPropertyEditor>()
-                .Select(editor => editor.ListView?.Editor).OfType<MapItemListEditor>().First();
-            vectorMapListEditor.Refresh();
+            throw new NotImplementedException();
+            // ((ISalesMapsMarker)View.CurrentObject).SalesPeriod = (Period)SalesPeriodAction.SelectedItem.Data;
+            // var vectorMapListEditor = View.GetItems<ListPropertyEditor>()
+                // .Select(editor => editor.ListView?.Editor).OfType<MapItemListEditor>().First();
+            // vectorMapListEditor.Refresh();
         }
     }
 }

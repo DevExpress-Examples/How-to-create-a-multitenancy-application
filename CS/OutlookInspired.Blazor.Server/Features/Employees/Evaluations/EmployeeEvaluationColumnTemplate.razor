@@ -1,14 +1,15 @@
-﻿<table>
-    <tr>
-        <td style="@Style"><div class="evaluations-td">@Subject</div></td>
-        <td ><strong>@Manager</strong></td>
-        <td ><table><tr><td><XafImage ImageName="@RaiseImage" Size="16" Color="red"></XafImage></td><td>RAISE</td></tr></table></td>
+﻿<table><tr>
+        <td style="width: 50%"><div class="evaluations-td">@Subject</div></td>
+        <td style="width: 30%"><strong>@Manager</strong></td>
+        <td style="width: 20%"><table><tr><td><XafImage ImageName="@RaiseImage" Size="16" Color="red"></XafImage></td><td>RAISE</td></tr></table></td>
     </tr>
     <tr>
-        <td colspan="2"><div class="evaluations-td">@Description</div></td>
-        <td><table><tr><td><XafImage ImageName="@BonusImage" Size="16" Color="green"></XafImage></td><td>BONUS</td></tr></table></td>
+        <td colspan="2"><div class="evaluations-description">@Description</div></td>
+        <td><table><tr><td><XafImage ImageName="@BonusImage" Size="16" Color="green"></XafImage></td><td>BONUS</td></tr></table>
+        </td>
     </tr>
 </table>
+
 @code {
     [Parameter]
     public string Subject { get; set; }

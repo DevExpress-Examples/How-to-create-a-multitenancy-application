@@ -49,9 +49,10 @@ namespace OutlookInspired.Win.Features.Maps.Sales{
 
         private void ItemsLayerOnDataLoaded(object sender, DataLoadedEventArgs e){
             var zoomToRegionService = _mapItemListEditor.ZoomService;
-            var salesPeriod = ((ISalesMapsMarker)((PropertyCollectionSource)View.CollectionSource).MasterObject).SalesPeriod;
-            var customerStores = ObjectSpace.Stores(salesPeriod);
-            zoomToRegionService.To(customerStores);
+            throw new NotImplementedException();
+            // var salesPeriod = ((ISalesMapsMarker)((PropertyCollectionSource)View.CollectionSource).MasterObject).SalesPeriod;
+            // var customerStores = ObjectSpace.Stores(salesPeriod);
+            // zoomToRegionService.To(customerStores);
         }
     }
 }

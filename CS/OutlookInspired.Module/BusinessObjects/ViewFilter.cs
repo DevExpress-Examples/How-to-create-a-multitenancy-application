@@ -39,8 +39,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         [EditorAlias(EditorAliases.CriteriaPropertyEditor)]
         public virtual string Criteria { get; set; }
 
-        [Browsable(false)]
-        public int Count(CriteriaOperator criteria=null) => ObjectSpace.GetObjectsCount(DataType, criteria.Combine(Criteria));
+        
 
         public void SetCriteria<T>(string criteria) where T : IViewFilter{
             DataType = typeof(T);

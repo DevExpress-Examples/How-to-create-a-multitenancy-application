@@ -90,7 +90,6 @@ namespace OutlookInspired.Module.Features{
             FilterAction.Active[nameof(ViewFilterController)] = active;
             if(!active)
                 return;
-
             
             Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
         }
@@ -143,10 +142,15 @@ namespace OutlookInspired.Module.Features{
             FilterAction.Items.Add(allItem);
 
             var viewFilters = ObjectSpace.GetObjectsQuery<ViewFilter>().Where(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName).ToList();
-            var choiceActionItems = viewFilters.Select(viewFilter => new ChoiceActionItem($"{viewFilter.Name} ({viewFilter.Count(criteria)})", viewFilter)).ToList();
+            var choiceActionItems = viewFilters.Select(viewFilter => new ChoiceActionItem($"{viewFilter.Name} ({Count(viewFilter.DataType,criteria)})", viewFilter)).ToList();
             FilterAction.Items.AddRange(choiceActionItems);
 
             FilterAction.SelectedItem = allItem;
+        }
+        
+        int Count(Type dataType,CriteriaOperator criteria=null){
+            using var objectSpace = Application.CreateObjectSpace(dataType);
+            return objectSpace.GetObjectsCount(dataType, criteria.Combine(criteria?.ToString()));
         }
     }
 }

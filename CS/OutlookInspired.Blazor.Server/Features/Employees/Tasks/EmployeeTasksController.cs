@@ -7,16 +7,16 @@ using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server.Features.Employees.Tasks{
     public class EmployeeTasksController:ObjectViewController<ListView,EmployeeTask>{
-        public EmployeeTasksController() => TargetViewId=Employee.ChildDetailView;
+        public EmployeeTasksController() => TargetViewId=EmployeeTask.AssignedTasksChildListView;
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
             if (View.Editor is not DxGridListEditor editor) return;
-            var dataColumnModel = editor.GridDataColumnModels.First(model => model.FieldName == View.Model.VisibleMemberViewItems().First().PropertyName);
-            dataColumnModel.HeaderCaptionTemplate = _ => _ => { };
+            var subjectDataColumnModel = editor.GridDataColumnModels.First(model => model.FieldName==nameof(EmployeeTask.Subject));
+            subjectDataColumnModel.HeaderCaptionTemplate = _ => _ => { };
             
-            dataColumnModel.CellDisplayTemplate = value => {
-                var employeeTask = ((EmployeeTask)value.DataItem);
+            subjectDataColumnModel.CellDisplayTemplate = value => {
+                var employeeTask = (EmployeeTask)value.DataItem;
                 var model = new TasksColumnTemplateModel(){
                     Subject = employeeTask.Subject,Description = employeeTask.Description.ToDocumentText(),
                     Date = employeeTask.DueDate.GetValueOrDefault().ToString("MMMM dd, yyyy"),

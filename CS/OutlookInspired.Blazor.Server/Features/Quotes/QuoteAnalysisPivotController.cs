@@ -1,4 +1,5 @@
 ﻿using DevExpress.Blazor;
+using DevExpress.Data.Filtering;
 using DevExpress.Data.Linq;
 using DevExpress.Data.Linq.Helpers;
 using DevExpress.ExpressApp;
@@ -32,7 +33,17 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes{
             else{
                 var criteriaOperator = ObjectSpace.ParseCriteria(e.Criteria.ToString());
                 var expressionEvaluator = ObjectSpace.GetExpressionEvaluator(typeof(QuoteAnalysis),criteriaOperator);
-                e.Count = _quoteAnalyses.Count(analysis => (bool)(expressionEvaluator.Evaluate(analysis)??true));    
+                e.Count = _quoteAnalyses.Count(analysis => (bool)(expressionEvaluator.Evaluate(analysis)??true));
+                if (e.Criteria == null){
+                    e.Count = _quoteAnalyses.Length;
+                }
+                else{
+                    e.Count = _quoteAnalyses.Count(analysis
+                        => {
+                        var isObjectFitForCriteria = ObjectSpace.IsObjectFitForCriteria(analysis, (CriteriaOperator)e.Criteria);
+                        return isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value;
+                    });    
+                }
             }
         }
 

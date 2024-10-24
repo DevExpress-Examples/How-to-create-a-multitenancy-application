@@ -1,7 +1,7 @@
 ﻿using DevExpress.ExpressApp.Blazor.Editors;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using OutlookInspired.Blazor.Server.Services.Internal;
+using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.Services.Internal;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
@@ -11,7 +11,7 @@ namespace OutlookInspired.Blazor.Server.Editors.Label{
         : BlazorPropertyEditorBase(objectType, model){
         public override LabelModel ComponentModel => (LabelModel)base.ComponentModel;
         protected override LabelModel CreateComponentModel() 
-            => new(){ Style = MemberInfo.FontSize() };
+            => new(){ Style = MemberInfo.FindAttribute<FontSizeDeltaAttribute>()?.Style() };
 
         protected override void ReadValueCore() {
             base.ReadValueCore();

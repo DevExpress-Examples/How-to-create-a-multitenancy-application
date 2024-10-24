@@ -134,9 +134,9 @@
     <ListView Id="Employee_AssignedTasks_ListView_Child">
       <Columns>
         <ColumnInfo Id="Completion" Index="-1" />
+        <ColumnInfo Id="DueDate" Index="-1" SortIndex="0" SortOrder="Ascending" />
         <ColumnInfo Id="StartDate" Index="-1" SortIndex="-1" SortOrder="None" />
         <ColumnInfo Id="Subject" SortIndex="-1" SortOrder="None" Index="0" />
-        <ColumnInfo Id="DueDate" Index="1" SortIndex="0" SortOrder="Ascending" />
       </Columns>
     </ListView>
     <DetailView Id="Employee_DetailView">
@@ -304,11 +304,12 @@
     <ListView Id="Employee_Evaluations_ListView_Child" EditorTypeName="DevExpress.ExpressApp.Blazor.Editors.DxGridListEditor">
       <Columns>
         <ColumnInfo Id="Bonus" Index="-1" />
+        <ColumnInfo Id="Description" Index="-1" />
         <ColumnInfo Id="EndOn" Index="-1" />
         <ColumnInfo Id="Manager" Index="-1" />
         <ColumnInfo Id="Raise" Index="-1" />
+        <ColumnInfo Id="StartOn" Index="-1" SortIndex="0" SortOrder="Descending" />
         <ColumnInfo Id="Subject" Index="0" SortIndex="-1" SortOrder="None" />
-        <ColumnInfo Id="StartOn" Index="1" SortIndex="0" SortOrder="Descending" />
       </Columns>
     </ListView>
     <DashboardView Id="EmployeeCardListView">

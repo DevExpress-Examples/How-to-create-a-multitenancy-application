@@ -8,7 +8,6 @@ using OutlookInspired.Win.Controllers;
 using OutlookInspired.Win.Editors.DxHtmlEditor;
 using OutlookInspired.Win.Editors.GridListEditor;
 using OutlookInspired.Win.Editors.ProgressEditor;
-using OutlookInspired.Win.Features.Customers;
 using OutlookInspired.Win.Features.Employees;
 using OutlookInspired.Win.Features.Evaluations;
 using OutlookInspired.Win.Features.Maps;
@@ -29,14 +28,14 @@ public sealed class OutlookInspiredWinModule : ModuleBase {
         RequiredModuleTypes.Add(typeof(OutlookInspiredModule));
     }
     public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) 
-        => new[] { new ModuleUpdater(objectSpace, versionFromDB) };
+        =>[new(objectSpace, versionFromDB)];
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes() 
-        =>[typeof(MapsViewController), typeof(FontSizeController), typeof(NewItemRowHandlingModeController),
+        =>[typeof(FontSizeController), typeof(NewItemRowHandlingModeController),
             typeof(PaletteEntriesController),typeof(FunnelFilterController),
-            typeof(MapsTravelModeViewController),typeof(MapsSalesPeriodViewController),typeof(PropertyEditorController), typeof(DisableSkinsController), 
+            typeof(MapsTravelModeViewController),typeof(PropertyEditorController), typeof(DisableSkinsController), 
             typeof(SplitterPositionController),typeof(MapItemListEditorController),
-            typeof(SchedulerListEditorController),typeof(BlazorWebViewKeyDownController),typeof(WinMapsViewController),
+            typeof(SchedulerListEditorController),typeof(BlazorWebViewKeyDownController),
             typeof(MapItemChartListEditorController),typeof(QuoteMapItemListEditorController),typeof(MapQuoteController),
             typeof(StageViewController)
         ];

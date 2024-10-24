@@ -5,6 +5,7 @@ using DevExpress.Map.Dashboard;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraMap;
 using Microsoft.Extensions.DependencyInjection;
+using OutlookInspired.Module;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Features.Maps;
 using OutlookInspired.Win.Services.Internal;

@@ -312,23 +312,20 @@
         <ColumnInfo Id="Subject" Index="0" SortIndex="-1" SortOrder="None" />
       </Columns>
     </ListView>
+    <ListView Id="Employee_ListView" MasterDetailMode="ListViewAndDetailView" />
     <DashboardView Id="EmployeeCardListView">
-      <Items>
-        <DashboardViewItem Id="EmployeeLayoutView_DetailView" ViewId="EmployeeLayoutView_ListView" Removed="True" />
-        <DashboardViewItem Id="EmployeeLayoutView_ListView" ViewId="EmployeeLayoutView_ListView" MasterDetail="True" IsNewNode="True" />
-      </Items>
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
-          <LayoutGroup Id="Auto7f31c4e0-c0cd-4039-bc6f-249b915b9696" ShowCaption="False" Caption="Auto7f31c4e0-c0cd-4039-bc6f-249b915b9696(2)" Index="0" RelativeSize="60.14805675508945" IsNewNode="True">
-            <LayoutItem Id="EmployeeLayoutView_ListView" ViewItem="EmployeeLayoutView_ListView" Index="0" RelativeSize="49.892933618843685" IsNewNode="True" />
-            <LayoutItem Id="Item1" Index="1" RelativeSize="50.107066381156315" IsNewNode="True" />
+          <LayoutGroup Id="Auto2e6643cd-0817-4c36-b3c9-6b463d18b04e" ShowCaption="False" Caption="" Index="0" RelativeSize="60.1076095311299" IsNewNode="True">
+            <LayoutItem Id="EmployeeLayoutView_ListView" ViewItem="EmployeeLayoutView_ListView" Index="0" RelativeSize="49.9330655957162" IsNewNode="True" />
+            <LayoutItem Id="Item1" Index="1" RelativeSize="50.0669344042838" IsNewNode="True" />
           </LayoutGroup>
-          <LayoutGroup Id="Auto6c838c8f-6311-4304-ab08-d17630120bf7" ShowCaption="False" Caption="Auto6c838c8f-6311-4304-ab08-d17630120bf7(5)" Index="1" RelativeSize="39.85194324491055" IsNewNode="True">
-            <LayoutItem Id="Employee_DetailView_Child" ViewItem="Employee_DetailView_Child" Index="0" RelativeSize="49.892933618843685" IsNewNode="True" />
-            <LayoutItem Id="Item2" Index="1" RelativeSize="50.107066381156315" IsNewNode="True" />
+          <LayoutGroup Id="Autob9fa4239-0c7e-45c9-abf7-3f9d357c19bc" ShowCaption="False" Caption="" Index="1" RelativeSize="39.8923904688701" IsNewNode="True">
+            <LayoutItem Id="Employee_DetailView_Child" ViewItem="Employee_DetailView_Child" Index="0" RelativeSize="49.9330655957162" IsNewNode="True" />
+            <LayoutItem Id="Item2" Index="1" RelativeSize="50.0669344042838" IsNewNode="True" />
           </LayoutGroup>
-          <LayoutItem Id="Employee_DetailView_Child" RelativeSize="39.765223771093176" Removed="True" />
-          <LayoutItem Id="EmployeeLayoutView_DetailView" Removed="True" />
+          <LayoutItem Id="Employee_DetailView_Child" RelativeSize="39.8923904688701" Removed="True" />
+          <LayoutItem Id="EmployeeLayoutView_ListView" Removed="True" />
         </LayoutGroup>
       </Layout>
     </DashboardView>

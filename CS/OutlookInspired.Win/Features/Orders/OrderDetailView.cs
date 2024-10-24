@@ -11,11 +11,11 @@ namespace OutlookInspired.Win.Features.Orders
             labelControl1.Text = @"RECORDS: 0";
         }
 
-        protected override void OnDataSourceOfFilterChanged()
-        {
-            base.OnDataSourceOfFilterChanged();
-            labelControl1.Text = $@"RECORDS: {ColumnView.DataRowCount}";
-        }
+        // protected override void OnDataSourceOfFilterChanged()
+        // {
+        //     base.OnDataSourceOfFilterChanged();
+        //     labelControl1.Text = $@"RECORDS: {ColumnView.DataRowCount}";
+        // }
 
 
         public override Type ObjectType => typeof(Order);

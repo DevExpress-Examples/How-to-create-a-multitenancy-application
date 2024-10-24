@@ -24,7 +24,7 @@
       <Item Id="Default">
         <Items>
           <Item Id="Welcome_DetailView" Index="0" ImageName="About" ObjectKey="{8B8DF685-AD96-4BE9-A08A-8DD8C2A9F4C2}" />
-          <Item Id="EmployeeListView" Index="1" ImageName="BO_Employee" />
+          <Item Id="EmployeeListView" Index="1" ImageName="BO_Employee" ViewId="Employee_ListView" />
           <Item Id="Evaluation_ListView" Index="2" ImageName="EvaluationYes" />
           <Item Id="CustomerListView" Index="3" ImageName="BO_Customer" />
           <Item Id="ProductListView" Index="4" ImageName="BO_Product" />
@@ -706,7 +706,7 @@
         <ActionLink ActionId="Unlink" IsNewNode="True" />
       </HiddenActions>
     </ListView>
-    <ListView Id="Employee_ListView" AutoExpandAllGroups="True" IsGroupPanelVisible="True" MasterDetailMode="ListViewOnly" IsFooterVisible="True" MasterDetailView="Employee_DetailView_Child">
+    <ListView Id="Employee_ListView" AutoExpandAllGroups="True" IsGroupPanelVisible="True" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="Employee_DetailView_Child">
       <Columns>
         <ColumnInfo Id="FullName" Index="1">
           <Summary>
@@ -720,6 +720,11 @@
         <ColumnInfo Id="ZipCode" Index="6" />
         <ColumnInfo Id="Email" Index="7" />
       </Columns>
+      <SplitLayout SplitterPosition="500" />
+      <Variants Current="List">
+        <Variant Id="List" ViewID="Employee_ListView" Caption="List" Index="0" IsNewNode="True" />
+        <Variant Id="Card" ViewID="EmployeeLayoutView_ListView" Caption="Card" Index="1" IsNewNode="True" />
+      </Variants>
     </ListView>
     <ListView Id="Employee_RoutePoints_ListView" HideToolBar="True">
       <HiddenActions>
@@ -735,12 +740,12 @@
       </HiddenActions>
       <Items IsNewNode="True">
         <DashboardViewItem Id="Employee_DetailView_Child" ViewId="Employee_DetailView_Child" ActionsToolbarVisibility="Hide" IsNewNode="True" />
-        <DashboardViewItem Id="EmployeeLayoutView_DetailView" ViewId="EmployeeLayoutView_DetailView" MasterDetail="True" IsNewNode="True" />
+        <DashboardViewItem Id="EmployeeLayoutView_ListView" ViewId="EmployeeLayoutView_ListView" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
-          <LayoutItem Id="EmployeeLayoutView_DetailView" ViewItem="EmployeeLayoutView_DetailView" Index="0" RelativeSize="60.29313790806129" IsNewNode="True" />
-          <LayoutItem Id="Employee_DetailView_Child" ViewItem="Employee_DetailView_Child" Index="1" RelativeSize="39.70686209193871" IsNewNode="True" />
+          <LayoutItem Id="EmployeeLayoutView_ListView" ViewItem="EmployeeLayoutView_ListView" Index="0" RelativeSize="60.24096385542169" IsNewNode="True" />
+          <LayoutItem Id="Employee_DetailView_Child" ViewItem="Employee_DetailView_Child" Index="1" RelativeSize="39.75903614457831" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DashboardView>
@@ -751,6 +756,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="EmployeeLayoutView_ListView" MasterDetailMode="ListViewAndDetailView" DataAccessMode="Client" />
     <DashboardView Id="EmployeeListView" Caption="Employee" MasterDetail="True" ImageName="BO_Person" IsNewNode="True">
       <HiddenActions IsNewNode="True">
         <ActionLink ActionId="Refresh" IsNewNode="True" />

@@ -36,6 +36,7 @@ namespace OutlookInspired.Module.Common{
             _processMasterViewSelectedObjectAction = new SimpleAction(this,"ProcessMasterViewSelectedObject",PredefinedCategory.ListView);
             _processMasterViewSelectedObjectAction.Executed+=(_, e) 
                 => e.ShowViewParameters.CreatedView = Application.NewDetailView(e.Action.SelectionContext.CurrentObject);
+            Active["MasterDetail"] = false;
         }
 
         protected override void OnDeactivated(){

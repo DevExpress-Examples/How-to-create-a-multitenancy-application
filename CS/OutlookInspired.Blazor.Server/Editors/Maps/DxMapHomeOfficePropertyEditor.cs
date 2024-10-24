@@ -3,8 +3,8 @@ using DevExpress.ExpressApp.Blazor.Editors;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
+using OutlookInspired.Module;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Features.Maps;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 namespace OutlookInspired.Blazor.Server.Editors.Maps{

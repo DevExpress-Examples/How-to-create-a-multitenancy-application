@@ -208,7 +208,7 @@
       <Columns>
         <ColumnInfo Id="User" PropertyEditorType="OutlookInspired.Win.Editors.HyperLinkPropertyEditor" />
       </Columns>
-      <SplitLayout SplitterPosition="1262" />
+      <SplitLayout SplitterPosition="1262" RelativePosition="70" />
     </ListView>
     <ListView Id="Employee_ListView_Card" ClassName="OutlookInspired.Module.BusinessObjects.Employee" AutoExpandAllGroups="True" IsGroupPanelVisible="True" MasterDetailView="Employee_DetailView_Child" ShowFindPanel="True" IsNewNode="True">
       <Columns IsNewNode="True">
@@ -242,12 +242,14 @@
     <DashboardView Id="EmployeeCardListView">
       <Layout>
         <LayoutGroup Id="Main" TextAlignMode="AlignWithChildren">
-          <LayoutItem Id="EmployeeLayoutView_DetailView" RelativeSize="29.918588873812755" Index="1" />
           <SeparatorItem Id="Item1" Index="1" RelativeSize="0.746268656716418" IsNewNode="True" />
           <LayoutItem Id="Employee_DetailView_Child" Index="2" RelativeSize="39.75576662143826" />
         </LayoutGroup>
       </Layout>
     </DashboardView>
+    <ListView Id="EmployeeLayoutView_ListView" EditorTypeName="OutlookInspired.Win.Editors.Layout.LayoutViewListEditor" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Employee_DetailView_Child">
+      <SplitLayout RelativePosition="70" />
+    </ListView>
     <DashboardView Id="EmployeeListView">
       <Layout>
         <LayoutGroup Id="Main" TextAlignMode="AlignWithChildren">

@@ -12,16 +12,16 @@ namespace OutlookInspired.Win.Features.Customers
             InitializeComponent();
             labelControl1.Text = $@"RECORDS: 0";
         }
-        protected override void OnDataSourceOfFilterChanged(){
-            base.OnDataSourceOfFilterChanged();
-            labelControl1.Text = $@"RECORDS: {ColumnView.DataRowCount}";
-        }
+        // protected override void OnDataSourceOfFilterChanged(){
+        //     base.OnDataSourceOfFilterChanged();
+        //     labelControl1.Text = $@"RECORDS: {ColumnView.DataRowCount}";
+        // }
 
-        public override void Refresh(object currentObject)
-        {
-            DataSource = ((Customer)currentObject)?.CustomerStores??new ObservableCollection<CustomerStore>();
-            base.Refresh(currentObject);
-        }
+        // public override void Refresh(object currentObject)
+        // {
+        //     DataSource = ((Customer)currentObject)?.CustomerStores??new ObservableCollection<CustomerStore>();
+        //     base.Refresh(currentObject);
+        // }
 
         public override Type ObjectType => typeof(CustomerStore);
     }

@@ -30,7 +30,7 @@ namespace OutlookInspired.Blazor.Server.Editors.Charts {
 
         public override void Refresh() => _collectionSource.ResetCollection();
 
-        public override object FocusedObject { get; set; }
+        
         public override IList GetSelectedObjects() => Array.Empty<object>();
         public override SelectionType SelectionType => SelectionType.None;
 

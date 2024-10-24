@@ -20,7 +20,9 @@ namespace OutlookInspired.Blazor.Server.Editors.LayoutView{
                 SelectionChanged = EventCallback.Factory.Create<object>(this, o => {
                     _selectedObjects.Clear();
                     _selectedObjects.Add(o);
+                    OnFocusedObjectChanging();
                     FocusedObject = _selectedObjects.Cast<object>().FirstOrDefault();
+                    OnFocusedObjectChanged();
                     OnSelectionChanged();
                 }),
                 ProcessSelectedObject = EventCallback.Factory.Create(this, OnProcessSelectedItem)
@@ -42,7 +44,7 @@ namespace OutlookInspired.Blazor.Server.Editors.LayoutView{
 
         public override void Refresh() => _collectionSource.ResetCollection();
         public void Setup(CollectionSourceBase collectionSource, XafApplication application) => _collectionSource=collectionSource;
-        public override object FocusedObject { get; set; }
+        
         public override IList GetSelectedObjects() => _selectedObjects;
         public override SelectionType SelectionType => SelectionType.Full;
 

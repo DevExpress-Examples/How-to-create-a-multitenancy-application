@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Blazor.Templates;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
@@ -16,7 +17,7 @@ namespace OutlookInspired.Module.Features{
     public class ViewFilterController:ObjectViewController<ObjectView,IViewFilter>{
         public const string FilterViewActionId = "FilterView";
         public ViewFilterController(){
-            FilterAction = new SingleChoiceAction(this,FilterViewActionId,PredefinedCategory.Filters){
+            FilterAction = new SingleChoiceAction(this,FilterViewActionId,PredefinedCategory.View){
                 ImageName = "Action_Filter",PaintStyle = ActionItemPaintStyle.Image
             };
             FilterAction.Executed += (_, e) => {
@@ -24,8 +25,6 @@ namespace OutlookInspired.Module.Features{
                 FilterView((ListView)View);
             };
         }
-
-        
 
         public SingleChoiceAction FilterAction{ get; }
 
@@ -92,6 +91,7 @@ namespace OutlookInspired.Module.Features{
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
+            FilterAction.Active["PopTemplate"] = Frame.Template is not PopupWindowTemplate;
             AddFilterItems();
             if(View is DetailView detailView) {
                 detailView.CustomizeViewItemControl<ControlViewItem>(this, _ => {

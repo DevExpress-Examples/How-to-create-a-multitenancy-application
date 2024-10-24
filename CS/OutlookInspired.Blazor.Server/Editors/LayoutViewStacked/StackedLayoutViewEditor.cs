@@ -34,7 +34,7 @@ namespace OutlookInspired.Blazor.Server.Editors.LayoutViewStacked{
 
         public override void Refresh() => _collectionSource.ResetCollection();
         public void Setup(CollectionSourceBase collectionSource, XafApplication application) => _collectionSource=collectionSource;
-        public override object FocusedObject { get; set; }
+        
         public override IList GetSelectedObjects() => _selectedObjects;
         public override SelectionType SelectionType => SelectionType.Full;
 

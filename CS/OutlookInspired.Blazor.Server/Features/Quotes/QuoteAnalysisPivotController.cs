@@ -1,31 +1,54 @@
 ﻿using DevExpress.Blazor;
+using DevExpress.Data.Linq;
+using DevExpress.Data.Linq.Helpers;
 using DevExpress.ExpressApp;
 using OutlookInspired.Blazor.Server.Editors.Pivot;
 using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.Blazor.Server.Features.Quotes{
     public class QuoteAnalysisPivotController:ObjectViewController<ListView,QuoteAnalysis>{
+        private QuoteAnalysis[] _quoteAnalyses;
+
         protected override void OnActivated(){
             base.OnActivated();
             Active["editor"] = View.Editor is PivotGridListEditor;
-            ((NonPersistentObjectSpace)View.ObjectSpace).ObjectsGetting+=OnObjectsGetting;
+            var nonPersistentObjectSpace = ((NonPersistentObjectSpace)View.ObjectSpace);
+            nonPersistentObjectSpace.ObjectsGetting+=OnObjectsGetting;
+            nonPersistentObjectSpace.ObjectsCountGetting+=NonPersistentObjectSpaceOnObjectsCountGetting;
             View.CollectionSource.ResetCollection(true);
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            ((NonPersistentObjectSpace)View.ObjectSpace).ObjectsGetting-=OnObjectsGetting;
+            var nonPersistentObjectSpace = ((NonPersistentObjectSpace)View.ObjectSpace);
+            nonPersistentObjectSpace.ObjectsGetting-=OnObjectsGetting;
+            nonPersistentObjectSpace.ObjectsCountGetting-=NonPersistentObjectSpaceOnObjectsCountGetting;
+        }
+
+        private void NonPersistentObjectSpaceOnObjectsCountGetting(object sender, ObjectsCountGettingEventArgs e){
+            if (e.Criteria == null){
+                e.Count = _quoteAnalyses.Length;
+            }
+            else{
+                var criteriaOperator = ObjectSpace.ParseCriteria(e.Criteria.ToString());
+                var expressionEvaluator = ObjectSpace.GetExpressionEvaluator(typeof(QuoteAnalysis),criteriaOperator);
+                e.Count = _quoteAnalyses.Count(analysis => (bool)(expressionEvaluator.Evaluate(analysis)??true));    
+            }
         }
 
         private void OnObjectsGetting(object sender, ObjectsGettingEventArgs e){
-            e.Objects = ObjectSpace.GetObjectsQuery<Quote>()
+            var criteriaToExpressionConverter = new CriteriaToExpressionConverter();
+            var quotes = (IQueryable<Quote>)ObjectSpace.GetObjectsQuery<Quote>()
+                .AppendWhere(criteriaToExpressionConverter, ObjectSpace.ParseCriteria(string.Join(" AND ",View.CollectionSource.Criteria.Values)));
+            e.Objects = _quoteAnalyses = quotes
                 .Select(quote => new{
                     quote.CustomerStore.State, quote.CustomerStore.City,
-                    quote.Opportunity, quote.Total
-                }).ToArray()
-                .Select((t, i) => new QuoteAnalysis(){
+                    quote.Opportunity, quote.Total, quote.Date
+                })
+                .ToArray()
+                .Select((t, i) => new QuoteAnalysis{
                     Total = t.Total, Opportunity = t.Opportunity,
-                    State = t.State, City = t.City, ID = i
+                    State = t.State, City = t.City, ID = i, Date = t.Date
                 }).ToArray();
         }
 

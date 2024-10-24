@@ -35,7 +35,7 @@ namespace OutlookInspired.Module.Services.Internal{
         [Obsolete]
         public static DashboardViewItem MasterItem(this DashboardView view) 
             => view.Items.OfType<DashboardViewItem>()
-                .First(item => item.Model is IModelDashboardViewItemMasterDetail);
+                .First(item => item.Model is IModelDashboardViewItemMasterDetail );
 
         internal static IEnumerable<T> Objects<T>(this CollectionSourceBase collectionSourceBase) {
             if (collectionSourceBase.Collection is IEnumerable collection)

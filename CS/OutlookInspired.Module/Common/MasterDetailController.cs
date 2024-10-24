@@ -56,28 +56,28 @@ namespace OutlookInspired.Module.Common{
             }
 
             if (_childFrame != null) _childFrame.View.ObjectSpace.ModifiedChanged -= ObjectSpaceOnModifiedChanged;
-            ChildItem().ControlCreated-=OnChildItemControlCreated;
-            MasterItem().ControlCreated-=OnChildItemControlCreated;
+            ChildItem.ControlCreated-=OnChildItemControlCreated;
+            MasterItem.ControlCreated-=OnChildItemControlCreated;
         }
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
             if (!IsMasterDetail())return;
-            var masterItem = MasterItem();
+            var masterItem = MasterItem;
             if (masterItem.Frame != null){
                 OnMasterItemControlCreated(masterItem, EventArgs.Empty);
-                OnChildItemControlCreated(ChildItem(),EventArgs.Empty);
+                OnChildItemControlCreated(ChildItem,EventArgs.Empty);
             }
             else{
                 masterItem.ControlCreated+= OnMasterItemControlCreated;
-                ChildItem().ControlCreated+=OnChildItemControlCreated;    
+                ChildItem.ControlCreated+=OnChildItemControlCreated;    
             }
         }
 
-        private DashboardViewItem ChildItem() 
+        DashboardViewItem ChildItem 
             => View.Items.OfType<DashboardViewItem>().First(item => !((IModelDashboardViewItemMasterDetail)item.Model).MasterDetail);
 
-        private DashboardViewItem MasterItem() 
+        DashboardViewItem MasterItem 
             => View.Items.OfType<DashboardViewItem>().First(item => ((IModelDashboardViewItemMasterDetail)item.Model).MasterDetail);
 
         private bool IsMasterDetail() => View.Model.Items.OfType<IModelDashboardViewItemMasterDetail>().Any(detail => detail.MasterDetail);

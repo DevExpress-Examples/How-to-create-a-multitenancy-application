@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Layout;
@@ -22,20 +21,22 @@ namespace OutlookInspired.Module.Features{
             };
             FilterAction.Executed += (_, e) => {
                 if (ManagerFilters(e)) return;
-                FilterView();
+                FilterView((ListView)View);
             };
         }
+
         
+
         public SingleChoiceAction FilterAction{ get; }
-        
-        private void FilterView(){
+
+        public void FilterView(ListView listView){
             var criteria = FilterAction.SelectedItem.Data is ViewFilter viewFilter ? viewFilter.Criteria : null;
-            var userControl = View.UserControl();
+            var userControl = listView.UserControl();
             if (userControl != null){
                 userControl.SetCriteria(criteria);
             }
             else{
-                View.ToListView().CollectionSource.Criteria[nameof(ViewFilterController)] = CriteriaOperator.Parse(criteria);
+                listView.CollectionSource.Criteria[nameof(ViewFilterController)] = ObjectSpace.ParseCriteria(criteria);
             }
         }
         
@@ -86,11 +87,6 @@ namespace OutlookInspired.Module.Features{
         
         protected override void OnActivated(){
             base.OnActivated();
-            var active = Frame is NestedFrame && Frame.View.IsRoot && (Frame.View is ListView || Frame.View is DetailView && View.ObjectTypeInfo.Type == typeof(Quote));
-            FilterAction.Active[nameof(ViewFilterController)] = active;
-            if(!active)
-                return;
-            
             Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
         }
 
@@ -128,29 +124,25 @@ namespace OutlookInspired.Module.Features{
         private void ObjectSpaceOnCommitted(object sender, EventArgs e) => AddFilterItems();
         
         void AddFilterItems(){
-            if(View == null)
-                return;
+            if(View == null) return;
 
             FilterAction.Items.Clear();
-
             FilterAction.Items.Add(new ChoiceActionItem("Manage...", "Manage"));
 
-            var count = View is ListView listView ? listView.CollectionSource.GetCount() : ObjectSpace.GetObjectsCount(View.ObjectTypeInfo.Type, null);
+            var allItemsCount = View is ListView listView ? listView.CollectionSource.GetCount() : ObjectSpace.GetObjectsCount(View.ObjectTypeInfo.Type, null);
             var criteria = View is ListView listView1 ? listView1.CollectionSource.GetTotalCriteria() : null;
-
-            var allItem = new ChoiceActionItem($"All ({count})", "All");
+            var allItem = new ChoiceActionItem($"All ({allItemsCount})", "All");
             FilterAction.Items.Add(allItem);
 
             var viewFilters = ObjectSpace.GetObjectsQuery<ViewFilter>().Where(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName).ToList();
-            var choiceActionItems = viewFilters.Select(viewFilter => new ChoiceActionItem($"{viewFilter.Name} ({Count(viewFilter.DataType,criteria)})", viewFilter)).ToList();
+            var choiceActionItems = viewFilters.Select(viewFilter => {
+                var objectsCount = ObjectSpace.GetObjectsCount(viewFilter.DataType, criteria.Combine(viewFilter.Criteria));
+                return new ChoiceActionItem($"{viewFilter.Name} ({objectsCount})", viewFilter);
+            }).ToList();
             FilterAction.Items.AddRange(choiceActionItems);
 
             FilterAction.SelectedItem = allItem;
         }
         
-        int Count(Type dataType,CriteriaOperator criteria=null){
-            using var objectSpace = Application.CreateObjectSpace(dataType);
-            return objectSpace.GetObjectsCount(dataType, criteria.Combine(criteria?.ToString()));
-        }
     }
 }

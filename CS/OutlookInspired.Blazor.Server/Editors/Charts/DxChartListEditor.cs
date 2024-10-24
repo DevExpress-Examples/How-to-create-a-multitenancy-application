@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace OutlookInspired.Blazor.Server.Editors.Charts {
     [ListEditor(typeof(object))]
-    public class DxChartListEditor(IModelListView info) :ListEditor(info), IComponentContentHolder{
+    public class DxChartListEditor(IModelListView info) :ListEditor(info), IComponentContentHolder,IComplexListEditor{
+        private RenderFragment _componentContent;
+        private CollectionSourceBase _collectionSource;
         protected override object CreateControlsCore() => new DxChartModel();
         public new DxChartModel Control => (DxChartModel)base.Control;
         protected override void AssignDataSourceToControl(object dataSource) {
@@ -26,19 +28,15 @@ namespace OutlookInspired.Blazor.Server.Editors.Charts {
 
         private void BindingList_ListChanged(object sender, ListChangedEventArgs e) => Refresh();
 
-        public override void Refresh(){
-            if (Control==null||DataSource is not IEnumerable dataSource) return;
-            Control.Data = dataSource.Cast<object>();
-        }
+        public override void Refresh() => _collectionSource.ResetCollection();
 
         public override object FocusedObject { get; set; }
         public override IList GetSelectedObjects() => Array.Empty<object>();
         public override SelectionType SelectionType => SelectionType.None;
 
-        private RenderFragment _componentContent;
-
         RenderFragment IComponentContentHolder.ComponentContent 
             => _componentContent ??= ComponentModelObserver.Create(Control, Control.GetComponentContent());
-        
+
+        public void Setup(CollectionSourceBase collectionSource, XafApplication application) => _collectionSource = collectionSource;
     }
 }

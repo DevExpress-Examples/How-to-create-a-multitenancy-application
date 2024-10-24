@@ -5,7 +5,7 @@
                           GroupInterval="@field.GroupInterval" Caption="@field.Caption" SummaryType="@field.SummaryType">
             <DataTemplate>
                 @if (field.IsProgressBar){
-                    <DxProgressBar Value="@((double)context)" MaxValue="1" LabelPosition="ProgressBarLabelPosition.Right" Size="100%" ></DxProgressBar>
+                    <DxProgressBar Value="@((double)(context ?? (double)0))" MaxValue="1" LabelPosition="ProgressBarLabelPosition.Right" Size="100%" ></DxProgressBar>
                 }
                 else if (!string.IsNullOrEmpty(field.DisplayFormat)){
                     @string.Format(field.DisplayFormat, context)

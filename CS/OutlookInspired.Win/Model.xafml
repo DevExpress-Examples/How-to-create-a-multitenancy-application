@@ -247,7 +247,7 @@
         </LayoutGroup>
       </Layout>
     </DashboardView>
-    <ListView Id="EmployeeLayoutView_ListView" EditorTypeName="OutlookInspired.Win.Editors.Layout.LayoutViewListEditor" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Employee_DetailView_Child">
+    <ListView Id="EmployeeLayoutView_ListView" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Employee_DetailView_Child">
       <SplitLayout RelativePosition="70" />
     </ListView>
     <DashboardView Id="EmployeeListView">

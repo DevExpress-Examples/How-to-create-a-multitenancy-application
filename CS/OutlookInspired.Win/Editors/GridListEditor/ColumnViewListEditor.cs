@@ -5,16 +5,19 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
-using OutlookInspired.Win.Features.Employees;
 
-namespace OutlookInspired.Win.Editors.Layout{
+namespace OutlookInspired.Win.Editors.GridListEditor{
     [ListEditor(typeof(object),false)]
-    public class LayoutViewListEditor(IModelListView model) : ListEditor(model), IComplexListEditor{
+    public class ColumnViewListEditor(IModelListView model) : ListEditor(model), IComplexListEditor{
         private CollectionSourceBase _collectionSource;
+        public event EventHandler<ColumnViewControlCreatingArgs> ColumnViewControlCreating;
+        protected override object CreateControlsCore(){
+            var e = new ColumnViewControlCreatingArgs();
+            OnColumnViewControlCreating(e);
+            return e.Control;
+        }
 
-        protected override object CreateControlsCore() => new EmployeesLayoutView();
-
-        public new EmployeesLayoutView Control => (EmployeesLayoutView)base.Control;
+        public new IColumnViewUserControl Control => (IColumnViewUserControl)base.Control;
 
         protected override void AssignDataSourceToControl(object dataSource){
             if (Control == null) return;
@@ -25,8 +28,6 @@ namespace OutlookInspired.Win.Editors.Layout{
             Control.ColumnView.Click+=ColumnViewOnClick;
             Control.ColumnView.DataSourceChanged+=ColumnViewOnDataSourceChanged;
             Control.ColumnView.GridControl.DataSource = dataSource;
-            
-            
         }
 
         private void ColumnViewOnDoubleClick(object sender, EventArgs e){
@@ -84,5 +85,16 @@ namespace OutlookInspired.Win.Editors.Layout{
         public override SelectionType SelectionType=>SelectionType.Full;
         
         public void Setup(CollectionSourceBase collectionSource, XafApplication application) => _collectionSource = collectionSource;
+
+        protected virtual void OnColumnViewControlCreating(ColumnViewControlCreatingArgs e) => ColumnViewControlCreating?.Invoke(this, e);
     }
+
+    public class ColumnViewControlCreatingArgs{
+        public IColumnViewUserControl Control{ get; set; }
+    }
+    
+    public interface IColumnViewUserControl{
+        ColumnView ColumnView{ get; }
+    }
+
 }

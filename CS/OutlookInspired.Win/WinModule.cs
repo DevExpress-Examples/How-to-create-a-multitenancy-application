@@ -37,7 +37,7 @@ public sealed class OutlookInspiredWinModule : ModuleBase {
             typeof(SplitterPositionController),typeof(MapItemListEditorController),
             typeof(SchedulerListEditorController),typeof(BlazorWebViewKeyDownController),
             typeof(MapItemChartListEditorController),typeof(QuoteMapItemListEditorController),typeof(MapQuoteController),
-            typeof(StageViewController)
+            typeof(StageViewController),typeof(ColumnViewListEditorController)
         ];
 
     public override void Setup(XafApplication application) {

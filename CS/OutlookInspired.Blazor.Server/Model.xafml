@@ -312,40 +312,12 @@
         <ColumnInfo Id="Subject" Index="0" SortIndex="-1" SortOrder="None" />
       </Columns>
     </ListView>
-    <ListView Id="Employee_ListView" MasterDetailMode="ListViewAndDetailView" />
-    <DashboardView Id="EmployeeCardListView">
-      <Layout>
-        <LayoutGroup Id="Main" Caption="Main">
-          <LayoutGroup Id="Auto2e6643cd-0817-4c36-b3c9-6b463d18b04e" ShowCaption="False" Caption="" Index="0" RelativeSize="60.1076095311299" IsNewNode="True">
-            <LayoutItem Id="EmployeeLayoutView_ListView" ViewItem="EmployeeLayoutView_ListView" Index="0" RelativeSize="49.9330655957162" IsNewNode="True" />
-            <LayoutItem Id="Item1" Index="1" RelativeSize="50.0669344042838" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="Autob9fa4239-0c7e-45c9-abf7-3f9d357c19bc" ShowCaption="False" Caption="" Index="1" RelativeSize="39.8923904688701" IsNewNode="True">
-            <LayoutItem Id="Employee_DetailView_Child" ViewItem="Employee_DetailView_Child" Index="0" RelativeSize="49.9330655957162" IsNewNode="True" />
-            <LayoutItem Id="Item2" Index="1" RelativeSize="50.0669344042838" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutItem Id="Employee_DetailView_Child" RelativeSize="39.8923904688701" Removed="True" />
-          <LayoutItem Id="EmployeeLayoutView_ListView" Removed="True" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
-    <ListView Id="EmployeeLayoutView_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.LayoutView.LayoutViewListEditor" DataAccessMode="Client" />
-    <DashboardView Id="EmployeeListView">
-      <Layout>
-        <LayoutGroup Id="Main" Caption="Main">
-          <LayoutGroup Id="Auto3e8168b3-c03a-4350-ade9-5c6ee1ae7774" ShowCaption="False" Caption="" Index="0" RelativeSize="61.719077568134175" IsNewNode="True">
-            <LayoutItem Id="Employee_ListView" ViewItem="Employee_ListView" CaptionLocation="Top" Index="0" RelativeSize="50" IsNewNode="True" />
-            <LayoutItem Id="Item1" SizeConstraintsType="Custom" MinSize="115, 32" Index="1" RelativeSize="50" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="Autob00d4568-cbd9-437c-af41-ba2056c7e57b" ShowCaption="False" Caption="" Index="1" RelativeSize="38.280922431865825" IsNewNode="True">
-            <LayoutItem Id="Employee_DetailView_Child" ViewItem="Employee_DetailView_Child" Index="0" RelativeSize="50" IsNewNode="True" />
-            <LayoutItem Id="Item2" SizeConstraintsType="Custom" MinSize="115, 32" Index="1" RelativeSize="50" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutItem Id="Employee_DetailView_Child" RelativeSize="38.297872340425535" Removed="True" />
-          <LayoutItem Id="Employee_ListView" Removed="True" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
+    <ListView Id="Employee_ListView" MasterDetailMode="ListViewAndDetailView">
+      <SplitLayout SplitterPosition="800" />
+    </ListView>
+    <ListView Id="EmployeeLayoutView_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.LayoutView.LayoutViewListEditor" DataAccessMode="Client">
+      <SplitLayout SplitterPosition="600" />
+    </ListView>
     <DetailView Id="EmployeeTask_DetailView">
       <Layout>
         <LayoutGroup Id="Main">

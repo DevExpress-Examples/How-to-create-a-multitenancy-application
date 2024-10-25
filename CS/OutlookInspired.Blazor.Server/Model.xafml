@@ -566,6 +566,7 @@
     <ListView Id="Product_ListView">
       <Columns>
         <ColumnInfo Id="Image" Index="-1" />
+        <ColumnInfo Id="PrimaryImage" Index="0" ImageEditorFixedWidth="50" ImageEditorFixedHeight="50" ImageEditorCustomHeight="30" />
         <ColumnInfo Id="SalePrice" Index="3" />
         <ColumnInfo Id="RetailPrice" Index="4" />
         <ColumnInfo Id="CurrentInventory" Index="5" />

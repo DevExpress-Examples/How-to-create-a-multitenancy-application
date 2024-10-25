@@ -351,6 +351,9 @@
       </Layout>
     </DetailView>
     <ListView Id="Product_ListView" ShowFindPanel="True" />
+    <ListView Id="ProductLayoutView_ListView" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor">
+      <SplitLayout RelativePosition="70" />
+    </ListView>
     <ListView Id="Quote_ListView" EditorTypeName="DevExpress.ExpressApp.PivotGrid.Win.PivotGridListEditor" DataAccessMode="DataView">
       <Columns>
         <ColumnInfo Id="Opportunity" Width="127" />

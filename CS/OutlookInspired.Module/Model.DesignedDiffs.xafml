@@ -27,7 +27,7 @@
           <Item Id="EmployeeListView" Index="1" ImageName="BO_Employee" ViewId="Employee_ListView" />
           <Item Id="Evaluation_ListView" Index="2" ImageName="EvaluationYes" />
           <Item Id="CustomerListView" Index="3" ImageName="BO_Customer" ViewId="Customer_ListView" />
-          <Item Id="ProductListView" Index="4" ImageName="BO_Product" />
+          <Item Id="ProductListView" Index="4" ImageName="BO_Product" ViewId="Product_ListView" />
           <Item Id="OrderListView" Index="5" ImageName="BO_Order" />
           <Item Id="Opportunities" Index="6" ImageName="BO_Opportunity" />
           <Item Id="My Details" ViewId="ApplicationUser_DetailView" Caption="My Details" ImageName="BO_MyDetails" ObjectKey="@CurrentUserID" IsNewNode="True" />
@@ -1195,7 +1195,7 @@
         <ColumnInfo Id="Picture" PropertyName="Picture.Data" />
       </Columns>
     </ListView>
-    <ListView Id="Product_ListView" IsFooterVisible="True" AutoExpandAllGroups="True" MasterDetailMode="ListViewOnly" MasterDetailView="Product_Brochure_DetailView">
+    <ListView Id="Product_ListView" IsFooterVisible="True" AutoExpandAllGroups="True" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Product_Brochure_DetailView">
       <Columns>
         <ColumnInfo Id="ConsumerRating" Index="-1" />
         <ColumnInfo Id="Engineer" Index="-1" />
@@ -1229,6 +1229,11 @@
         <ActionLink ActionId="Save" IsNewNode="True" />
         <ActionLink ActionId="SaveAndClose" IsNewNode="True" />
       </HiddenActions>
+      <SplitLayout SplitterPosition="800" />
+      <Variants Current="List">
+        <Variant Id="List" ViewID="Product_ListView" Caption="List" Index="0" IsNewNode="True" />
+        <Variant Id="Card" ViewID="ProductLayoutView_ListView" Caption="Card" IsNewNode="True" />
+      </Variants>
     </ListView>
     <ListView Id="Product_OrderItems_ListView" IsFooterVisible="True">
       <Columns>
@@ -1257,7 +1262,7 @@
         <ColumnInfo Id="Total" Index="4" />
       </Columns>
     </ListView>
-    <DashboardView Id="ProductCardView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" CustomizationEnabled="True" RequiredFieldMark="*" Caption="Product" ImageName="BO_Product" MasterDetail="True" IsNewNode="True">
+    <DashboardView Id="ProductCardView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" CustomizationEnabled="True" RequiredFieldMark="*" Caption="Product" ImageName="BO_Product" MasterDetail="True" Removed="True">
       <Items IsNewNode="True">
         <DashboardViewItem Id="Product_Brochure_DetailView" ViewId="Product_Brochure_DetailView" ActionsToolbarVisibility="Hide" IsNewNode="True" />
         <DashboardViewItem Id="ProductCardView_DetailView" ViewId="ProductCardView_DetailView" MasterDetail="True" IsNewNode="True" />
@@ -1278,7 +1283,10 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DashboardView Id="ProductListView" Caption="Product" ImageName="BO_Product" MasterDetail="True" IsNewNode="True">
+    <ListView Id="ProductLayoutView_ListView" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Product_Brochure_DetailView">
+      <SplitLayout SplitterPosition="800" />
+    </ListView>
+    <DashboardView Id="ProductListView" Caption="Product" ImageName="BO_Product" MasterDetail="True" Removed="True">
       <Items IsNewNode="True">
         <DashboardViewItem Id="Product_Brochure_DetailView" ViewId="Product_Brochure_DetailView" ActionsToolbarVisibility="Hide" IsNewNode="True" />
         <DashboardViewItem Id="Product_ListView" ViewId="Product_ListView" MasterDetail="True" IsNewNode="True" />

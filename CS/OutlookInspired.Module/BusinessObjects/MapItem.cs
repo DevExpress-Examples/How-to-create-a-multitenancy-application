@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using DevExpress.ExpressApp.DC;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.BusinessObjects{
     public interface IColoredItem{
@@ -32,8 +31,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         [MaxLength(20)]
         public string Color{ get; set; }
 
-        public string PropertyValue(Type type) 
-            => type.MapItemProperty() == nameof(ProductName) ? ProductName : CustomerName;
+        
 
         
     }

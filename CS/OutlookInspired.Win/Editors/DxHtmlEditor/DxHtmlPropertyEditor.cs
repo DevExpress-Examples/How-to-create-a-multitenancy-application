@@ -7,8 +7,7 @@ using DevExpress.XtraRichEdit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebView.WindowsForms;
-using OutlookInspired.Module.Services.Internal;
-using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
+using EditorAliases = OutlookInspired.Module.EditorAliases;
 
 namespace OutlookInspired.Win.Editors.DxHtmlEditor{
     public interface IBlazorWebViewKeyDown{
@@ -47,15 +46,21 @@ namespace OutlookInspired.Win.Editors.DxHtmlEditor{
 
         protected override void WriteValueCore(){
             var bytes = Encoding.UTF8.GetBytes($"{ControlValue}");
-            using var memoryStream = new MemoryStream(bytes);
-            RichEditDocumentServer.LoadDocument(memoryStream,DocumentFormat.OpenXml);
+            RichEditDocumentServer.LoadDocument(bytes,DocumentFormat.OpenXml);
             PropertyValue = RichEditDocumentServer.OpenXmlBytes;
         }
 
         protected override object GetControlValueCore() => _markup;
 
         protected override void ReadValueCore(){
-            _markup = ((byte[])PropertyValue).ToDocumentText();
+            if (PropertyValue == null){
+                _markup = string.Empty;
+            }
+            else{
+                RichEditDocumentServer.LoadDocument((byte[])PropertyValue);
+                _markup = RichEditDocumentServer.Text;    
+            }
+            
             Control.RootComponents.First().Parameters![nameof(DevExpress.Blazor.DxHtmlEditor.Markup)] = _markup;
         }
 

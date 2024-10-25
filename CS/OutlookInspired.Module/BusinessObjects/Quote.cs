@@ -9,7 +9,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.XtraCharts;
 using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
-using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
+using EditorAliases = OutlookInspired.Module.EditorAliases;
 
 
 namespace OutlookInspired.Module.BusinessObjects{

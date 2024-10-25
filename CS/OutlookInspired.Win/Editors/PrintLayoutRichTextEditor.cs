@@ -1,7 +1,7 @@
 ﻿using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraRichEdit;
-using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
+using EditorAliases = OutlookInspired.Module.EditorAliases;
 using RichTextPropertyEditor = DevExpress.ExpressApp.Office.Win.RichTextPropertyEditor;
 
 namespace OutlookInspired.Win.Editors{

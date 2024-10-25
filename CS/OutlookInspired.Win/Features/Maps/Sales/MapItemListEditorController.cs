@@ -1,10 +1,8 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.XtraMap;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Services.Internal;
 using OutlookInspired.Win.Editors.Maps;
-using OutlookInspired.Win.Services.Internal;
+
 using MapItem = OutlookInspired.Module.BusinessObjects.MapItem;
 
 namespace OutlookInspired.Win.Features.Maps.Sales{

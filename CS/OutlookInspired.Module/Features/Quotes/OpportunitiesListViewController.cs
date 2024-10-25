@@ -2,7 +2,7 @@
 using DevExpress.Data.Linq.Helpers;
 using DevExpress.ExpressApp;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services;
+
 
 namespace OutlookInspired.Module.Features.Quotes{
     public class OpportunitiesListViewController:ObjectViewController<ListView,Opportunity>{
@@ -21,7 +21,7 @@ namespace OutlookInspired.Module.Features.Quotes{
         
         private void OnObjectsGetting(object sender, ObjectsGettingEventArgs e) 
             => e.Objects = Enum.GetValues<Stage>().Where(stage => stage != Stage.Summary)
-                .Select(stage => NewOpportunity(stage, (IObjectSpace)sender, stage.Map()))
+                .Select(stage => NewOpportunity(stage, (IObjectSpace)sender, stage.Range()))
                 .Select((item, i) => {
                     item.ID = i;
                     return item;

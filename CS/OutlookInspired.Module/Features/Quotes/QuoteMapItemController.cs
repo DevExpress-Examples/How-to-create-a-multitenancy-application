@@ -1,6 +1,5 @@
 ﻿ using DevExpress.ExpressApp;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Features.Quotes{
     [Obsolete]

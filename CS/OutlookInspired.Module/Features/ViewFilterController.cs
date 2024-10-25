@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Blazor.Templates;
@@ -7,7 +8,6 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Features{
     public interface IViewFilter{
@@ -30,13 +30,7 @@ namespace OutlookInspired.Module.Features{
 
         public void FilterView(ListView listView){
             var criteria = FilterAction.SelectedItem.Data is ViewFilter viewFilter ? viewFilter.Criteria : null;
-            var userControl = listView.UserControl();
-            if (userControl != null){
-                userControl.SetCriteria(criteria);
-            }
-            else{
-                listView.CollectionSource.Criteria[nameof(ViewFilterController)] = ObjectSpace.ParseCriteria(criteria);
-            }
+            listView.CollectionSource.Criteria[nameof(ViewFilterController)] = ObjectSpace.ParseCriteria(criteria);
         }
         
         private bool ManagerFilters(ActionBaseEventArgs e){
@@ -52,11 +46,11 @@ namespace OutlookInspired.Module.Features{
             showViewParameters.Controllers.Add(controller);
             controller.AcceptAction.Executed += (_, _) => {
                 AddFilterItems();
-                FilterAction.DoExecute();
+                FilterAction.DoExecute(FilterAction.SelectedItem);
             };
             controller.CancelAction.Executed+= (_, _) => {
                 AddFilterItems();
-                FilterAction.DoExecute();
+                FilterAction.DoExecute(FilterAction.SelectedItem);
             }; 
         }
 
@@ -74,7 +68,8 @@ namespace OutlookInspired.Module.Features{
         private void CreateViewFilterListView(ShowViewParameters showViewParameters){
             var listView = Application.CreateListView(typeof(ViewFilter), true);
             listView.Editor.NewObjectCreated += (_, args) => ((ViewFilter)((ObjectManipulatingEventArgs)args).Object).DataType = View.ObjectTypeInfo.Type;
-            listView.CollectionSource.SetCriteria<ViewFilter>(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName);
+            listView.CollectionSource.Criteria[nameof(ViewFilterController)] =
+                CriteriaOperator.FromLambda<ViewFilter>(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName);
             showViewParameters.TargetWindow=TargetWindow.NewModalWindow;
             showViewParameters.CreatedView=listView;
         }
@@ -96,7 +91,8 @@ namespace OutlookInspired.Module.Features{
             if(View is DetailView detailView) {
                 detailView.CustomizeViewItemControl<ControlViewItem>(this, _ => {
                     if(View.ObjectTypeInfo.Type == typeof(Quote)) {
-                        FilterAction.DoExecute(item => $"{item.Data}" == "This Month");
+                        FilterAction.SelectedItem = FilterAction.Items.First(item => $"{item.Data}" == "This Month");
+                        FilterAction.DoExecute(FilterAction.SelectedItem);
                     }
                 });
             }
@@ -136,13 +132,20 @@ namespace OutlookInspired.Module.Features{
 
             var viewFilters = ObjectSpace.GetObjectsQuery<ViewFilter>().Where(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName).ToList();
             var choiceActionItems = viewFilters.Select(viewFilter => {
-                var objectsCount = ObjectSpace.GetObjectsCount(viewFilter.DataType, criteria.Combine(viewFilter.Criteria));
+                var objectsCount = ObjectSpace.GetObjectsCount(viewFilter.DataType, Combine(criteria,viewFilter.Criteria));
                 return new ChoiceActionItem($"{viewFilter.Name} ({objectsCount})", viewFilter);
             }).ToList();
             FilterAction.Items.AddRange(choiceActionItems);
 
             FilterAction.SelectedItem = allItem;
         }
+        
+        CriteriaOperator Combine( CriteriaOperator criteriaOperator,string criteria,GroupOperatorType type=GroupOperatorType.And){
+            var @operator = CriteriaOperator.Parse(criteria);
+        
+            return !Object.ReferenceEquals(criteriaOperator, null) ? new GroupOperator(type, @operator, criteriaOperator) : @operator;
+        }
+
         
     }
 }

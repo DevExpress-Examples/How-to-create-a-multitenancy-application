@@ -14,7 +14,7 @@ using OutlookInspired.Module.Attributes.Validation;
 using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
-using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
+using EditorAliases = OutlookInspired.Module.EditorAliases;
 
 namespace OutlookInspired.Module.BusinessObjects{
 	[DefaultProperty(nameof(FullName))]

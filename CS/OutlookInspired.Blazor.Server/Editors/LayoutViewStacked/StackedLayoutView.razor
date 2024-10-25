@@ -1,5 +1,4 @@
-﻿@using OutlookInspired.Module.Services.Internal
-<div class="store-card-container">
+﻿<div class="store-card-container">
     @if (_data != null){
         if (_data.Any()){
             @foreach (var entity in _data){
@@ -8,7 +7,7 @@
                         @BodySelector(entity)
                     </div>
                     <div class="stacked-footer">
-                        <img src="@(ImageSelector?.Invoke(entity).ToBase64Image())" class="img-fluid" alt="Store Crest">
+                        <img src="@(ToBase64Image(ImageSelector?.Invoke(entity)))" class="img-fluid" alt="Store Crest">
                     </div>
                 </div>
             }
@@ -33,5 +32,23 @@
         base.OnParametersSet();
         _data = Data as object[] ?? Data?.ToArray();
     }
+
+    string ToBase64Image(byte[] bytes) 
+        =>bytes==null?"": $"data:{FileType(bytes)};base64,{Convert.ToBase64String(bytes)}";
+    
+    string FileType(byte[] value) 
+        => value switch{
+            { Length: > 0 } when IsMaskMatch(value, 0, 77, 77) || IsMaskMatch(value,0, 73, 73) => "tiff",
+            { Length: > 0 } when IsMaskMatch(value,1, 80, 78, 71) => "png",
+            { Length: > 0 } when IsMaskMatch(value,0, 71, 73, 70, 56) => "gif",
+            { Length: > 0 } when IsMaskMatch(value, 0, 255, 216) => "jpeg",
+            { Length: > 0 } when IsMaskMatch(value,0, 66, 77) => "bmp",
+            _ => ""
+        };
+    
+    bool IsMaskMatch( byte[] byteArray, int offset, params byte[] mask) 
+        => byteArray != null && byteArray.Length >= offset + mask.Length &&
+           !mask.Where((t, i) => byteArray[offset + i] != t).Any();
+
 
 }

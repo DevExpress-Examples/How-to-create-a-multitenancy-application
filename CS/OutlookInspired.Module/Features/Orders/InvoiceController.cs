@@ -1,6 +1,7 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.XtraRichEdit;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Features.Orders{
 
@@ -26,8 +27,21 @@ namespace OutlookInspired.Module.Features.Orders{
             View.CurrentObjectChanged+=ViewOnCurrentObjectChanged;
         }
         
-        private void ViewOnCurrentObjectChanged(object sender, EventArgs e) 
-            => View.SetNonTrackedMemberValue<Order, byte[]>(order => order.InvoiceDocument,
-                order => order.MailMergeInvoice().ToPdf());
+        private void ViewOnCurrentObjectChanged(object sender, EventArgs e){
+            if (View.CurrentObject==null)return;
+            var order = ((Order)View.CurrentObject);
+            order.InvoiceDocument = ToPdf(order.MailMergeInvoice());
+            var propertyEditor = View.GetItems<PropertyEditor>().First(editor => editor.MemberInfo.Name==nameof(Order.InvoiceDocument));
+            propertyEditor.ReadValue();
+        }
+        
+        byte[] ToPdf(byte[] bytes){
+            using var richEditDocumentServer = new RichEditDocumentServer();
+            richEditDocumentServer.LoadDocument(bytes,DocumentFormat.OpenXml);
+            using var memoryStream = new MemoryStream();
+            richEditDocumentServer.ExportToPdf(memoryStream);
+            return memoryStream.ToArray();
+        }
+
     }
 }

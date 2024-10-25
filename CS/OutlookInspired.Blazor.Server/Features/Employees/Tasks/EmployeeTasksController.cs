@@ -3,7 +3,6 @@ using DevExpress.ExpressApp.Blazor.Components;
 using DevExpress.ExpressApp.Blazor.Components.Models;
 using DevExpress.ExpressApp.Blazor.Editors;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server.Features.Employees.Tasks{
     public class EmployeeTasksController:ObjectViewController<ListView,EmployeeTask>{
@@ -18,7 +17,7 @@ namespace OutlookInspired.Blazor.Server.Features.Employees.Tasks{
             subjectDataColumnModel.CellDisplayTemplate = value => {
                 var employeeTask = (EmployeeTask)value.DataItem;
                 var model = new TasksColumnTemplateModel(){
-                    Subject = employeeTask.Subject,Description = employeeTask.Description.ToDocumentText(),
+                    Subject = employeeTask.Subject,Description = employeeTask.DescriptionText,
                     Date = employeeTask.DueDate.GetValueOrDefault().ToString("MMMM dd, yyyy"),
                     Progress = employeeTask.Completion
                 };

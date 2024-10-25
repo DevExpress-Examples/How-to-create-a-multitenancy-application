@@ -35,7 +35,7 @@ namespace OutlookInspired.Module.BusinessObjects{
 
         [CriteriaOptions(nameof(DataType))]
         [FieldSize(FieldSizeAttribute.Unlimited)]
-        [EditorAlias(EditorAliases.CriteriaPropertyEditor)]
+        [EditorAlias(DevExpress.ExpressApp.Editors.EditorAliases.CriteriaPropertyEditor)]
         public virtual string Criteria { get; set; }
 
         

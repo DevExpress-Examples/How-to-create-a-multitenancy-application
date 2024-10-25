@@ -1,16 +1,18 @@
-﻿using DevExpress.Blazor;
+﻿using System.Text;
+using DevExpress.Blazor;
 using DevExpress.ExpressApp.Blazor.Components.Models;
 using DevExpress.ExpressApp.Blazor.Editors;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.XtraRichEdit;
 using Microsoft.AspNetCore.Components;
-using OutlookInspired.Module.Services.Internal;
-using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
+using EditorAliases = OutlookInspired.Module.EditorAliases;
 
 namespace OutlookInspired.Blazor.Server.Editors{
     [PropertyEditor(typeof(byte[]),EditorAliases.DxHtmlPropertyEditor, false)]
     public class DxHtmlPropertyEditor(Type objectType, IModelMemberViewItem model)
         : BlazorPropertyEditorBase(objectType, model){
+        private static readonly RichEditDocumentServer RichEditDocumentServer = new();
         public override DxHtmlEditorModel ComponentModel => (DxHtmlEditorModel)base.ComponentModel;
 
         protected override IComponentModel CreateComponentModel() {
@@ -26,12 +28,23 @@ namespace OutlookInspired.Blazor.Server.Editors{
             
             return model;
         }
+        
+        protected override void WriteValueCore(){
+            var bytes = Bytes($"{ControlValue}");
+            using var memoryStream = new MemoryStream(bytes);
+            RichEditDocumentServer.LoadDocument(memoryStream,DocumentFormat.OpenXml);
+            PropertyValue = RichEditDocumentServer.OpenXmlBytes;
+        }
 
-        protected override void WriteValueCore() => PropertyValue = $"{ControlValue}".Bytes().ToRtfBytes();
+        byte[] Bytes( string s, Encoding encoding = null) 
+            => s == null ? [] : (encoding ?? Encoding.UTF8).GetBytes(s);
 
         protected override void ReadValueCore() {
             base.ReadValueCore();
-            ComponentModel.Markup = ((byte[])PropertyValue).ToDocumentText();
+            if (PropertyValue==null)return;
+            using var memoryStream = new MemoryStream(((byte[])PropertyValue));
+            RichEditDocumentServer.LoadDocument(memoryStream,DocumentFormat.OpenXml);
+            ComponentModel.Markup = RichEditDocumentServer.Text;
         }
 
         protected override object GetControlValueCore() => ComponentModel.Markup;

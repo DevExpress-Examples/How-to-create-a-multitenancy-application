@@ -3,14 +3,19 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Office;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Office.Services;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl.EF;
+using DevExpress.XtraRichEdit;
+using DevExpress.XtraRichEdit.API.Native;
 using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
-using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 
 namespace OutlookInspired.Module.BusinessObjects{
@@ -102,6 +107,68 @@ namespace OutlookInspired.Module.BusinessObjects{
         double IBaseMapsMarker.Latitude => Store?.Latitude??0;
 
         double IBaseMapsMarker.Longitude => Store?.Longitude??0;
+
+        public byte[] MailMergeInvoice()
+            => MailMergeInvoice(CreateDocumentServer(ObjectSpace.GetObjectsQuery<RichTextMailMergeData>()
+                .FirstOrDefault(data => data.Name == "Order")!
+                .Template, this));
+        
+        byte[] MailMergeInvoice(IRichEditDocumentServer richEditDocumentServer){
+            richEditDocumentServer.CalculateDocumentVariable += (_, e) => CalculateDocumentVariable(e,richEditDocumentServer);
+            return MailMerge(richEditDocumentServer,this);
+        }
+        
+        byte[] MailMerge<T>( IRichEditDocumentServer documentServer,params T[] datasource){
+            using var stream = new MemoryStream();
+            documentServer.GetService<IUriStreamService>().RegisterProvider(new ImageStreamProviderBase(
+                documentServer.Options.MailMerge, datasource, XafTypesInfo.Instance.FindTypeInfo(typeof(T))));
+            documentServer.MailMerge(documentServer.CreateMailMergeOptions(), stream, DocumentFormat.OpenXml);
+            return stream.ToArray();
+        }
+
+        void MailMerge<T>( IRichEditDocumentServer documentServer,IRichTextMailMergeData mailMergeData, MergeMode mergeMode,params T[] dataSource){
+            using var mergedServer = CreateDocumentServer(mailMergeData.Template,dataSource);
+            using var memoryStream = new MemoryStream(mailMergeData.Template);
+            mergedServer.LoadDocumentTemplate(memoryStream, DocumentFormat.OpenXml);
+            mergedServer.Options.MailMerge.DataSource = dataSource;
+            var options = mergedServer.Document.CreateMailMergeOptions();
+            options.MergeMode = mergeMode;
+            mergedServer.MailMerge(options, documentServer.Document);
+        }
+
+        void CalculateDocumentVariable( CalculateDocumentVariableEventArgs e,IRichEditDocumentServer richEditDocumentServer){
+            switch (e.VariableName){
+                case nameof(OrderItems):
+                    MailMerge(richEditDocumentServer,
+                        ObjectSpace.GetObjectsQuery<RichTextMailMergeData>().FirstOrDefault(data => data.Name=="OrderItem"), MergeMode.JoinTables,
+                        OrderItems.ToArray());
+                    e.PreserveInsertedContentFormatting = true;
+                    e.KeepLastParagraph = false;
+                    e.Value = richEditDocumentServer;
+                    e.Handled = true;
+                    break;
+                case "Total":
+                    e.Value = OrderItems.Sum(item => item.Total);
+                    e.Handled = true;
+                    break;
+                case "TotalDue":
+                    e.Value = OrderItems.Sum(item => item.Total) + ShippingAmount;
+                    e.Handled = true;
+                    break;
+            }
+        }
+        
+        static RichEditDocumentServer CreateDocumentServer(byte[] bytes, params object[] dataSource) 
+            => new(){
+                OpenXmlBytes = bytes,
+                Options ={
+                    MailMerge ={
+                        DataSource = dataSource
+                    }
+                }
+            };
+
+
     }
     
     [JsonConverter(typeof(JsonStringEnumConverter))]

@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DevExpress.ExpressApp.DC;
@@ -10,7 +9,7 @@ using OutlookInspired.Module.Attributes.Validation;
 using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Services;
+
 
 
 namespace OutlookInspired.Module.BusinessObjects {

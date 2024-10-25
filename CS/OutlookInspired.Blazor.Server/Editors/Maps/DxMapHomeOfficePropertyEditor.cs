@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module;
 using OutlookInspired.Module.BusinessObjects;
-using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
+using EditorAliases = OutlookInspired.Module.EditorAliases;
 
 namespace OutlookInspired.Blazor.Server.Editors.Maps{
     [PropertyEditor(typeof(IMapsMarker),EditorAliases.MapHomeOfficePropertyEditor, false)]

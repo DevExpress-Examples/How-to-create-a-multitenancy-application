@@ -5,9 +5,9 @@ using DevExpress.ExpressApp.Blazor.Editors;
 using DevExpress.ExpressApp.Utils;
 using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server.Features.Employees.Evaluations{
+    
     public class EmployeeEvaluationsController:ObjectViewController<ListView,Evaluation>{
         public EmployeeEvaluationsController() => TargetViewId = Evaluation.EmployeeEvaluationsChildListView;
 
@@ -21,7 +21,7 @@ namespace OutlookInspired.Blazor.Server.Features.Employees.Evaluations{
                 var memberInfo = ((IObjectSpaceLink)context.DataItem).ObjectSpace.TypesInfo.FindTypeInfo(typeof(Evaluation)).FindMember(context.DataColumn.FieldName);
                 var fontSizeDeltaAttribute = memberInfo.FindAttribute<FontSizeDeltaAttribute>();
                 var model = new EmployeeEvaluationColumnTemplateModel(){
-                    Subject = evaluation.Subject,Description = evaluation.DescriptionBytes.ToDocumentText(),
+                    Subject = evaluation.Subject,Description = evaluation.Description,
                     Manager = evaluation.Manager.FullName,
                     BonusImage = ImageLoader.Instance.GetEnumValueImageName(evaluation.Bonus),
                     RaiseImage =ImageLoader.Instance.GetEnumValueImageName(evaluation.Raise),

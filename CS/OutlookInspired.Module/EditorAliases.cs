@@ -1,4 +1,4 @@
-﻿namespace OutlookInspired.Module.Services{
+﻿namespace OutlookInspired.Module{
     public struct EditorAliases {
         
         public const string EnumImageOnlyEditor = "EnumImageOnlyEditor";

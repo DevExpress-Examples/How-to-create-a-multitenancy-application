@@ -4,8 +4,9 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Blazor.Server.Editors.Maps;
+using OutlookInspired.Module;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services;
+
 
 namespace OutlookInspired.Blazor.Server.Features.Quotes{
     public class QuoteMapItemListViewController:ObjectViewController<ListView,QuoteMapItem>{
@@ -51,7 +52,7 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes{
         private Stage Stage => (Stage)StageAction.SelectedItem.Data;
         private void OnObjectsGetting(object sender, ObjectsGettingEventArgs e) 
             => e.Objects=Enum.GetValues<Stage>().Where(stage1 => stage1==Stage)
-                .SelectMany(stage => NewQuoteMapItem(stage, (IObjectSpace)sender, Stage.Map()))
+                .SelectMany(stage => NewQuoteMapItem(stage, (IObjectSpace)sender, Stage.Range()))
                 .ToArray();
 
         private QuoteMapItem[] NewQuoteMapItem(Stage stage, IObjectSpace objectSpace, (double min, double max) value){

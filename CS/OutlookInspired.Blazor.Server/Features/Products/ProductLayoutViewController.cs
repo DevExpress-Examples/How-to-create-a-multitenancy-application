@@ -1,7 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using OutlookInspired.Blazor.Server.Editors.LayoutView;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server.Features.Products{
     public class ProductLayoutViewController:ObjectViewController<ListView, Product>{
@@ -18,7 +17,7 @@ namespace OutlookInspired.Blazor.Server.Features.Products{
                     { "COST", product.Cost.ToString("C") },
                     { "SALE PRICE", product.SalePrice.ToString("C") }                };
             };
-            model.FooterSelector = o => ((Product)o).Description.ToDocumentText();
+            model.FooterSelector = o => ((Product)o).DescriptionString;
         }
         
     }

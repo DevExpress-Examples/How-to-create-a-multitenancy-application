@@ -1,12 +1,11 @@
-﻿@using OutlookInspired.Module.Services.Internal
-<div class="card" @onclick="CardClicked" @ondblclick="CardDoubleClicked" style="@(LayoutView.SelectedCards.Contains(this) ? "background-color: grey;" : "")" >
+﻿<div class="card" @onclick="CardClicked" @ondblclick="CardDoubleClicked" style="@(LayoutView.SelectedCards.Contains(this) ? "background-color: grey;" : "")" >
   <div class="card-header">
     <strong>@(LayoutView.HeaderSelector?.Invoke(CurrentObject)!)</strong>
   </div>
   <div class="card-body">
     <div class="row">
       <div class="col-md-4">
-        <img src="@(LayoutView.ImageSelector?.Invoke(CurrentObject).ToBase64Image())" class="img-fluid" alt="Photo">
+        <img src="@(ToBase64Image(LayoutView.ImageSelector?.Invoke(CurrentObject)))" class="img-fluid" alt="Photo">
       </div>
       <div class="col-md-8">
         <div class="col-md-8">
@@ -47,4 +46,21 @@
     }
     await LayoutView.SelectionChanged.InvokeAsync(CurrentObject);
   }
+  
+  string ToBase64Image(byte[] bytes) 
+    =>bytes==null?"": $"data:{FileType(bytes)};base64,{Convert.ToBase64String(bytes)}";
+  
+  string FileType(byte[] value) 
+    => value switch{
+      { Length: > 0 } when IsMaskMatch(value, 0, 77, 77) || IsMaskMatch(value,0, 73, 73) => "tiff",
+      { Length: > 0 } when IsMaskMatch(value,1, 80, 78, 71) => "png",
+      { Length: > 0 } when IsMaskMatch(value,0, 71, 73, 70, 56) => "gif",
+      { Length: > 0 } when IsMaskMatch(value, 0, 255, 216) => "jpeg",
+      { Length: > 0 } when IsMaskMatch(value,0, 66, 77) => "bmp",
+      _ => ""
+    };
+    
+  bool IsMaskMatch( byte[] byteArray, int offset, params byte[] mask) 
+    => byteArray != null && byteArray.Length >= offset + mask.Length &&
+       !mask.Where((t, i) => byteArray[offset + i] != t).Any();
 }

@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp;
 using OutlookInspired.Blazor.Server.Editors.Charts;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services;
+
 
 namespace OutlookInspired.Blazor.Server.Features.Quotes{
     public class OpportunitiesChartListViewController:ObjectViewController<ListView,Opportunity>{

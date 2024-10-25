@@ -38,22 +38,25 @@
 
 using System.ComponentModel;
 using System.Drawing;
-using DevExpress.Drawing;
+using System.Reflection;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.EFCore;
 using DevExpress.Persistent.Base.ReportsV2;
-using DevExpress.Utils;
-using DevExpress.XtraCharts;
-using DevExpress.XtraPrinting;
 using DevExpress.XtraPrinting.Drawing;
 using DevExpress.XtraReports.Parameters;
 using DevExpress.XtraReports.UI;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Resources.Reports {
 	public class CustomerSalesSummaryReport : XtraReport {
+		
 		#region Designer generated code
+		private static readonly PropertyInfo ViewDataSourceObjectSpaceProperty;
 
+		private IObjectSpace ViewDataSourceObjectSpace => ViewDataSourceObjectSpaceProperty!.GetValue(bindingSource1) as IObjectSpace;
+
+		static CustomerSalesSummaryReport() => ViewDataSourceObjectSpaceProperty = typeof(ViewDataSource).GetProperty("ObjectSpace",
+			BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 		private TopMarginBand topMarginBand1;
 		private DetailBand detailBand1;
 		private ViewDataSource bindingSource1;
@@ -1230,7 +1233,7 @@ namespace OutlookInspired.Module.Resources.Reports {
 
         private void xrPictureBox4_BeforePrint(object sender, CancelEventArgs e){
 	        xrPictureBox4.ImageSource = new ImageSource(false,
-		        bindingSource1.ObjectSpace().GetObjectByKey<Customer>(Customer.Value)?.Logo ?? Array.Empty<byte>());
+		        ViewDataSourceObjectSpace.GetObjectByKey<Customer>(Customer.Value)?.Logo ?? []);
         }
     }
 }

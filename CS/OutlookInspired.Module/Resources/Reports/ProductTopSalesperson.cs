@@ -37,17 +37,23 @@
 #endregion Copyright (c) 2000-2023 Developer Express Inc.
 
 using System.ComponentModel;
+using System.Reflection;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base.ReportsV2;
 using DevExpress.XtraPrinting.Drawing;
 using DevExpress.XtraReports.Parameters;
 using DevExpress.XtraReports.UI;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Resources.Reports {
 	public class ProductTopSalesperson : XtraReport {
 		#region Designer generated code
+		private static readonly PropertyInfo ViewDataSourceObjectSpaceProperty;
 
+		private IObjectSpace ViewDataSourceObjectSpace => ViewDataSourceObjectSpaceProperty!.GetValue(bindingSource1) as IObjectSpace;
+
+		static ProductTopSalesperson() => ViewDataSourceObjectSpaceProperty = typeof(ViewDataSource).GetProperty("ObjectSpace",
+			BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 		private TopMarginBand topMarginBand1;
 		private DetailBand detailBand1;
 		private ViewDataSource bindingSource1;
@@ -974,10 +980,10 @@ namespace OutlookInspired.Module.Resources.Reports {
             => xrPictureBox4.ImageSource = new ImageSource(false, GetProduct()?.PrimaryImage?.Data??Array.Empty<byte>());
 
         private Product GetProduct() 
-            => bindingSource1.ObjectSpace().GetObjectByKey<Product>(GetCurrentColumnValue("Product.ID"));
+            => ViewDataSourceObjectSpace.GetObjectByKey<Product>(GetCurrentColumnValue("Product.ID"));
 
         private void xrPictureBox1_BeforePrint(object sender, CancelEventArgs e){
-	        var employee = bindingSource1.ObjectSpace().GetObjectByKey<Employee>(GetCurrentColumnValue("Order.Employee.ID"));
+	        var employee = ViewDataSourceObjectSpace.GetObjectByKey<Employee>(GetCurrentColumnValue("Order.Employee.ID"));
 	        var pictureData = employee?.Picture?.Data;
 	        xrPictureBox1.ImageSource = new ImageSource(false, pictureData ?? Array.Empty<byte>());
         }

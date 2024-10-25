@@ -1,15 +1,15 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq.Expressions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.Attributes.Validation;
+using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Features.ViewFilter;
 using OutlookInspired.Module.Services;
 
 
@@ -17,13 +17,17 @@ namespace OutlookInspired.Module.BusinessObjects {
 	[ImageName("BO_Customer")]
 	[CloneView(CloneViewType.DetailView, ChildDetailView)]
 	[CloneView(CloneViewType.DetailView, LayoutViewDetailView)]
+	[CloneView(CloneViewType.ListView, LayoutViewListView)]
 	[CloneView(CloneViewType.DetailView, GridViewDetailView)]
 	[CloneView(CloneViewType.DetailView, MapsDetailView)]
 	[XafDefaultProperty(nameof(Name))]
 	public class Customer:OutlookInspiredBaseObject,IViewFilter,ISalesMapsMarker{
+		
 		public const string ChildDetailView = "Customer_DetailView_Child";
+		
 		public const string GridViewDetailView = "CustomerGridView_DetailView";
 		public const string LayoutViewDetailView = "CustomerLayoutView_DetailView";
+		public const string LayoutViewListView = "CustomerLayoutView_ListView";
 		public const string MapsDetailView = "Customer_DetailView_Maps";
 		[FontSizeDelta(4)][MaxLength(255)]
 		public  virtual string HomeOfficeLine { get; set; }
@@ -57,8 +61,11 @@ namespace OutlookInspired.Module.BusinessObjects {
 		public virtual double BillingAddressLatitude { get; set; }
 		[VisibleInListView(false)][VisibleInLookupListView(false)]
 		public virtual double BillingAddressLongitude { get; set; }
-		[NotMapped][VisibleInDetailView(false)]
+
+		[NotMapped]
+		[VisibleInDetailView(false)]
 		public virtual ObservableCollection<MapItem> CitySales{ get; set; } = new();
+
 		[Aggregated]
 		public virtual ObservableCollection<CustomerEmployee> Employees{ get; set; } = new(); 
 		[Attributes.Validation.Phone][MaxLength(20)]
@@ -102,9 +109,12 @@ namespace OutlookInspired.Module.BusinessObjects {
 		public virtual List<Order> RecentOrders => ObjectSpace.GetObjectsQuery<Order>()
 			.Where(order => order.Customer.ID == ID && order.OrderDate > DateTime.Now.AddMonths(-2)).ToList();
 
-		Expression<Func<OrderItem, bool>> ISalesMapsMarker.SalesExpression => item => item.Order.Customer.ID == ID;
+		[VisibleInDetailView(false)]
+		[NotMapped]
+		public ObservableCollection<MapItem> Sales{ get; set; } = new();
 		
 		IEnumerable<Order> ISalesMapsMarker.Orders => Orders;
+		
 	}
 	public enum CustomerStatus {
 		Active, Suspended

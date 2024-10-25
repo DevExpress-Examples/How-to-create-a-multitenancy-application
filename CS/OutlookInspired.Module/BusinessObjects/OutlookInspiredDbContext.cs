@@ -11,15 +11,16 @@ namespace OutlookInspired.Module.BusinessObjects;
 
 // This code allows our Model Editor to get relevant EF Core metadata at design time.
 // For details, please refer to https://supportcenter.devexpress.com/ticket/details/t933891.
-public class OutlookInspiredContextInitializer : DbContextTypesInfoInitializerBase {
+public class OutlookInspiredContextInitializer : DbContextTypesInfoInitializerBase{
+
 	protected override DbContext CreateDbContext() 
 		=> new OutlookInspiredEFCoreDbContext(new DbContextOptionsBuilder<OutlookInspiredEFCoreDbContext>()
-			.UseSqlite(";")
-			.UseChangeTrackingProxies()
-			.UseObjectSpaceLinkProxies().Options);
+			.UseSqlServer(";").UseChangeTrackingProxies().UseObjectSpaceLinkProxies().Options);
 }
 //This factory creates DbContext for design-time services. For example, it is required for database migration.
-public class OutlookInspiredDesignTimeDbContextFactory : IDesignTimeDbContextFactory<OutlookInspiredEFCoreDbContext> {
+public class OutlookInspiredDesignTimeDbContextFactory : IDesignTimeDbContextFactory<OutlookInspiredEFCoreDbContext>{
+	
+
 	public OutlookInspiredEFCoreDbContext CreateDbContext(string[] args) {
 		// throw new InvalidOperationException("Make sure that the database connection string and connection provider are correct. After that, uncomment the code below and remove this exception.");
 		var optionsBuilder = new DbContextOptionsBuilder<OutlookInspiredEFCoreDbContext>();
@@ -30,10 +31,8 @@ public class OutlookInspiredDesignTimeDbContextFactory : IDesignTimeDbContextFac
 	}
 }
 [TypesInfoInitializer(typeof(OutlookInspiredContextInitializer))]
-public class OutlookInspiredEFCoreDbContext : DbContext {
-	public OutlookInspiredEFCoreDbContext(DbContextOptions<OutlookInspiredEFCoreDbContext> options) : base(options) {
-	}
-	
+public class OutlookInspiredEFCoreDbContext(DbContextOptions<OutlookInspiredEFCoreDbContext> options)
+	: DbContext(options){
 	public DbSet<Tenant> Tenants { get; set; }
 	public DbSet<ModelDifference> ModelDifferences { get; set; }
 	public DbSet<ModelDifferenceAspect> ModelDifferenceAspects { get; set; }

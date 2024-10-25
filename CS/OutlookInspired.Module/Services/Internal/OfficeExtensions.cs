@@ -1,4 +1,5 @@
-﻿using DevExpress.Pdf;
+﻿using System.Drawing;
+using DevExpress.Pdf;
 using DevExpress.XtraRichEdit;
 
 namespace OutlookInspired.Module.Services.Internal{
@@ -8,7 +9,9 @@ namespace OutlookInspired.Module.Services.Internal{
             => RichEditDocumentServer.ToDocument(bytes,() => data(RichEditDocumentServer),DocumentFormat.OpenXml);
         
         public static string ToDocumentText(this byte[] bytes) => bytes.ToDocument(server => server.Text);
-        public static byte[] ToDocumentBytes(this byte[] bytes) => bytes.ToDocument(server => server.OpenXmlBytes);
+        public static byte[] ToOpenXmlBytes(this byte[] bytes) => bytes.ToDocument(server => server.OpenXmlBytes);
+        [Obsolete]
+        public static byte[] ToRtfBytes(this byte[] bytes) => bytes.ToDocument(server => server.RtfText).Bytes().ToOpenXmlBytes();
 
         public static T ToDocument<T>(this IRichEditDocumentServer server,byte[] bytes,Func<T> data,DocumentFormat? documentFormat=null){
             if (bytes == null || bytes.Length == 0){
@@ -19,15 +22,6 @@ namespace OutlookInspired.Module.Services.Internal{
             return data();
         }
 
-        public static byte[] AddWaterMark(this byte[] bytes,string text){
-            using var processor = new PdfDocumentProcessor();
-            using var memoryStream = new MemoryStream(bytes);
-            processor.LoadDocument(memoryStream);
-            processor.AddWatermark(text);
-            using var stream = new MemoryStream();
-            processor.SaveDocument(stream);
-            return stream.ToArray();
-        }
 
         public static byte[] ToPdf(this byte[] bytes){
             using var richEditDocumentServer = new RichEditDocumentServer();

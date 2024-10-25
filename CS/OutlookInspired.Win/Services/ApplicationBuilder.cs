@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using DevExpress.Blazor;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ApplicationBuilder;
 using DevExpress.ExpressApp.MultiTenancy;
@@ -15,15 +16,26 @@ using DevExpress.Persistent.BaseImpl.EF.PermissionPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OutlookInspired.Module.BusinessObjects;
+using OutlookInspired.Module.Features.Maps;
+using OutlookInspired.Module.Services;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Win.Services{
+
     public static class ApplicationBuilder{
         public static IWinApplicationBuilder Configure(this IWinApplicationBuilder builder,string connectionString){
             builder.UseApplication<OutlookInspiredWindowsFormsApplication>();
             builder.AddModules();
             builder.UseMiddleTierModeSecurity();
             builder.AddMiddleTierMultiTenancy();
+            var services = builder.Services;
+            services.AddSingleton<IMapApiKeyProvider, MapApiKeyProvider>();
+            services.AddDevExpressBlazor(options => {
+                options.BootstrapVersion = BootstrapVersion.v5;
+                options.SizeMode = SizeMode.Large;
+            });
+            services.AddWindowsFormsBlazorWebView();
+            
             builder.AddBuildSteps(connectionString);
             return builder;
         }
@@ -167,5 +179,8 @@ namespace OutlookInspired.Win.Services{
                 .Add<OutlookInspiredWinModule>();
 
         
+    }
+
+    public interface IGeocodeDataProvider{
     }
 }

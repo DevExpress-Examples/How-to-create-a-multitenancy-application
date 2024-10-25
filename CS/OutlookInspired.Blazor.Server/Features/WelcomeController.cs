@@ -1,5 +1,5 @@
 ﻿using DevExpress.ExpressApp;
-using OutlookInspired.Blazor.Server.Editors;
+using OutlookInspired.Blazor.Server.Editors.PdfViewer;
 using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.Blazor.Server.Features {

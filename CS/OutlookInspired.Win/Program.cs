@@ -22,7 +22,6 @@ static class Program {
         }
         Tracing.Initialize();
         var winApplication = ApplicationBuilder.BuildApplication(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-        // var winApplication = ApplicationBuilder.BuildApplication();
         try {
             winApplication.Setup();
             winApplication.Start();

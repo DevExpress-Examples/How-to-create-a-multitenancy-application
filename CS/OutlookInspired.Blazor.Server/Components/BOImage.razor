@@ -1,7 +1,36 @@
-﻿@using DevExpress.ExpressApp.Utils
-<XafImg Value="@CaptionHelper.ApplicationModel.BOModel.GetClass(ObjectType).ImageName" Size="16" />
+﻿@using DevExpress.ExpressApp.Blazor.Services
+@using DevExpress.ExpressApp.Utils
+@inject IImageUrlService ImageUrlService
+
+<div @attributes="Attributes" class="xaf-image @CssClass" style="background-color: @(Color ?? "currentColor"); -webkit-mask: url('@_imageUrl'); mask: url('@_imageUrl'); -webkit-mask-position: center; mask-position: center; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; @(Size > 0 ? $"height: {Size}px; width: {Size}px; mask-size: {Size}px; -webkit-mask-size: {Size}px;" : "") @Styles"></div>
+
 
 @code {
     [Parameter]
     public Type ObjectType { get; set; }
+    
+    private string _imageUrl;
+
+    protected override void OnInitialized(){
+        base.OnInitialized();
+        var modelClass = CaptionHelper.ApplicationModel.BOModel.GetClass(ObjectType);
+        var imageName = modelClass.ImageName;
+        _imageUrl = $"/{ImageUrlService.GetImageUrl(imageName)}";
+        AltText = modelClass.Caption;
+
+    }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> Attributes { get; set; }
+    
+    [Parameter]
+    public string AltText { get; set; }
+    [Parameter]
+    public string Styles { get; set; }
+    [Parameter]
+    public string Color { get; set; }
+
+    [Parameter]
+    public int Size{ get; set; } = 16;
+    [Parameter]
+    public string CssClass { get; set; }
 }

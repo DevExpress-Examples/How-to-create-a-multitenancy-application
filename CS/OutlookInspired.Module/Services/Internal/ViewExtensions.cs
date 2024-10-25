@@ -6,10 +6,12 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
-using OutlookInspired.Module.Features.MasterDetail;
+using OutlookInspired.Module.Common;
+using OutlookInspired.Module.Features;
 
 namespace OutlookInspired.Module.Services.Internal{
     internal static class ViewExtensions{
+        [Obsolete]
         public static void SetNonTrackedMemberValue<T,T2>(this CompositeView view, Expression<Func<T, T2>> expression,Func<T,T2> valueSelector){
             if (view.CurrentObject==null)return;
             var propertyEditor = view.GetItems<PropertyEditor>()
@@ -20,17 +22,20 @@ namespace OutlookInspired.Module.Services.Internal{
 
         public static object DefaultMemberValue(this View view)
             => view.ObjectTypeInfo.DefaultMember?.GetValue(view.CurrentObject);
-        
+        [Obsolete]
         public static IUserControl UserControl(this CompositeView view) 
             => view.GetItems<ControlViewItem>().Select(item => item.Control).OfType<IUserControl>().FirstOrDefault();
 
+        [Obsolete]
         public static DashboardViewItem ChildItem(this DashboardView view){
             var masterItem = view.MasterItem();
             return view.Items.OfType<DashboardViewItem>().First(item => item!=masterItem);
         }
 
+        [Obsolete]
         public static DashboardViewItem MasterItem(this DashboardView view) 
-            => view.Items.OfType<DashboardViewItem>().First(item => item.Model.ActionsToolbarVisibility!=ActionsToolbarVisibility.Hide);
+            => view.Items.OfType<DashboardViewItem>()
+                .First(item => item.Model is IModelDashboardViewItemMasterDetail );
 
         internal static IEnumerable<T> Objects<T>(this CollectionSourceBase collectionSourceBase) {
             if (collectionSourceBase.Collection is IEnumerable collection)

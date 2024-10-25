@@ -1,0 +1,32 @@
+﻿<DxGrid Data="Data" PageSizeSelectorVisible="true" PageSize="_data.Length" AllowSelectRowByClick="AllowSelectRowByClick" >
+    <Columns>
+        @foreach (var column in Columns){
+            <DxGridDataColumn FieldName="@column.FieldName"/>
+        }
+    </Columns>
+    <TotalSummary>
+        @foreach (var item in SummaryItems){
+            <DxGridSummaryItem SummaryType="item.SummaryType" FieldName="@item.FieldName" />
+        }
+    </TotalSummary>
+</DxGrid>
+
+@code {
+    private object[] _data;
+
+    [Parameter]
+    public IEnumerable<IGridDataColumn> Columns { get; set; }
+    [Parameter]
+    public IEnumerable<IGridSummaryItem> SummaryItems { get; set; }
+    [Parameter]
+    public IEnumerable<object> Data { get; set; }
+    
+    [Parameter]
+    public bool AllowSelectRowByClick { get; set; }
+
+    protected override void OnInitialized(){
+        base.OnInitialized();
+        _data = Data.ToArray();
+    }
+
+}

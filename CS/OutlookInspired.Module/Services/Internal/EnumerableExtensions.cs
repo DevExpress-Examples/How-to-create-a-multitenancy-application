@@ -4,6 +4,7 @@ namespace OutlookInspired.Module.Services.Internal{
     internal static class EnumerableExtensions{
         public static TValue DynamicSum<TValue>(this IEnumerable<TValue> values) 
             => values.Aggregate<TValue, dynamic>(0, (current, value) => current + (dynamic)value);
+        [Obsolete]
         public static IEnumerable<T> Do<T>(this IEnumerable<T> source,Action<T,int> action) 
             => source.Select((arg1, i) => {
                 action(arg1, i);
@@ -42,11 +43,13 @@ namespace OutlookInspired.Module.Services.Internal{
                     yield return child;
             }
         }
+        [Obsolete]
         public static void Enumerate<T>(this IEnumerable<T> source) {
             using var e = source.GetEnumerator();
             while (e.MoveNext()) { }
         }
 
+        [Obsolete]
         public static IEnumerable<TSource> Do<TSource>(
             this IEnumerable<TSource> source, Action<TSource> action)
             => source.Select(item => {
@@ -58,6 +61,7 @@ namespace OutlookInspired.Module.Services.Internal{
             => new((IList<T>) (source as IList ?? source.ToList()));
 
 
+        [Obsolete]
         public static IEnumerable<T> Concat<T>(this IEnumerable<T> source,params T[] values) => source.Concat(values.AsEnumerable());
         
         public static IEnumerable<T> WhereNotDefault<T,T2>(this IEnumerable<T> source, Func<T,T2> predicate) 

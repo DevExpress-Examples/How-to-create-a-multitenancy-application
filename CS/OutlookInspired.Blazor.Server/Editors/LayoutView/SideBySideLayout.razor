@@ -1,0 +1,50 @@
+﻿@using OutlookInspired.Module.Services.Internal
+<div class="card" @onclick="CardClicked" @ondblclick="CardDoubleClicked" style="@(LayoutView.SelectedCards.Contains(this) ? "background-color: grey;" : "")" >
+  <div class="card-header">
+    <strong>@(LayoutView.HeaderSelector?.Invoke(CurrentObject)!)</strong>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-4">
+        <img src="@(LayoutView.ImageSelector?.Invoke(CurrentObject).ToBase64Image())" class="img-fluid" alt="Photo">
+      </div>
+      <div class="col-md-8">
+        <div class="col-md-8">
+          @foreach (var item in LayoutView.InfoItemsSelector?.Invoke(CurrentObject)??new Dictionary<string, string>()){
+            <div class="mb-2">
+              <small class="text-muted">@item.Key:</small>
+              <p class="ellipsis">@((MarkupString)item.Value)</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer ellipsis3Lines">
+    @LayoutView.FooterSelector?.Invoke(CurrentObject)
+  </div>
+</div>
+
+@code {
+
+  
+  [Parameter]
+  public object CurrentObject { get; set; }
+  [CascadingParameter]
+  public LayoutView LayoutView { get; set; }
+  
+
+  private async Task CardDoubleClicked(MouseEventArgs e){
+    await LayoutView.ProcessSelectedObject.InvokeAsync();
+  }
+
+  private async Task CardClicked(MouseEventArgs e){
+    if (!LayoutView.SelectedCards.Contains(this)){ 
+        LayoutView.SelectedCards.Add(this);
+    }
+    else{
+        LayoutView.SelectedCards.Remove(this);
+    }
+    await LayoutView.SelectionChanged.InvokeAsync(CurrentObject);
+  }
+}

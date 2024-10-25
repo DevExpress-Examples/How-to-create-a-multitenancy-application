@@ -1,5 +1,4 @@
-﻿using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Win.Editors;
+﻿using OutlookInspired.Win.Editors;
 
 namespace OutlookInspired.Win.Features.Orders
 {
@@ -11,13 +10,13 @@ namespace OutlookInspired.Win.Features.Orders
             labelControl1.Text = @"RECORDS: 0";
         }
 
-        protected override void OnDataSourceOfFilterChanged()
+        protected override void OnDataSourceOrFilterChanged()
         {
-            base.OnDataSourceOfFilterChanged();
+            base.OnDataSourceOrFilterChanged();
             labelControl1.Text = $@"RECORDS: {ColumnView.DataRowCount}";
         }
 
 
-        public override Type ObjectType => typeof(Order);
+        
     }
 }

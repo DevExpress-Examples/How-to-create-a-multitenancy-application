@@ -1,0 +1,58 @@
+﻿@implements IDisposable
+@using System.ComponentModel
+<div class="store-card-container">
+    @if (_data!=null){
+        if (_data.Any()){
+            <CascadingValue Value="this">
+                @foreach (var entity in _data){
+                    <SideBySideLayout CurrentObject="entity" />
+                }
+            </CascadingValue>
+        }
+        <p>RECORDS: @_data.Length</p>
+    }
+</div>
+
+
+@code {
+    private object[] _data;
+
+    [Parameter][EditorRequired]
+    public IEnumerable<object> Data { get; set; }
+    [Parameter]
+    public Func<object,byte[]> ImageSelector { get; set; }
+    [Parameter]
+    public Func<object,string> HeaderSelector { get; set; }
+    [Parameter]
+    public Func<object,string> FooterSelector { get; set; }
+    [Parameter]
+    public EventCallback<object> SelectionChanged{ get; set; }
+    [Parameter]
+    public EventCallback ProcessSelectedObject{ get; set; }
+    [Parameter]
+    public Func<object,Dictionary<string, string>> InfoItemsSelector { get; set; }
+    public BindingList<ComponentBase> SelectedCards { get; } = new(){RaiseListChangedEvents = true};
+    
+    protected override void OnInitialized(){
+        base.OnInitialized();
+        SelectedCards.ListChanged+=SelectedCardsOnListChanged;
+    }
+
+    protected override void OnParametersSet(){
+        base.OnParametersSet();
+        _data = Data as object[] ?? Data?.ToArray();
+    }
+
+    private void SelectedCardsOnListChanged(object sender, ListChangedEventArgs e){
+        if (e.ListChangedType != ListChangedType.ItemAdded) return;
+        var selectedCard = SelectedCards[e.NewIndex];
+        foreach (var card in SelectedCards.Where(card => card != selectedCard).ToArray()){
+            SelectedCards.Remove(card);
+        }
+        StateHasChanged();
+    }
+
+    public void Dispose() => SelectedCards.ListChanged-=SelectedCardsOnListChanged;
+
+
+}

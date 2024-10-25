@@ -1,5 +1,5 @@
 ﻿using DevExpress.ExpressApp;
-using OutlookInspired.Module.Features.ViewFilter;
+using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Win.Features.Quotes{

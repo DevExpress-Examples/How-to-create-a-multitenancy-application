@@ -11,8 +11,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.EF;
 using DevExpress.Persistent.Validation;
 using OutlookInspired.Module.Attributes.Appearance;
-using OutlookInspired.Module.Features.ViewFilter;
-using OutlookInspired.Module.Services.Internal;
+using OutlookInspired.Module.Features;
 using EditorAliases = DevExpress.ExpressApp.Editors.EditorAliases;
 
 namespace OutlookInspired.Module.BusinessObjects{
@@ -39,8 +38,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         [EditorAlias(EditorAliases.CriteriaPropertyEditor)]
         public virtual string Criteria { get; set; }
 
-        [Browsable(false)]
-        public int Count(CriteriaOperator criteria=null) => ObjectSpace.GetObjectsCount(DataType, criteria.Combine(Criteria));
+        
 
         public void SetCriteria<T>(string criteria) where T : IViewFilter{
             DataType = typeof(T);

@@ -1,7 +1,9 @@
 ﻿using System.Drawing;
 
 namespace OutlookInspired.Module.Services.Internal{
+    
     public static class ColorGenerator{
+        [Obsolete]
         public static string[] DistinctColors(this int i){
             var colors = new List<Color>();
             var index = 0;

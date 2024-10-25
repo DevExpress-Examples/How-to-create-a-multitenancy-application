@@ -1,5 +1,4 @@
-﻿using System.IO;
-using DevExpress.ExpressApp.Editors;
+﻿using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraPdfViewer;
@@ -7,11 +6,7 @@ using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 namespace OutlookInspired.Win.Editors{
     [PropertyEditor(typeof(byte[]), EditorAliases.PdfViewerEditor, false)]  
-    public class PdfViewerEditor : WinPropertyEditor {
-        public PdfViewerEditor(Type objectType, IModelMemberViewItem info)  
-            : base(objectType, info) {  
-        }
-
+    public class PdfViewerEditor(Type objectType, IModelMemberViewItem info) : WinPropertyEditor(objectType, info){
         public new PdfViewer Control => (PdfViewer)base.Control;
         protected override object CreateControlCore() 
             => new PdfViewer{

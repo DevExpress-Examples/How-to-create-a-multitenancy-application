@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.Attributes;
+using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Features.ViewFilter;
-using OutlookInspired.Module.Services.Internal;
 using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 
@@ -49,7 +49,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         public virtual int Year => OrderDate.Year;
         public  virtual DateTime? ShipDate { get; set; }
         public  virtual OrderShipMethod ShipMethod { get; set; }
-        [EditorAlias(DevExpress.ExpressApp.Editors.EditorAliases.RichTextPropertyEditor)]
+        [EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
         public  virtual byte[] OrderTerms { get; set; }
         [Aggregated]
         public virtual ObservableCollection<OrderItem> OrderItems{ get; set; } = new();
@@ -61,19 +61,19 @@ namespace OutlookInspired.Module.BusinessObjects{
         [XafDisplayName(nameof(ShipmentStatus))]
         [ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
             DetailViewImageEditorMode = ImageEditorMode.PictureEdit,ImageSizeMode = ImageSizeMode.Zoom)]
-        public virtual byte[] ShipmentStatusImage => ShipmentStatus.ImageInfo().ImageBytes;
+        public virtual byte[] ShipmentStatusImage => ImageLoader.Instance.GetEnumValueImageInfo(@ShipmentStatus).ImageBytes;
 
         [EditorAlias(EditorAliases.PdfViewerEditor)]
         [VisibleInDetailView(false)]
         [NotMapped]
-        public virtual byte[] ShipmentDetail{ get; set; } = Array.Empty<byte>();
+        public virtual byte[] ShipmentDetail{ get; set; } = [];
         
         
         [EditorAlias(EditorAliases.PdfViewerEditor)]
         [VisibleInDetailView(false)]
         [NotMapped]
-        public virtual byte[] InvoiceDocument{ get; set; } = Array.Empty<byte>();
-        [EditorAlias(DevExpress.ExpressApp.Editors.EditorAliases.RichTextPropertyEditor)]
+        public virtual byte[] InvoiceDocument{ get; set; } = [];
+        [EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
         public  virtual byte[] Comments { get; set; }
         [Column(TypeName = CurrencyType)]
         public  virtual decimal RefundTotal { get; set; }
@@ -89,13 +89,15 @@ namespace OutlookInspired.Module.BusinessObjects{
         [XafDisplayName(nameof(ShipmentStatus))]
         [ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
             DetailViewImageEditorMode = ImageEditorMode.PictureEdit,ImageSizeMode = ImageSizeMode.Zoom)]
-        public byte[] PaymentStatusImage => PaymentStatus.ImageInfo().ImageBytes;
+        public byte[] PaymentStatusImage => ImageLoader.Instance.GetEnumValueImageInfo(PaymentStatus).ImageBytes;
         
         public double ActualWeight 
             => OrderItems == null ? 0 : OrderItems.Where(item => item.Product != null)
                     .Sum(item => item.Product.Weight * item.ProductUnits);
 
-        string IBaseMapsMarker.Title => InvoiceNumber;
+        [EditorAlias(EditorAliases.MapHomeOfficePropertyEditor)]
+        public Location Location => new(){Latitude = ((IBaseMapsMarker)this).Latitude, Longitude = ((IBaseMapsMarker)this).Longitude };
+        string IBaseMapsMarker.Title => Store?.Customer.Name;
 
         double IBaseMapsMarker.Latitude => Store?.Latitude??0;
 

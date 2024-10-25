@@ -12,15 +12,12 @@ using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 namespace OutlookInspired.Win.Editors{
     [PropertyEditor(typeof(object), EditorAliases.HyperLinkPropertyEditor, false)]
-    public class HyperLinkPropertyEditor : StringPropertyEditor,IComplexViewItem {
+    public class HyperLinkPropertyEditor(Type objectType, IModelMemberViewItem info)
+        : StringPropertyEditor(objectType, info), IComplexViewItem{
         public const string UrlEmailMask = @"(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,100})";
 
         HyperLinkEdit _hyperlinkEdit;
         private IObjectSpace _objectSpace;
-
-        public HyperLinkPropertyEditor(Type objectType, IModelMemberViewItem info)
-            : base(objectType, info) {
-        }
 
         public new HyperLinkEdit Control => _hyperlinkEdit;
 

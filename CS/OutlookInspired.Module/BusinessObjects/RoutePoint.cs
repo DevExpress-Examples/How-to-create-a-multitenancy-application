@@ -80,4 +80,12 @@ namespace OutlookInspired.Module.BusinessObjects{
         TurnRightSharp
     }
 
+    public class MapsMarker(string title, double latitude, double longitude) : IMapsMarker{
+        public string Title{ get; } = title;
+
+        public double Latitude{ get; } = latitude;
+
+        public double Longitude{ get; } = longitude;
+    }
+
 }

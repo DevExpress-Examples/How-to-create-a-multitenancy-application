@@ -1,0 +1,36 @@
+﻿@using DevExpress.Persistent.Base
+@using OutlookInspired.Module.Features.Maps
+@inject IMapApiKeyProvider ApiKeyProvider
+<DxMap Provider="MapProvider.Bing" Width="100%" Height="600px" Zoom="16">
+    <DxMapCenter GeoPosition="@GetLocation(Center)" />
+    <DxMapApiKeys Bing="@ApiKeyProvider.Key"></DxMapApiKeys>
+    <DxMapMarkers>
+        @foreach (var entity in Markers){
+            <DxMapMarker MarkerId="@entity.Key">
+                <DxMapMarkerLocation GeoPosition="@GetLocation(entity.Value)"/>
+                <DxMapMarkerTooltip Text="@entity.Value.Title" Visible="@(!string.IsNullOrEmpty(entity.Value.Title))"/>
+            </DxMapMarker>
+        }
+    </DxMapMarkers>
+    <DxMapRoutes>
+        <DxMapRoute Mode="@MapRouteMode" Weight="9">
+            <DxMapRouteLocations>
+                @foreach (var entity in Markers){
+                    <DxMapRouteLocation Latitude="@entity.Value.Latitude" Longitude="@entity.Value.Longitude"></DxMapRouteLocation>
+                }
+            </DxMapRouteLocations>
+        </DxMapRoute>
+        
+    </DxMapRoutes>
+</DxMap>
+
+@code {
+    [Parameter][EditorRequired]
+    public Dictionary<string, IMapsMarker> Markers{ get; set; }
+    [Parameter][EditorRequired]
+    public IMapsMarker Center{ get; set; }
+    [Parameter][EditorRequired]
+    public MapRouteMode MapRouteMode{ get; set; }
+    private string GetLocation(IMapsMarker mapsMarker) => $"{mapsMarker.Latitude}, {mapsMarker.Longitude}";
+
+}

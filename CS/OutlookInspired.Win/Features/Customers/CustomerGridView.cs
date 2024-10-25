@@ -10,6 +10,6 @@ namespace OutlookInspired.Win.Features.Customers
             InitializeComponent();
         }
 
-        public override Type ObjectType => typeof(Customer);
+        
     }
 }

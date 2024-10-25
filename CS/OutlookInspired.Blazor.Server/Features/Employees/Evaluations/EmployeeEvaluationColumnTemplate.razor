@@ -1,0 +1,30 @@
+﻿<table><tr>
+        <td style="width: 50%;@Style"><div class="evaluations-td">@Subject</div></td>
+        <td style="width: 30%"><strong>@Manager</strong></td>
+        <td style="width: 20%"><table><tr><td><XafImage ImageName="@RaiseImage" Size="16" Color="red"></XafImage></td><td>RAISE</td></tr></table></td>
+    </tr>
+    <tr>
+        <td colspan="2"><div class="evaluations-description">@Description</div></td>
+        <td><table><tr><td><XafImage ImageName="@BonusImage" Size="16" Color="green"></XafImage></td><td>BONUS</td></tr></table>
+        </td>
+    </tr>
+</table>
+
+@code {
+    [Parameter]
+    public string Subject { get; set; }
+
+    [Parameter]
+    public string RaiseImage { get; set; }
+    [Parameter]
+    public string BonusImage { get; set; }
+    [Parameter]
+    public string Description { get; set; }
+    [Parameter]
+    public string Style { get; set; }
+    [Parameter]
+    public string Manager { get; set; }
+}
+
+
+

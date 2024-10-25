@@ -2,14 +2,13 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq.Expressions;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.Attributes;
+using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Features.ViewFilter;
 using OutlookInspired.Module.Services;
 using OutlookInspired.Module.Services.Internal;
 
@@ -18,18 +17,20 @@ namespace OutlookInspired.Module.BusinessObjects{
     [ImageName("BO_Product")]
     [CloneView(CloneViewType.DetailView, BrochureDetailView)]
     [CloneView(CloneViewType.DetailView, CardViewDetailView)]
+    [CloneView(CloneViewType.ListView, LayoutViewListView)]
     [CloneView(CloneViewType.DetailView, MapsDetailView)]
     [Appearance("UnAvailable",AppearanceItemType.ViewItem, "!"+nameof(Available),TargetItems = "*",FontStyle = DevExpress.Drawing.DXFontStyle.Strikeout)]
     [XafDefaultProperty(nameof(Name))]
     public class Product :OutlookInspiredBaseObject, IViewFilter,ISalesMapsMarker{
-        
+        [Obsolete]
         public const string CardViewDetailView = "ProductCardView_DetailView";
+        public const string LayoutViewListView = "ProductLayoutView_ListView";
         public const string BrochureDetailView = "Product_Brochure_DetailView";
         public const string MapsDetailView = "Product_DetailView_Maps";
         
         [FontSizeDelta(8)][MaxLength(100)]
         public  virtual string Name { get; set; }
-        [EditorAlias(DevExpress.ExpressApp.Editors.EditorAliases.RichTextPropertyEditor)]
+        [EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
         public  virtual byte[] Description { get; set; }
 
         
@@ -48,6 +49,10 @@ namespace OutlookInspired.Module.BusinessObjects{
         public  virtual int? CurrentInventory { get; set; }
         public  virtual int Backorder { get; set; }
         public  virtual int Manufacturing { get; set; }
+
+        [NotMapped]
+        public ObservableCollection<MapItem> Sales { get; set; } = new();
+
         [NotMapped][VisibleInDetailView(false)]
         public virtual ObservableCollection<MapItem> CitySales{ get; set; } = new();
         public virtual Picture PrimaryImage { get; set; }
@@ -63,7 +68,7 @@ namespace OutlookInspired.Module.BusinessObjects{
 
         [InverseProperty(nameof(ProductCatalog.Product))][Aggregated]
         public virtual ObservableCollection<ProductCatalog> Catalogs{ get; set; } = new();
-        Expression<Func<OrderItem, bool>> ISalesMapsMarker.SalesExpression => item => item.Product.ID == ID;
+        
 
         [Aggregated]
         public virtual ObservableCollection<ProductImage> Images{ get; set; } = new();

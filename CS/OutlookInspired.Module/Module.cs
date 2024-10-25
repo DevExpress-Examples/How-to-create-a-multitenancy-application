@@ -1,22 +1,23 @@
 ﻿using System.Runtime.CompilerServices;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.ReportsV2;
 using OutlookInspired.Module.Controllers;
-using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Customers;
 using OutlookInspired.Module.Features.Employees;
-using OutlookInspired.Module.Features.MasterDetail;
 using OutlookInspired.Module.Features.Orders;
+using OutlookInspired.Module.Features.Products;
 using OutlookInspired.Module.Features.Quotes;
-using OutlookInspired.Module.Features.ViewFilter;
 using OutlookInspired.Module.ModelUpdaters;
 using OutlookInspired.Module.Services.Internal;
-using ReportController = OutlookInspired.Module.Features.Customers.ReportController;
 using OutlookInspired.Module.BusinessObjects;
+using OutlookInspired.Module.Common;
+using OutlookInspired.Module.Features;
+using OutlookInspired.Module.Features.Maps;
 
 
 [assembly:InternalsVisibleTo("OutlookInspired.Win")]
@@ -47,18 +48,15 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	    yield return new PredefinedReportsUpdater(Application, objectSpace, versionFromDB)
 		    .AddOrderReports().AddCustomerReports().AddProductReports();
 	    yield return new DatabaseUpdate.Updater(objectSpace, versionFromDB);
-	    
-        
     }
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes() 
-	    => new []{
-		    typeof(MailMergeController),typeof(ReportController),typeof(QuoteMapItemController),typeof(HideToolBarController),
-		    typeof(CommunicationController),typeof(RoutePointController),
-		    typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.ReportController),typeof(ShipmentDetailController),
-		    typeof(Features.Products.ReportController),
-		    typeof(MasterDetailController),typeof(SplitterPositionController),typeof(ViewFilterController)
-	    };
+	    =>[typeof(MailMergeController),typeof(CustomerReportController),typeof(QuoteMapItemController),typeof(HideToolBarController),
+		    typeof(CommunicationController),typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.OrdersReportController),typeof(ShipmentDetailController),
+		    typeof(Features.Products.ProductReportController),typeof(MapOrderController), typeof(MasterDetailController),typeof(ViewFilterController),
+		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController),typeof(MapOpportunitiesController),
+		    typeof(MapsSalesPeriodViewController),typeof(MapItemSalesViewController),typeof(ProtectReportActionItemsViewController),typeof(OpportunitiesListViewController)
+	    ];
 
     public override void Setup(XafApplication application) {
 	    base.Setup(application);
@@ -72,14 +70,19 @@ public sealed class OutlookInspiredModule : ModuleBase{
 		if (e.ObjectSpace is not CompositeObjectSpace { Owner: not CompositeObjectSpace } compositeObjectSpace) return;
 		compositeObjectSpace.PopulateAdditionalObjectSpaces((XafApplication)sender);
 	}
-    
-    public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
+
+	public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+		base.ExtendModelInterfaces(extenders);
+		extenders.Add<IModelOptions,IModelOptionsHomeOffice>();
+	}
+
+	public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
 	    base.AddGeneratorUpdaters(updaters);
 	    updaters.Add(new CloneViewUpdater(),  new DataAccessModeUpdater(),new NavigationItemsModelUpdater(),new DashboardViewsModelUpdater());
     }
 
     private void nonPersistentObjectSpace_ObjectByKeyGetting(object sender, ObjectByKeyGettingEventArgs e) {
-        if (!e.ObjectType.IsAssignableFrom(typeof(Welcome))) return;
+        if (e.ObjectType!=typeof(Welcome)) return;
         e.Object = ((IObjectSpace)sender).CreateObject<Welcome>();
     }
 }

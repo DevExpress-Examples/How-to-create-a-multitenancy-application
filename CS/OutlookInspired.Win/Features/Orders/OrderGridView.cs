@@ -1,5 +1,4 @@
-﻿using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Win.Editors;
+﻿using OutlookInspired.Win.Editors;
 
 namespace OutlookInspired.Win.Features.Orders
 {
@@ -10,6 +9,6 @@ namespace OutlookInspired.Win.Features.Orders
             InitializeComponent();
         }
 
-        public override Type ObjectType => typeof(Order);
+        
     }
 }

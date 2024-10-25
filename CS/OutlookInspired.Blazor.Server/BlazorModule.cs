@@ -1,17 +1,21 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.BaseImpl.EF;
 using OutlookInspired.Blazor.Server.Controllers;
-using OutlookInspired.Blazor.Server.Editors;
 using OutlookInspired.Blazor.Server.Features;
 using OutlookInspired.Blazor.Server.Features.Customers;
 using OutlookInspired.Blazor.Server.Features.Employees;
+using OutlookInspired.Blazor.Server.Features.Employees.Evaluations;
+using OutlookInspired.Blazor.Server.Features.Employees.Maps;
+using OutlookInspired.Blazor.Server.Features.Employees.Tasks;
 using OutlookInspired.Blazor.Server.Features.Evaluations;
 using OutlookInspired.Blazor.Server.Features.Maps;
+using OutlookInspired.Blazor.Server.Features.Maps.Sales;
+using OutlookInspired.Blazor.Server.Features.Orders;
+using OutlookInspired.Blazor.Server.Features.Products;
 using OutlookInspired.Blazor.Server.Features.Quotes;
 using OutlookInspired.Blazor.Server.Features.ViewFilter;
-using CellDisplayTemplateController = OutlookInspired.Blazor.Server.Features.Employees.Evaluations.CellDisplayTemplateController;
+
 
 namespace OutlookInspired.Blazor.Server;
 [ToolboxItemFilter("Xaf.Platform.Blazor")]
@@ -22,15 +26,14 @@ public sealed class OutlookInspiredBlazorModule : ModuleBase {
     }
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes()
-        => new[]{
-            typeof(CellDisplayTemplateController), typeof(SchedulerGroupTypeController), typeof(EnableDashboardMasterItemNewActionController),
-            typeof(DxGridListEditorController),typeof(DetailRowController),typeof(RichTextPropertyEditorController),
-            typeof(Features.Employees.Tasks.CellDisplayTemplateController),typeof(Features.Orders.DetailRowController),
-            typeof(RouteMapsViewController),typeof(RouteMapsViewController),typeof(MapsViewController),typeof(SalesMapsViewController),
-            typeof(Features.Products.SalesMapsViewController),typeof(Features.Orders.RouteMapsViewController),
-            typeof(BlazorMapsViewController),typeof(PaletteController),typeof(PopupWindowSizeController),typeof(ViewFilterController),
-            typeof(FunnelFilterController),typeof(WelcomeController), typeof(DisableInlineRowActionController)
-        };
+        =>[typeof(EmployeeEvaluationsController), typeof(SchedulerGroupTypeController), typeof(EnableDashboardMasterItemNewActionController),
+            typeof(DxGridListEditorController),typeof(CustomerListViewDetailRowController),typeof(EmployeeTasksController),
+            typeof(MapsTravelModeViewController),typeof(MapsTravelModeViewController),typeof(PopupWindowSizeController),typeof(ViewFilterDeleteController),typeof(OpportunitiesFilterController),typeof(WelcomeController), typeof(DisableInlineRowActionController),
+            typeof(SalesMapItemDxChartListEditorController),typeof(MapItemListEditorController),typeof(QuoteMapItemListViewController),
+            typeof(QuoteAnalysisPivotController),typeof(OpportunitiesChartListViewController),typeof(EmployeeLayoutViewController),typeof(CustomerLayoutViewController),
+            typeof(CustomerLayoutViewController),typeof(CustomerStoresLayoutViewController),typeof(ProductLayoutViewController),
+            typeof(OrderListViewDetailRowController)
+        ];
 
     public override void Setup(XafApplication application) {
         base.Setup(application);

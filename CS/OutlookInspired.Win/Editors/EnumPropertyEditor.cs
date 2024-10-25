@@ -7,10 +7,8 @@ using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 namespace OutlookInspired.Win.Editors{
     [PropertyEditor(typeof(Enum),EditorAliases.EnumImageOnlyEditor,false)]
-    public class EnumPropertyEditor:DevExpress.ExpressApp.Win.Editors.EnumPropertyEditor{
-        public EnumPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model){
-        }
-
+    public class EnumPropertyEditor(Type objectType, IModelMemberViewItem model)
+        : DevExpress.ExpressApp.Win.Editors.EnumPropertyEditor(objectType, model){
         protected override void SetupRepositoryItem(RepositoryItem item){
             base.SetupRepositoryItem(item);
             ((RepositoryItemEnumEdit)item).GlyphAlignment=HorzAlignment.Center;

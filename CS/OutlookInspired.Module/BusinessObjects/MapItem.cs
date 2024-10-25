@@ -3,7 +3,11 @@ using DevExpress.ExpressApp.DC;
 using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.BusinessObjects{
-    public interface IMapItem{
+    public interface IColoredItem{
+        string Color{ get; set; }
+    }
+
+    public interface IMapItem : IColoredItem{
         string City{ get; set; }
         double Latitude{ get; set; }
         double Longitude{ get; set; }
@@ -30,5 +34,7 @@ namespace OutlookInspired.Module.BusinessObjects{
 
         public string PropertyValue(Type type) 
             => type.MapItemProperty() == nameof(ProductName) ? ProductName : CustomerName;
+
+        
     }
 }

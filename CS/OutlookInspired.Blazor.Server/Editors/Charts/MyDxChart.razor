@@ -1,0 +1,37 @@
+﻿@using System.Linq.Expressions
+
+<DxChart @ref="Chart"  Data="@Data" Width="100%" Rotated="true" Height="@Height" CustomizeSeriesPoint="CustomizeSeriesPoint" style="@Style">
+    <DxChartCommonSeries ArgumentField="@ArgumentField" ValueField="@ValueField"
+                         SeriesType="@SeriesType" SummaryMethod="@SummaryMethod" NameField="@NameField" />
+    <DxChartLegend Visible="false" />
+    <DxChartTooltip Enabled="true" Position="RelativePosition.Outside">
+        <div style="background-color: #505050;color: white">
+            @context.Point.SeriesName: @($"{(decimal)context.Point.Value:$0,.#K}")
+        </div>
+    </DxChartTooltip>
+</DxChart>
+@code {
+    [Parameter][EditorRequired] 
+    public IEnumerable<object> Data { get; set; }
+    [Parameter][EditorRequired] 
+    public Expression<Func<object, string>> ArgumentField { get; set; }
+    [Parameter][EditorRequired] 
+    public Expression<Func<object, decimal>> ValueField { get; set; }
+    [Parameter][EditorRequired] 
+    public Expression<Func<object, string>> NameField { get; set; }
+    [Parameter][EditorRequired] 
+    public Func<IEnumerable<decimal>, decimal> SummaryMethod { get; set; }
+    [Parameter][EditorRequired] 
+    public Action<ChartSeriesPointCustomizationSettings> CustomizeSeriesPoint { get; set; }
+    [Parameter] 
+    public string Height { get; set; } = "70vh";
+    [Parameter][EditorRequired]
+    public ChartSeriesType SeriesType{ get; set; }
+    [Parameter] public string Style{ get; set; }
+
+    public DxChart Chart;
+    protected override void OnAfterRender(bool firstRender){
+        base.OnAfterRender(firstRender);
+        Chart.RefreshData();
+    }
+}

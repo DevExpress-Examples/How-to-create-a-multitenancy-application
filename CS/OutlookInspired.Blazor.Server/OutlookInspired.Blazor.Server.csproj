@@ -116,6 +116,12 @@
     <None Update="UnusableNodes11.xml">
       <DependentUpon>Model.xafml</DependentUpon>
     </None>
+    <None Update="UnusableNodes12.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+    </None>
+    <None Update="UnusableNodes13.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+    </None>
     <None Update="UnusableNodes2.xml">
       <DependentUpon>Model.xafml</DependentUpon>
     </None>

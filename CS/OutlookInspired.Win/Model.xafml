@@ -22,6 +22,7 @@
     <ListView Id="Customer_CitySales_ListView" EditorTypeName="DevExpress.ExpressApp.Chart.Win.ChartListEditor">
       <ChartSettings CustomizationEnabled="False" Settings="﻿&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#xD;&#xA;&lt;ChartXmlSerializer version=&quot;23.1.5.0&quot;&gt;&#xD;&#xA;  &lt;Chart PaletteName=&quot;Office 2013&quot; AppearanceNameSerializable=&quot;Default&quot; SelectionMode=&quot;None&quot; SeriesSelectionMode=&quot;Series&quot;&gt;&#xD;&#xA;    &lt;Border Visibility=&quot;False&quot; /&gt;&#xD;&#xA;    &lt;DataContainer BoundSeriesSorting=&quot;None&quot; ValidateDataMembers=&quot;true&quot;&gt;&#xD;&#xA;      &lt;SeriesSerializable&gt;&#xD;&#xA;        &lt;Item1 Name=&quot;Series 1&quot; SeriesID=&quot;1&quot; ArgumentDataMember=&quot;ProductName&quot; ColorDataMember=&quot;ProductName&quot;&gt;&#xD;&#xA;          &lt;QualitativeSummaryOptions SummaryFunction=&quot;SUM([Total])&quot; /&gt;&#xD;&#xA;        &lt;/Item1&gt;&#xD;&#xA;      &lt;/SeriesSerializable&gt;&#xD;&#xA;      &lt;SeriesTemplate /&gt;&#xD;&#xA;    &lt;/DataContainer&gt;&#xD;&#xA;    &lt;Diagram Rotated=&quot;true&quot; RuntimePaneCollapse=&quot;true&quot; RuntimePaneResize=&quot;false&quot; PaneLayoutDirection=&quot;Vertical&quot; TypeNameSerializable=&quot;XYDiagram&quot;&gt;&#xD;&#xA;      &lt;AxisX VisibleInPanesSerializable=&quot;-1&quot;&gt;&#xD;&#xA;        &lt;Tickmarks Visible=&quot;false&quot; MinorVisible=&quot;false&quot; /&gt;&#xD;&#xA;        &lt;Label TextPattern=&quot;{V:$##,#0}&quot; Visible=&quot;false&quot;&gt;&#xD;&#xA;          &lt;ResolveOverlappingOptions AllowStagger=&quot;false&quot; AllowRotate=&quot;false&quot; /&gt;&#xD;&#xA;        &lt;/Label&gt;&#xD;&#xA;      &lt;/AxisX&gt;&#xD;&#xA;      &lt;AxisY VisibleInPanesSerializable=&quot;-1&quot; /&gt;&#xD;&#xA;      &lt;SelectionOptions /&gt;&#xD;&#xA;    &lt;/Diagram&gt;&#xD;&#xA;    &lt;Legend CrosshairContentOffset=&quot;4&quot; MaxCrosshairContentWidth=&quot;50&quot; MaxCrosshairContentHeight=&quot;0&quot; LegendID=&quot;-1&quot; Visibility=&quot;False&quot; /&gt;&#xD;&#xA;  &lt;/Chart&gt;&#xD;&#xA;&lt;/ChartXmlSerializer&gt;" />
     </ListView>
+    <ListView Id="Customer_CustomerStores_ListView" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor" />
     <DetailView Id="Customer_DetailView_Child">
       <Items>
         <PropertyEditor Id="HomeOfficeLine" PropertyEditorType="OutlookInspired.Win.Editors.LabelControlPropertyEditor" />
@@ -55,16 +56,20 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Customer_ListView">
+    <ListView Id="Customer_ListView" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor" DataAccessMode="Server">
       <Columns>
         <ColumnInfo Id="Logo" ImageSizeMode="CenterImage" />
       </Columns>
+      <SplitLayout RelativePosition="70" />
     </ListView>
     <DetailView Id="CustomerLayoutView_DetailView">
       <Layout>
         <LayoutGroup Id="Main" TextAlignMode="AlignWithChildren" RelativeSize="100" />
       </Layout>
     </DetailView>
+    <ListView Id="CustomerLayoutView_ListView" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor">
+      <SplitLayout SplitterPosition="600" RelativePosition="70" />
+    </ListView>
     <ListView Id="Employee_AssignedTasks_ListView_Child">
       <Columns>
         <ColumnInfo Id="Subject" RowIndex="0" Index="0" OwnerBand="Main" />
@@ -239,26 +244,9 @@
       </Columns>
       <SplitLayout SplitterPosition="1262" IsNewNode="True" />
     </ListView>
-    <DashboardView Id="EmployeeCardListView">
-      <Layout>
-        <LayoutGroup Id="Main" TextAlignMode="AlignWithChildren">
-          <SeparatorItem Id="Item1" Index="1" RelativeSize="0.746268656716418" IsNewNode="True" />
-          <LayoutItem Id="Employee_DetailView_Child" Index="2" RelativeSize="39.75576662143826" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
     <ListView Id="EmployeeLayoutView_ListView" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Employee_DetailView_Child">
       <SplitLayout RelativePosition="70" />
     </ListView>
-    <DashboardView Id="EmployeeListView">
-      <Layout>
-        <LayoutGroup Id="Main" TextAlignMode="AlignWithChildren">
-          <LayoutItem Id="Employee_ListView" RelativeSize="61.46540027137042" />
-          <SplitterItem Id="SplitterItem1" Index="1" RelativeSize="0.8141112618724559" IsNewNode="True" />
-          <LayoutItem Id="Employee_DetailView_Child" Index="2" RelativeSize="37.720488466757125" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
     <ListView Id="Evaluation_ListView" SchedulerViewType="Month" SelectedIntervalStart="2019-12-01" SelectedIntervalEnd="2019-12-31" ResourceClass="OutlookInspired.Module.BusinessObjects.Employee" />
     <ListView Id="Event_ListView" ResourceClass="" />
     <DetailView Id="Order_DetailView">

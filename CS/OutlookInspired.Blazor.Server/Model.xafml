@@ -25,22 +25,6 @@
         <PropertyEditor Id="HomeOfficeLine" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.Label.LabelPropertyEditor" />
         <PropertyEditor Id="Name" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.Label.LabelPropertyEditor" />
       </Items>
-      <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="Auto69942e97-e67a-46fc-be02-20a4e1119c26" RelativeSize="13.490364025695932">
-            <LayoutItem Id="Logo" RelativeSize="27.647783251231527" />
-            <LayoutGroup Id="Auto470bf61b-04f7-459d-9328-6a6d07b1e0f8" RelativeSize="72.35221674876847">
-              <LayoutItem Id="Item1" RelativeSize="31.746031746031747" />
-              <LayoutItem Id="Name" RelativeSize="20.634920634920636" />
-              <LayoutItem Id="Item2" RelativeSize="19.047619047619047" />
-              <LayoutItem Id="HomeOfficeLine" RelativeSize="20.634920634920636" />
-              <LayoutItem Id="Item3" RelativeSize="7.936507936507937" />
-            </LayoutGroup>
-          </LayoutGroup>
-          <LayoutItem Id="CustomerStores" ViewItem="CustomerStores" Index="1" RelativeSize="86.50963597430408" IsNewNode="True" />
-          <LayoutItem Id="CustomerStore" Removed="True" />
-        </LayoutGroup>
-      </Layout>
     </DetailView>
     <DetailView Id="Customer_DetailView_Maps" AllowEdit="False">
       <Items>
@@ -86,44 +70,12 @@
         <ColumnInfo Id="HomeOfficeState" Index="5" />
         <ColumnInfo Id="Phone" Index="6" />
       </Columns>
+      <SplitLayout SplitterPosition="800" />
     </ListView>
     <ListView Id="Customer_Sales_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Maps.MapItemListEditor" />
-    <DashboardView Id="CustomerCardListView">
-      <Items>
-        <DashboardViewItem Id="Customer_DetailView_Child" ViewId="Customer_DetailView_Child" ActionsToolbarVisibility="Hide" IsNewNode="True" Removed="True" />
-        <DashboardViewItem Id="CustomerLayoutView_DetailView" ViewId="CustomerLayoutView_ListView" Removed="True" />
-        <DashboardViewItem Id="CustomerLayoutView_ListView" ViewId="CustomerLayoutView_ListView" MasterDetail="True" IsNewNode="True" />
-      </Items>
-      <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutItem Id="CustomerLayoutView_ListView" ViewItem="CustomerLayoutView_ListView" Index="0" RelativeSize="61.45320197044335" IsNewNode="True" />
-          <LayoutItem Id="Customer_DetailView_Child" ViewItem="Customer_DetailView_Child" Index="1" RelativeSize="38.54679802955665" IsNewNode="True" Removed="True" />
-          <LayoutItem Id="CustomerLayoutView_DetailView" RelativeSize="30.763299922898998" Removed="True" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
-    <ListView Id="CustomerLayoutView_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.LayoutView.LayoutViewListEditor" DataAccessMode="Client" />
-    <DashboardView Id="CustomerListView">
-      <Items>
-        <DashboardViewItem Id="Customer_DetailView_Child" ViewId="Customer_DetailView_Child" ActionsToolbarVisibility="Hide" IsNewNode="True" Removed="True" />
-        <DashboardViewItem Id="Customer_ListView" ViewId="Customer_ListView" MasterDetail="True" IsNewNode="True" />
-        <DashboardViewItem Id="CustomerGridView_DetailView" ViewId="Customer_ListView" Removed="True" />
-      </Items>
-      <Layout>
-        <LayoutGroup Id="Main" Caption="Main">
-          <LayoutGroup Id="Auto324129c6-4220-4dbe-a243-af9dbe3b028c" ShowCaption="False" Caption="Auto324129c6-4220-4dbe-a243-af9dbe3b028c(2)" Index="0" RelativeSize="64.4088669950739" IsNewNode="True">
-            <LayoutItem Id="Customer_ListView" ViewItem="Customer_ListView" Index="0" RelativeSize="49.67880085653105" IsNewNode="True" />
-            <LayoutItem Id="Item1" Index="1" RelativeSize="50.32119914346895" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="Autoe56bf669-fac5-414f-98e9-190a466b4f15" ShowCaption="False" Caption="Autoe56bf669-fac5-414f-98e9-190a466b4f15(5)" Index="1" RelativeSize="35.59113300492611" IsNewNode="True">
-            <LayoutItem Id="Customer_DetailView_Child" ViewItem="Customer_DetailView_Child" Index="0" RelativeSize="49.67880085653105" IsNewNode="True" />
-            <LayoutItem Id="Item2" Index="1" RelativeSize="50.32119914346895" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutItem Id="Customer_DetailView_Child" RelativeSize="35.306898424769145" Removed="True" />
-          <LayoutItem Id="CustomerGridView_DetailView" Removed="True" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
+    <ListView Id="CustomerLayoutView_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.LayoutView.LayoutViewListEditor" DataAccessMode="Client">
+      <SplitLayout SplitterPosition="600" />
+    </ListView>
     <ListView Id="Employee_AssignedEmployeeTasks_ListView">
       <Columns>
         <ColumnInfo Id="Subject" SortIndex="-1" SortOrder="None" />

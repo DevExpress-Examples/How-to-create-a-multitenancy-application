@@ -2,8 +2,8 @@
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Win.Editors.GridListEditor;
 
-namespace OutlookInspired.Win.Features.Employees{
-    public class ColumnViewListEditorController:ObjectViewController<ListView,Employee>{
+namespace OutlookInspired.Win.Features.Customers{
+    public class CustomerStoreColumnViewListEditorController:ObjectViewController<ListView,CustomerStore>{
         protected override void OnActivated(){
             base.OnActivated();
             if (View.Editor is not ColumnViewListEditor listEditor) return;
@@ -16,6 +16,7 @@ namespace OutlookInspired.Win.Features.Employees{
             listEditor.ColumnViewControlCreating-=ListEditorOnColumnViewControlCreating;
         }
 
-        private void ListEditorOnColumnViewControlCreating(object sender, ColumnViewControlCreatingArgs e) => e.Control = new EmployeesLayoutView();
+        private void ListEditorOnColumnViewControlCreating(object sender, ColumnViewControlCreatingArgs e) 
+            => e.Control =new CustomerStoreView();
     }
 }

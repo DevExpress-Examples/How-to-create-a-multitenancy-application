@@ -8,6 +8,7 @@ using OutlookInspired.Win.Controllers;
 using OutlookInspired.Win.Editors.DxHtmlEditor;
 using OutlookInspired.Win.Editors.GridListEditor;
 using OutlookInspired.Win.Editors.ProgressEditor;
+using OutlookInspired.Win.Features.Customers;
 using OutlookInspired.Win.Features.Employees;
 using OutlookInspired.Win.Features.Evaluations;
 using OutlookInspired.Win.Features.Maps;
@@ -37,7 +38,8 @@ public sealed class OutlookInspiredWinModule : ModuleBase {
             typeof(SplitterPositionController),typeof(MapItemListEditorController),
             typeof(SchedulerListEditorController),typeof(BlazorWebViewKeyDownController),
             typeof(MapItemChartListEditorController),typeof(QuoteMapItemListEditorController),typeof(MapQuoteController),
-            typeof(StageViewController),typeof(ColumnViewListEditorController)
+            typeof(StageViewController),typeof(EmployeeColumnViewListEditorController),
+            typeof(CustomerColumnViewListEditorController),typeof(CustomerStoreColumnViewListEditorController)
         ];
 
     public override void Setup(XafApplication application) {

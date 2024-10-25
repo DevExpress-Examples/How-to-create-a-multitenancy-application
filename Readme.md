@@ -1,47 +1,43 @@
 <!-- default badges list -->
-![](https://img.shields.io/endpoint?url=https://codecentral.devexpress.com/api/v1/VersionRange/592224624/24.1.2%2B)
+![](https://img.shields.io/endpoint?url=https://codecentral.devexpress.com/api/v1/VersionRange/592224624/24.2.1%2B)
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T1143380)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
 
-# XAF - How to Create a Multi-Tenant Application
+# XAF - Outlook-Inspired Demo for Blazor & WinForms (Powered by the DevExpress Multi-Tenancy Module)
 
-XAF v23.2 marks the first official release of the DevExpress Multi-Tenancy Module. This release supports straightforward CRUD usage scenarios and includes the following built-in features:
+This demo app is built using XAF Blazor and WinForms (powered by the EF Core ORM). The demo includes [reusable XAF modules](https://docs.devexpress.com/eXpressAppFramework/118046/app-shell-and-base-infrastructure/application-solution-components/modules) such as Multi-Tenancy, Security System, Reports, Scheduler, Dashboards, Office, and many [custom list and property editors](https://docs.devexpress.com/eXpressAppFramework/113014/business-model-design-orm/data-types-supported-by-built-in-editors?#examples-of-custom-property-editors-for-popular-scenarios) for real-world scenarios (charts, pivot grids, maps, data grids with master-detail and layout views). 
 
- - EF Core and XPO ORM support
- - Authentication: Log in with an email/OAuth2 account (like Microsoft Entra ID or Google) and a password (the domain automatically resolves the tenant and its storage).
- - Tenant Isolation: Multi-tenant app with multiple databases (a database per tenant).
- - Database Creation: The application automatically creates a tenant database and schema at runtime (if the database does not exist).
-
-This example application is a modern multi-tenant iteration of our original WinForms-based Outlook Inspired App. It serves as the central data management hub for the fictitious company, overseeing various business entities such as Employees, Products, Orders, Quotes, Customers, and Stores.
+The example application serves as the central data management hub for the fictitious company, overseeing various business entities such as Employees, Products, Orders, Quotes, Customers, and Stores. This example application is a modern [multi-tenant](https://docs.devexpress.com/eXpressAppFramework/404436/multitenancy) iteration of our [non-XAF WinForms Outlook-Inspired Application](dxdemo://Win/OutlookInspiredDemo) (dxdemo://Win/OutlookInspiredDemo - requires the DevExpress Unified Component Installer).
 
 ![](./Images/ManageTenants.png)
 
-For additional information, refer to the [Multitenancy](https://docs.devexpress.com/eXpressAppFramework/404436/multitenancy) section of our online documentation.
+This multitenant application also supports the following built-in features:
+
+ - [Authentication](https://docs.devexpress.com/eXpressAppFramework/119064/data-security-and-safety/security-system/authentication): Log in with an email/OAuth2 account (like Microsoft Entra ID or Google) and a password (the domain automatically resolves the tenant and its storage).
+ - [Tenant Isolation and Database Creation](https://docs.devexpress.com/eXpressAppFramework/404667/multitenancy/multitenant-application-artchitecture): Multi-tenant app with multiple databases (a database per tenant). The application automatically creates a tenant database and schema at runtime (if the database does not exist).
+ - [Host User Interface](https://docs.devexpress.com/eXpressAppFramework/404436/multitenancy): A multi-tenant application’s operation mode for tenant list management. This mode allows a user to create, delete, and edit tenants.
+ - [Authorization](https://docs.devexpress.com/eXpressAppFramework/404633/data-security-and-safety/security-system/security-object-model/type-object-and-member-permissions): Role-based access control (RBAC) or security rules for application administrators and end-users with restricted access rights in each tenant.
+ - [Middle Tier Application Server](https://docs.devexpress.com/eXpressAppFramework/404389/data-security-and-safety/security-system/security-tiers/middle-tier-security-ef-core): The highest protection level for XAF WinForms UI because the client application has no direct access to the database.
 
 > Before you review this XAF sample project, please take a moment to [complete a short multi-tenancy related survey](https://www.devexpress.com/products/net/application_framework/survey.xml) (share your multi-tenancy requirements with us).
 
 ## Run the Application
 
-When you launch the WinForms or Blazor application for the first time, you can login using the "Admin" account and a blank password. The application will execute in Host User Interface mode (used to view, create and edit Tenants).
+When you launch the WinForms or Blazor application for the first time (, you can login using the **Admin** account and a blank password. The application will execute in [Host User Interface mode]([url](https://docs.devexpress.com/eXpressAppFramework/404669/multitenancy/create-new-multitenant-application#create-and-initialize-the-host-database)) (used to view, create and edit Tenants).
 
 ![Host UI](./Images/HostUI.png)
 
-Once you log in, two tenants are created in the system: `company1.com` and `company2.com`. You can view the tenant list in the Host User Interface List View. 
+Once you log in, [two tenants are created]([url](https://docs.devexpress.com/eXpressAppFramework/404669/multitenancy/create-new-multitenant-application#create-and-initialize-tenants)) in the system: `company1.com` and `company2.com`. You can view the tenant list in the Host User Interface List View. 
 
-After the Host Database is initialized, you can log in to the Tenant User Interface using one of the following Tenant Administrator accounts
-
-- `Admin@company1.com`
-- `Admin@company2.com`
-
-A Tenant Administrator has full access to all data stored in the Tenant Database but no access to other Tenant data. Users and permissions are managed in each tenant independently.
+After the Host Database is initialized, you can log in to the Tenant User Interface using one of the following Tenant Administrator accounts: **Admin@company1.com** and **Admin@company2.com** and a blank password. A Tenant Administrator has full access to all data stored in the Tenant Database but no access to other Tenant data. Users and permissions are managed in each tenant independently.
 
 ![Tenant UI](./Images/TenantUI.png)
 
-In addition, the sample application creates a list of users with restricted access rights in each tenant (for example `clarkm@company1.com`, `clarkm@company2.com` and others).  
+In addition, the sample application creates a list of users with restricted access rights in each tenant (for example **clarkm@company1.com**).  
 
-[Documentation](https://docs.devexpress.com/eXpressAppFramework/404436/multitenancy-support?v=24.1) | [Getting Started](https://docs.devexpress.com/eXpressAppFramework/404669/multitenancy/create-new-multitenant-application?v=24.1) | [Best Practices and Limitations](https://docs.devexpress.com/eXpressAppFramework/404436/multitenancy?v=24.1#best-practices-and-limitations)  | [Modules in a Multi-Tenant Application](https://docs.devexpress.com/eXpressAppFramework/404695/multitenancy/modules-in-multitenant-application?v=24.1)
+[Documentation](https://docs.devexpress.com/eXpressAppFramework/404436/multitenancy-support) | [Getting Started](https://docs.devexpress.com/eXpressAppFramework/404669/multitenancy/create-new-multitenant-application) | [Best Practices and Limitations](https://docs.devexpress.com/eXpressAppFramework/404436/multitenancy#best-practices-and-limitations)  | [Modules in a Multi-Tenant Application](https://docs.devexpress.com/eXpressAppFramework/404695/multitenancy/modules-in-multitenant-application)
 
 ## Implementation Details 
 

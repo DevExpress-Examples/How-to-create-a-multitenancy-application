@@ -13,6 +13,7 @@ using OutlookInspired.Win.Features.Employees;
 using OutlookInspired.Win.Features.Evaluations;
 using OutlookInspired.Win.Features.Maps;
 using OutlookInspired.Win.Features.Maps.Sales;
+using OutlookInspired.Win.Features.Orders;
 using OutlookInspired.Win.Features.Products;
 using OutlookInspired.Win.Features.Quotes;
 using SplitterPositionController = OutlookInspired.Win.Controllers.SplitterPositionController;
@@ -41,7 +42,7 @@ public sealed class OutlookInspiredWinModule : ModuleBase {
             typeof(MapItemChartListEditorController),typeof(QuoteMapItemListEditorController),typeof(MapQuoteController),
             typeof(StageViewController),typeof(EmployeeColumnViewListEditorController),
             typeof(CustomerColumnViewListEditorController),typeof(CustomerStoreColumnViewListEditorController),
-            typeof(ProductColumnViewListEditorController)
+            typeof(ProductColumnViewListEditorController),typeof(OrderColumnViewListEditorController)
         ];
 
     public override void Setup(XafApplication application) {

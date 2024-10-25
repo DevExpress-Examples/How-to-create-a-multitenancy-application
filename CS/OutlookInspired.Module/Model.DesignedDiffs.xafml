@@ -28,7 +28,7 @@
           <Item Id="Evaluation_ListView" Index="2" ImageName="EvaluationYes" />
           <Item Id="CustomerListView" Index="3" ImageName="BO_Customer" ViewId="Customer_ListView" />
           <Item Id="ProductListView" Index="4" ImageName="BO_Product" ViewId="Product_ListView" />
-          <Item Id="OrderListView" Index="5" ImageName="BO_Order" />
+          <Item Id="OrderListView" Index="5" ImageName="BO_Order" ViewId="Order_ListView" />
           <Item Id="Opportunities" Index="6" ImageName="BO_Opportunity" />
           <Item Id="My Details" ViewId="ApplicationUser_DetailView" Caption="My Details" ImageName="BO_MyDetails" ObjectKey="@CurrentUserID" IsNewNode="True" />
         </Items>
@@ -1024,9 +1024,16 @@
         <ActionLink ActionId="Save" IsNewNode="True" />
         <ActionLink ActionId="SaveAndClose" IsNewNode="True" />
       </HiddenActions>
-      <SplitLayout RelativePosition="70" />
+      <SplitLayout RelativePosition="70" SplitterPosition="700" />
+      <Variants Current="List">
+        <Variant Id="List" ViewID="Order_ListView" Caption="List" Index="0" IsNewNode="True" />
+        <Variant Id="Detail" ViewID="Order_ListView_Detail" Caption="Detail" IsNewNode="True" />
+      </Variants>
     </ListView>
-    <DashboardView Id="OrderGridView" Caption="Order" ImageName="BO_Order" MasterDetail="True" RequiredFieldMark="c">
+    <ListView Id="Order_ListView_Detail" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Order_DetailView_Child">
+      <SplitLayout SplitterPosition="700" />
+    </ListView>
+    <DashboardView Id="OrderGridView" Caption="Order" ImageName="BO_Order" MasterDetail="True" RequiredFieldMark="c" Removed="True">
       <Items>
         <DashboardViewItem Id="Order_DetailView_Child" ViewId="Order_DetailView_Child" ActionsToolbarVisibility="Hide" Caption="Order" IsNewNode="True" />
         <DashboardViewItem Id="OrderGridView_DetailView" ViewId="OrderGridView_DetailView" Criteria="" MasterDetail="True" IsNewNode="True" />
@@ -1061,7 +1068,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DashboardView Id="OrderListView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" CustomizationEnabled="True" RequiredFieldMark="*" Caption="Order" ImageName="BO_Order" IsNewNode="True">
+    <DashboardView Id="OrderListView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" CustomizationEnabled="True" RequiredFieldMark="*" Caption="Order" ImageName="BO_Order" Removed="True">
       <Items IsNewNode="True">
         <DashboardViewItem Id="Order_ListView" ViewId="Order_ListView" Criteria="" IsNewNode="True" />
       </Items>

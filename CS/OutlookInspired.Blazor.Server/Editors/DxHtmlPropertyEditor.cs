@@ -17,7 +17,7 @@ namespace OutlookInspired.Blazor.Server.Editors{
 
         protected override IComponentModel CreateComponentModel() {
             var model = new DxHtmlEditorModel() {
-                Height = "300px",
+                Height = "500px",
             };
 
             model.MarkupChanged = EventCallback.Factory.Create<string>(this, value => {
@@ -31,8 +31,7 @@ namespace OutlookInspired.Blazor.Server.Editors{
         
         protected override void WriteValueCore(){
             var bytes = Bytes($"{ControlValue}");
-            using var memoryStream = new MemoryStream(bytes);
-            RichEditDocumentServer.LoadDocument(memoryStream,DocumentFormat.OpenXml);
+            RichEditDocumentServer.LoadDocument(bytes);
             PropertyValue = RichEditDocumentServer.OpenXmlBytes;
         }
 
@@ -44,7 +43,7 @@ namespace OutlookInspired.Blazor.Server.Editors{
             if (PropertyValue==null)return;
             using var memoryStream = new MemoryStream(((byte[])PropertyValue));
             RichEditDocumentServer.LoadDocument(memoryStream,DocumentFormat.OpenXml);
-            ComponentModel.Markup = RichEditDocumentServer.Text;
+            ComponentModel.Markup = RichEditDocumentServer.HtmlText;
         }
 
         protected override object GetControlValueCore() => ComponentModel.Markup;

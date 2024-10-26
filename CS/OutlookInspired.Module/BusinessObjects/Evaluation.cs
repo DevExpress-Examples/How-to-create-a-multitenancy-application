@@ -69,12 +69,12 @@ namespace OutlookInspired.Module.BusinessObjects{
 		[NotMapped]
 		public string Description{
 			get{
-				RichEditDocumentServer.LoadDocument(DescriptionBytes);
+				RichEditDocumentServer.LoadDocument(DescriptionBytes,DocumentFormat.OpenXml);
 				return RichEditDocumentServer.Text;
 			}
 			set{
 				var bytes = Bytes(value);
-				RichEditDocumentServer.LoadDocument(bytes);
+				RichEditDocumentServer.LoadDocument(bytes,DocumentFormat.OpenXml);
 				DescriptionBytes = RichEditDocumentServer.OpenXmlBytes;
 			}
 		}

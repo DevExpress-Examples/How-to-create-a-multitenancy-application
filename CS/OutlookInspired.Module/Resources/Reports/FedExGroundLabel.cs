@@ -922,9 +922,8 @@ namespace OutlookInspired.Module.Resources.Reports {
 		
 		private void xrLabel10_BeforePrint(object sender, CancelEventArgs e) {
 			var currentStore = (CustomerStore)GetCurrentColumnValue(nameof(Order.Store));
-			var currentCustomer = (Customer)GetCurrentColumnValue(nameof(Order.Customer));
-			var storeIndex = currentCustomer.CustomerStores.IndexOf(currentStore);
-			((XRLabel)sender).Text = currentCustomer.Employees[storeIndex].FullName;
+			var storeIndex = currentStore.Customer.CustomerStores.IndexOf(currentStore);
+			((XRLabel)sender).Text = currentStore.Customer.Employees[storeIndex].FullName;
 		}
 	}
 }

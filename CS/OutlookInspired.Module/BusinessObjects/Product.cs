@@ -38,7 +38,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         [VisibleInDetailView(false)][VisibleInListView(false)][VisibleInLookupListView(false)]
         public virtual string DescriptionString{
             get{
-                RichEditDocumentServer.LoadDocument(Description);
+                RichEditDocumentServer.LoadDocument(Description,DocumentFormat.OpenXml);
                 return RichEditDocumentServer.Text;
             }
         }

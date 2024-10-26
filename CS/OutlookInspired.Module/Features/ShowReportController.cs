@@ -20,9 +20,9 @@ namespace OutlookInspired.Module.Features{
 
         void HandleReportParameter(SingleChoiceAction reportAction, string parameterName, CriteriaOperator criteria){
             var reportsDataSourceHelper = reportAction.Application.Modules.FindModule<ReportsModuleV2>().ReportsDataSourceHelper;
-            EventHandler<BeforeShowPreviewEventArgs> handler = null;
-            handler = (_, e) => {
-                reportsDataSourceHelper.BeforeShowPreview -= handler;
+            reportsDataSourceHelper.BeforeShowPreview += ReportsDataSourceHelperOnBeforeShowPreview;
+            void ReportsDataSourceHelperOnBeforeShowPreview(object sender, BeforeShowPreviewEventArgs e){
+                reportsDataSourceHelper.BeforeShowPreview -= ReportsDataSourceHelperOnBeforeShowPreview;
                 e.Report.RequestParameters = false;
                 var reportParameter = e.Report.Parameters[parameterName];
                 if (reportParameter == null){
@@ -32,9 +32,8 @@ namespace OutlookInspired.Module.Features{
                 reportParameter.Visible = false;
                 reportParameter.Value = View.ObjectSpace
                     .GetKeyValue(View.SelectedObjects.Cast<object>().First());
-            };
-            reportsDataSourceHelper.BeforeShowPreview += handler;
+            }
         }
 
-    }
+        }
 }

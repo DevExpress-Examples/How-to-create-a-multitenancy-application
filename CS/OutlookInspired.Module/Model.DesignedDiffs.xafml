@@ -24,13 +24,13 @@
       <Item Id="Default">
         <Items>
           <Item Id="Welcome_DetailView" Index="0" ImageName="About" ObjectKey="{8B8DF685-AD96-4BE9-A08A-8DD8C2A9F4C2}" />
+          <Item Id="Employee_ListView" ImageName="BO_Employee" Index="1" />
           <Item Id="Evaluation_ListView" Index="2" ImageName="EvaluationYes" />
+          <Item Id="Customer_ListView" ImageName="BO_Customer" Index="3" />
+          <Item Id="Order_ListView" ImageName="BO_Order" Index="4" />
+          <Item Id="Product_ListView" ImageName="BO_Product" Index="5" />
           <Item Id="Opportunities" Index="6" ImageName="BO_Opportunity" />
-          <Item Id="Customer_ListView" ImageName="BO_Customer" />
-          <Item Id="Employee_ListView" ImageName="BO_Employee" />
-          <Item Id="My Details" ViewId="ApplicationUser_DetailView" Caption="My Details" ImageName="BO_MyDetails" ObjectKey="@CurrentUserID" IsNewNode="True" />
-          <Item Id="Order_ListView" ImageName="BO_Order" />
-          <Item Id="Product_ListView" ImageName="BO_Product" />
+          <Item Id="My Details" ViewId="ApplicationUser_DetailView" Caption="My Details" ImageName="BO_MyDetails" ObjectKey="@CurrentUserID" Index="7" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Reports">
@@ -275,6 +275,11 @@
           </Summary>
         </ColumnInfo>
       </Columns>
+    </ListView>
+    <ListView Id="Customer_Sales_ListView">
+      <HiddenActions>
+        <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
+      </HiddenActions>
     </ListView>
     <DetailView Id="CustomerEmployee_DetailView">
       <Items>
@@ -940,7 +945,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Order_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" Filter="" AutoExpandAllGroups="True" MasterDetailView="Order_DetailView_Child">
+    <ListView Id="Order_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" Filter="" AutoExpandAllGroups="True" DataAccessMode="ServerView" MasterDetailView="Order_DetailView_Child">
       <Columns>
         <ColumnInfo Id="ActualWeight" Index="-1" />
         <ColumnInfo Id="Employee" Index="-1" />
@@ -977,7 +982,7 @@
         <Variant Id="Detail" ViewID="Order_ListView_Detail" Caption="Detail" IsNewNode="True" />
       </Variants>
     </ListView>
-    <ListView Id="Order_ListView_Detail" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Order_DetailView_Child">
+    <ListView Id="Order_ListView_Detail" DataAccessMode="ServerView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Order_DetailView_Child">
       <SplitLayout SplitterPosition="700" />
     </ListView>
     <DetailView Id="OrderGridView_DetailView" FreezeLayout="True">
@@ -1189,6 +1194,11 @@
         <ColumnInfo Id="Discount" Index="3" />
         <ColumnInfo Id="Total" Index="4" />
       </Columns>
+    </ListView>
+    <ListView Id="Product_Sales_ListView">
+      <HiddenActions>
+        <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
+      </HiddenActions>
     </ListView>
     <DetailView Id="ProductCardView_DetailView" FreezeLayout="True">
       <Layout IsNewNode="True" Removed="True">

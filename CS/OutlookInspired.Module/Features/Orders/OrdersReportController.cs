@@ -2,7 +2,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.EF;
@@ -38,49 +37,30 @@ namespace OutlookInspired.Module.Features.Orders{
             if (selectedItemData==null)return;
             var reportController = Frame.GetController<ShowReportController>();
             if (selectedItemData.Contains("Revenue")){
-                var id = ((Order)View.CurrentObject).Customer.ID;
+                var xafDataViewRecord = ((SingleChoiceActionExecuteEventArgs)e).SelectedObjects.Cast<ObjectRecord>().First();
+                var order = ObjectSpace.GetObjectByKey<Order>(xafDataViewRecord.ObjectKeyValue);
                 reportController.ShowReportPreview(ReportAction,selectedItemData == RevenueAnalysis
-                    ? CriteriaOperator.FromLambda<OrderItem>(item => item.Order.Customer.ID == id)
+                    ? CriteriaOperator.FromLambda<OrderItem>(item => item.Order.Store.Customer.ID == order.Store.Customer.ID)
                     : CriteriaOperator.Parse($"IsThisMonth([{nameof(OrderItem.Order)}.{nameof(Order.OrderDate)}])"));
             }
             else{
-                
                 e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
-                var instance = ((SingleChoiceActionExecuteEventArgs)e).SelectedObjects.Cast<object>().First();
+                var objectRecord = (ObjectRecord)((SingleChoiceActionExecuteEventArgs)e).SelectedObjects.Cast<object>().First();
                 var modelDetailView = (IModelDetailView)e.Action.Application.FindModelView(Order.InvoiceDetailView);
-                var objectSpace = Application.CreateObjectSpace(instance.GetType());
-                var detailView = Application.CreateDetailView(objectSpace,modelDetailView,false,objectSpace.GetObject(instance));
+                var objectSpace = Application.CreateObjectSpace(objectRecord.GetType());
+                var detailView = Application.CreateDetailView(objectSpace,modelDetailView,false,objectSpace.GetObjectByKey<Order>(objectRecord.ObjectKeyValue));
+                e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
                 e.ShowViewParameters.CreatedView = detailView;
             }
         }
 
         protected override void OnViewControllersActivated(){
             base.OnViewControllersActivated();
-            var items = SelectManyRecursive(ReportAction.Items,item => item.Items).Where(item => item.Data!=null).ToArray();
-            foreach (var item in items){
-                var reportDataV2 = ObjectSpace.GetObjectsQuery<ReportDataV2>().FirstOrDefault(v2 => v2.DisplayName==(string)item.Data);
-                item.Active["ReportProtection"] = reportDataV2==null|| ((IRequestSecurity)Application.Security)
-                    .IsGranted(new PermissionRequest(ObjectSpace,reportDataV2.GetType(),SecurityOperations.Read,reportDataV2));
-            }
-
-            foreach (var item in items.Where(item => item.Data!=null)){
-                item.Enabled["MailMergeProtection"] = ReportAction.Controller.Frame.View.ObjectSpace
-                    .GetObjectsQuery<RichTextMailMergeData>()
-                    .Any(data => data.Name == (string)item.Data);
-
-            }
+            var item = ReportAction.Items.First(item => (string)item.Data==MailMergeOrder);
+            item.Enabled["MailMergeProtection"] = ObjectSpace.GetObjectsQuery<RichTextMailMergeData>()
+                .Any(data => data.Name == (string)item.Data);
 
         }
         
-        IEnumerable<T> SelectManyRecursive<T>(IEnumerable<T> source, Func<T, IEnumerable<T>> childrenSelector){
-            foreach (var i in source){
-                yield return i;
-                var children = childrenSelector(i);
-                if (children == null) continue;
-                foreach (var child in SelectManyRecursive(children, childrenSelector))
-                    yield return child;
-            }
-        }
-
     }
 }

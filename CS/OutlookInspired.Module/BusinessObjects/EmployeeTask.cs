@@ -25,7 +25,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         [Browsable(false)]
         public virtual string DescriptionText{
             get{
-                RichEditDocumentServer.LoadDocument(Description);
+                RichEditDocumentServer.LoadDocument(Description,DocumentFormat.OpenXml);
                 return RichEditDocumentServer.Text;
             }
         }

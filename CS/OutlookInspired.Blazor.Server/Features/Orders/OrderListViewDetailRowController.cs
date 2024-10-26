@@ -16,7 +16,7 @@ namespace OutlookInspired.Blazor.Server.Features.Orders {
             editor.GridModel.AutoCollapseDetailRow = true;
             var orderItemModel = OrderItemModel();
             editor.GridModel.DetailRowTemplate = value => {
-                orderItemModel.Data = ((Order)value.DataItem).OrderItems;
+                orderItemModel.Data = ObjectSpace.GetObjectByKey<Order>(((ObjectRecord)value.DataItem).ObjectKeyValue).OrderItems;
                 var orderItemsContent = orderItemModel.GetComponentContent();
                 var detailRowModel = new DxGridDetailRowModel{ RenderFragment = orderItemsContent };
                 return ComponentModelObserver.Create(detailRowModel, detailRowModel.GetComponentContent());

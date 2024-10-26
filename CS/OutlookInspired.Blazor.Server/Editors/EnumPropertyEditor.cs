@@ -11,8 +11,13 @@ namespace OutlookInspired.Blazor.Server.Editors {
     public class EnumPropertyEditor(Type objectType, IModelMemberViewItem model)
         : DevExpress.ExpressApp.Blazor.Editors.EnumPropertyEditor(objectType, model){
         protected override RenderFragment CreateViewComponentCore(object dataContext){
-            var propertyValue = ((Enum)this.GetPropertyValue(dataContext));
-            return ComboBoxIconItem.Create(null, ImageLoader.Instance.GetEnumValueImageName(propertyValue));
+            var value = this.GetPropertyValue(dataContext);
+            if (value == null) return base.CreateViewComponentCore(dataContext);
+            var enumValueImageName = value is string stringValue
+                ? ImageLoader.Instance.GetEnumValueImageName(Enum.Parse(MemberInfo.MemberType, stringValue))
+                : ImageLoader.Instance.GetEnumValueImageName(value);
+            return ComboBoxIconItem.Create(null, enumValueImageName);
+
         }
     }
 }

@@ -76,7 +76,7 @@ namespace OutlookInspired.Module.Features.Maps{
                     SalesPeriodAction.SelectedItem = SalesPeriodAction.Items.First(item => (Period)item.Data == Period.Lifetime);
                     SalesPeriodAction.DoExecute(SalesPeriodAction.SelectedItem);
                 }
-                Application.ShowViewStrategy.ShowMessage(message,InformationType.Info);
+                Application.ShowViewStrategy.ShowMessage(message,InformationType.Info,10000);
             }
             View.Refresh();
         }

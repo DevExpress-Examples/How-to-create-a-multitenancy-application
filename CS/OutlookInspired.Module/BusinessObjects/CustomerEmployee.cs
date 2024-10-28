@@ -13,8 +13,9 @@ namespace OutlookInspired.Module.BusinessObjects {
 		public virtual string FirstName { get; set; }
 		[RuleRequiredField][MaxLength(100)]
 		public virtual string LastName { get; set; }
-		[MaxLength(100)]
-		public virtual string FullName { get; set; }
+		[PersistentAlias("Concat(" +nameof(FirstName) + ", ' ', " +nameof(LastName)+ ")")]
+		public string FullName => (string)EvaluateAlias();
+
 		public virtual PersonPrefix Prefix { get; set; }
 		[RuleRequiredField, Attributes.Validation.Phone][MaxLength(100)]
 		public virtual string MobilePhone { get; set; }

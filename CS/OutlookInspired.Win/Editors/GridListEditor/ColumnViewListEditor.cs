@@ -93,8 +93,15 @@ namespace OutlookInspired.Win.Editors.GridListEditor{
             var rows = Control.ColumnView.GetSelectedRows();
             var selectedObjects = rows.Any() ? rows.Select(i => Control.ColumnView.GetRow(i)).ToArray()
                 : new[]{Control.ColumnView.FocusedRowHandle}
-                    .Select(i => Control.ColumnView.GetRow(i)).ToArray();
-            return selectedObjects;
+                    .Select(i => Control.ColumnView.GetRow(i));
+            return selectedObjects
+                // .Select(o => {
+                //     if (o is not XafDataViewRecord record) return o;
+                //     var typeInfo = _collectionSource.ObjectTypeInfo;
+                //     return _collectionSource.ObjectSpace.GetObjectByKey(typeInfo.Type, record[typeInfo.KeyMember.Name]);
+                //
+                // })
+                .ToArray();
 
         }
 

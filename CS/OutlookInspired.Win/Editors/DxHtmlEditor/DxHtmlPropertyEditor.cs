@@ -57,8 +57,8 @@ namespace OutlookInspired.Win.Editors.DxHtmlEditor{
                 _markup = string.Empty;
             }
             else{
-                RichEditDocumentServer.LoadDocument((byte[])PropertyValue);
-                _markup = RichEditDocumentServer.Text;    
+                RichEditDocumentServer.LoadDocument((byte[])PropertyValue,DocumentFormat.OpenXml);
+                _markup = RichEditDocumentServer.HtmlText;    
             }
             
             Control.RootComponents.First().Parameters![nameof(DevExpress.Blazor.DxHtmlEditor.Markup)] = _markup;

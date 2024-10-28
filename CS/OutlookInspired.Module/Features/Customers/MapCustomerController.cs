@@ -1,6 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
@@ -20,6 +21,7 @@ namespace OutlookInspired.Module.Features.Customers{
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace,
                 (IModelDetailView)Application.Model.Views[Customer.MapsDetailView], false, objectSpace.GetObject(View.CurrentObject));
             e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
+            e.ShowViewParameters.Controllers.Add(Application.CreateController<DialogController>());
         }
 
 

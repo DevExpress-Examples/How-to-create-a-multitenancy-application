@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Features.Security;
+using OutlookInspired.Module.Features.Reports;
 using static OutlookInspired.Module.OutlookInspiredModule;
 
 

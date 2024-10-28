@@ -3,7 +3,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.BaseImpl.EF;
 
-namespace OutlookInspired.Module.Features.Security{
+namespace OutlookInspired.Module.Features.Reports{
     public interface IReportController{
         SingleChoiceAction ReportAction{ get; }
     }

@@ -91,7 +91,7 @@ namespace OutlookInspired.Module.BusinessObjects {
 		[Aggregated]
 		public virtual ObservableCollection<CustomerStore> CustomerStores{ get; set; } = new();
 		[VisibleInListView(false)][VisibleInLookupListView(false)]
-		[EditorAlias(DevExpress.ExpressApp.Editors.EditorAliases.RichTextPropertyEditor)]
+		[EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
 		public virtual byte[] Profile { get; set; }
 		[ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
 			DetailViewImageEditorMode = ImageEditorMode.PictureEdit,ImageSizeMode = ImageSizeMode.Zoom)]

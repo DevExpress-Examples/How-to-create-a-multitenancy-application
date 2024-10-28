@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.ReportsV2;
 using DevExpress.Persistent.Base.ReportsV2;
 using DevExpress.Persistent.BaseImpl.EF;
 
-namespace OutlookInspired.Module.Features{
+namespace OutlookInspired.Module.Features.Reports{
     public class ShowReportController:ViewController{
         private string ReportContainerHandle(SingleChoiceAction reportAction,Type reportDataType)
             => ReportDataProvider.GetReportStorage(reportAction.Application.ServiceProvider)

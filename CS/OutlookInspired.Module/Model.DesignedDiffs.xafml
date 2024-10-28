@@ -686,17 +686,21 @@
     </ListView>
     <ListView Id="Employee_ListView" AutoExpandAllGroups="True" IsGroupPanelVisible="True" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="Employee_DetailView_Child">
       <Columns>
-        <ColumnInfo Id="FullName" Index="1">
+        <ColumnInfo Id="Address" Index="-1" />
+        <ColumnInfo Id="Caption" Index="-1" SortOrder="None" GroupIndex="-1" />
+        <ColumnInfo Id="Location" Index="-1" />
+        <ColumnInfo Id="State" Index="-1" />
+        <ColumnInfo Id="User" Index="-1" />
+        <ColumnInfo Id="ZipCode" Index="-1" />
+        <ColumnInfo Id="FullName" Index="1" Width="280">
           <Summary>
             <ColumnSummaryItem Id="Count" SummaryType="Count" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Department" GroupIndex="0" SortOrder="Ascending" Index="2" />
-        <ColumnInfo Id="Address" Index="3" />
-        <ColumnInfo Id="City" Index="4" />
-        <ColumnInfo Id="State" Index="5" />
-        <ColumnInfo Id="ZipCode" Index="6" />
-        <ColumnInfo Id="Email" Index="7" />
+        <ColumnInfo Id="Title" Index="1" Width="107" />
+        <ColumnInfo Id="City" Index="2" Width="115" />
+        <ColumnInfo Id="Department" GroupIndex="0" SortOrder="Ascending" Index="3" />
+        <ColumnInfo Id="Email" Index="4" Width="171" />
       </Columns>
       <SplitLayout SplitterPosition="600" />
       <Variants Current="List">

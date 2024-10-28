@@ -30,10 +30,12 @@ namespace OutlookInspired.Module.Features.Quotes{
         private Opportunity NewOpportunity(Stage stage, IObjectSpace objectSpace, (double min, double max) value){
             var criteriaToExpressionConverter = new CriteriaToExpressionConverter();
             var quotes = ((IQueryable<Quote>)objectSpace.GetObjectsQuery<Quote>()
-                .AppendWhere(criteriaToExpressionConverter, ObjectSpace.ParseCriteria(string.Join(" AND ",View.CollectionSource.Criteria.Values))));
-            return new(){ Stage = stage, Value = quotes
+                .AppendWhere(criteriaToExpressionConverter, ObjectSpace.ParseCriteria(string.Join(" AND ",View.CollectionSource.Criteria.Values))))
+                ;
+            return new(){ Stage = stage, Value = (decimal)quotes
                 .Where(quote => quote.Opportunity > value.min && quote.Opportunity < value.max)
-                .ToArray().Sum(q => q.Total) };
+                .Select(quote => (double)quote.Total)
+                .Sum() };
         }
 
 

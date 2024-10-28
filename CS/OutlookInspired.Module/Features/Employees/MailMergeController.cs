@@ -6,7 +6,7 @@ using OutlookInspired.Module.BusinessObjects;
 using static OutlookInspired.Module.DatabaseUpdate.Updater;
 
 
-namespace OutlookInspired.Module.Features.Customers{
+namespace OutlookInspired.Module.Features.Employees{
     public class MailMergeController:ObjectViewController<ObjectView,Employee>{
         private RichTextShowInDocumentControllerBase _textShowInDocumentController;
 

@@ -24,6 +24,7 @@ using OutlookInspired.Module.Features.Maps;
 namespace OutlookInspired.Win.Services{
 
     public static class ApplicationBuilder{
+        [Obsolete]
         public static IWinApplicationBuilder Configure(this IWinApplicationBuilder builder,string connectionString){
             builder.UseApplication<OutlookInspiredWindowsFormsApplication>();
             builder.AddModules();

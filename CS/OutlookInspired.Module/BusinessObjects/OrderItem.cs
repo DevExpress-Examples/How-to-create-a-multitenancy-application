@@ -8,7 +8,7 @@ using OutlookInspired.Module.Features.CloneView;
 namespace OutlookInspired.Module.BusinessObjects{
     [VisibleInReports(true)][ImageName("BO_Sale")]
     [CloneView(CloneViewType.ListView,RecentOrderItemsListView )]
-    [ForbidCRUD(true,RecentOrderItemsListView,"Product_OrderItems_ListView")]
+    // [ForbidCRUD(true,RecentOrderItemsListView,"Product_OrderItems_ListView")]
     public class OrderItem :OutlookInspiredBaseObject{
         public const string RecentOrderItemsListView = "Recent_OrderItems_ListView";
 

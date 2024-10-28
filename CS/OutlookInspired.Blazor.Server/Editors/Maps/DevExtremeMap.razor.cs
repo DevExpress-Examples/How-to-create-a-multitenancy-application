@@ -93,15 +93,6 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
         public bool HoverEnabled{ get; set; }
 
         
-        public double[] Bounds(){
-            switch (DataSource){
-                case "usa":
-                    return[-124.566244, 49.384358, -66.934570, 24.396308];
-                
-            }
-
-            throw new InvalidOperationException(DataSource.ToString());
-        }
     }
 
 

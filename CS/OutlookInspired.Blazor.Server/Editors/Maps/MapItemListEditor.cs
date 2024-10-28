@@ -109,12 +109,6 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
 
         protected virtual void OnCustomizeLayers(CustomizeLayersArgs e) => CustomizeLayers?.Invoke(this, e);
 
-        public static double[] GetBounds<TMapItem>( TMapItem[] mapItems,double[] defaultBounds) where TMapItem:IMapItem
-            => !mapItems.Any() ? defaultBounds : 
-                new[]{(mapItems.Min(item => item.Longitude) - (mapItems.Max(item => item.Longitude) - mapItems.Min(item => item.Longitude)) * 0.1)}
-                    .Concat(new[]{mapItems.Max(item => item.Latitude) + (mapItems.Max(item => item.Latitude) - mapItems.Min(item => item.Latitude)) * 0.1}.AsEnumerable())
-                    .Concat(new[]{mapItems.Max(item => item.Longitude) + (mapItems.Max(item => item.Longitude) - mapItems.Min(item => item.Longitude)) * 0.1}.AsEnumerable())
-                    .Concat(new[]{mapItems.Min(item => item.Latitude) - (mapItems.Max(item => item.Latitude) - mapItems.Min(item => item.Latitude)) * 0.1}.AsEnumerable()).ToArray();
     }
 
     public class CustomizeLayersArgs(IMapItem[] mapItems){

@@ -12,7 +12,7 @@ namespace OutlookInspired.Win.Features.Employees{
 
         public MapsTravelModeViewController(){
             TargetViewId = Employee.MapsDetailView;
-            _action = new SingleChoiceAction(this,"TravelMode",PredefinedCategory.View);
+            _action = new SingleChoiceAction(this,"TravelMode",PredefinedCategory.PopupActions);
             _action.Items.AddRange([new ChoiceActionItem("Driving", BingTravelMode.Driving){ ImageName = "Driving" },
                 new ChoiceActionItem("Walking", BingTravelMode.Walking){ ImageName = "Walking" }
             ]);

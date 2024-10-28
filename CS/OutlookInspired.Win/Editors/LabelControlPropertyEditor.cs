@@ -24,13 +24,13 @@ namespace OutlookInspired.Win.Editors{
                 ShowLineShadow = false,
                 Appearance ={
                     FontSizeDelta = MemberInfo.FindAttribute<FontSizeDeltaAttribute>()?.Delta??0,
-                    TextOptions = { WordWrap =MemberInfo.Size==-1? WordWrap.Wrap:WordWrap.Default}
+                    TextOptions = { WordWrap = (MemberInfo.Size == -1||MemberInfo.MemberType==typeof(byte[]))? WordWrap.Wrap:WordWrap.Default}
                 }
             };
 
         protected override void ReadValueCore(){
             if (PropertyValue is byte[] bytes){
-                RichEditDocumentServer.LoadDocument(bytes);
+                RichEditDocumentServer.LoadDocument(bytes,DocumentFormat.OpenXml);
                 Control.Text = RichEditDocumentServer.Text;
             }
             else{

@@ -2,7 +2,6 @@
 using DevExpress.Map.Dashboard;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraMap;
-using OutlookInspired.Module;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Win.Editors.Maps;
 using GeoPoint = DevExpress.DashboardExport.Map.GeoPoint;

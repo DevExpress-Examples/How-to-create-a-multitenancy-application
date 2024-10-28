@@ -8,6 +8,20 @@
     <SchemaModule Name="SystemModule" Version="24.2.1.0" IsNewNode="True" />
   </SchemaModules>
   <Views DefaultListEditor="DevExpress.ExpressApp.Blazor.Editors.DxGridListEditor">
+    <DetailView Id="BlazorRichTextMailMergeObject_DetailView" Caption="Document">
+      <Items>
+        <PropertyEditor Id="MergedDocument" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.DxHtmlPropertyEditor" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="BlazorRichTextMailMergeObject" RelativeSize="100">
+              <LayoutItem Id="MergedDocument" ShowCaption="False" RelativeSize="100" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="Customer_CitySales_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Charts.DxChartListEditor" />
     <ListView Id="Customer_CustomerStores_ListView" DataAccessMode="Client" EditorTypeName="OutlookInspired.Blazor.Server.Editors.LayoutViewStacked.StackedLayoutViewEditor" />
     <DetailView Id="Customer_DetailView_Child">

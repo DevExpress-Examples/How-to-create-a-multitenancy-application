@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
@@ -18,6 +19,7 @@ namespace OutlookInspired.Module.Features.Quotes{
             var objectSpace = Application.CreateObjectSpace(typeof(QuoteMapItem));
             e.ShowViewParameters.CreatedView = Application.CreateListView(objectSpace, typeof(QuoteMapItem),false);
             e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
+            e.ShowViewParameters.Controllers.Add(Application.CreateController<DialogController>());
         }
 
 

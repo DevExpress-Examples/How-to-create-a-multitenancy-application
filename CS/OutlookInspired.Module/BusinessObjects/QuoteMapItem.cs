@@ -30,28 +30,6 @@ namespace OutlookInspired.Module.BusinessObjects{
         public decimal Value { get; set; }
         IObjectSpace IObjectSpaceLink.ObjectSpace{ get; set; }
 
-        public static QuoteMapItem[] QueryAll(IObjectSpace objectSpace){
-            var quoteMapItems = objectSpace.GetObjectsQuery<Quote>()
-                .Select(quote => new{
-                    quote.Total,
-                    quote.Date,
-                    quote.CustomerStore.City,
-                    quote.CustomerStore.Latitude,
-                    quote.CustomerStore.Longitude,
-                })
-                .ToArray()
-                .Select((t, i) => new QuoteMapItem(){
-                    Latitude = t.Latitude,
-                    City = t.City,
-                    ID = i,
-                    Date = t.Date,
-                    Longitude = t.Longitude,
-                    Total = t.Total,
-                    Value = t.Total
-
-                }).ToArray();
-            return quoteMapItems;
-        }
     }
     public static class StageExtensions {
         public static (double min, double max) Range(this Stage stage){

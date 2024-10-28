@@ -14,7 +14,6 @@ using OutlookInspired.Module.Attributes.Validation;
 using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
-using EditorAliases = OutlookInspired.Module.EditorAliases;
 
 namespace OutlookInspired.Module.BusinessObjects{
 	[DefaultProperty(nameof(FullName))]
@@ -73,13 +72,9 @@ namespace OutlookInspired.Module.BusinessObjects{
 		[RuleRequiredField][VisibleInListView(false)][MaxLength(100)]
 		public virtual string LastName { get; set; }
 		
-		[FontSizeDelta(16)][MaxLength(100)]
-		public virtual string FullName { get; set; }
+		[PersistentAlias("Concat(" +nameof(FirstName) + ", ' ', " +nameof(LastName)+ ")")]
+		public string FullName => (string)EvaluateAlias();
 
-		public override void OnSaving(){
-			base.OnSaving();
-			FullName ??= $"{FirstName} {LastName}";
-		}
 
 		[VisibleInListView(false)][VisibleInLookupListView(false)]
 		public virtual PersonPrefix Prefix { get; set; }
@@ -135,7 +130,8 @@ namespace OutlookInspired.Module.BusinessObjects{
 		[NotMapped]
 		public virtual string Caption{
 			get => FullName;
-			set => FullName=value;
+			set{
+			}
 		}
 
 		[NotMapped][VisibleInListView(false)][VisibleInDetailView(false)][VisibleInLookupListView(false)]

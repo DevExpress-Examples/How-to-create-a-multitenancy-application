@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.EF;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Features.Security;
+using OutlookInspired.Module.Features.Reports;
 using static OutlookInspired.Module.DatabaseUpdate.Updater;
 using static OutlookInspired.Module.OutlookInspiredModule;
 

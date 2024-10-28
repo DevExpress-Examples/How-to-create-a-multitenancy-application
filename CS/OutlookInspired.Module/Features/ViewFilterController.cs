@@ -101,7 +101,8 @@ namespace OutlookInspired.Module.Features{
 
             var viewFilters = ObjectSpace.GetObjectsQuery<ViewFilter>().Where(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName).ToList();
             var choiceActionItems = viewFilters.Select(viewFilter => {
-                var objectsCount = ObjectSpace.GetObjectsCount(viewFilter.DataType, new GroupOperator(GroupOperatorType.And,criteria,viewFilter.Criteria));
+                var criteriaOperator = new GroupOperator(GroupOperatorType.And, criteria, CriteriaOperator.Parse(viewFilter.Criteria));
+                var objectsCount = ObjectSpace.GetObjectsCount(viewFilter.DataType, criteriaOperator);
                 return new ChoiceActionItem($"{viewFilter.Name} ({objectsCount})", viewFilter);
             }).ToList();
             FilterAction.Items.AddRange(choiceActionItems);

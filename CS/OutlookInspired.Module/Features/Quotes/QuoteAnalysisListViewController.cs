@@ -33,9 +33,6 @@ namespace OutlookInspired.Module.Features.Quotes{
                 e.Count = _quoteAnalyses.Length;
             }
             else{
-                var criteriaOperator = ObjectSpace.ParseCriteria(e.Criteria.ToString());
-                var expressionEvaluator = ObjectSpace.GetExpressionEvaluator(typeof(QuoteAnalysis),criteriaOperator);
-                e.Count = _quoteAnalyses.Count(analysis => (bool)(expressionEvaluator.Evaluate(analysis)??true));
                 if (e.Criteria == null){
                     e.Count = _quoteAnalyses.Length;
                 }
@@ -51,8 +48,12 @@ namespace OutlookInspired.Module.Features.Quotes{
 
         private void OnObjectsGetting(object sender, ObjectsGettingEventArgs e){
             var criteriaToExpressionConverter = new CriteriaToExpressionConverter();
-            var quotes = (IQueryable<Quote>)ObjectSpace.GetObjectsQuery<Quote>()
-                .AppendWhere(criteriaToExpressionConverter, ObjectSpace.ParseCriteria(string.Join(" AND ",View.CollectionSource.Criteria.Values)));
+            
+            var quotes = ObjectSpace.GetObjectsQuery<Quote>();
+            if (View.CollectionSource.Criteria.Keys.Any()){
+                quotes = (IQueryable<Quote>)quotes.AppendWhere(criteriaToExpressionConverter,
+                    new GroupOperator(GroupOperatorType.And, View.CollectionSource.Criteria.Values));
+            }
             e.Objects = _quoteAnalyses = quotes
                 .Select(quote => new{
                     quote.CustomerStore.State, quote.CustomerStore.City,

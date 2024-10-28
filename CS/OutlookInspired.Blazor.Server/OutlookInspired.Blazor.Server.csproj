@@ -8,42 +8,9 @@
     <Configurations>Debug;Release;EasyTest</Configurations>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
   <ItemGroup>
-    <Compile Remove="Components\DevExtreme\DevExtremePivotGrid.razor.cs" />
-    <Compile Remove="js\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Components\DevExtreme\Chart\DxChart.razor.js" />
-    <None Remove="Components\DevExtreme\DevExtremeResources.razor.js" />
-    <None Remove="Components\DevExtreme\Maps\DevExtremeMap.razor.js" />
-    <None Remove="Components\ProgressBar.razor.css" />
-    <None Remove="Model.xafml" />
-    <None Remove="js\**" />
-  </ItemGroup>
-  <ItemGroup>
-    
-    <Content Include="Model.xafml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Remove="Components\DevExtreme\DevExtremeResources.razor" />
-    <Content Remove="UserControls\CustomerEmployees.razor" />
-    <EmbeddedResource Remove="js\**" />
-    <Content Remove="js\**" />
-    <None Remove="Editors\LayoutViewStacked\StackedLayoutView.razor.css" />
-    <Content Include="Editors\LayoutViewStacked\StackedLayoutView.razor.css" />
-    <None Remove="Editors\LayoutView\LayoutView.razor.css" />
-    <Content Include="Editors\LayoutView\LayoutView.razor.css" />
-    <None Remove="Editors\LayoutView\SideBySideLayout.razor.css" />
-    <Content Include="Editors\LayoutView\SideBySideLayout.razor.css" />
-    <None Remove="Features\Employees\Evaluations\EmployeeEvaluationColumnTemplate.razor.css" />
-    <Content Include="Features\Employees\Evaluations\EmployeeEvaluationColumnTemplate.razor.css" />
-    <None Remove="Features\Employees\Tasks\EmployeeTasksColumnTemplate.razor.css" />
-    <Content Include="Features\Employees\Tasks\EmployeeTasksColumnTemplate.razor.css" />
-    <None Remove="Editors\Charts\MyDxPieChart.razor.css" />
-    <None Remove="Editors\Charts\MyDxPieChart.razor.js" />
-    <Content Include="Editors\Charts\MyDxPieChart.razor.js" />
-  </ItemGroup>
-  <ItemGroup>
+    <!-- Essential DevExpress Package References -->
     <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="24.2.1-alpha-24298" />
     <PackageReference Include="DevExpress.Blazor.PdfViewer" Version="24.2.1-alpha-24298" />
     <PackageReference Include="DevExpress.ExpressApp.Dashboards.Blazor" Version="24.2.1-alpha-24298" />
@@ -56,107 +23,22 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6" />
   </ItemGroup>
+
   <ItemGroup>
+    <!-- Project References -->
     <ProjectReference Include="..\OutlookInspired.Module\OutlookInspired.Module.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Components\Customers\Employees\EmployeeCard.razor" />
-    <_ContentIncludedByDefault Remove="Components\Customers\Employees\EmployeeCardView.razor" />
-    <_ContentIncludedByDefault Remove="Components\Customers\Stores\StoreCard.razor" />
-    <_ContentIncludedByDefault Remove="Components\Customers\Stores\StoreCardView.razor" />
-    <_ContentIncludedByDefault Remove="Components\Customers\GridView\Stores\StoreCard.razor" />
-    <_ContentIncludedByDefault Remove="Components\Customers\GridView\Stores\StoreCardView.razor" />
-    <_ContentIncludedByDefault Remove="Components\Customers\GridView\Employees.razor" />
-    <_ContentIncludedByDefault Remove="Components\Customers\GridView\GridView.razor" />
-    <_ContentIncludedByDefault Remove="Components\Customers\GridView\RecentOrders.razor" />
-    <_ContentIncludedByDefault Remove="Components\Customers\Stores\StoresCardView.razor" />
-    <_ContentIncludedByDefault Remove="Components\Evaluations\EvalTemplate.razor" />
-    <_ContentIncludedByDefault Remove="Components\Evaluations\GridView.razor" />
-    <_ContentIncludedByDefault Remove="Features\Employees\Evaluations\EvalTemplate.razor" />
-    <_ContentIncludedByDefault Remove="Features\Customers\Maps\Maps.razor" />
-    <_ContentIncludedByDefault Remove="Features\Employees\Maps\Maps.razor" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\DevExtreme\DxChart.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\DevExtreme\DevExtremeComponent.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\DevExtreme\DevExtremeMap.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\DevExtreme\DevExtremePivotGrid.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\ComponentBase\ComponentBase.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\ComponentBase\DxMap.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\MyClass\DxFunnel.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\MyClass\DxMap.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\MyClass\DxPivotGrid.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\MyClass\MyClass.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\MyClass\PdfViewer.js" />
-    <_ContentIncludedByDefault Remove="Components\CardView\SideBySideCardView.razor" />
-    <_ContentIncludedByDefault Remove="Components\CardView\SideBySideInfoCard.razor" />
-    <_ContentIncludedByDefault Remove="Components\CardView\StackedCardView.razor" />
-    <_ContentIncludedByDefault Remove="Components\CardView\StackedInfoCard.razor" />
-    <_ContentIncludedByDefault Remove="Components\DevExtreme\Charts\DxFunnel.razor" />
-    <_ContentIncludedByDefault Remove="Components\DevExtreme\Maps\DxMap\DxMapComponent.razor" />
-    <_ContentIncludedByDefault Remove="Components\DevExtreme\Maps\DxrMap.razor" />
-    <_ContentIncludedByDefault Remove="Components\DevExtreme\Maps\DxVectorMap.razor" />
-    <_ContentIncludedByDefault Remove="Components\DevExtreme\Pivot\DxPivotGrid.razor" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Components\DevExtreme\DevExtremeComponent.cs.js" />
-    <None Remove="Components\DevExtreme\PivotGrid\DevExtremePivotGrid.razor.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\js\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Components\DevExtreme\Maps\Some.razor.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="UnusableNodes.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes10.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes11.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes12.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes13.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes14.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes15.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes16.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes2.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes3.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes4.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes5.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes6.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes7.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes8.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-    <None Update="UnusableNodes9.xml">
-      <DependentUpon>Model.xafml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Components\DevExtreme\Charts\DxFunnel.razor" />
+    <!-- Include Content Files -->
+    <Content Include="Model.xafml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    
+    <Content Include="Editors\Charts\MyDxPieChart.razor.js" />
+    
+    <None Remove="Editors\Maps\DevExtremeMap.razor.js" />
+    
+    <Content Include="Editors\Maps\DevExtremeMap.razor.js" />
   </ItemGroup>
 </Project>

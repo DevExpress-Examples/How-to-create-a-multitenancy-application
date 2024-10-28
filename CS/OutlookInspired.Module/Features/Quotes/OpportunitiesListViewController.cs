@@ -6,6 +6,8 @@ using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.Module.Features.Quotes{
     public class OpportunitiesListViewController:ObjectViewController<ListView,Opportunity>{
+        
+
         protected override void OnActivated(){
             base.OnActivated();
             var nonPersistentObjectSpace = ((NonPersistentObjectSpace)ObjectSpace);
@@ -18,9 +20,11 @@ namespace OutlookInspired.Module.Features.Quotes{
             if (ObjectSpace is not NonPersistentObjectSpace nonPersistentObjectSpace) return;
             nonPersistentObjectSpace.ObjectsGetting += OnObjectsGetting;
         }
+
         
+
         private void OnObjectsGetting(object sender, ObjectsGettingEventArgs e) 
-            => e.Objects = Enum.GetValues<Stage>().Where(stage => stage != Stage.Summary)
+            => e.Objects =Enum.GetValues<Stage>().Where(stage => stage != Stage.Summary)
                 .Select(stage => NewOpportunity(stage, (IObjectSpace)sender, stage.Range()))
                 .Select((item, i) => {
                     item.ID = i;

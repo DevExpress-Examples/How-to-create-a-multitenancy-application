@@ -7,7 +7,7 @@ using OutlookInspired.Blazor.Server.Editors.Maps;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Features.Maps;
 
-namespace OutlookInspired.Blazor.Server.Features.Maps.Sales{
+namespace OutlookInspired.Blazor.Server.Features.Maps{
     public class SalesMapItemDxChartListEditorController:ObjectViewController<DetailView,ISalesMapsMarker>{
         private DxChartListEditor _chartListEditor;
 

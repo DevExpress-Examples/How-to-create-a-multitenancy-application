@@ -40,7 +40,8 @@ public sealed class OutlookInspiredWinModule : ModuleBase {
             typeof(MapItemChartListEditorController),typeof(QuoteMapItemListEditorController),
             typeof(WinQuoteAnalysisPivotGridListEditorController),typeof(EmployeeColumnViewListEditorController),
             typeof(CustomerColumnViewListEditorController),typeof(CustomerStoreColumnViewListEditorController),
-            typeof(ProductColumnViewListEditorController),typeof(OrderColumnViewListEditorController)
+            typeof(ProductColumnViewListEditorController),typeof(OrderColumnViewListEditorController),
+            typeof(OpportunitiesChartListViewController)
         ];
 
     public override void Setup(XafApplication application) {

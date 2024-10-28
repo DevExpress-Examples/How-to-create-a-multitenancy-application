@@ -28,7 +28,10 @@ namespace OutlookInspired.Module.Features{
 
         public void FilterView(ListView listView){
             var criteria = FilterAction.SelectedItem.Data is ViewFilter viewFilter ? viewFilter.Criteria : null;
-            listView.CollectionSource.Criteria[nameof(ViewFilterController)] = ObjectSpace.ParseCriteria(criteria);
+            if (criteria == null)
+                listView.CollectionSource.Criteria.Remove(nameof(ViewFilterController)) ;
+            else
+                listView.CollectionSource.Criteria[nameof(ViewFilterController)] = ObjectSpace.ParseCriteria(criteria);
         }
         
         private bool ManagerFilters(ActionBaseEventArgs e){
@@ -115,7 +118,12 @@ namespace OutlookInspired.Module.Features{
         
 
 
-        protected virtual void OnCustomizeStartItem(CustomizeStartItemArgs e) => CustomizeStartItem?.Invoke(this, e);
+        protected virtual void OnCustomizeStartItem(CustomizeStartItemArgs e){
+            if (CustomizeStartItem == null) return;
+            CustomizeStartItem(this, e);
+            FilterAction.SelectedItem = e.ChoiceActionItem;
+            FilterAction.DoExecute(FilterAction.SelectedItem);
+        }
     }
 
     public class CustomizeStartItemArgs(ChoiceActionItem choiceActionItem) :EventArgs{

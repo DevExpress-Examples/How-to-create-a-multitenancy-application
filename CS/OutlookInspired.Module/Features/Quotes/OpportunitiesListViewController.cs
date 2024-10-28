@@ -2,7 +2,7 @@
 using DevExpress.Data.Linq.Helpers;
 using DevExpress.ExpressApp;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services;
+
 
 namespace OutlookInspired.Module.Features.Quotes{
     public class OpportunitiesListViewController:ObjectViewController<ListView,Opportunity>{
@@ -21,7 +21,7 @@ namespace OutlookInspired.Module.Features.Quotes{
         
         private void OnObjectsGetting(object sender, ObjectsGettingEventArgs e) 
             => e.Objects = Enum.GetValues<Stage>().Where(stage => stage != Stage.Summary)
-                .Select(stage => NewOpportunity(stage, (IObjectSpace)sender, stage.Map()))
+                .Select(stage => NewOpportunity(stage, (IObjectSpace)sender, stage.Range()))
                 .Select((item, i) => {
                     item.ID = i;
                     return item;
@@ -30,10 +30,12 @@ namespace OutlookInspired.Module.Features.Quotes{
         private Opportunity NewOpportunity(Stage stage, IObjectSpace objectSpace, (double min, double max) value){
             var criteriaToExpressionConverter = new CriteriaToExpressionConverter();
             var quotes = ((IQueryable<Quote>)objectSpace.GetObjectsQuery<Quote>()
-                .AppendWhere(criteriaToExpressionConverter, ObjectSpace.ParseCriteria(string.Join(" AND ",View.CollectionSource.Criteria.Values))));
-            return new(){ Stage = stage, Value = quotes
+                .AppendWhere(criteriaToExpressionConverter, ObjectSpace.ParseCriteria(string.Join(" AND ",View.CollectionSource.Criteria.Values))))
+                ;
+            return new(){ Stage = stage, Value = (decimal)quotes
                 .Where(quote => quote.Opportunity > value.min && quote.Opportunity < value.max)
-                .ToArray().Sum(q => q.Total) };
+                .Select(quote => (double)quote.Total)
+                .Sum() };
         }
 
 

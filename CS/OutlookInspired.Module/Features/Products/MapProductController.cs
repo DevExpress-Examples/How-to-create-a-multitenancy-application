@@ -1,6 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
@@ -9,21 +10,22 @@ namespace OutlookInspired.Module.Features.Products{
     public class MapProductController:ObjectViewController<ObjectView,Product>{
         public const string MapItActionId = "MapProduct";
         public MapProductController(){
-            MapCustomerAction = new SimpleAction(this, MapItActionId, PredefinedCategory.View){
+            MapProductAction = new SimpleAction(this, MapItActionId, PredefinedCategory.View){
                 ImageName = "MapIt", PaintStyle = ActionItemPaintStyle.Image,SelectionDependencyType = SelectionDependencyType.RequireSingleObject
             };
-            MapCustomerAction.Executed+=MapCustomerActionOnExecuted;
+            MapProductAction.Executed+=MapProductActionOnExecuted;
         }
 
-        private void MapCustomerActionOnExecuted(object sender, ActionBaseEventArgs e){
+        private void MapProductActionOnExecuted(object sender, ActionBaseEventArgs e){
             var objectSpace = Application.CreateObjectSpace(typeof(Product));
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace,
                 (IModelDetailView)Application.Model.Views[Product.MapsDetailView], false, objectSpace.GetObject(View.CurrentObject));
             e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
+            e.ShowViewParameters.Controllers.Add(Application.CreateController<DialogController>());
         }
 
 
-        public SimpleAction MapCustomerAction{ get; }
+        public SimpleAction MapProductAction{ get; }
         
     }
 }

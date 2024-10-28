@@ -1,14 +1,15 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.EF;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Controllers;
-using OutlookInspired.Module.Services.Internal;
-using static OutlookInspired.Module.Services.Internal.ReportsExtensions;
+using OutlookInspired.Module.Features.Reports;
+using static OutlookInspired.Module.DatabaseUpdate.Updater;
+using static OutlookInspired.Module.OutlookInspiredModule;
+
 
 namespace OutlookInspired.Module.Features.Orders{
     public class OrdersReportController:ObjectViewController<ObjectView,Order>,IReportController{
@@ -22,7 +23,7 @@ namespace OutlookInspired.Module.Features.Orders{
                         new ChoiceActionItem("Report", RevenueReport){ImageName = "CustomerProfileReport"},
                         new ChoiceActionItem("Analysis", RevenueAnalysis){ImageName = "SalesAnalysis"}
                     }},
-                    new ChoiceActionItem("Report",MailMergeExtensions.MailMergeOrder){ImageName = "CustomerProfileReport"}
+                    new ChoiceActionItem("Report",MailMergeOrder){ImageName = "CustomerProfileReport"}
                 },
                 ItemType = SingleChoiceActionItemType.ItemIsOperation
             };
@@ -34,27 +35,31 @@ namespace OutlookInspired.Module.Features.Orders{
         private void ReportActionOnExecuted(object sender, ActionBaseEventArgs e){
             var selectedItemData = (string)ReportAction.SelectedItem.Data;
             if (selectedItemData==null)return;
+            var reportController = Frame.GetController<ShowReportController>();
             if (selectedItemData.Contains("Revenue")){
-                var id = ((Order)View.CurrentObject).Customer.ID;
-                ReportAction.ShowReportPreview(View.ObjectTypeInfo.Type,selectedItemData == RevenueAnalysis
-                    ? CriteriaOperator.FromLambda<OrderItem>(item => item.Order.Customer.ID == id)
+                var xafDataViewRecord = ((SingleChoiceActionExecuteEventArgs)e).SelectedObjects.Cast<ObjectRecord>().First();
+                var order = ObjectSpace.GetObjectByKey<Order>(xafDataViewRecord.ObjectKeyValue);
+                reportController.ShowReportPreview(ReportAction,selectedItemData == RevenueAnalysis
+                    ? CriteriaOperator.FromLambda<OrderItem>(item => item.Order.Store.Customer.ID == order.Store.Customer.ID)
                     : CriteriaOperator.Parse($"IsThisMonth([{nameof(OrderItem.Order)}.{nameof(Order.OrderDate)}])"));
             }
             else{
-                e.NewDetailView(Order.InvoiceDetailView, TargetWindow.NewModalWindow);
+                e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
+                var objectRecord = (ObjectRecord)((SingleChoiceActionExecuteEventArgs)e).SelectedObjects.Cast<object>().First();
+                var modelDetailView = (IModelDetailView)e.Action.Application.FindModelView(Order.InvoiceDetailView);
+                var objectSpace = Application.CreateObjectSpace(objectRecord.GetType());
+                var detailView = Application.CreateDetailView(objectSpace,modelDetailView,false,objectSpace.GetObjectByKey<Order>(objectRecord.ObjectKeyValue));
+                e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
+                e.ShowViewParameters.CreatedView = detailView;
             }
         }
 
         protected override void OnViewControllersActivated(){
             base.OnViewControllersActivated();
-            
-            var items = ReportAction.Items.SelectManyRecursive(item => item.Items);
-            foreach (var item in items.Where(item => item.Data!=null)){
-                var reportDataV2 = ObjectSpace.GetObjectsQuery<ReportDataV2>().FirstOrDefault(v2 => v2.DisplayName==(string)item.Data);
-                item.Active["ReportProtection"] = reportDataV2==null||Application.Security.IsGranted(new PermissionRequest(ObjectSpace,
-                    reportDataV2.GetType(), SecurityOperations.Read, reportDataV2));
-            }
-            ReportAction.ApplyMailMergeProtection(item => item.ParentItem==null);
+            var item = ReportAction.Items.First(item => (string)item.Data==MailMergeOrder);
+            item.Enabled["MailMergeProtection"] = ObjectSpace.GetObjectsQuery<RichTextMailMergeData>()
+                .Any(data => data.Name == (string)item.Data);
+
         }
         
     }

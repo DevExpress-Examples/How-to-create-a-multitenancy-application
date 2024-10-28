@@ -2,7 +2,6 @@
 using DevExpress.ExpressApp.Actions;
 using DevExpress.XtraCharts;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Win.Features.Quotes{
     public class PaletteEntriesController:ViewController<DashboardView>{
@@ -10,9 +9,9 @@ namespace OutlookInspired.Win.Features.Quotes{
         public PaletteEntriesController() => TargetViewId = "Opportunities";
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
-            ((DevExpress.ExpressApp.Chart.Win.ChartListEditor)View.ChildItem().Frame.View.ToListView().Editor)
-                .ControlsCreated+=ChartListEditorOnControlsCreated;
-            View.MasterItem().Frame.GetController<MapQuoteController>().MapQuoteAction.Executed+=MapQuoteActionOnExecuted;
+            // ((DevExpress.ExpressApp.Chart.Win.ChartListEditor)View.ChildItem().Frame.View.ToListView().Editor)
+                // .ControlsCreated+=ChartListEditorOnControlsCreated;
+            // View.MasterItem().Frame.GetController<MapQuoteController>().MapQuoteAction.Executed+=MapQuoteActionOnExecuted;
         }
 
         private void ChartListEditorOnControlsCreated(object sender, EventArgs e) 
@@ -21,7 +20,7 @@ namespace OutlookInspired.Win.Features.Quotes{
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            View.MasterItem().Frame.GetController<MapQuoteController>().MapQuoteAction.Executed-=MapQuoteActionOnExecuted;
+            // View.MasterItem().Frame.GetController<MapQuoteController>().MapQuoteAction.Executed-=MapQuoteActionOnExecuted;
         }
 
         private void MapQuoteActionOnExecuted(object sender, ActionBaseEventArgs e) 

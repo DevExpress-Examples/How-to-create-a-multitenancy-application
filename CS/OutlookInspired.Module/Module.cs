@@ -13,11 +13,14 @@ using OutlookInspired.Module.Features.Orders;
 using OutlookInspired.Module.Features.Products;
 using OutlookInspired.Module.Features.Quotes;
 using OutlookInspired.Module.ModelUpdaters;
-using OutlookInspired.Module.Services.Internal;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Common;
 using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.Maps;
+using OutlookInspired.Module.Features.Reports;
+using OutlookInspired.Module.Resources.Reports;
+using CustomerProfile = OutlookInspired.Module.Resources.Reports.CustomerProfile;
+using ProductProfile = OutlookInspired.Module.Resources.Reports.ProductProfile;
 
 
 [assembly:InternalsVisibleTo("OutlookInspired.Win")]
@@ -25,6 +28,18 @@ using OutlookInspired.Module.Features.Maps;
 namespace OutlookInspired.Module;
 public sealed class OutlookInspiredModule : ModuleBase{
 	public const string ModelCategory = "OutlookInspired";
+	public const string RevenueReport = "Revenue Report";
+	public const string RevenueAnalysis = "Revenue Analysis";
+	public const string Contacts = "Contacts";
+	public const string LocationsReport = "Locations";
+	public const string SalesSummaryReport = "Sales Summary Report";
+	public const string CustomerProfile = "Profile";
+	public const string OrdersReport = "Orders";
+	public const string ProductProfile = "Profile";
+	public const string Sales = "Sales";
+	public const string TopSalesPerson = "Top Sales Person";
+	public const string FedExGroundLabel = nameof(FedExGroundLabel);
+	
     public OutlookInspiredModule() {
 		RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
 		RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
@@ -45,17 +60,40 @@ public sealed class OutlookInspiredModule : ModuleBase{
     }
     
     public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
-	    yield return new PredefinedReportsUpdater(Application, objectSpace, versionFromDB)
-		    .AddOrderReports().AddCustomerReports().AddProductReports();
+	    var predefinedReportsUpdater = new PredefinedReportsUpdater(Application, objectSpace, versionFromDB);
+	    AddOrderReports(predefinedReportsUpdater);
+	    AddCustomerReports(predefinedReportsUpdater);
+	    AddProductReports(predefinedReportsUpdater);
+	    yield return predefinedReportsUpdater;
 	    yield return new DatabaseUpdate.Updater(objectSpace, versionFromDB);
+    }
+    void AddOrderReports(PredefinedReportsUpdater predefinedReportsUpdater){
+	    predefinedReportsUpdater.AddPredefinedReport<FedExGroundLabel>(FedExGroundLabel, typeof(Order));
+	    predefinedReportsUpdater.AddPredefinedReport<SalesRevenueReport>(RevenueReport, typeof(Order));
+	    predefinedReportsUpdater.AddPredefinedReport<SalesRevenueAnalysisReport>(RevenueAnalysis, typeof(Order));
+    }
+
+    PredefinedReportsUpdater AddCustomerReports( PredefinedReportsUpdater predefinedReportsUpdater){
+	    predefinedReportsUpdater.AddPredefinedReport<CustomerContactsDirectory>(Contacts, typeof(Customer));
+	    predefinedReportsUpdater.AddPredefinedReport<CustomerLocationsDirectory>(LocationsReport, typeof(Customer));
+	    predefinedReportsUpdater.AddPredefinedReport<CustomerSalesSummaryReport>(SalesSummaryReport, typeof(Customer));
+	    predefinedReportsUpdater.AddPredefinedReport<CustomerProfile>(CustomerProfile, typeof(Customer));
+	    return predefinedReportsUpdater;
+    }
+    void AddProductReports(PredefinedReportsUpdater predefinedReportsUpdater){
+	    predefinedReportsUpdater.AddPredefinedReport<ProductOrders>(OrdersReport, typeof(Product));
+	    predefinedReportsUpdater.AddPredefinedReport<ProductProfile>(ProductProfile, typeof(Product));
+	    predefinedReportsUpdater.AddPredefinedReport<ProductSalesSummary>(Sales, typeof(Product));
+	    predefinedReportsUpdater.AddPredefinedReport<ProductTopSalesperson>(TopSalesPerson, typeof(Product));
     }
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes() 
-	    =>[typeof(MailMergeController),typeof(CustomerReportController),typeof(QuoteMapItemController),typeof(HideToolBarController),
+	    =>[typeof(MailMergeController),typeof(CustomerReportController),typeof(QuoteMapItemListViewController),typeof(HideToolBarController),
 		    typeof(CommunicationController),typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.OrdersReportController),typeof(ShipmentDetailController),
-		    typeof(Features.Products.ProductReportController),typeof(MapOrderController), typeof(MasterDetailController),typeof(ViewFilterController),
+		    typeof(ProductReportController),typeof(MapOrderController), typeof(MasterDetailController),typeof(ViewFilterController),
 		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController),typeof(MapOpportunitiesController),
-		    typeof(MapsSalesPeriodViewController),typeof(MapItemSalesViewController),typeof(ProtectReportActionItemsViewController),typeof(OpportunitiesListViewController)
+		    typeof(MapsSalesPeriodViewController),typeof(MapItemSalesViewController),typeof(ProtectReportActionItemsViewController),typeof(OpportunitiesListViewController),
+		    typeof(ShowReportController),typeof(QuoteAnalysisListViewController),typeof(OpportunitiesFilterListViewController)
 	    ];
 
     public override void Setup(XafApplication application) {
@@ -78,7 +116,10 @@ public sealed class OutlookInspiredModule : ModuleBase{
 
 	public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
 	    base.AddGeneratorUpdaters(updaters);
-	    updaters.Add(new CloneViewUpdater(),  new DataAccessModeUpdater(),new NavigationItemsModelUpdater(),new DashboardViewsModelUpdater());
+	    foreach (var updater in new IModelNodesGeneratorUpdater[]{new CloneViewUpdater(),  new DataAccessModeUpdater(),new NavigationItemsModelUpdater(),new DashboardViewsModelUpdater()}){
+		    updaters.Add(updater);    
+	    }
+	    
     }
 
     private void nonPersistentObjectSpace_ObjectByKeyGetting(object sender, ObjectByKeyGettingEventArgs e) {

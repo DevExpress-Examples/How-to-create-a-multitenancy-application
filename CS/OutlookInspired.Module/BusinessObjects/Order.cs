@@ -10,7 +10,6 @@ using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
-using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
 
 
 namespace OutlookInspired.Module.BusinessObjects{
@@ -79,11 +78,15 @@ namespace OutlookInspired.Module.BusinessObjects{
         public  virtual decimal RefundTotal { get; set; }
         [Column(TypeName = CurrencyType)]
         public  virtual decimal PaymentTotal { get; set; }
-        [EditorAlias(EditorAliases.EnumImageOnlyEditor)]
+        
+
+        [PersistentAlias("Iif(" + nameof(PaymentTotal) + " = 0 AND " + nameof(RefundTotal) + " = 0, '" +
+                         nameof(PaymentStatus.Unpaid) + "', Iif(" + nameof(RefundTotal) + " = " + nameof(TotalAmount) +
+                         ", '" + nameof(PaymentStatus.RefundInFull) + "', Iif(" + nameof(PaymentTotal) + " = " +
+                         nameof(TotalAmount) + ", '" + nameof(PaymentStatus.PaidInFull) + "', '" +
+                         nameof(PaymentStatus.Other) + "')))")]
         public PaymentStatus PaymentStatus 
-            => PaymentTotal == decimal.Zero && RefundTotal == decimal.Zero ? PaymentStatus.Unpaid :
-                RefundTotal == TotalAmount ? PaymentStatus.RefundInFull :
-                PaymentTotal == TotalAmount ? PaymentStatus.PaidInFull : PaymentStatus.Other;
+            => Enum.TryParse(EvaluateAlias() as string, out PaymentStatus result) ? result : PaymentStatus.Other;
 
         [VisibleInDetailView(false)]
         [XafDisplayName(nameof(ShipmentStatus))]
@@ -102,6 +105,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         double IBaseMapsMarker.Latitude => Store?.Latitude??0;
 
         double IBaseMapsMarker.Longitude => Store?.Longitude??0;
+
     }
     
     [JsonConverter(typeof(JsonStringEnumConverter))]

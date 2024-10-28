@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DevExpress.ExpressApp.DC;
@@ -10,7 +9,7 @@ using OutlookInspired.Module.Attributes.Validation;
 using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Services;
+
 
 
 namespace OutlookInspired.Module.BusinessObjects {
@@ -92,7 +91,7 @@ namespace OutlookInspired.Module.BusinessObjects {
 		[Aggregated]
 		public virtual ObservableCollection<CustomerStore> CustomerStores{ get; set; } = new();
 		[VisibleInListView(false)][VisibleInLookupListView(false)]
-		[EditorAlias(DevExpress.ExpressApp.Editors.EditorAliases.RichTextPropertyEditor)]
+		[EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
 		public virtual byte[] Profile { get; set; }
 		[ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
 			DetailViewImageEditorMode = ImageEditorMode.PictureEdit,ImageSizeMode = ImageSizeMode.Zoom)]

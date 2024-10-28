@@ -24,13 +24,13 @@
       <Item Id="Default">
         <Items>
           <Item Id="Welcome_DetailView" Index="0" ImageName="About" ObjectKey="{8B8DF685-AD96-4BE9-A08A-8DD8C2A9F4C2}" />
-          <Item Id="EmployeeListView" Index="1" ImageName="BO_Employee" ViewId="Employee_ListView" />
+          <Item Id="Employee_ListView" ImageName="BO_Employee" Index="1" />
           <Item Id="Evaluation_ListView" Index="2" ImageName="EvaluationYes" />
-          <Item Id="CustomerListView" Index="3" ImageName="BO_Customer" ViewId="Customer_ListView" />
-          <Item Id="ProductListView" Index="4" ImageName="BO_Product" ViewId="Product_ListView" />
-          <Item Id="OrderListView" Index="5" ImageName="BO_Order" ViewId="Order_ListView" />
+          <Item Id="Customer_ListView" ImageName="BO_Customer" Index="3" />
+          <Item Id="Order_ListView" ImageName="BO_Order" Index="4" />
+          <Item Id="Product_ListView" ImageName="BO_Product" Index="5" />
           <Item Id="Opportunities" Index="6" ImageName="BO_Opportunity" />
-          <Item Id="My Details" ViewId="ApplicationUser_DetailView" Caption="My Details" ImageName="BO_MyDetails" ObjectKey="@CurrentUserID" IsNewNode="True" />
+          <Item Id="My Details" ViewId="ApplicationUser_DetailView" Caption="My Details" ImageName="BO_MyDetails" ObjectKey="@CurrentUserID" Index="7" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Reports">
@@ -276,21 +276,11 @@
         </ColumnInfo>
       </Columns>
     </ListView>
-    <DashboardView Id="CustomerCardListView" MasterDetail="True" ImageName="BO_Customer" Caption="Customer" Removed="True">
+    <ListView Id="Customer_Sales_ListView">
       <HiddenActions>
-        <ActionLink ActionId="Refresh" IsNewNode="True" />
+        <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
       </HiddenActions>
-      <Items>
-        <DashboardViewItem Id="Customer_DetailView_Child" ViewId="Customer_DetailView_Child" ActionsToolbarVisibility="Hide" IsNewNode="True" />
-        <DashboardViewItem Id="CustomerLayoutView_DetailView" ViewId="CustomerLayoutView_DetailView" ActionsToolbarVisibility="Default" MasterDetail="True" IsNewNode="True" />
-      </Items>
-      <Layout>
-        <LayoutGroup Id="Main" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
-          <LayoutItem Id="CustomerLayoutView_DetailView" ViewItem="CustomerLayoutView_DetailView" Index="0" RelativeSize="61.70360110803324" IsNewNode="True" />
-          <LayoutItem Id="Customer_DetailView_Child" ViewItem="Customer_DetailView_Child" Index="1" RelativeSize="38.29639889196676" IsNewNode="True" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
+    </ListView>
     <DetailView Id="CustomerEmployee_DetailView">
       <Items>
         <PropertyEditor Id="Picture" PropertyName="Picture.Data" />
@@ -343,25 +333,6 @@
       </Layout>
     </DetailView>
     <ListView Id="CustomerLayoutView_ListView" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Customer_DetailView_Child" />
-    <DashboardView Id="CustomerListView" Caption="Customer" MasterDetail="True" ImageName="BO_Customer" Removed="True">
-      <HiddenActions>
-        <ActionLink ActionId="Refresh" IsNewNode="True" />
-      </HiddenActions>
-      <Items>
-        <DashboardViewItem Id="Customer_DetailView_Child" ViewId="Customer_DetailView_Child" ActionsToolbarVisibility="Hide" IsNewNode="True" />
-        <DashboardViewItem Id="CustomerGridView_DetailView" ViewId="CustomerGridView_DetailView" MasterDetail="True" IsNewNode="True" />
-      </Items>
-      <Layout>
-        <LayoutGroup Id="Main" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
-          <LayoutItem Id="CustomerGridView_DetailView" ViewItem="CustomerGridView_DetailView" Index="0" RelativeSize="62.119113573407205" IsNewNode="True" />
-          <LayoutItem Id="Customer_DetailView_Child" ViewItem="Customer_DetailView_Child" Index="1" RelativeSize="37.880886426592795" IsNewNode="True" />
-        </LayoutGroup>
-      </Layout>
-      <Variants Current="CustomerListView" IsNewNode="True">
-        <Variant Id="CustomerCardListView" ViewID="CustomerCardListView" Caption="Card" IsNewNode="True" />
-        <Variant Id="CustomerListView" ViewID="CustomerListView" Caption="List" IsNewNode="True" />
-      </Variants>
-    </DashboardView>
     <DetailView Id="CustomerStore_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -715,17 +686,21 @@
     </ListView>
     <ListView Id="Employee_ListView" AutoExpandAllGroups="True" IsGroupPanelVisible="True" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="Employee_DetailView_Child">
       <Columns>
-        <ColumnInfo Id="FullName" Index="1">
+        <ColumnInfo Id="Address" Index="-1" />
+        <ColumnInfo Id="Caption" Index="-1" SortOrder="None" GroupIndex="-1" />
+        <ColumnInfo Id="Location" Index="-1" />
+        <ColumnInfo Id="State" Index="-1" />
+        <ColumnInfo Id="User" Index="-1" />
+        <ColumnInfo Id="ZipCode" Index="-1" />
+        <ColumnInfo Id="FullName" Index="1" Width="280">
           <Summary>
             <ColumnSummaryItem Id="Count" SummaryType="Count" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Department" GroupIndex="0" SortOrder="Ascending" Index="2" />
-        <ColumnInfo Id="Address" Index="3" />
-        <ColumnInfo Id="City" Index="4" />
-        <ColumnInfo Id="State" Index="5" />
-        <ColumnInfo Id="ZipCode" Index="6" />
-        <ColumnInfo Id="Email" Index="7" />
+        <ColumnInfo Id="Title" Index="1" Width="107" />
+        <ColumnInfo Id="City" Index="2" Width="115" />
+        <ColumnInfo Id="Department" GroupIndex="0" SortOrder="Ascending" Index="3" />
+        <ColumnInfo Id="Email" Index="4" Width="171" />
       </Columns>
       <SplitLayout SplitterPosition="600" />
       <Variants Current="List">
@@ -751,25 +726,6 @@
     <ListView Id="EmployeeLayoutView_ListView" MasterDetailMode="ListViewAndDetailView" DataAccessMode="Client" MasterDetailView="Employee_DetailView_Child">
       <SplitLayout SplitterPosition="600" />
     </ListView>
-    <DashboardView Id="EmployeeListView" Caption="Employee" MasterDetail="True" ImageName="BO_Person" Removed="True">
-      <HiddenActions IsNewNode="True">
-        <ActionLink ActionId="Refresh" IsNewNode="True" />
-      </HiddenActions>
-      <Items IsNewNode="True">
-        <DashboardViewItem Id="Employee_DetailView_Child" ActionsToolbarVisibility="Hide" ViewId="Employee_DetailView_Child" IsNewNode="True" />
-        <DashboardViewItem Id="Employee_ListView" ViewId="Employee_ListView" MasterDetail="True" IsNewNode="True" />
-      </Items>
-      <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
-          <LayoutItem Id="Employee_ListView" ViewItem="Employee_ListView" Index="0" RelativeSize="61.74343357441949" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
-          <LayoutItem Id="Employee_DetailView_Child" ViewItem="Employee_DetailView_Child" Index="1" RelativeSize="38.25656642558051" IsNewNode="True" />
-        </LayoutGroup>
-      </Layout>
-      <Variants Current="EmployeeListView" IsNewNode="True">
-        <Variant Id="EmployeeCardListView" ViewID="EmployeeCardListView" Caption="Card" IsNewNode="True" />
-        <Variant Id="EmployeeListView" ViewID="EmployeeListView" Caption="List" IsNewNode="True" />
-      </Variants>
-    </DashboardView>
     <ListView Id="EmployeeTask_AttachedFiles_ListView" MasterDetailMode="ListViewAndDetailView">
       <SplitLayout RelativePosition="30" />
     </ListView>
@@ -993,7 +949,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Order_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" Filter="" AutoExpandAllGroups="True" MasterDetailView="Order_DetailView_Child">
+    <ListView Id="Order_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" Filter="" AutoExpandAllGroups="True" DataAccessMode="ServerView" MasterDetailView="Order_DetailView_Child">
       <Columns>
         <ColumnInfo Id="ActualWeight" Index="-1" />
         <ColumnInfo Id="Employee" Index="-1" />
@@ -1030,21 +986,9 @@
         <Variant Id="Detail" ViewID="Order_ListView_Detail" Caption="Detail" IsNewNode="True" />
       </Variants>
     </ListView>
-    <ListView Id="Order_ListView_Detail" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Order_DetailView_Child">
+    <ListView Id="Order_ListView_Detail" DataAccessMode="ServerView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Order_DetailView_Child">
       <SplitLayout SplitterPosition="700" />
     </ListView>
-    <DashboardView Id="OrderGridView" Caption="Order" ImageName="BO_Order" MasterDetail="True" RequiredFieldMark="c" Removed="True">
-      <Items>
-        <DashboardViewItem Id="Order_DetailView_Child" ViewId="Order_DetailView_Child" ActionsToolbarVisibility="Hide" Caption="Order" IsNewNode="True" />
-        <DashboardViewItem Id="OrderGridView_DetailView" ViewId="OrderGridView_DetailView" Criteria="" MasterDetail="True" IsNewNode="True" />
-      </Items>
-      <Layout>
-        <LayoutGroup Id="Main" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
-          <LayoutItem Id="OrderGridView_DetailView" ViewItem="OrderGridView_DetailView" Index="0" RelativeSize="62.77700831024931" IsNewNode="True" />
-          <LayoutItem Id="Order_DetailView_Child" ViewItem="Order_DetailView_Child" Index="1" RelativeSize="37.22299168975069" IsNewNode="True" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
     <DetailView Id="OrderGridView_DetailView" FreezeLayout="True">
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
@@ -1068,20 +1012,6 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DashboardView Id="OrderListView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" CustomizationEnabled="True" RequiredFieldMark="*" Caption="Order" ImageName="BO_Order" Removed="True">
-      <Items IsNewNode="True">
-        <DashboardViewItem Id="Order_ListView" ViewId="Order_ListView" Criteria="" IsNewNode="True" />
-      </Items>
-      <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" ShowCaption="False" Direction="Vertical" Index="0" RelativeSize="100" Caption="Main" IsNewNode="True">
-          <LayoutItem Id="Order_ListView" ViewItem="Order_ListView" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
-        </LayoutGroup>
-      </Layout>
-      <Variants Current="OrderListView" IsNewNode="True">
-        <Variant Id="OrderGridView" Caption="Detail" ViewID="OrderGridView" IsNewNode="True" />
-        <Variant Id="OrderListView" Caption="List" ViewID="OrderListView" IsNewNode="True" />
-      </Variants>
-    </DashboardView>
     <DetailView Id="Product_Brochure_DetailView" FreezeLayout="True">
       <Items>
         <PropertyEditor Id="PrimaryImage" PropertyName="PrimaryImage.Data" />
@@ -1269,18 +1199,11 @@
         <ColumnInfo Id="Total" Index="4" />
       </Columns>
     </ListView>
-    <DashboardView Id="ProductCardView" CaptionColon=":" EnableCaptionColon="True" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" CustomizationEnabled="True" RequiredFieldMark="*" Caption="Product" ImageName="BO_Product" MasterDetail="True" Removed="True">
-      <Items IsNewNode="True">
-        <DashboardViewItem Id="Product_Brochure_DetailView" ViewId="Product_Brochure_DetailView" ActionsToolbarVisibility="Hide" IsNewNode="True" />
-        <DashboardViewItem Id="ProductCardView_DetailView" ViewId="ProductCardView_DetailView" MasterDetail="True" IsNewNode="True" />
-      </Items>
-      <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Direction="Horizontal" IsNewNode="True">
-          <LayoutItem Id="ProductCardView_DetailView" ViewItem="ProductCardView_DetailView" Index="0" RelativeSize="61.71932402645114" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
-          <LayoutItem Id="Product_Brochure_DetailView" ViewItem="Product_Brochure_DetailView" Index="1" RelativeSize="38.28067597354886" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
+    <ListView Id="Product_Sales_ListView">
+      <HiddenActions>
+        <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
     <DetailView Id="ProductCardView_DetailView" FreezeLayout="True">
       <Layout IsNewNode="True" Removed="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
@@ -1293,22 +1216,6 @@
     <ListView Id="ProductLayoutView_ListView" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Product_Brochure_DetailView">
       <SplitLayout SplitterPosition="800" />
     </ListView>
-    <DashboardView Id="ProductListView" Caption="Product" ImageName="BO_Product" MasterDetail="True" Removed="True">
-      <Items IsNewNode="True">
-        <DashboardViewItem Id="Product_Brochure_DetailView" ViewId="Product_Brochure_DetailView" ActionsToolbarVisibility="Hide" IsNewNode="True" />
-        <DashboardViewItem Id="Product_ListView" ViewId="Product_ListView" MasterDetail="True" IsNewNode="True" />
-      </Items>
-      <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" ShowCaption="False" Caption="Main(1)" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
-          <LayoutItem Id="Product_ListView" ViewItem="Product_ListView" Index="0" RelativeSize="62.88832913518052" IsNewNode="True" />
-          <LayoutItem Id="Product_Brochure_DetailView" ViewItem="Product_Brochure_DetailView" Index="1" RelativeSize="37.11167086481948" IsNewNode="True" />
-        </LayoutGroup>
-      </Layout>
-      <Variants Current="ProductListView" IsNewNode="True">
-        <Variant Id="ProductCardView" ViewID="ProductCardView" Caption="Card" IsNewNode="True" />
-        <Variant Id="ProductListView" ViewID="ProductListView" Caption="List" IsNewNode="True" />
-      </Variants>
-    </DashboardView>
     <DetailView Id="Quote_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">

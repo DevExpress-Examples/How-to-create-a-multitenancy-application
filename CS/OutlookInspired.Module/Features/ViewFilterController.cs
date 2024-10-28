@@ -1,13 +1,10 @@
-﻿using System.ComponentModel;
+﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Blazor.Templates;
-using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Features{
     public interface IViewFilter{
@@ -15,6 +12,7 @@ namespace OutlookInspired.Module.Features{
     }
 
     public class ViewFilterController:ObjectViewController<ObjectView,IViewFilter>{
+        public event EventHandler<CustomizeStartItemArgs> CustomizeStartItem; 
         public const string FilterViewActionId = "FilterView";
         public ViewFilterController(){
             FilterAction = new SingleChoiceAction(this,FilterViewActionId,PredefinedCategory.View){
@@ -30,13 +28,10 @@ namespace OutlookInspired.Module.Features{
 
         public void FilterView(ListView listView){
             var criteria = FilterAction.SelectedItem.Data is ViewFilter viewFilter ? viewFilter.Criteria : null;
-            var userControl = listView.UserControl();
-            if (userControl != null){
-                userControl.SetCriteria(criteria);
-            }
-            else{
+            if (criteria == null)
+                listView.CollectionSource.Criteria.Remove(nameof(ViewFilterController)) ;
+            else
                 listView.CollectionSource.Criteria[nameof(ViewFilterController)] = ObjectSpace.ParseCriteria(criteria);
-            }
         }
         
         private bool ManagerFilters(ActionBaseEventArgs e){
@@ -52,11 +47,11 @@ namespace OutlookInspired.Module.Features{
             showViewParameters.Controllers.Add(controller);
             controller.AcceptAction.Executed += (_, _) => {
                 AddFilterItems();
-                FilterAction.DoExecute();
+                FilterAction.DoExecute(FilterAction.SelectedItem);
             };
             controller.CancelAction.Executed+= (_, _) => {
                 AddFilterItems();
-                FilterAction.DoExecute();
+                FilterAction.DoExecute(FilterAction.SelectedItem);
             }; 
         }
 
@@ -74,58 +69,31 @@ namespace OutlookInspired.Module.Features{
         private void CreateViewFilterListView(ShowViewParameters showViewParameters){
             var listView = Application.CreateListView(typeof(ViewFilter), true);
             listView.Editor.NewObjectCreated += (_, args) => ((ViewFilter)((ObjectManipulatingEventArgs)args).Object).DataType = View.ObjectTypeInfo.Type;
-            listView.CollectionSource.SetCriteria<ViewFilter>(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName);
+            listView.CollectionSource.Criteria[nameof(ViewFilterController)] =
+                CriteriaOperator.FromLambda<ViewFilter>(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName);
             showViewParameters.TargetWindow=TargetWindow.NewModalWindow;
             showViewParameters.CreatedView=listView;
         }
         
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            Application.ObjectSpaceCreated-=ApplicationOnObjectSpaceCreated;
+            ObjectSpace.Committed-=ObjectSpaceOnCommitted;
         }
         
         protected override void OnActivated(){
             base.OnActivated();
-            Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
+            ObjectSpace.Committed+=ObjectSpaceOnCommitted;
         }
-
+        
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
-            FilterAction.Active["PopTemplate"] = Frame.Template is not PopupWindowTemplate;
-            AddFilterItems();
-            if(View is DetailView detailView) {
-                detailView.CustomizeViewItemControl<ControlViewItem>(this, _ => {
-                    if(View.ObjectTypeInfo.Type == typeof(Quote)) {
-                        FilterAction.DoExecute(item => $"{item.Data}" == "This Month");
-                    }
-                });
-            }
-        }
-
-        private void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e){
-            e.ObjectSpace.Committing+=ObjectSpaceOnCommitting;
-            e.ObjectSpace.Disposed+=ObjectSpaceOnDisposed;
-        }
-
-        private void ObjectSpaceOnDisposed(object sender, EventArgs e) 
-            => ((IObjectSpace)sender).Committing-=ObjectSpaceOnCommitting;
-
-        private void ObjectSpaceOnCommitting(object sender, CancelEventArgs e){
-            var objectSpace = ((IObjectSpace)sender);
-            if (!objectSpace.ModifiedObjects.Cast<object>().OfType<IViewFilter>().Any()) return;
-            objectSpace.Committed+=OnCommitted;
-        }
-
-        private void OnCommitted(object sender, EventArgs e){
-            ((IObjectSpace)sender).Committed-=ObjectSpaceOnCommitted;
             AddFilterItems();
         }
-
+        
         private void ObjectSpaceOnCommitted(object sender, EventArgs e) => AddFilterItems();
         
         void AddFilterItems(){
             if(View == null) return;
-
             FilterAction.Items.Clear();
             FilterAction.Items.Add(new ChoiceActionItem("Manage...", "Manage"));
 
@@ -136,13 +104,29 @@ namespace OutlookInspired.Module.Features{
 
             var viewFilters = ObjectSpace.GetObjectsQuery<ViewFilter>().Where(filter => filter.DataTypeName == View.ObjectTypeInfo.Type.FullName).ToList();
             var choiceActionItems = viewFilters.Select(viewFilter => {
-                var objectsCount = ObjectSpace.GetObjectsCount(viewFilter.DataType, criteria.Combine(viewFilter.Criteria));
+                var filterCriteria = CriteriaOperator.Parse(viewFilter.Criteria);
+                var criteriaOperator = criteria!=null?new GroupOperator(GroupOperatorType.And, criteria, filterCriteria):filterCriteria;
+                var objectsCount = ObjectSpace.GetObjectsCount(viewFilter.DataType, criteriaOperator);
                 return new ChoiceActionItem($"{viewFilter.Name} ({objectsCount})", viewFilter);
             }).ToList();
             FilterAction.Items.AddRange(choiceActionItems);
 
-            FilterAction.SelectedItem = allItem;
+            var e = new CustomizeStartItemArgs(allItem);
+            OnCustomizeStartItem(e);
+            FilterAction.SelectedItem = e.ChoiceActionItem;
         }
         
+
+
+        protected virtual void OnCustomizeStartItem(CustomizeStartItemArgs e){
+            if (CustomizeStartItem == null) return;
+            CustomizeStartItem(this, e);
+            FilterAction.SelectedItem = e.ChoiceActionItem;
+            FilterAction.DoExecute(FilterAction.SelectedItem);
+        }
+    }
+
+    public class CustomizeStartItemArgs(ChoiceActionItem choiceActionItem) :EventArgs{
+        public ChoiceActionItem ChoiceActionItem{ get; set; } = choiceActionItem;
     }
 }

@@ -4,9 +4,9 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Controllers;
-using OutlookInspired.Module.Services.Internal;
-using static OutlookInspired.Module.Services.Internal.ReportsExtensions;
+using OutlookInspired.Module.Features.Reports;
+using static OutlookInspired.Module.OutlookInspiredModule;
+
 
 namespace OutlookInspired.Module.Features.Products{
 
@@ -29,10 +29,11 @@ namespace OutlookInspired.Module.Features.Products{
 
         public SingleChoiceAction ReportAction{ get; }
 
-        private void ReportActionOnExecuted(object sender, ActionBaseEventArgs e) 
-            => ReportAction.ShowReportPreview((string)ReportAction.SelectedItem.Data==ProductProfile?CriteriaOperator.FromLambda<Product>(
-                product => product.ID == ((Product)View.CurrentObject).ID):CriteriaOperator.FromLambda<OrderItem>(
-                orderItem => orderItem.Product.ID == ((Product)View.CurrentObject).ID),"Product");
-
+        private void ReportActionOnExecuted(object sender, ActionBaseEventArgs e){
+            var reportController = Frame.GetController<ShowReportController>();
+            reportController.ShowReportPreview(ReportAction,(string)ReportAction.SelectedItem.Data == ProductProfile
+                ? CriteriaOperator.FromLambda<Product>(product => product.ID == ((Product)View.CurrentObject).ID)
+                : CriteriaOperator.FromLambda<OrderItem>(orderItem => orderItem.Product.ID == ((Product)View.CurrentObject).ID), "Product");
+        }
     }
 }

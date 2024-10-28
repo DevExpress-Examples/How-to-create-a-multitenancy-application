@@ -3,17 +3,18 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
+using DevExpress.XtraRichEdit;
 using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.Features.CloneView;
-using OutlookInspired.Module.Services;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.BusinessObjects{
     [Appearance(nameof(DueDate),AppearanceItemType.ViewItem, "1=1",TargetItems = nameof(DueDate),FontStyle = DevExpress.Drawing.DXFontStyle.Bold)]
     [CloneView(CloneViewType.ListView, AssignedTasksChildListView)]
     public class EmployeeTask:OutlookInspiredBaseObject{
+        private static readonly RichEditDocumentServer RichEditDocumentServer = new();
         public const string AssignedTasksChildListView="Employee_AssignedTasks_ListView_Child";
         
         public virtual ObservableCollection<Employee> AssignedEmployees{ get; set; } = new();
@@ -21,6 +22,14 @@ namespace OutlookInspired.Module.BusinessObjects{
         [FontSizeDelta(8)][MaxLength(100)]
         public virtual string Subject { get; set; }
         
+        [Browsable(false)]
+        public virtual string DescriptionText{
+            get{
+                RichEditDocumentServer.LoadDocument(Description,DocumentFormat.OpenXml);
+                return RichEditDocumentServer.Text;
+            }
+        }
+
         public virtual byte[] Description { get; set; }
         
         [EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
@@ -32,7 +41,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         public virtual EmployeeTaskPriority Priority { get; set; }
 
         [VisibleInDetailView(false)][XafDisplayName(nameof(Priority))]
-        public byte[] PriorityImage => Priority.ImageInfo().ImageBytes;
+        public byte[] PriorityImage => ImageLoader.Instance.GetEnumValueImageInfo(Priority).ImageBytes;
         
         [EditorAlias(EditorAliases.ProgressEditor)]
         public virtual int Completion { get; set; }

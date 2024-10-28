@@ -1,4 +1,5 @@
-﻿using Aqua.EnumerableExtensions;
+﻿using System.IO.Compression;
+using Aqua.EnumerableExtensions;
 using DevExpress.ExpressApp.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.ApplicationBuilder;
 using DevExpress.ExpressApp.Blazor.Services;
@@ -13,7 +14,6 @@ using OutlookInspired.Blazor.Server.Services;
 using OutlookInspired.Blazor.Server.Services.Internal;
 using OutlookInspired.Module;
 using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Blazor.Server;
 
@@ -46,8 +46,9 @@ public class Startup(IConfiguration configuration){
             builder.ObjectSpaceProviders
                 .AddSecuredEFCore(options => options.PreFetchReferenceProperties())
                 .WithDbContext<Module.BusinessObjects.OutlookInspiredEFCoreDbContext>((serviceProvider, options) => {
-                    serviceProvider.AttachDatabase(serviceProvider.GetRequiredService<IConnectionStringProvider>().GetConnectionString());
-                    options.UseSqlite(serviceProvider.GetRequiredService<IConnectionStringProvider>().GetConnectionString());
+                    var connectionString = serviceProvider.GetRequiredService<IConnectionStringProvider>().GetConnectionString();
+                    ExtractDb(connectionString);
+                    options.UseSqlite(connectionString);
                     options.UseChangeTrackingProxies();
                     options.UseObjectSpaceLinkProxies();
                     options.UseLazyLoadingProxies();
@@ -70,6 +71,7 @@ public class Startup(IConfiguration configuration){
 #else
                     string connectionString = Configuration.GetConnectionString("ConnectionString");
 #endif
+                    ExtractDb(connectionString);
                     options.UseSqlite(connectionString);
                     options.UseChangeTrackingProxies();
                     options.UseLazyLoadingProxies();
@@ -97,6 +99,30 @@ public class Startup(IConfiguration configuration){
         services.AddSingleton<IMapApiKeyProvider, MapApiKeyProvider>();
         
     }
+
+    private static void ExtractDb(string connectionString){
+        var dataPath = FindFolderInPathUpwards("Data");
+        if (!File.Exists($"{dataPath}\\OutlookInspired.db")){
+            ZipFile.ExtractToDirectory($"{dataPath}\\OutlookInspired.zip",dataPath);
+        }
+        var dbPath = $"{dataPath}\\{Path.GetFileName(connectionString)}";
+        if (!File.Exists(dbPath)){
+            File.Copy($"{dataPath}\\OutlookInspired.db",dbPath);
+        }
+    }
+    
+    static string FindFolderInPathUpwards(string folderName){
+        var current = new DirectoryInfo(Directory.GetCurrentDirectory());
+        var directory = current;
+        while (directory.Parent != null){
+            if (directory.GetDirectories(folderName).Any()){
+                return Path.GetRelativePath(current.FullName, Path.Combine(directory.FullName, folderName));
+            }
+            directory = directory.Parent;
+        }
+        throw new DirectoryNotFoundException($"Folder '{folderName}' not found up the tree from '{current.FullName}'");
+    }
+
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
         if(env.IsDevelopment()) {

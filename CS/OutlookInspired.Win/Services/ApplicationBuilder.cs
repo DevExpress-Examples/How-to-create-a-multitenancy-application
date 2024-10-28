@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.IO.Compression;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using DevExpress.Blazor;
@@ -13,16 +14,17 @@ using DevExpress.ExpressApp.Win.ApplicationBuilder;
 using DevExpress.ExpressApp.Win.Utils;
 using DevExpress.Persistent.BaseImpl.EF;
 using DevExpress.Persistent.BaseImpl.EF.PermissionPolicy;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Services;
-using OutlookInspired.Module.Services.Internal;
+
 
 namespace OutlookInspired.Win.Services{
 
     public static class ApplicationBuilder{
+        [Obsolete]
         public static IWinApplicationBuilder Configure(this IWinApplicationBuilder builder,string connectionString){
             builder.UseApplication<OutlookInspiredWindowsFormsApplication>();
             builder.AddModules();
@@ -77,28 +79,6 @@ namespace OutlookInspired.Win.Services{
                 options.UserType = typeof(ApplicationUser);
             });
         }
-
-        public static void UseIntegratedModeSecurity(this IWinApplicationBuilder builder, string connectionString) 
-            => builder.AddMultiTenancy(connectionString)
-                .AddSecuredObjectSpaceProviders().Context.Security
-                .UseIntegratedMode(options => {
-                    options.RoleType = typeof(PermissionPolicyRole);
-                    options.UserType = typeof(ApplicationUser);
-                    options.UserLoginInfoType = typeof(ApplicationUserLoginInfo);
-                    options.Events.OnSecurityStrategyCreated += securityStrategy =>
-                        ((SecurityStrategy)securityStrategy).PermissionsReloadMode = PermissionsReloadMode.NoCache;
-                })
-                .UsePasswordAuthentication();
-
-        public static IObjectSpaceProviderBuilder<IWinApplicationBuilder> AddSecuredObjectSpaceProviders(this IWinApplicationBuilder builder)
-            => builder.ObjectSpaceProviders.AddSecuredEFCore(ConfigureObjectSpaceProvider())
-                .ObjectSpaceProviderBuilder(application => application.ServiceProvider.AttachDatabase((application.ServiceProvider.GetRequiredService<IConnectionStringProvider>()).GetConnectionString()));
-
-        private static Action<EFCoreObjectSpaceProviderOptionsBuilder> ConfigureObjectSpaceProvider()
-            => options => options.PreFetchReferenceProperties();
-
-        public static IObjectSpaceProviderBuilder<IWinApplicationBuilder> AddObjectSpaceProviders(this IWinApplicationBuilder builder)
-            => builder.ObjectSpaceProviders.AddEFCore(ConfigureObjectSpaceProvider()).ObjectSpaceProviderBuilder();
         
         public static IObjectSpaceProviderBuilder<IWinApplicationBuilder> AddMiddleTierObjectSpaceProviders(this IWinApplicationBuilder builder) 
             => builder.ObjectSpaceProviders
@@ -107,20 +87,48 @@ namespace OutlookInspired.Win.Services{
                     options.UseMiddleTier(application.Security);
                     options.UseChangeTrackingProxies();
                     options.UseObjectSpaceLinkProxies();
-                    var connectionString = application.ServiceProvider.GetRequiredService<ITenantProvider>().GetTenantConnectionString(application.ConnectionString);
-                    application.ServiceProvider.AttachDatabase(connectionString);
+                    ExtractDb(application);
                 }, ServiceLifetime.Transient)
                 .AddNonPersistent();
 
-        public static IObjectSpaceProviderBuilder<IWinApplicationBuilder> ObjectSpaceProviderBuilder(this DbContextBuilder<IWinApplicationBuilder> builder,Action<XafApplication> configure=null) 
-            => builder.WithDbContext<OutlookInspiredEFCoreDbContext>((application, options) => {
-                configure?.Invoke(application);
-                options.UseSqlite(application.ServiceProvider.GetRequiredService<IConnectionStringProvider>().GetConnectionString());
-                options.UseChangeTrackingProxies();
-                options.UseObjectSpaceLinkProxies();
-                options.UseLazyLoadingProxies();
-            }, ServiceLifetime.Transient)
-                .AddNonPersistent();
+        private static void ExtractDb(XafApplication application){
+            var dataPath = FindFolderInPathUpwards("Data");
+            var connectionString = application.GetTenantConnectionString(dataPath);
+            if (!File.Exists($"{dataPath}\\OutlookInspired.db")){
+                ZipFile.ExtractToDirectory($"{dataPath}\\OutlookInspired.zip",dataPath);
+            }
+            var dbPath = $"{dataPath}\\{Path.GetFileName(connectionString)}";
+            if (!File.Exists(dbPath)){
+                File.Copy($"{dataPath}\\OutlookInspired.db",dbPath);
+            }
+        }
+
+
+        static string FindFolderInPathUpwards(string folderName){
+            var current = new DirectoryInfo(Directory.GetCurrentDirectory());
+            var directory = current;
+            while (directory.Parent != null){
+                if (directory.GetDirectories(folderName).Any()){
+                    return Path.GetRelativePath(current.FullName, Path.Combine(directory.FullName, folderName));
+                }
+                directory = directory.Parent;
+            }
+            throw new DirectoryNotFoundException($"Folder '{folderName}' not found up the tree from '{current.FullName}'");
+        }
+
+        internal static string GetTenantConnectionString(this XafApplication application, string dataPath){
+            var tenantProvider = application.ServiceProvider.GetRequiredService<ITenantProvider>();
+            using var connection = new SqliteConnection($"Data source={Path.GetFullPath($"{dataPath}\\{Path.GetFileName(application.ConnectionString)}")}");
+            var query = "SELECT ConnectionString FROM Tenant WHERE ID = @Id";
+            using var command = new SqliteCommand(query, connection);
+            command.Parameters.AddWithValue("@Id", tenantProvider.TenantId);
+            connection.Open();
+            using var reader = command.ExecuteReader();
+            if (reader.Read()){
+                return reader.GetString(0);
+            } 
+            throw new InvalidOperationException("Tenant not found. Make sure you have already login as super admin at least once.");
+        }
 
         public static IWinApplicationBuilder AddMiddleTierMultiTenancy(this IWinApplicationBuilder builder) {
             builder.AddMultiTenancy()
@@ -136,23 +144,7 @@ namespace OutlookInspired.Win.Services{
                 .WithTenantResolver<TenantByEmailResolver>();
             return builder;
         }
-
-        public static IWinApplicationBuilder AddMultiTenancy(this IWinApplicationBuilder builder, string serviceConnectionString) {
-            builder.AddMultiTenancy()
-                .WithHostDbContext((_, options) => {
-                    options.UseSqlite(serviceConnectionString);
-                    options.UseChangeTrackingProxies();
-                    options.UseLazyLoadingProxies();
-                })
-                .WithMultiTenancyModelDifferenceStore(mds => {
-#if !RELEASE
-                    mds.UseTenantSpecificModel = false;
-#endif
-                })
-                .WithTenantResolver<TenantByEmailResolver>();
-            return builder;
-        }
-
+        
         public static IModuleBuilder<IWinApplicationBuilder> AddModules(this IWinApplicationBuilder builder) 
             => builder.Modules
                 .AddCharts()

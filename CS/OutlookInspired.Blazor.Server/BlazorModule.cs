@@ -9,7 +9,6 @@ using OutlookInspired.Blazor.Server.Features.Employees.Evaluations;
 using OutlookInspired.Blazor.Server.Features.Employees.Maps;
 using OutlookInspired.Blazor.Server.Features.Employees.Tasks;
 using OutlookInspired.Blazor.Server.Features.Evaluations;
-using OutlookInspired.Blazor.Server.Features.Maps;
 using OutlookInspired.Blazor.Server.Features.Maps.Sales;
 using OutlookInspired.Blazor.Server.Features.Orders;
 using OutlookInspired.Blazor.Server.Features.Products;
@@ -26,11 +25,11 @@ public sealed class OutlookInspiredBlazorModule : ModuleBase {
     }
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes()
-        =>[typeof(EmployeeEvaluationsController), typeof(SchedulerGroupTypeController), typeof(EnableDashboardMasterItemNewActionController),
-            typeof(DxGridListEditorController),typeof(CustomerListViewDetailRowController),typeof(EmployeeTasksController),
-            typeof(MapsTravelModeViewController),typeof(MapsTravelModeViewController),typeof(PopupWindowSizeController),typeof(ViewFilterDeleteController),typeof(OpportunitiesFilterController),typeof(WelcomeController), typeof(DisableInlineRowActionController),
-            typeof(SalesMapItemDxChartListEditorController),typeof(MapItemListEditorController),typeof(QuoteMapItemListViewController),
-            typeof(QuoteAnalysisPivotController),typeof(OpportunitiesChartListViewController),typeof(EmployeeLayoutViewController),typeof(CustomerLayoutViewController),
+        =>[typeof(EmployeeEvaluationsController), typeof(SchedulerGroupTypeController), typeof(DxGridListEditorController),typeof(CustomerListViewDetailRowController),
+            typeof(EmployeeTasksController), typeof(MapsTravelModeViewController),typeof(MapsTravelModeViewController),typeof(PopupWindowSizeController),
+            typeof(ViewFilterDeleteController),typeof(OpportunitiesFilterController),typeof(WelcomeController), typeof(DisableInlineRowActionController),
+            typeof(SalesMapItemDxChartListEditorController),typeof(MapItemListEditorController),typeof(BlazorQuoteMapItemListViewController),
+            typeof(BlazorQuoteAnalysisPivotGridListEditorController),typeof(BlazorOpportunitiesChartListViewController),typeof(EmployeeLayoutViewController),typeof(CustomerLayoutViewController),
             typeof(CustomerLayoutViewController),typeof(CustomerStoresLayoutViewController),typeof(ProductLayoutViewController),
             typeof(OrderListViewDetailRowController)
         ];

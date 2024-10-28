@@ -37,16 +37,22 @@
 #endregion Copyright (c) 2000-2023 Developer Express Inc.
 
 using System.ComponentModel;
-using DevExpress.ExpressApp.EFCore;
+using System.Reflection;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base.ReportsV2;
 using DevExpress.XtraPrinting.Drawing;
 using DevExpress.XtraReports.UI;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Resources.Reports {
 	public class ProductSalesSummary : XtraReport {
 		#region Designer generated code
+		private static readonly PropertyInfo ViewDataSourceObjectSpaceProperty;
+
+		static ProductSalesSummary() => ViewDataSourceObjectSpaceProperty = typeof(ViewDataSource).GetProperty("ObjectSpace",
+			BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+		private IObjectSpace ViewDataSourceObjectSpace => ViewDataSourceObjectSpaceProperty!.GetValue(bindingSource1) as IObjectSpace;
 
 		private TopMarginBand topMarginBand1;
 		private DetailBand detailBand1;
@@ -736,7 +742,7 @@ namespace OutlookInspired.Module.Resources.Reports {
 			}   
 		}
 		private void xrTableCell21_BeforePrint(object sender, CancelEventArgs e) {
-			object cost = bindingSource1.ObjectSpace().GetObjectByKey<Product>(GetCurrentColumnValue("Product.ID"))?.Cost;
+			object cost = ViewDataSourceObjectSpace.GetObjectByKey<Product>(GetCurrentColumnValue("Product.ID"))?.Cost;
 			if (cost==null) return;
 			decimal totalUnits = (decimal)xrTableCell23.Summary.GetResult();
 			xrTableCell21.Text = ((decimal)cost * totalUnits).ToString("$#,#");
@@ -745,7 +751,7 @@ namespace OutlookInspired.Module.Resources.Reports {
         #endregion
 
         private void xrPictureBox4_BeforePrint(object sender, CancelEventArgs e) 
-	        => xrPictureBox4.ImageSource = new ImageSource(false, bindingSource1.ObjectSpace().GetObjectByKey<Product>(GetCurrentColumnValue("Product.ID"))?.PrimaryImage.Data);
+	        => xrPictureBox4.ImageSource = new ImageSource(false, ViewDataSourceObjectSpace.GetObjectByKey<Product>(GetCurrentColumnValue("Product.ID"))?.PrimaryImage.Data);
 
         
 	}

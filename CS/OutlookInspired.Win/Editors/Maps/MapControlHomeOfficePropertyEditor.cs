@@ -8,8 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OutlookInspired.Module;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Win.Services.Internal;
-using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
+using EditorAliases = OutlookInspired.Module.EditorAliases;
 
 namespace OutlookInspired.Win.Editors.Maps{
     [PropertyEditor(typeof(Location),EditorAliases.MapHomeOfficePropertyEditor)]
@@ -45,8 +44,20 @@ namespace OutlookInspired.Win.Editors.Maps{
         private void RouteDataProviderOnRouteCalculated(object sender, BingRouteCalculatedEventArgs e){
             var mapsMarker = ((IMapsMarker)View.CurrentObject);
             var zoomToRegionService = (IZoomToRegionService)((IServiceProvider)_mapControl).GetService(typeof(IZoomToRegionService));
-            zoomToRegionService.To(_homeOfficePoint, new GeoPoint(mapsMarker.Latitude,mapsMarker.Longitude));
+            ZoomTo(zoomToRegionService,_homeOfficePoint, new GeoPoint(mapsMarker.Latitude,mapsMarker.Longitude));
         }
+
+        void ZoomTo(IZoomToRegionService zoomService, GeoPoint pointA, GeoPoint pointB, double margin = 0.2){
+            if (pointA == null || pointB == null || zoomService == null) return;
+            var (latDiff, longDiff) = (pointB.Latitude - pointA.Latitude, pointB.Longitude - pointA.Longitude);
+            var (latPad, longPad) = (CalculatePadding(margin,latDiff), CalculatePadding(margin,longDiff));
+            zoomService.ZoomToRegion(new GeoPoint(pointA.Latitude - latPad, pointA.Longitude - longPad),
+                new GeoPoint(pointB.Latitude + latPad, pointB.Longitude + longPad),
+                new GeoPoint((pointA.Latitude + pointB.Latitude) / 2, (pointA.Longitude + pointB.Longitude) / 2));
+        }
+        
+        static double CalculatePadding(double margin,double delta) 
+            => delta > 0 ? Math.Max(0.1, delta * margin) : delta < 0 ? Math.Min(-0.1, delta * margin) : 0;
 
         public void CalculateRoute(BingTravelMode bingTravelMode){
             _routeDataProvider.RouteOptions.Mode=bingTravelMode;

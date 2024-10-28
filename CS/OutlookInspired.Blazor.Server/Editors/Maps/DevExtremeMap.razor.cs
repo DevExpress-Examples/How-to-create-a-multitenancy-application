@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using OutlookInspired.Module.Services.Internal;
 
 
 namespace OutlookInspired.Blazor.Server.Editors.Maps{
@@ -69,7 +68,7 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
         public string SelectionMode{ get; set; }= "single";
         public string Name{ get; set; } = "pies";
         public string ElementType{ get; } = "pie"; 
-        public string DataField{ get; set; }= nameof(Properties.Values).FirstCharacterToLower();
+        public string DataField{ get; set; }= "values";
         public string[] Palette{ get; set; }
     }
     
@@ -82,7 +81,7 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
         public string SelectionMode{ get; set; } = "single";
         public string Name{ get; set; } = "bubbles";
         public string ElementType{ get; } = "bubble";
-        public string DataField{ get; set; } = nameof(Properties.Values).FirstCharacterToLower();
+        public string DataField{ get; set; } = "values";
         public string Color{ get; set; }
         public int MinSize{ get; init; } = 20;
         public int MaxSize{ get; init; } = 40;
@@ -94,15 +93,6 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
         public bool HoverEnabled{ get; set; }
 
         
-        public double[] Bounds(){
-            switch (DataSource){
-                case "usa":
-                    return[-124.566244, 49.384358, -66.934570, 24.396308];
-                
-            }
-
-            throw new InvalidOperationException(DataSource.ToString());
-        }
     }
 
 

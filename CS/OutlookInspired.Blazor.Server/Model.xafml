@@ -1,16 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <NavigationItems NavigationStyle="Accordion">
-    <Items>
-      <Item Id="Default">
-        <Items>
-          <Item Id="CustomerCardListView" Removed="True" />
-          <Item Id="OrderGridView" Removed="True" />
-          <Item Id="ProductCardView" Removed="True" />
-        </Items>
-      </Item>
-    </Items>
-  </NavigationItems>
+  <NavigationItems NavigationStyle="Accordion" />
   <Options UIType="TabbedMDI" RestoreTabbedMdiLayout="True" />
   <SchemaModules>
     <SchemaModule Name="SchedulerBlazorModule" Version="24.2.1.0" IsNewNode="True" />
@@ -18,6 +8,20 @@
     <SchemaModule Name="SystemModule" Version="24.2.1.0" IsNewNode="True" />
   </SchemaModules>
   <Views DefaultListEditor="DevExpress.ExpressApp.Blazor.Editors.DxGridListEditor">
+    <DetailView Id="BlazorRichTextMailMergeObject_DetailView" Caption="Document">
+      <Items>
+        <PropertyEditor Id="MergedDocument" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.DxHtmlPropertyEditor" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="BlazorRichTextMailMergeObject" RelativeSize="100">
+              <LayoutItem Id="MergedDocument" ShowCaption="False" RelativeSize="100" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="Customer_CitySales_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Charts.DxChartListEditor" />
     <ListView Id="Customer_CustomerStores_ListView" DataAccessMode="Client" EditorTypeName="OutlookInspired.Blazor.Server.Editors.LayoutViewStacked.StackedLayoutViewEditor" />
     <DetailView Id="Customer_DetailView_Child">
@@ -426,7 +430,7 @@
         <ActionLink ActionId="MapPrint" IsNewNode="True" />
       </HiddenActions>
       <Items>
-        <PropertyEditor Id="InvoiceDocument" PropertyEditorType="DevExpress.ExpressApp.Office.Blazor.Editors.RichTextPropertyEditor" />
+        <PropertyEditor Id="InvoiceDocument" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.DxHtmlPropertyEditor" />
       </Items>
     </DetailView>
     <ListView Id="Order_ListView">
@@ -462,25 +466,6 @@
         <ColumnInfo Id="PaymentTotal" Index="8" Width="167" />
       </Columns>
     </ListView>
-    <DashboardView Id="OrderGridView">
-      <Items>
-        <DashboardViewItem Id="OrderGridView_DetailView" ViewId="Order_ListView_Detail" />
-      </Items>
-      <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="Autof85045b8-4c46-409e-9c44-818a171d91c8" ShowCaption="False" Caption="" Index="0" RelativeSize="64.80446927374301" IsNewNode="True">
-            <LayoutItem Id="OrderGridView_DetailView" ViewItem="OrderGridView_DetailView" CaptionLocation="Top" Index="0" RelativeSize="50" IsNewNode="True" />
-            <LayoutItem Id="Item1" Index="1" RelativeSize="50" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="Auto66440994-93a7-468d-bea3-6cc0c57ad054" ShowCaption="False" Caption="" Index="1" RelativeSize="35.19553072625698" IsNewNode="True">
-            <LayoutItem Id="Order_DetailView_Child" ViewItem="Order_DetailView_Child" Index="0" RelativeSize="50" IsNewNode="True" />
-            <LayoutItem Id="Item2" Index="1" RelativeSize="50" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutItem Id="Order_DetailView_Child" RelativeSize="35.198261814231394" Removed="True" />
-          <LayoutItem Id="OrderGridView_DetailView" Removed="True" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
     <DetailView Id="Product_Brochure_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
@@ -575,43 +560,7 @@
       </Columns>
     </ListView>
     <ListView Id="Product_Sales_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Maps.MapItemListEditor" />
-    <DashboardView Id="ProductCardView">
-      <Items>
-        <DashboardViewItem Id="ProductCardView_DetailView" ViewId="ProductLayoutView_ListView" Removed="True" />
-        <DashboardViewItem Id="ProductLayoutView_ListView" ViewId="ProductLayoutView_ListView" MasterDetail="True" IsNewNode="True" />
-      </Items>
-      <Layout>
-        <LayoutGroup Id="Main" Caption="Main">
-          <LayoutGroup Id="Auto12e21a35-b720-41db-b90d-9ca812c59f68" ShowCaption="False" Caption="Auto12e21a35-b720-41db-b90d-9ca812c59f68(2)" Index="0" RelativeSize="61.576354679802954" IsNewNode="True">
-            <LayoutItem Id="ProductLayoutView_ListView" ViewItem="ProductLayoutView_ListView" Index="0" RelativeSize="49.892933618843685" IsNewNode="True" />
-            <LayoutItem Id="Item1" Index="1" RelativeSize="50.107066381156315" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="Auto9390f4f6-5edf-471e-89c5-9e73d03e15a6" ShowCaption="False" Caption="Auto9390f4f6-5edf-471e-89c5-9e73d03e15a6(5)" Index="1" RelativeSize="38.423645320197046" IsNewNode="True">
-            <LayoutItem Id="Product_Brochure_DetailView" ViewItem="Product_Brochure_DetailView" CaptionLocation="Top" Index="0" RelativeSize="49.892933618843685" IsNewNode="True" />
-            <LayoutItem Id="Item2" Index="1" RelativeSize="50.107066381156315" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutItem Id="Product_Brochure_DetailView" RelativeSize="38.40304182509506" Removed="True" />
-          <LayoutItem Id="ProductCardView_DetailView" Removed="True" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
     <ListView Id="ProductLayoutView_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.LayoutView.LayoutViewListEditor" DataAccessMode="Client" />
-    <DashboardView Id="ProductListView">
-      <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="Auto2bcdef52-e61a-463e-afcc-67e06c505773" ShowCaption="False" Caption="Auto2bcdef52-e61a-463e-afcc-67e06c505773(2)" Index="0" RelativeSize="62.693978895096215" IsNewNode="True">
-            <LayoutItem Id="Product_ListView" ViewItem="Product_ListView" Index="0" RelativeSize="50" IsNewNode="True" />
-            <LayoutItem Id="Item2" Index="1" RelativeSize="50" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="Auto9c9af28b-84cf-49ad-971e-f702c7639ddf" ShowCaption="False" Caption="Auto9c9af28b-84cf-49ad-971e-f702c7639ddf(5)" Index="1" RelativeSize="37.306021104903785" IsNewNode="True">
-            <LayoutItem Id="Product_Brochure_DetailView" ViewItem="Product_Brochure_DetailView" Index="0" RelativeSize="50" IsNewNode="True" />
-            <LayoutItem Id="Item1" Index="1" RelativeSize="50" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutItem Id="Product_Brochure_DetailView" RelativeSize="37.20803910917979" Removed="True" />
-          <LayoutItem Id="Product_ListView" Removed="True" />
-        </LayoutGroup>
-      </Layout>
-    </DashboardView>
     <DetailView Id="Quote_DetailView_Pivot" FreezeLayout="True" AllowNew="False" AllowEdit="False" AllowDelete="False">
       <Items>
         <ControlDetailItem Id="Model" ControlTypeName="OutlookInspired.Blazor.Server.Features.Quotes.DxPivotGridModel" IsNewNode="True" />

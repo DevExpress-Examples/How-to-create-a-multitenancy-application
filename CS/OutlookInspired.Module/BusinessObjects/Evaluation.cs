@@ -2,7 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
+using System.Text;
 using Aqua.EnumerableExtensions;
+using DevExpress.Blazor.Internal;
 using DevExpress.Blazor.Scheduler.Internal;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
@@ -10,10 +12,9 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
+using DevExpress.XtraRichEdit;
 using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.Features.CloneView;
-using OutlookInspired.Module.Services;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.BusinessObjects{
     [Appearance(nameof(StartOn),AppearanceItemType.ViewItem, "1=1",TargetItems = nameof(StartOn),FontStyle = DevExpress.Drawing.DXFontStyle.Bold,Context = "Employee_Evaluations_ListView")]
@@ -23,6 +24,7 @@ namespace OutlookInspired.Module.BusinessObjects{
     [CloneView(CloneViewType.ListView, EmployeeEvaluationsChildListView)]
     [DefaultClassOptions][ImageName("EvaluationYes")][VisibleInReports(false)]
     public class Evaluation :OutlookInspiredBaseObject,IEvent{
+	    private static readonly RichEditDocumentServer RichEditDocumentServer = new();
 	    private string _resourceId;
 	    private bool _isUpdateResourcesDelayed;
 
@@ -66,9 +68,20 @@ namespace OutlookInspired.Module.BusinessObjects{
 
 		[NotMapped]
 		public string Description{
-			get => DescriptionBytes.ToDocumentText();
-			set => DescriptionBytes=value.Bytes().ToOpenXmlBytes();
+			get{
+				RichEditDocumentServer.LoadDocument(DescriptionBytes,DocumentFormat.OpenXml);
+				return RichEditDocumentServer.Text;
+			}
+			set{
+				var bytes = Bytes(value);
+				RichEditDocumentServer.LoadDocument(bytes,DocumentFormat.OpenXml);
+				DescriptionBytes = RichEditDocumentServer.OpenXmlBytes;
+			}
 		}
+
+		byte[] Bytes(string s, Encoding encoding = null) 
+			=> s == null ? [] : (encoding ?? Encoding.UTF8).GetBytes(s);
+
 
 		[EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
 		[Column(nameof(Description))]
@@ -100,10 +113,10 @@ namespace OutlookInspired.Module.BusinessObjects{
 			}
 		}
 
-		string ToIds() => "<ResourceIds>\r\n".YieldItem()
+		string ToIds() => new[]{"<ResourceIds>\r\n"}
 			.Concat(Resources.Select(employee
 				=> $"<ResourceId Type=\"{typeof(Guid)}\" Value=\"{employee.ID}\" />\r\n"))
-			.Concat("</ResourceIds>").StringJoin("");
+			.Concat(["</ResourceIds>"]).StringJoin("");
 
 		[Browsable(false)]
 		public Object AppointmentId => ID;
@@ -129,7 +142,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         public virtual string Subject{ get; set; }
 
         [NotMapped]
-        public IList<Employee> Resources => Employee.YieldItem().ToList();
+        public IList<Employee> Resources => Employee.Yield().ToList();
         public virtual EvaluationRating Rating{ get; set; }
 
         [VisibleInListView(false)]

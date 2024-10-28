@@ -1,5 +1,4 @@
-﻿@using OutlookInspired.Module.Services.Internal
-@implements IAsyncDisposable
+﻿@implements IAsyncDisposable
 @inject IJSRuntime JSRuntime
 <div @ref="_mapElement"></div>
 
@@ -17,12 +16,15 @@
 
         if (_map == null){
             var layers = Layers.Select(layer => layer.GetType().GetProperties()
-                .ToDictionary(prop => prop.Name.FirstCharacterToLower(), prop => prop.GetValue(layer)));
-            var customAttributes = CustomAttributes.Select(s => s.FirstCharacterToLower()).ToArray();
+                .ToDictionary(prop => FirstCharacterToLower(prop.Name), prop => prop.GetValue(layer)));
+            var customAttributes = CustomAttributes.Select(FirstCharacterToLower).ToArray();
             _map = await _mapModule.InvokeAsync<IJSObjectReference>("addMapToElement", _mapElement,layers,
                 Bounds,customAttributes,Annotations,  _dotNetHelper);
         }
     }
+    
+    string FirstCharacterToLower(string str) =>
+        string.IsNullOrEmpty(str) || char.IsLower(str, 0) ? str : char.ToLowerInvariant(str[0]) + str.Substring(1);
 
     [Parameter][EditorRequired]
     public IEnumerable<BaseLayer> Layers{ get; set; }

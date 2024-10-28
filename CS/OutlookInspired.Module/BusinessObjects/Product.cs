@@ -5,12 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
+using DevExpress.XtraRichEdit;
 using OutlookInspired.Module.Attributes;
 using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Services;
-using OutlookInspired.Module.Services.Internal;
+
 
 
 namespace OutlookInspired.Module.BusinessObjects{
@@ -22,6 +22,7 @@ namespace OutlookInspired.Module.BusinessObjects{
     [Appearance("UnAvailable",AppearanceItemType.ViewItem, "!"+nameof(Available),TargetItems = "*",FontStyle = DevExpress.Drawing.DXFontStyle.Strikeout)]
     [XafDefaultProperty(nameof(Name))]
     public class Product :OutlookInspiredBaseObject, IViewFilter,ISalesMapsMarker{
+        private static readonly RichEditDocumentServer RichEditDocumentServer = new();
         [Obsolete]
         public const string CardViewDetailView = "ProductCardView_DetailView";
         public const string LayoutViewListView = "ProductLayoutView_ListView";
@@ -35,7 +36,13 @@ namespace OutlookInspired.Module.BusinessObjects{
 
         
         [VisibleInDetailView(false)][VisibleInListView(false)][VisibleInLookupListView(false)]
-        public virtual string DescriptionString => Description.ToDocumentText();
+        public virtual string DescriptionString{
+            get{
+                RichEditDocumentServer.LoadDocument(Description,DocumentFormat.OpenXml);
+                return RichEditDocumentServer.Text;
+            }
+        }
+
         public  virtual DateTime ProductionStart { get; set; }
         public  virtual bool Available { get; set; }
         [ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,

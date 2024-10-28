@@ -1,14 +1,12 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl.EF;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Controllers;
-using OutlookInspired.Module.Services.Internal;
-using static OutlookInspired.Module.Services.Internal.ReportsExtensions;
+using OutlookInspired.Module.Features.Reports;
+using static OutlookInspired.Module.OutlookInspiredModule;
+
 
 namespace OutlookInspired.Module.Features.Customers{
     public class CustomerReportController:ObjectViewController<ListView,Customer>,IReportController{
@@ -28,19 +26,21 @@ namespace OutlookInspired.Module.Features.Customers{
         }
 
         public SingleChoiceAction ReportAction{ get; }
+        
 
         private void ReportActionOnExecuted(object sender, ActionBaseEventArgs e){
             var selectedItemData = (string)ReportAction.SelectedItem.Data;
+            var reportController = Frame.GetController<ShowReportController>();
             if (selectedItemData == SalesSummaryReport){
-                ReportAction.ShowReportPreview(View.ObjectTypeInfo.Type, CriteriaOperator.FromLambda<OrderItem>(item 
+                reportController.ShowReportPreview(ReportAction,CriteriaOperator.FromLambda<OrderItem>(item 
                     => item.Order.Customer.ID == ((Customer)View.CurrentObject).ID),"Customer");
             }
             else if (selectedItemData == LocationsReport){
-                ReportAction.ShowReportPreview(View.ObjectTypeInfo.Type,CriteriaOperator.FromLambda<Customer>(customer
+                reportController.ShowReportPreview(ReportAction,CriteriaOperator.FromLambda<Customer>(customer
                     => customer.ID == ((Customer)View.CurrentObject).ID));
             }
             else if (selectedItemData == Contacts){
-                ReportAction.ShowReportPreview(View.ObjectTypeInfo.Type,CriteriaOperator.FromLambda<CustomerEmployee>(customerEmployee
+                reportController.ShowReportPreview(ReportAction,CriteriaOperator.FromLambda<CustomerEmployee>(customerEmployee
                     => customerEmployee.Customer.ID == ((Customer)View.CurrentObject).ID));
             }
         }

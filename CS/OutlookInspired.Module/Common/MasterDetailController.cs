@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils.Serializing.Helpers;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Common{
     public interface IModelDashboardViewItemMasterDetail{
@@ -35,7 +34,10 @@ namespace OutlookInspired.Module.Common{
         public MasterDetailController(){
             _processMasterViewSelectedObjectAction = new SimpleAction(this,"ProcessMasterViewSelectedObject",PredefinedCategory.ListView);
             _processMasterViewSelectedObjectAction.Executed+=(_, e) 
-                => e.ShowViewParameters.CreatedView = Application.NewDetailView(e.Action.SelectionContext.CurrentObject);
+                => {
+                // var detailView = Application.NewDetailView(e.Action.SelectionContext.CurrentObject);
+                // e.ShowViewParameters.CreatedView = detailView;
+            };
             Active["MasterDetail"] = false;
         }
 
@@ -92,8 +94,8 @@ namespace OutlookInspired.Module.Common{
 
         private void OnMasterItemControlCreated(object sender, EventArgs e){
             _masterFrame = (NestedFrame)(((DashboardViewItem)sender)!).Frame;
-            _masterFrame.GetController<NewObjectViewController>().UseObjectDefaultDetailView();
-            _controlViewItem = _masterFrame.View.ToCompositeView().GetItems<ControlViewItem>().FirstOrDefault();
+            // _masterFrame.GetController<NewObjectViewController>().UseObjectDefaultDetailView();
+            // _controlViewItem = _masterFrame.View.ToCompositeView().GetItems<ControlViewItem>().FirstOrDefault();
             if (_controlViewItem != null){
                 _controlViewItem.ControlCreated += ControlViewItemOnControlCreated;
             }
@@ -103,13 +105,13 @@ namespace OutlookInspired.Module.Common{
         }
         
         private void ViewOnSelectionChanged(object sender, EventArgs e){
-            _childFrame.View.SetCurrentObject(_masterFrame.View.CurrentObject);
+            // _childFrame.View.SetCurrentObject(_masterFrame.View.CurrentObject);
             RefreshChildUserControls();
         }
 
         private void ControlViewItemOnControlCreated(object sender, EventArgs e){
             _userControl = (IUserControl)((ControlViewItem)sender).Control;
-            _masterFrame.ActiveActions().ForEach(action => action.SelectionContext = _userControl);
+            // _masterFrame.ActiveActions().ForEach(action => action.SelectionContext = _userControl);
             _userControl.CurrentObjectChanged += UserControlOnCurrentObjectChanged;
             _userControl.ProcessObject+=UserControlOnProcessObject;
             _masterFrame.View.ObjectSpace.Committed += ObjectSpaceOnCommitted;
@@ -125,15 +127,16 @@ namespace OutlookInspired.Module.Common{
         
         private void UserControlOnCurrentObjectChanged(object sender, EventArgs e){
             var userControl = (IUserControl)sender;
-            _masterFrame.View.SetCurrentObject(userControl.CurrentObject);
-            _childFrame.View.SetCurrentObject(userControl.CurrentObject);
+            // _masterFrame.View.SetCurrentObject(userControl.CurrentObject);
+            // _childFrame.View.SetCurrentObject(userControl.CurrentObject);
             RefreshChildUserControls();
         }
 
-        private void RefreshChildUserControls() 
-            => _childFrame.View.ToCompositeView().GetItems<ControlViewItem>()
-                .Select(item => item.Control).OfType<IUserControl>()
-                .ForEach(control => control.Refresh(_childFrame.View.CurrentObject));
+        private void RefreshChildUserControls(){
+            // _childFrame.View.ToCompositeView().GetItems<ControlViewItem>()
+                // .Select(item => item.Control).OfType<IUserControl>()
+                // .ForEach(control => control.Refresh(_childFrame.View.CurrentObject));
+        }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) 
             => extenders.Add<IModelDashboardViewItem, IModelDashboardViewItemMasterDetail>();

@@ -8,7 +8,7 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraEditors.Repository;
-using EditorAliases = OutlookInspired.Module.Services.EditorAliases;
+using EditorAliases = OutlookInspired.Module.EditorAliases;
 
 namespace OutlookInspired.Win.Editors{
     [PropertyEditor(typeof(object), EditorAliases.HyperLinkPropertyEditor, false)]

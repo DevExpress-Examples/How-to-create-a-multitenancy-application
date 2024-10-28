@@ -5,7 +5,7 @@ using OutlookInspired.Win.Editors.GridListEditor;
 
 namespace OutlookInspired.Win.Editors{
 
-    [Obsolete("remove inheritance")]
+    
     public partial class ColumnViewUserControl : UserControl, IColumnViewUserControl{
         public ColumnView ColumnView=>(ColumnView)Controls.OfType<GridControl>().First().MainView;
         public ColumnViewUserControl() => Load += OnLoad;
@@ -16,7 +16,7 @@ namespace OutlookInspired.Win.Editors{
             ColumnView.DataError+=(_, args) => throw new AggregateException(args.DataException.Message,args.DataException);
             OnDataSourceOrFilterChanged();
         }
-
+        
         protected virtual void OnDataSourceOrFilterChanged(){
             
         }

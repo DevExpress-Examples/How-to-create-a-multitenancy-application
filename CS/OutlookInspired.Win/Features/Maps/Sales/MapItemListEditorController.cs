@@ -1,10 +1,8 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.XtraMap;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Services.Internal;
 using OutlookInspired.Win.Editors.Maps;
-using OutlookInspired.Win.Services.Internal;
+
 using MapItem = OutlookInspired.Module.BusinessObjects.MapItem;
 
 namespace OutlookInspired.Win.Features.Maps.Sales{
@@ -48,11 +46,22 @@ namespace OutlookInspired.Win.Features.Maps.Sales{
         }
 
         private void ItemsLayerOnDataLoaded(object sender, DataLoadedEventArgs e){
-            var zoomToRegionService = _mapItemListEditor.ZoomService;
-            throw new NotImplementedException();
-            // var salesPeriod = ((ISalesMapsMarker)((PropertyCollectionSource)View.CollectionSource).MasterObject).SalesPeriod;
-            // var customerStores = ObjectSpace.Stores(salesPeriod);
-            // zoomToRegionService.To(customerStores);
+            var items = ((ProxyCollection)_mapItemListEditor.DataSource).Cast<IMapItem>().ToArray();
+            double[] bounds = MapItem.GetBounds(items);
+            ZoomTo(new GeoPoint(bounds[1], bounds[0]), new GeoPoint(bounds[3], bounds[2]));
         }
+        
+        void ZoomTo(GeoPoint pointA, GeoPoint pointB, double margin = 0.2){
+            if (pointA == null || pointB == null || _mapItemListEditor.ZoomService == null) return;
+            var (latDiff, longDiff) = (pointB.Latitude - pointA.Latitude, pointB.Longitude - pointA.Longitude);
+            var (latPad, longPad) = (CalculatePadding(margin,latDiff), CalculatePadding(margin,longDiff));
+            _mapItemListEditor.ZoomService.ZoomToRegion(new GeoPoint(pointA.Latitude - latPad, pointA.Longitude - longPad),
+                new GeoPoint(pointB.Latitude + latPad, pointB.Longitude + longPad),
+                new GeoPoint((pointA.Latitude + pointB.Latitude) / 2, (pointA.Longitude + pointB.Longitude) / 2));
+        }
+        
+        static double CalculatePadding(double margin,double delta) 
+            => delta > 0 ? Math.Max(0.1, delta * margin) : delta < 0 ? Math.Min(-0.1, delta * margin) : 0;
+
     }
 }

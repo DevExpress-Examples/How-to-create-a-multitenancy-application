@@ -38,8 +38,8 @@ namespace OutlookInspired.Module.Features.Maps{
                 SalesPeriodAction.DoExecute(SalesPeriodAction.SelectedItem);
             },nameof(ISalesMapsMarker.CitySales));
         }
-        
-        MapItem[] Sales(string city = null){
+
+        MapItem[] Sales() {
             Expression<Func<OrderItem, bool>> expression = View.CurrentObject switch{
                 Customer customer => item => item.Order.Customer.ID == customer.ID,
                 Product product => item => item.Product.ID == product.ID,
@@ -50,7 +50,7 @@ namespace OutlookInspired.Module.Features.Maps{
                 .Where(item => (period == Period.ThisYear ? item.Order.OrderDate.Year == DateTime.Now.Year
                     : period == Period.ThisMonth ? item.Order.OrderDate.Month == DateTime.Now.Month &&
                                                    item.Order.OrderDate.Year == DateTime.Now.Year
-                    : period != Period.FixedDate) && (city == null || item.Order.Store.City == city))
+                    : period != Period.FixedDate) )
                 .Select(item => new{
                     CustomerName = item.Order.Customer.Name, ProductName = item.Product.Name,
                     ProductCategory = item.Product.Category,
@@ -64,10 +64,20 @@ namespace OutlookInspired.Module.Features.Maps{
         }
 
         private void SalesPeriodActionOnExecuted(object sender, ActionBaseEventArgs e){
+            var period = (Period)SalesPeriodAction.SelectedItem.Data;
             var mapItems = Sales();
             var currentObject = (ISalesMapsMarker)View.CurrentObject;
             currentObject.Sales = new ObservableCollection<MapItem>(mapItems);
             currentObject.CitySales = new ObservableCollection<MapItem>(mapItems);
+            if (!mapItems.Any()){
+                var message = "No sales found. ";
+                if (period != Period.Lifetime){
+                    message += "Switched to Lifetime sales period.";
+                    SalesPeriodAction.SelectedItem = SalesPeriodAction.Items.First(item => (Period)item.Data == Period.Lifetime);
+                    SalesPeriodAction.DoExecute(SalesPeriodAction.SelectedItem);
+                }
+                Application.ShowViewStrategy.ShowMessage(message,InformationType.Info,10000);
+            }
             View.Refresh();
         }
     }

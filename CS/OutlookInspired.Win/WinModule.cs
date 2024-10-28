@@ -11,7 +11,6 @@ using OutlookInspired.Win.Editors.ProgressEditor;
 using OutlookInspired.Win.Features.Customers;
 using OutlookInspired.Win.Features.Employees;
 using OutlookInspired.Win.Features.Evaluations;
-using OutlookInspired.Win.Features.Maps;
 using OutlookInspired.Win.Features.Maps.Sales;
 using OutlookInspired.Win.Features.Orders;
 using OutlookInspired.Win.Features.Products;
@@ -35,12 +34,11 @@ public sealed class OutlookInspiredWinModule : ModuleBase {
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes() 
         =>[typeof(FontSizeController), typeof(NewItemRowHandlingModeController),
-            typeof(PaletteEntriesController),typeof(FunnelFilterController),
-            typeof(MapsTravelModeViewController),typeof(PropertyEditorController), typeof(DisableSkinsController), 
+            typeof(PaletteEntriesController),typeof(MapsTravelModeViewController),typeof(PropertyEditorController), typeof(DisableSkinsController), 
             typeof(SplitterPositionController),typeof(MapItemListEditorController),
             typeof(SchedulerListEditorController),typeof(BlazorWebViewKeyDownController),
-            typeof(MapItemChartListEditorController),typeof(QuoteMapItemListEditorController),typeof(MapQuoteController),
-            typeof(StageViewController),typeof(EmployeeColumnViewListEditorController),
+            typeof(MapItemChartListEditorController),typeof(QuoteMapItemListEditorController),
+            typeof(WinQuoteAnalysisPivotGridListEditorController),typeof(EmployeeColumnViewListEditorController),
             typeof(CustomerColumnViewListEditorController),typeof(CustomerStoreColumnViewListEditorController),
             typeof(ProductColumnViewListEditorController),typeof(OrderColumnViewListEditorController)
         ];

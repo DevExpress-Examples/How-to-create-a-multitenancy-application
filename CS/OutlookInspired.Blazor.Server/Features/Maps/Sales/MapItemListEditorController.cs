@@ -42,7 +42,7 @@ namespace OutlookInspired.Blazor.Server.Features.Maps.Sales{
             };
             var predefinedLayer = new PredefinedLayer(){DataSource ="usa" };
             e.Layers.AddRange([predefinedLayer,pieLayer]);
-            _mapItemListEditor.Control.Bounds= MapItemListEditor.GetBounds(mapItems,predefinedLayer.Bounds());
+            _mapItemListEditor.Control.Bounds= MapItem.GetBounds(mapItems);
         }
         
     }

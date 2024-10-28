@@ -37,16 +37,21 @@
 #endregion Copyright (c) 2000-2023 Developer Express Inc.
 
 using System.Drawing;
+using System.Reflection;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base.ReportsV2;
 using DevExpress.XtraPrinting.Drawing;
 using DevExpress.XtraReports.UI;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Services.Internal;
 
 namespace OutlookInspired.Module.Resources.Reports {
 	public class ProductOrders : XtraReport {
+		
 		#region Designer generated code
-
+		private static readonly PropertyInfo ViewDataSourceObjectSpaceProperty;
+		private IObjectSpace ViewDataSourceObjectSpace => ViewDataSourceObjectSpaceProperty!.GetValue(bindingSource1) as IObjectSpace;
+		static ProductOrders() => ViewDataSourceObjectSpaceProperty = typeof(ViewDataSource).GetProperty("ObjectSpace",
+			BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 		private TopMarginBand topMarginBand1;
 		private DetailBand detailBand1;
 		private ViewDataSource bindingSource1;
@@ -1120,7 +1125,7 @@ namespace OutlookInspired.Module.Resources.Reports {
 		}
 		private void xrLabel4_BeforePrint(object sender, System.ComponentModel.CancelEventArgs e){
 			
-			Order currentOrder = (Order)bindingSource1.ObjectSpace().GetObjectByKey<Order>(GetCurrentColumnValue("Order.ID"));
+			Order currentOrder = (Order)ViewDataSourceObjectSpace.GetObjectByKey<Order>(GetCurrentColumnValue("Order.ID"));
 			if(currentOrder != null && states != null)
 				(sender as XRLabel).Text = states.Last(element => element.ShortName == currentOrder.Store.State).LongName.ToUpper();
 		}
@@ -1132,7 +1137,7 @@ namespace OutlookInspired.Module.Resources.Reports {
 
         private void xrPictureBox4_BeforePrint(object sender, System.ComponentModel.CancelEventArgs e) {
             xrPictureBox4.ImageSource = new ImageSource(false,
-                bindingSource1.ObjectSpace().GetObjectByKey<Product>(GetCurrentColumnValue<Guid>("Product.ID"))
+	            ViewDataSourceObjectSpace.GetObjectByKey<Product>(GetCurrentColumnValue<Guid>("Product.ID"))
                     ?.PrimaryImage.Data ?? Array.Empty<byte>());
 
         }

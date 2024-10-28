@@ -93,7 +93,7 @@ public sealed class OutlookInspiredModule : ModuleBase{
 		    typeof(ProductReportController),typeof(MapOrderController), typeof(MasterDetailController),typeof(ViewFilterController),
 		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController),typeof(MapOpportunitiesController),
 		    typeof(MapsSalesPeriodViewController),typeof(MapItemSalesViewController),typeof(ProtectReportActionItemsViewController),typeof(OpportunitiesListViewController),
-		    typeof(ShowReportController),typeof(QuoteAnalysisListViewController)
+		    typeof(ShowReportController),typeof(QuoteAnalysisListViewController),typeof(OpportunitiesFilterListViewController)
 	    ];
 
     public override void Setup(XafApplication application) {

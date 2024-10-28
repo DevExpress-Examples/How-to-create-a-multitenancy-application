@@ -5,7 +5,7 @@ using OutlookInspired.Module.BusinessObjects;
 
 
 namespace OutlookInspired.Blazor.Server.Features.Quotes{
-    public class OpportunitiesChartListViewController:ObjectViewController<ListView,Opportunity>{
+    public class BlazorOpportunitiesChartListViewController:ObjectViewController<ListView,Opportunity>{
         protected override void OnActivated(){
             base.OnActivated();
             Active[$"not {nameof(DxChartPieListEditor)}"] = View.Editor is DxChartPieListEditor;

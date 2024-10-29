@@ -1,7 +1,7 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.Drawing;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
@@ -10,22 +10,21 @@ namespace OutlookInspired.Module.Features.Employees{
     public class MapEmployeeController:ObjectViewController<ListView,Employee>{
         public const string MapItActionId = "MapEmployee";
         public MapEmployeeController(){
-            MapEmployeeAction = new SimpleAction(this, MapItActionId, PredefinedCategory.View){
+            MapEmployeeAction = new PopupWindowShowAction(this, MapItActionId, PredefinedCategory.View){
                 ImageName = "MapIt", PaintStyle = ActionItemPaintStyle.Image,SelectionDependencyType = SelectionDependencyType.RequireSingleObject
             };
-            MapEmployeeAction.Executed+=MapEmployeeActionOnExecuted;
+            MapEmployeeAction.CustomizePopupWindowParams+=MapEmployeeActionOnCustomizePopupWindowParams;
         }
 
-        private void MapEmployeeActionOnExecuted(object sender, ActionBaseEventArgs e){
+        private void MapEmployeeActionOnCustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e){
             var objectSpace = Application.CreateObjectSpace(typeof(Employee));
-            e.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace,
+            var createdView = Application.CreateDetailView(objectSpace,
                 (IModelDetailView)Application.Model.Views[Employee.MapsDetailView], false, objectSpace.GetObject(View.CurrentObject));
-            e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
-            e.ShowViewParameters.Controllers.Add(Application.CreateController<DialogController>());
+            e.View=createdView;
+            e.Size=new Size(1024,768);
         }
 
-
-        public SimpleAction MapEmployeeAction{ get; }
+        public PopupWindowShowAction MapEmployeeAction{ get; }
         
     }
 

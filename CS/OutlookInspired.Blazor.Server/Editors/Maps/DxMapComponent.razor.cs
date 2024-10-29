@@ -14,6 +14,7 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
             get => GetPropertyValue<IMapsMarker>();
             set => SetPropertyValue(value);
         }
+        
         public MapRouteMode MapRouteMode{
             get => GetPropertyValue<MapRouteMode>();
             set => SetPropertyValue(value);

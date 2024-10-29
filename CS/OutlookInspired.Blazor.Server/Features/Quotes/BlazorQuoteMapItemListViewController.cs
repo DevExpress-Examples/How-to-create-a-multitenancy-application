@@ -45,6 +45,8 @@ namespace OutlookInspired.Blazor.Server.Features.Quotes{
                     Data = feature.Properties.Tooltip
                 }
             ];
+            
+            _mapItemListEditor.Control.Height = "500px";
         }
         
     }

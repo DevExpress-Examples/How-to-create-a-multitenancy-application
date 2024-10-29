@@ -1,6 +1,6 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.Drawing;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
@@ -9,21 +9,20 @@ namespace OutlookInspired.Module.Features.Quotes{
     public class MapOpportunitiesController:ObjectViewController<ListView,QuoteAnalysis>{
         public const string MapItActionId = "MapOpportunity";
         public MapOpportunitiesController(){
-            MapOpportunitiesAction = new SimpleAction(this, MapItActionId, PredefinedCategory.View){
+            MapOpportunitiesAction = new PopupWindowShowAction(this, MapItActionId, PredefinedCategory.View){
                 ImageName = "MapIt", PaintStyle = ActionItemPaintStyle.Image
             };
-            MapOpportunitiesAction.Executed+=MapOpportunitiesActionOnExecuted;
+            MapOpportunitiesAction.CustomizePopupWindowParams+=MapOpportunitiesActionOnCustomizePopupWindowParams;
         }
 
-        private void MapOpportunitiesActionOnExecuted(object sender, ActionBaseEventArgs e){
+        private void MapOpportunitiesActionOnCustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e){
             var objectSpace = Application.CreateObjectSpace(typeof(QuoteMapItem));
-            e.ShowViewParameters.CreatedView = Application.CreateListView(objectSpace, typeof(QuoteMapItem),false);
-            e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
-            e.ShowViewParameters.Controllers.Add(Application.CreateController<DialogController>());
+            var createdView = Application.CreateListView(objectSpace, typeof(QuoteMapItem),false);
+            e.View=createdView;
+            e.Size=new Size(1024,768);
         }
 
-
-        public SimpleAction MapOpportunitiesAction{ get; }
+        public PopupWindowShowAction MapOpportunitiesAction{ get; }
         
     }
 }

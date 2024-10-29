@@ -70,7 +70,11 @@
       </Layout>
     </DetailView>
     <ListView Id="ApplicationUser_ListView" Caption="Users" />
-    <ListView Id="Customer_CitySales_ListView" HideToolBar="True" />
+    <ListView Id="Customer_CitySales_ListView" HideToolBar="True">
+      <HiddenActions>
+        <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
     <ListView Id="Customer_CustomerStores_ListView" IsFooterVisible="True">
       <Columns>
         <ColumnInfo Id="Customer" Index="-1" />
@@ -641,6 +645,9 @@
       </Layout>
     </DetailView>
     <DetailView Id="Employee_DetailView_Maps" FreezeLayout="True">
+      <HiddenActions>
+        <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
+      </HiddenActions>
       <Items>
         <PropertyEditor Id="Picture" PropertyName="Picture.Data" />
       </Items>
@@ -916,6 +923,9 @@
       </Layout>
     </DetailView>
     <DetailView Id="Order_DetailView_Maps" FreezeLayout="True">
+      <HiddenActions>
+        <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
+      </HiddenActions>
       <Items>
         <PropertyEditor Id="Customer" PropertyName="Customer.Name" IsNewNode="True" />
         <PropertyEditor Id="Logo" PropertyName="Customer.Logo" IsNewNode="True" />
@@ -1063,7 +1073,11 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Product_CitySales_ListView" HideToolBar="True" />
+    <ListView Id="Product_CitySales_ListView" HideToolBar="True">
+      <HiddenActions>
+        <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
     <DetailView Id="Product_DetailView" FreezeLayout="True">
       <Items>
         <PropertyEditor Id="PrimaryImage" PropertyName="PrimaryImage.Data" />
@@ -1276,7 +1290,11 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="QuoteMapItem_ListView" DataAccessMode="Client" />
+    <ListView Id="QuoteMapItem_ListView" DataAccessMode="Client">
+      <HiddenActions>
+        <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
     <ListView Id="Recent_OrderItems_ListView" Criteria="IsThisMonth([Order.OrderDate]) Or IsLastMonth([Order.OrderDate])" IsFooterVisible="True">
       <Columns>
         <ColumnInfo Id="Order">

@@ -1,7 +1,7 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.Drawing;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
@@ -10,22 +10,21 @@ namespace OutlookInspired.Module.Features.Products{
     public class MapProductController:ObjectViewController<ObjectView,Product>{
         public const string MapItActionId = "MapProduct";
         public MapProductController(){
-            MapProductAction = new SimpleAction(this, MapItActionId, PredefinedCategory.View){
+            MapProductAction = new PopupWindowShowAction(this, MapItActionId, PredefinedCategory.View){
                 ImageName = "MapIt", PaintStyle = ActionItemPaintStyle.Image,SelectionDependencyType = SelectionDependencyType.RequireSingleObject
             };
-            MapProductAction.Executed+=MapProductActionOnExecuted;
+            MapProductAction.CustomizePopupWindowParams+=MapProductActionOnCustomizePopupWindowParams;
         }
 
-        private void MapProductActionOnExecuted(object sender, ActionBaseEventArgs e){
+        private void MapProductActionOnCustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e){
             var objectSpace = Application.CreateObjectSpace(typeof(Product));
-            e.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace,
+            var createdView = Application.CreateDetailView(objectSpace,
                 (IModelDetailView)Application.Model.Views[Product.MapsDetailView], false, objectSpace.GetObject(View.CurrentObject));
-            e.ShowViewParameters.TargetWindow=TargetWindow.NewModalWindow;
-            e.ShowViewParameters.Controllers.Add(Application.CreateController<DialogController>());
+            e.View=createdView;
+            e.Size=new Size(1024,768);
         }
 
-
-        public SimpleAction MapProductAction{ get; }
+        public PopupWindowShowAction MapProductAction{ get; }
         
     }
 }

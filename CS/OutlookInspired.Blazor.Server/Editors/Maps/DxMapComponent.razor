@@ -1,7 +1,7 @@
 ﻿@using DevExpress.Persistent.Base
 @using OutlookInspired.Module.Features.Maps
 @inject IMapApiKeyProvider ApiKeyProvider
-<DxMap Provider="MapProvider.Bing" Width="100%" Height="600px" Zoom="16">
+<DxMap Provider="MapProvider.Bing" Width="100%" Height="550px" Zoom="16">
     <DxMapCenter GeoPosition="@GetLocation(Center)" />
     <DxMapApiKeys Bing="@ApiKeyProvider.Key"></DxMapApiKeys>
     <DxMapMarkers>

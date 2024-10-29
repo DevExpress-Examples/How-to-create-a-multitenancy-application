@@ -8,7 +8,7 @@ namespace OutlookInspired.Module.Features.Reports{
         SingleChoiceAction ReportAction{ get; }
     }
 
-    [Obsolete]
+    
     public class ProtectReportActionItemsViewController:ViewController{
         protected override void OnViewControllersActivated(){
             base.OnViewControllersActivated();

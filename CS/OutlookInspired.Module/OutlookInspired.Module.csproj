@@ -175,7 +175,4 @@
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Features\Security\" />
-  </ItemGroup>
 </Project>

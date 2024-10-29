@@ -3,7 +3,7 @@ using OutlookInspired.Blazor.Server.Editors.Maps;
 using OutlookInspired.Module.BusinessObjects;
 using MapItem = OutlookInspired.Module.BusinessObjects.MapItem;
 
-namespace OutlookInspired.Blazor.Server.Features.Maps.Sales{
+namespace OutlookInspired.Blazor.Server.Features.Maps{
     public class MapItemListEditorController:ObjectViewController<ListView,MapItem>{
         
         private MapItemListEditor _mapItemListEditor;
@@ -43,6 +43,7 @@ namespace OutlookInspired.Blazor.Server.Features.Maps.Sales{
             var predefinedLayer = new PredefinedLayer(){DataSource ="usa" };
             e.Layers.AddRange([predefinedLayer,pieLayer]);
             _mapItemListEditor.Control.Bounds= MapItem.GetBounds(mapItems);
+            _mapItemListEditor.Control.Height = "500px";
         }
         
     }

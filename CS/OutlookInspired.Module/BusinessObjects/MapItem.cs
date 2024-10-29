@@ -42,15 +42,26 @@ namespace OutlookInspired.Module.BusinessObjects{
             throw new InvalidOperationException(name);
         }
 
-        public static double[] GetBounds<TMapItem>( TMapItem[] mapItems,double[] defaultBounds=null) where TMapItem:IMapItem
-            => !mapItems.Any() ? (defaultBounds??PredefinedBound("usa")) : 
-                new[]{(mapItems.Min(item => item.Longitude) - (mapItems.Max(item => item.Longitude) - mapItems.Min(item => item.Longitude)) * 0.1)}
-                    .Concat(new[]{mapItems.Max(item => item.Latitude) + (mapItems.Max(item => item.Latitude) - mapItems.Min(item => item.Latitude)) * 0.1}.AsEnumerable())
-                    .Concat(new[]{mapItems.Max(item => item.Longitude) + (mapItems.Max(item => item.Longitude) - mapItems.Min(item => item.Longitude)) * 0.1}.AsEnumerable())
-                    .Concat(new[]{mapItems.Min(item => item.Latitude) - (mapItems.Max(item => item.Latitude) - mapItems.Min(item => item.Latitude)) * 0.1}.AsEnumerable()).ToArray();
-
-        
-
-        
+        public static double[] GetBounds<TMapItem>( TMapItem[] mapItems,double[] defaultBounds=null) where TMapItem:IMapItem{
+            var factor = 0.2;
+            return !mapItems.Any()
+                ? (defaultBounds ?? PredefinedBound("usa"))
+                : new[]{
+                        (mapItems.Min(item => item.Longitude) -
+                         (mapItems.Max(item => item.Longitude) - mapItems.Min(item => item.Longitude)) * factor)
+                    }
+                    .Concat(new[]{
+                        mapItems.Max(item => item.Latitude) +
+                        (mapItems.Max(item => item.Latitude) - mapItems.Min(item => item.Latitude)) * factor
+                    }.AsEnumerable())
+                    .Concat(new[]{
+                        mapItems.Max(item => item.Longitude) +
+                        (mapItems.Max(item => item.Longitude) - mapItems.Min(item => item.Longitude)) * factor
+                    }.AsEnumerable())
+                    .Concat(new[]{
+                        mapItems.Min(item => item.Latitude) -
+                        (mapItems.Max(item => item.Latitude) - mapItems.Min(item => item.Latitude)) * factor
+                    }.AsEnumerable()).ToArray();
+        }
     }
 }

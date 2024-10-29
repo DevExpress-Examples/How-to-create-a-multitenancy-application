@@ -1,13 +1,15 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.Map.Dashboard;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraMap;
 using OutlookInspired.Module.BusinessObjects;
+using OutlookInspired.Module.Features.Quotes;
 using OutlookInspired.Win.Editors.Maps;
 using GeoPoint = DevExpress.DashboardExport.Map.GeoPoint;
 
 namespace OutlookInspired.Win.Features.Quotes{
-    public class QuoteMapItemListEditorController:ObjectViewController<ListView,QuoteMapItem>{
+    public class WinQuoteMapItemListEditorController:ObjectViewController<ListView,QuoteMapItem>{
         private MapItemListEditor _mapItemListEditor;
         private readonly MapCallout _callOut = new(){ AllowHtmlText = true };
 
@@ -21,6 +23,7 @@ namespace OutlookInspired.Win.Features.Quotes{
             _mapItemListEditor.CreateDataAdapter+=OnCreateAdapter;
             _mapItemListEditor.SelectionChanged+=MapItemListEditorOnSelectionChanged;
             _mapItemListEditor.ControlsCreated+=MapItemListEditorOnControlsCreated;
+            Frame.GetController<QuoteMapItemListViewController>().StageAction.Executed+=StageActionOnExecuted;
         }
 
         protected override void OnDeactivated(){
@@ -29,33 +32,28 @@ namespace OutlookInspired.Win.Features.Quotes{
             _mapItemListEditor.CreateDataAdapter -= OnCreateAdapter;
             _mapItemListEditor.SelectionChanged-=MapItemListEditorOnSelectionChanged;
             _mapItemListEditor.ControlsCreated-=MapItemListEditorOnControlsCreated;
+            Frame.GetController<QuoteMapItemListViewController>().StageAction.Executed-=StageActionOnExecuted;
         }
+
+        private void StageActionOnExecuted(object sender, ActionBaseEventArgs e) 
+            => _mapItemListEditor.ItemsLayer.ItemStyle.Fill = ColorTranslator.FromHtml(SalesPeriod.Color());
 
         private void MapItemListEditorOnSelectionChanged(object sender, EventArgs e){
             var mapItem = View.SelectedObjects.Cast<QuoteMapItem>().FirstOrDefault();
             if (mapItem==null) return;
             _callOut.Location = new GeoPoint(mapItem.Latitude, mapItem.Longitude);
-            _callOut.Text = OpportunityCallout(mapItem);
+            var opportunity = ObjectSpace.GetObjectsQuery<QuoteMapItem>().Where(q => q.City == mapItem.City&&q.Stage==mapItem.Stage)
+                .Sum(item => item.Total);
+            _callOut.Text = $"TOTAL<br><color=206,113,0><b><size=+4>{opportunity}</color></size></b><br>{mapItem.City}";
         }
-
-        string OpportunityCallout(QuoteMapItem item) 
-            => $"TOTAL<br><color=206,113,0><b><size=+4>{Opportunity(item.Stage, item.City)}</color></size></b><br>{item.City}";
         
-        decimal Opportunity(Stage stage,string city)    
-            => Quotes(stage).Where(q => q.CustomerStore.City == city).Sum(q => q.Total);
-
-        public static IQueryable<Quote> Quotes( Stage stage,string criteria=null) 
-            // => ((IQueryable<Quote>)((EFCoreObjectSpace)objectSpace).Query(typeof(Quote), criteria)).Where(stage);
-            => throw new NotImplementedException();
         private void MapItemListEditorOnControlsCreated(object sender, EventArgs e)
             => _mapItemListEditor.Control.Layers.Add(new VectorItemsLayer
                 { Data = new MapItemStorage{ Items ={ _callOut } } });
 
         private void OnCreateAdapter(object sender, DataAdapterArgs e){
             _mapItemListEditor.ItemsLayer.ToolTipPattern = $"{nameof(QuoteMapItem.City)}:%A% {nameof(QuoteMapItem.Value)}:%V%";
-            var quote = ((Quote)((PropertyCollectionSource)View.CollectionSource).MasterObject);
-            throw new NotImplementedException();
-            // _mapItemListEditor.ItemsLayer.ItemStyle.Fill = quote.PaletteEntries[Array.IndexOf(Enum.GetValues(typeof(Stage)), quote.Stage)].Color;
+            _mapItemListEditor.ItemsLayer.ItemStyle.Fill = ColorTranslator.FromHtml(SalesPeriod.Color());
             e.Adapter = new BubbleChartDataAdapter(){
                 Mappings ={
                     Latitude = nameof(QuoteMapItem.Latitude), Longitude = nameof(QuoteMapItem.Longitude),
@@ -70,10 +68,10 @@ namespace OutlookInspired.Win.Features.Quotes{
             _mapItemListEditor.ItemsLayer.DataLoaded+=ItemsLayerOnDataLoaded;
         }
 
-        // private Stage SalesPeriod => ((Quote)((PropertyCollectionSource)View.CollectionSource).MasterObject).Stage;
-        private Stage SalesPeriod => throw new NotImplementedException();
+        
+        private Stage SalesPeriod => (Stage)Frame.GetController<QuoteMapItemListViewController>().StageAction.SelectedItem.Data;
         private void ItemsLayerOnDataLoaded(object sender, DataLoadedEventArgs e) 
-            => ZoomTo(_mapItemListEditor.ZoomService,Stores(SalesPeriod));
+            => ZoomTo(_mapItemListEditor.ZoomService,(IEnumerable<IMapsMarker>)((ProxyCollection)_mapItemListEditor.DataSource).OriginalCollection);
         
         void ZoomTo( IZoomToRegionService zoomService, IEnumerable<IMapsMarker> mapsMarkers, double margin = 0.25){
             var points = mapsMarkers.Select(ToGeoPoint).Where(p => p != null && !Equals(p, new GeoPoint(0, 0))).ToList();
@@ -93,12 +91,6 @@ namespace OutlookInspired.Win.Features.Quotes{
         
         static double CalculatePadding(double margin,double delta) 
             => delta > 0 ? Math.Max(0.1, delta * margin) : delta < 0 ? Math.Min(-0.1, delta * margin) : 0;
-
-
-
         
-        CustomerStore[] Stores( Stage stage) 
-            => Quotes(stage).Select(quote => quote.CustomerStore).Distinct().ToArray();
-
     }
 }

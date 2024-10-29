@@ -16,7 +16,10 @@ namespace OutlookInspired.Module.Features.Quotes{
             StageAction.Items.AddRange(Enum.GetValues<Stage>().Where(stage => stage!=Stage.Summary)
                 .Select(stage => new ChoiceActionItem(stage.ToString(), stage){ImageName = ImageLoader.Instance.GetEnumValueImageName(stage)}).ToArray());
             StageAction.SelectedItem = StageAction.Items.First();
+            StageAction.Executed+=StageActionOnExecuted;
         }
+
+        private void StageActionOnExecuted(object sender, ActionBaseEventArgs e) => View.Editor.Refresh();
 
         public SingleChoiceAction StageAction{ get; }
         
@@ -24,13 +27,14 @@ namespace OutlookInspired.Module.Features.Quotes{
             base.OnActivated();
             ((NonPersistentObjectSpace)ObjectSpace).ObjectsGetting+=OnObjectsGetting;
             View.CollectionSource.ResetCollection(true);
+            
         }
-        
+
         protected override void OnDeactivated(){
             base.OnDeactivated();
             ((NonPersistentObjectSpace)ObjectSpace).ObjectsGetting-=OnObjectsGetting;
         }
-        
+
         private Stage Stage => (Stage)StageAction.SelectedItem.Data;
         private void OnObjectsGetting(object sender, ObjectsGettingEventArgs e) 
             => e.Objects=Enum.GetValues<Stage>().Where(stage1 => stage1==Stage)

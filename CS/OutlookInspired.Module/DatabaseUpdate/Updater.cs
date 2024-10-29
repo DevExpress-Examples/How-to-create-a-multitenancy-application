@@ -38,8 +38,9 @@ public class Updater(IObjectSpace objectSpace, Version currentDBVersion) : Modul
     public override void UpdateDatabaseAfterUpdateSchema() {
         base.UpdateDatabaseAfterUpdateSchema();
         if (!ObjectSpace.CanInstantiate(typeof(ApplicationUser))) return;
-        if (!ObjectSpace.CanInstantiate(typeof(Tenant))) return;
+        
         if (ObjectSpace.ServiceProvider.GetRequiredService<ITenantProvider>().TenantName == null) {
+            if (!ObjectSpace.CanInstantiate(typeof(Tenant))) return;
             CreateAdminObjects();
             CreateTenant("company1.com", "OutlookInspired_company1");
             CreateTenant("company2.com", "OutlookInspired_company2");

@@ -33,7 +33,7 @@ public class OutlookInspiredDesignTimeDbContextFactory : IDesignTimeDbContextFac
 [TypesInfoInitializer(typeof(OutlookInspiredContextInitializer))]
 public class OutlookInspiredEFCoreDbContext(DbContextOptions<OutlookInspiredEFCoreDbContext> options)
 	: DbContext(options){
-	public DbSet<Tenant> Tenants { get; set; }
+	
 	public DbSet<ModelDifference> ModelDifferences { get; set; }
 	public DbSet<ModelDifferenceAspect> ModelDifferenceAspects { get; set; }
 	public DbSet<PermissionPolicyRole> Roles { get; set; }

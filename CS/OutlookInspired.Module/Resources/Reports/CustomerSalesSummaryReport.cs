@@ -139,7 +139,6 @@ namespace OutlookInspired.Module.Resources.Reports {
         private Parameter Customer;
         private Parameter OrderDate;
         private Parameter paramToDate;
-		[Obsolete]
 		public CustomerSalesSummaryReport() {
 			InitializeComponent();
 			// ParameterHelper.InitializeDateTimeParameters(paramFromDate, paramToDate);

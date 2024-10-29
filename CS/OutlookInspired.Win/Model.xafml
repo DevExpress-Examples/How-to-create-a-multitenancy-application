@@ -328,7 +328,9 @@
         <ColumnInfo Id="ShipmentStatus" ImageEditorFixedWidth="30" />
       </Columns>
     </ListView>
-    <ListView Id="Order_ListView_Detail" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor" DataAccessMode="Server" />
+    <ListView Id="Order_ListView_Detail" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor" DataAccessMode="Server">
+      <SplitLayout RelativePosition="70" />
+    </ListView>
     <DetailView Id="Product_Brochure_DetailView">
       <Layout>
         <LayoutGroup Id="Main">

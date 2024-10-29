@@ -9,22 +9,13 @@ using DevExpress.Persistent.Base;
 using DevExpress.XtraCharts;
 using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.CloneView;
-using EditorAliases = OutlookInspired.Module.EditorAliases;
 
 
 namespace OutlookInspired.Module.BusinessObjects{
     [ImageName("BO_Quote")]
-    [CloneView(CloneViewType.DetailView, MapsDetailView)]
     [CloneView(CloneViewType.DetailView, PivotDetailView)]
     [Appearance("Hide FullTextSearch action",AppearanceItemType.Action, "1=1",TargetItems = FilterController.FullTextSearchActionId,Visibility = ViewItemVisibility.Hide)]
     public class Quote :OutlookInspiredBaseObject, IViewFilter,IMapsMarker{
-        [Obsolete]
-        public string City => CustomerStore.City;
-        [Obsolete]
-        public StateEnum State => CustomerStore.State;
-        [Obsolete]
-        public const string MapsDetailView = "Quote_DetailView_Maps";
-        
         public const string PivotDetailView = "Quote_DetailView_Pivot";
         
         [MaxLength(20)]

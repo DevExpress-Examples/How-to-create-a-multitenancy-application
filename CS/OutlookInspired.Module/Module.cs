@@ -5,7 +5,6 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.ReportsV2;
-using OutlookInspired.Module.Controllers;
 using OutlookInspired.Module.Features.CloneView;
 using OutlookInspired.Module.Features.Customers;
 using OutlookInspired.Module.Features.Employees;
@@ -14,7 +13,6 @@ using OutlookInspired.Module.Features.Products;
 using OutlookInspired.Module.Features.Quotes;
 using OutlookInspired.Module.ModelUpdaters;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Common;
 using OutlookInspired.Module.Features;
 using OutlookInspired.Module.Features.Maps;
 using OutlookInspired.Module.Features.Reports;
@@ -73,12 +71,11 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	    predefinedReportsUpdater.AddPredefinedReport<SalesRevenueAnalysisReport>(RevenueAnalysis, typeof(Order));
     }
 
-    PredefinedReportsUpdater AddCustomerReports( PredefinedReportsUpdater predefinedReportsUpdater){
+    void AddCustomerReports(PredefinedReportsUpdater predefinedReportsUpdater){
 	    predefinedReportsUpdater.AddPredefinedReport<CustomerContactsDirectory>(Contacts, typeof(Customer));
 	    predefinedReportsUpdater.AddPredefinedReport<CustomerLocationsDirectory>(LocationsReport, typeof(Customer));
 	    predefinedReportsUpdater.AddPredefinedReport<CustomerSalesSummaryReport>(SalesSummaryReport, typeof(Customer));
 	    predefinedReportsUpdater.AddPredefinedReport<CustomerProfile>(CustomerProfile, typeof(Customer));
-	    return predefinedReportsUpdater;
     }
     void AddProductReports(PredefinedReportsUpdater predefinedReportsUpdater){
 	    predefinedReportsUpdater.AddPredefinedReport<ProductOrders>(OrdersReport, typeof(Product));
@@ -88,9 +85,10 @@ public sealed class OutlookInspiredModule : ModuleBase{
     }
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes() 
-	    =>[typeof(MailMergeController),typeof(CustomerReportController),typeof(QuoteMapItemListViewController),typeof(HideToolBarController),
-		    typeof(CommunicationController),typeof(FollowUpController),typeof(InvoiceReportDocumentController),typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(Features.Orders.OrdersReportController),typeof(ShipmentDetailController),
-		    typeof(ProductReportController),typeof(MapOrderController), typeof(ViewFilterController),
+	    =>[typeof(MailMergeController),typeof(CustomerReportController),typeof(QuoteMapItemListViewController),
+		    typeof(CommunicationController),typeof(FollowUpController),typeof(InvoiceReportDocumentController),
+		    typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(OrdersReportController),
+		    typeof(ShipmentDetailController), typeof(ProductReportController),typeof(MapOrderController), typeof(ViewFilterController),
 		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController),typeof(MapOpportunitiesController),
 		    typeof(MapsSalesPeriodViewController),typeof(ProtectReportActionItemsViewController),typeof(OpportunitiesListViewController),
 		    typeof(ShowReportController),typeof(QuoteAnalysisListViewController),typeof(OpportunitiesFilterListViewController)
@@ -116,7 +114,11 @@ public sealed class OutlookInspiredModule : ModuleBase{
 
 	public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
 	    base.AddGeneratorUpdaters(updaters);
-	    foreach (var updater in new IModelNodesGeneratorUpdater[]{new CloneViewUpdater(),  new DataAccessModeUpdater(),new NavigationItemsModelUpdater(),new DashboardViewsModelUpdater()}){
+	    var generatorUpdaters = new IModelNodesGeneratorUpdater[]{
+		    new CloneViewUpdater(), new DataAccessModeUpdater(), new NavigationItemsModelUpdater(),
+		    new DashboardViewsModelUpdater()
+	    };
+	    foreach (var updater in generatorUpdaters){
 		    updaters.Add(updater);    
 	    }
 	    

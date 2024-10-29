@@ -1,16 +1,10 @@
-using System.ComponentModel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
 using OutlookInspired.Module;
 
 namespace OutlookInspired.Win.Controllers{
-    public interface IModelListViewSplitterRelativePosition{
-        [Category(OutlookInspiredModule.ModelCategory)]
-        int RelativePosition{ get; set; }
-    }
     
-    public class SplitterPositionController : ViewController<ListView>,IModelExtender {
+    public class SplitterPositionController : ViewController<ListView> {
         Control _container;
 
         protected override void OnActivated(){
@@ -48,7 +42,5 @@ namespace OutlookInspired.Win.Controllers{
             _container.Layout -= Container_Layout ;
         }
 
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) 
-            => extenders.Add<IModelListViewSplitLayout,IModelListViewSplitterRelativePosition>();
     }
 }

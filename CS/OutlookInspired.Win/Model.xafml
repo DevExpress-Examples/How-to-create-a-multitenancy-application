@@ -50,7 +50,7 @@
       <Columns>
         <ColumnInfo Id="Logo" ImageSizeMode="CenterImage" />
       </Columns>
-      <SplitLayout RelativePosition="70" SplitterPosition="600" />
+      
     </ListView>
     <DetailView Id="CustomerLayoutView_DetailView">
       <Layout>
@@ -58,7 +58,7 @@
       </Layout>
     </DetailView>
     <ListView Id="CustomerLayoutView_ListView" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor" DataAccessMode="Client">
-      <SplitLayout SplitterPosition="600" RelativePosition="70" />
+      
     </ListView>
     <ListView Id="Employee_AssignedTasks_ListView_Child">
       <Columns>
@@ -206,7 +206,6 @@
       <Columns>
         <ColumnInfo Id="User" PropertyEditorType="OutlookInspired.Win.Editors.HyperLinkPropertyEditor" />
       </Columns>
-      <SplitLayout SplitterPosition="1262" RelativePosition="70" />
     </ListView>
     <ListView Id="Employee_ListView_Card" ClassName="OutlookInspired.Module.BusinessObjects.Employee" AutoExpandAllGroups="True" IsGroupPanelVisible="True" MasterDetailView="Employee_DetailView_Child" ShowFindPanel="True" DataAccessMode="Client" IsNewNode="True">
       <Columns IsNewNode="True">
@@ -235,10 +234,10 @@
         <ColumnInfo Id="ZipCode" PropertyName="ZipCode" Index="6" IsNewNode="True" />
         <ColumnInfo Id="Email" PropertyName="Email" Index="7" IsNewNode="True" />
       </Columns>
-      <SplitLayout SplitterPosition="1262" IsNewNode="True" />
+      
     </ListView>
     <ListView Id="EmployeeLayoutView_ListView" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Employee_DetailView_Child">
-      <SplitLayout RelativePosition="70" />
+      
     </ListView>
     <ListView Id="Evaluation_ListView" SchedulerViewType="Month" SelectedIntervalStart="2019-12-01" SelectedIntervalEnd="2019-12-31" ResourceClass="OutlookInspired.Module.BusinessObjects.Employee" />
     <ListView Id="Event_ListView" ResourceClass="" />
@@ -329,7 +328,7 @@
       </Columns>
     </ListView>
     <ListView Id="Order_ListView_Detail" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor" DataAccessMode="Server">
-      <SplitLayout RelativePosition="70" />
+      
     </ListView>
     <DetailView Id="Product_Brochure_DetailView">
       <Layout>
@@ -363,9 +362,11 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Product_ListView" ShowFindPanel="True" />
+    <ListView Id="Product_ListView" ShowFindPanel="True">
+      
+    </ListView>
     <ListView Id="ProductLayoutView_ListView" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor" DataAccessMode="Client">
-      <SplitLayout RelativePosition="70" />
+      
     </ListView>
     <ListView Id="QuoteAnalysis_ListView" EditorTypeName="DevExpress.ExpressApp.PivotGrid.Win.PivotGridListEditor" DataAccessMode="Client">
       <Columns>

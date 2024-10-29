@@ -211,6 +211,7 @@
       </Columns>
     </ListView>
     <ListView Id="Customer_ListView" MasterDetailMode="ListViewAndDetailView" DataAccessMode="Client" MasterDetailView="Customer_DetailView_Child">
+      <SplitLayout RelativePosition="70" />
       <Variants Current="List">
         <Variant Id="List" ViewID="Customer_ListView" Caption="List" Index="0" IsNewNode="True" />
         <Variant Id="Card" ViewID="CustomerLayoutView_ListView" Caption="Card" IsNewNode="True" />
@@ -336,7 +337,9 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="CustomerLayoutView_ListView" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Customer_DetailView_Child" />
+    <ListView Id="CustomerLayoutView_ListView" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Customer_DetailView_Child">
+      <SplitLayout RelativePosition="70" />
+    </ListView>
     <DetailView Id="CustomerStore_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -709,7 +712,7 @@
         <ColumnInfo Id="Department" GroupIndex="0" SortOrder="Ascending" Index="3" />
         <ColumnInfo Id="Email" Index="4" Width="171" />
       </Columns>
-      <SplitLayout SplitterPosition="600" />
+      <SplitLayout SplitterPosition="1262" RelativePosition="70" />
       <Variants Current="List">
         <Variant Id="List" ViewID="Employee_ListView" Caption="List" Index="0" IsNewNode="True" />
         <Variant Id="Card" ViewID="EmployeeLayoutView_ListView" Caption="Card" Index="1" IsNewNode="True" />
@@ -723,15 +726,8 @@
         <ActionLink ActionId="Save" IsNewNode="True" />
       </HiddenActions>
     </ListView>
-    <DetailView Id="EmployeeLayoutView_DetailView" FreezeLayout="True">
-      <Layout IsNewNode="True" Removed="True">
-        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Main" IsNewNode="True">
-          <LayoutItem Id="EmployeesLayoutView" ViewItem="EmployeesLayoutView" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
     <ListView Id="EmployeeLayoutView_ListView" MasterDetailMode="ListViewAndDetailView" DataAccessMode="Client" MasterDetailView="Employee_DetailView_Child">
-      <SplitLayout SplitterPosition="600" />
+      <SplitLayout SplitterPosition="600" RelativePosition="70" />
     </ListView>
     <ListView Id="EmployeeTask_AttachedFiles_ListView" MasterDetailMode="ListViewAndDetailView">
       <SplitLayout RelativePosition="30" />
@@ -997,7 +993,7 @@
       </Variants>
     </ListView>
     <ListView Id="Order_ListView_Detail" DataAccessMode="ServerView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Order_DetailView_Child">
-      <SplitLayout SplitterPosition="700" />
+      <SplitLayout SplitterPosition="0" RelativePosition="70" />
     </ListView>
     <DetailView Id="OrderGridView_DetailView" FreezeLayout="True">
       <Layout IsNewNode="True" Removed="True">
@@ -1180,7 +1176,7 @@
         <ActionLink ActionId="Save" IsNewNode="True" />
         <ActionLink ActionId="SaveAndClose" IsNewNode="True" />
       </HiddenActions>
-      <SplitLayout SplitterPosition="800" />
+      <SplitLayout SplitterPosition="0" RelativePosition="70" />
       <Variants Current="List">
         <Variant Id="List" ViewID="Product_ListView" Caption="List" Index="0" IsNewNode="True" />
         <Variant Id="Card" ViewID="ProductLayoutView_ListView" Caption="Card" IsNewNode="True" />
@@ -1218,17 +1214,8 @@
         <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
       </HiddenActions>
     </ListView>
-    <DetailView Id="ProductCardView_DetailView" FreezeLayout="True">
-      <Layout IsNewNode="True" Removed="True">
-        <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
-          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" IsNewNode="True">
-            <LayoutItem Id="ProductCardView" ViewItem="ProductCardView" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
     <ListView Id="ProductLayoutView_ListView" DataAccessMode="Client" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Product_Brochure_DetailView">
-      <SplitLayout SplitterPosition="800" />
+      <SplitLayout SplitterPosition="0" RelativePosition="70" />
     </ListView>
     <DetailView Id="Quote_DetailView">
       <Layout>
@@ -1249,19 +1236,6 @@
           </LayoutGroup>
           <LayoutGroup Id="QuoteItems_Group" Direction="Vertical" RelativeSize="91.31374243733794">
             <LayoutItem Id="QuoteItems" RelativeSize="100" />
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
-    <DetailView Id="Quote_DetailView_Maps">
-      <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="100" Caption="SimpleEditors">
-            <LayoutItem Id="Opportunities" ViewItem="Opportunities" Index="0" RelativeSize="100" IsNewNode="True" />
-            <LayoutGroup Id="Quote" Removed="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="QuoteItems_Group" Direction="Vertical" RelativeSize="81.92133131618759" Removed="True">
-            <LayoutItem Id="QuoteItems" ViewItem="QuoteItems" RelativeSize="100" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>

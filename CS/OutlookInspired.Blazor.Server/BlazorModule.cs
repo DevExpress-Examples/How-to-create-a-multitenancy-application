@@ -25,13 +25,14 @@ public sealed class OutlookInspiredBlazorModule : ModuleBase {
     }
 
     protected override IEnumerable<Type> GetDeclaredControllerTypes()
-        =>[typeof(EmployeeEvaluationsController), typeof(SchedulerGroupTypeController), typeof(DxGridListEditorController),typeof(CustomerListViewDetailRowController),
-            typeof(EmployeeTasksController), typeof(MapsTravelModeViewController),typeof(MapsTravelModeViewController),typeof(PopupWindowSizeController),
-            typeof(ViewFilterDeleteController),typeof(WelcomeController), typeof(DisableInlineRowActionController),
-            typeof(SalesMapItemDxChartListEditorController),typeof(MapItemListEditorController),typeof(BlazorQuoteMapItemListViewController),
-            typeof(BlazorQuoteAnalysisPivotGridListEditorController),typeof(BlazorOpportunitiesChartListViewController),typeof(EmployeeLayoutViewController),typeof(CustomerLayoutViewController),
+        =>[typeof(EmployeeEvaluationsController), typeof(SchedulerGroupTypeController), typeof(DxGridListEditorController),
+            typeof(CustomerListViewDetailRowController), typeof(EmployeeTasksController), typeof(MapsTravelModeViewController),
+            typeof(MapsTravelModeViewController),typeof(PopupWindowSizeController), typeof(ViewFilterDeleteController),typeof(WelcomeController)
+            , typeof(DisableInlineRowActionController), typeof(SalesMapItemDxChartListEditorController),typeof(MapItemListEditorController),
+            typeof(BlazorQuoteMapItemListViewController), typeof(BlazorQuoteAnalysisPivotGridListEditorController),
+            typeof(BlazorOpportunitiesChartListViewController),typeof(EmployeeLayoutViewController),typeof(CustomerLayoutViewController),
             typeof(CustomerLayoutViewController),typeof(CustomerStoresLayoutViewController),typeof(ProductLayoutViewController),
-            typeof(OrderListViewDetailRowController)
+            typeof(OrderListViewDetailRowController),typeof(SplitSizeController)
         ];
 
     public override void Setup(XafApplication application) {

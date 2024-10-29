@@ -62,7 +62,7 @@ public class ApplicationBuilder : IDesignTimeApplicationFactory {
             .Context.Security
             .UseMiddleTierMode(options => {
                 options.WaitForMiddleTierServerReady();
-                options.BaseAddress = new Uri("https://localhost:44319/");
+                options.BaseAddress = new Uri("https://localhost:5001/");
                 options.Events.OnHttpClientCreated = client => client.DefaultRequestHeaders.Add("Accept", "application/json");
                 options.Events.OnCustomAuthenticate = (_, _, args) => {
                     args.Handled = true;

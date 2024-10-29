@@ -18,7 +18,7 @@
             var layers = Layers.Select(layer => layer.GetType().GetProperties()
                 .ToDictionary(prop => FirstCharacterToLower(prop.Name), prop => prop.GetValue(layer)));
             var customAttributes = CustomAttributes.Select(FirstCharacterToLower).ToArray();
-            _map = await _mapModule.InvokeAsync<IJSObjectReference>("addMapToElement", _mapElement,layers,
+            _map = await _mapModule.InvokeAsync<IJSObjectReference>("addMapToElement", _mapElement,Height,layers,
                 Bounds,customAttributes,Annotations,  _dotNetHelper);
         }
     }
@@ -30,6 +30,8 @@
     public IEnumerable<BaseLayer> Layers{ get; set; }
     [Parameter]
     public double[] Bounds{ get; set; }
+    [Parameter]
+    public string Height{ get; set; }
     [Parameter]
     public string[] CustomAttributes{ get; set; }
     [Parameter]

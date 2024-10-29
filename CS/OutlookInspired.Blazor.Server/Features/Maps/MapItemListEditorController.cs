@@ -43,6 +43,7 @@ namespace OutlookInspired.Blazor.Server.Features.Maps{
             var predefinedLayer = new PredefinedLayer(){DataSource ="usa" };
             e.Layers.AddRange([predefinedLayer,pieLayer]);
             _mapItemListEditor.Control.Bounds= MapItem.GetBounds(mapItems);
+            _mapItemListEditor.Control.Height = "500px";
         }
         
     }

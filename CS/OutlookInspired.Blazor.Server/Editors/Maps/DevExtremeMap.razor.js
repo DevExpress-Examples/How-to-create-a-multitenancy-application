@@ -3,12 +3,13 @@ const dataSourceMap = {
 };
 
 
-export function addMapToElement(element, layers, bounds, attributes, annotationData, dotNetHelper) {
+export function addMapToElement(element,height, layers, bounds, attributes, annotationData, dotNetHelper) {
     layers[0].dataSource = dataSourceMap[layers[0].dataSource];
 
     return  $(element).dxVectorMap({
         layers: layers,
         bounds: bounds,
+        height: height,
         tooltip: {
             enabled: true,
             zIndex: 10000,

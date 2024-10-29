@@ -28,6 +28,10 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
             get => GetPropertyValue<List<Annotation>>()??new();
             set => SetPropertyValue(value);
         }
+        public string Height{
+            get => GetPropertyValue<string>();
+            set => SetPropertyValue(value);
+        }
     }
     
     public class BaseLayer{

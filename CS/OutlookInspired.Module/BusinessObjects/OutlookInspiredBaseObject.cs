@@ -7,13 +7,12 @@ using DevExpress.Persistent.BaseImpl.EF;
 using OutlookInspired.Module.Attributes.Appearance;
 
 namespace OutlookInspired.Module.BusinessObjects{
-    [DeactivateAction("ShowInDocument",Context = "Any;Employee_ListView;" + Employee.LayoutViewDetailView)]
+    [DeactivateAction("ShowInDocument",Context = "Any;Employee_ListView;")]
     [DeactivateAction("Save", "SaveAndClose", "SaveAndNew", "ShowAllContexts", "NextObject", "PreviousObject",
-        Context = Customer.GridViewDetailView + ";" + Customer.LayoutViewDetailView + ";" +
-                  Employee.LayoutViewDetailView + ";" + Product.CardViewDetailView + ";" + Order.GridViewDetailView)]
+        Context = Customer.GridViewDetailView + ";" + Customer.LayoutViewDetailView + ";" + Order.GridViewDetailView)]
     [DeactivateAction("OpenObject",
         Context = Customer.MapsDetailView + ";" + Employee.MapsDetailView + ";" + Product.MapsDetailView + ";" +
-                                              Order.MapsDetailView + ";" + Quote.MapsDetailView)]
+                                              Order.MapsDetailView + ";")]
     public abstract class OutlookInspiredBaseObject:BaseObject{
         protected const string CurrencyType = "decimal(18, 2)";
         [Browsable(false)]

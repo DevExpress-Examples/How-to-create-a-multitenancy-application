@@ -18,7 +18,6 @@ using OutlookInspired.Module.Features.Maps;
 namespace OutlookInspired.Module.BusinessObjects{
 	[DefaultProperty(nameof(FullName))]
 	[ImageName("BO_Person")]
-	[CloneView(CloneViewType.DetailView, LayoutViewDetailView)]
 	[CloneView(CloneViewType.ListView, LayoutViewListView)]
 	[CloneView(CloneViewType.DetailView, ChildDetailView)]
 	[CloneView(CloneViewType.DetailView, MapsDetailView)]
@@ -27,8 +26,6 @@ namespace OutlookInspired.Module.BusinessObjects{
 	public class Employee :OutlookInspiredBaseObject,IViewFilter,IObjectSpaceLink,IResource,IRouteMapsMarker{
 		public const string MapsDetailView = "Employee_DetailView_Maps";
 		public const string ChildDetailView = "Employee_DetailView_Child";
-		[Obsolete]
-		public const string LayoutViewDetailView = "EmployeeLayoutView_DetailView";
 		public const string LayoutViewListView = "EmployeeLayoutView_ListView";
 		
 		[NotMapped][Browsable(false)]

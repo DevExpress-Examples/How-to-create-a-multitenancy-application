@@ -69,7 +69,11 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="ApplicationUser_ListView" Caption="Users" />
+    <ListView Id="ApplicationUser_ListView" Caption="Users">
+      <Columns>
+        <ColumnInfo Id="UserName" SortOrder="Descending" />
+      </Columns>
+    </ListView>
     <ListView Id="Customer_CitySales_ListView" HideToolBar="True">
       <HiddenActions>
         <ActionLink ActionId="FullTextSearch" IsNewNode="True" />

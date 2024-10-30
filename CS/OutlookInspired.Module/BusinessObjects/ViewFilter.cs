@@ -12,7 +12,6 @@ using DevExpress.Persistent.BaseImpl.EF;
 using DevExpress.Persistent.Validation;
 using OutlookInspired.Module.Attributes.Appearance;
 using OutlookInspired.Module.Features;
-using EditorAliases = DevExpress.ExpressApp.Editors.EditorAliases;
 
 namespace OutlookInspired.Module.BusinessObjects{
 

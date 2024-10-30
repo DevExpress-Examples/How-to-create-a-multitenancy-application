@@ -74,7 +74,7 @@
         <ColumnInfo Id="UserName" SortOrder="Descending" />
       </Columns>
     </ListView>
-    <ListView Id="Customer_CitySales_ListView" HideToolBar="True">
+    <ListView Id="Customer_CitySales_ListView" >
       <HiddenActions>
         <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
       </HiddenActions>
@@ -722,7 +722,7 @@
         <Variant Id="Card" ViewID="EmployeeLayoutView_ListView" Caption="Card" Index="1" IsNewNode="True" />
       </Variants>
     </ListView>
-    <ListView Id="Employee_RoutePoints_ListView" HideToolBar="True">
+    <ListView Id="Employee_RoutePoints_ListView" >
       <HiddenActions>
         <ActionLink ActionId="Delete" IsNewNode="True" />
         <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
@@ -999,15 +999,6 @@
     <ListView Id="Order_ListView_Detail" DataAccessMode="ServerView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="Order_DetailView_Child">
       <SplitLayout SplitterPosition="0" RelativePosition="70" />
     </ListView>
-    <DetailView Id="OrderGridView_DetailView" FreezeLayout="True">
-      <Layout IsNewNode="True" Removed="True">
-        <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
-          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" IsNewNode="True">
-            <LayoutItem Id="OrderGridView" ViewItem="OrderGridView" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" />
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
     <DetailView Id="OrderItem_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -1073,7 +1064,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Product_CitySales_ListView" HideToolBar="True">
+    <ListView Id="Product_CitySales_ListView" >
       <HiddenActions>
         <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
       </HiddenActions>

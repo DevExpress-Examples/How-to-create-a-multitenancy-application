@@ -8,7 +8,7 @@ using OutlookInspired.Win.Editors.Maps;
 using KeyColorColorizer = DevExpress.XtraMap.KeyColorColorizer;
 using MapItem = OutlookInspired.Module.BusinessObjects.MapItem;
 
-namespace OutlookInspired.Win.Features.Maps.Sales{
+namespace OutlookInspired.Win.Features.Maps{
     public class MapItemChartListEditorController:ObjectViewController<DetailView,ISalesMapsMarker>{
         protected override void OnActivated(){
             base.OnActivated();

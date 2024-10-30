@@ -33,7 +33,7 @@ static class Program {
         proc.StartInfo.FileName = "dotnet";
         proc.StartInfo.Arguments="run dotnet --launch-profile OutlookInspired.MiddleTier";
         proc.StartInfo.WorkingDirectory = middleTierDir;
-        // proc.Start();
+        proc.Start();
         
 
         var winApplication = ApplicationBuilder.BuildApplication(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);

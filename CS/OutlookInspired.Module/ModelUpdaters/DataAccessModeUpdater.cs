@@ -7,7 +7,7 @@ using OutlookInspired.Module.BusinessObjects;
 namespace OutlookInspired.Module.ModelUpdaters{
     
     public class DataAccessModeUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator>{
-        public static readonly Type[] ClientTypes = {typeof(Evaluation),typeof(TaskAttachedFile)};
+        public static readonly Type[] ClientTypes =[typeof(Evaluation),typeof(TaskAttachedFile)];
 
         public override void UpdateNode(ModelNode node){
             var modelListViews = ((IModelViews)node).OfType<IModelListView>()

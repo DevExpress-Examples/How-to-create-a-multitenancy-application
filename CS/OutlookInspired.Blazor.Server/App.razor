@@ -1,4 +1,11 @@
-﻿<Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="new[] { typeof(DevExpress.ExpressApp.Blazor.BlazorApplication).Assembly }">
+﻿@DxResourceManager.RegisterScripts(c =>
+    {
+        CommonResources.JQueryJS.Position = CommonResources.DevExtremeJS.Position - 50;
+        c.Register(CommonResources.JQueryJS);
+        c.AddDevExtreme();
+        c.Register(new DxResource("https://cdn3.devexpress.com/jslib/23.2.3/js/vectormap-data/usa.js", CommonResources.DevExtremeJS.Position + 50));
+    })
+<Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="new[] { typeof(DevExpress.ExpressApp.Blazor.BlazorApplication).Assembly }">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" />
     </Found>

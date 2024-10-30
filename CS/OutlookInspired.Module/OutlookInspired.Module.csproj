@@ -109,33 +109,33 @@
     <EmbeddedResource Include="Resources\Welcome.pdf" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.Document.Processor" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.EFCore" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6" />
+    <PackageReference Include="DevExpress.Document.Processor" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.EFCore" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.10" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.Chart" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.EFCore" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.Notifications" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.Objects" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.Office" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.PivotChart" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.PivotGrid" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.TreeListEditors" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.ViewVariantsModule" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.Persistent.BaseImpl.EFCore" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.Chart" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.Dashboards" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.EFCore" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.Notifications" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.Objects" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.Office" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotChart" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotGrid" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.TreeListEditors" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.ViewVariantsModule" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl.EFCore" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10" />
   </ItemGroup>
   <ItemGroup>
     <None Update="UnusableNodes.xml">

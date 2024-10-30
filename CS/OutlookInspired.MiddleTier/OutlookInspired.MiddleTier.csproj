@@ -9,21 +9,21 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.Drawing.Skia" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.Api.EFCore.All" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.EFCore" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.AspNetCore.EFCore" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.AspNetCore.EFCore" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.Persistent.BaseImpl.EFCore" Version="24.2.1-alpha-24298" />
-    <PackageReference Include="DevExpress.RichEdit.Export" Version="24.2.1-alpha-24298" />
+    <PackageReference Include="DevExpress.Drawing.Skia" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.Api.EFCore.All" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.EFCore" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.AspNetCore.EFCore" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.AspNetCore.EFCore" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl.EFCore" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.RichEdit.Export" Version="24.2.1-alpha-24304" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.7.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.9.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OutlookInspired.Module\OutlookInspired.Module.csproj" />

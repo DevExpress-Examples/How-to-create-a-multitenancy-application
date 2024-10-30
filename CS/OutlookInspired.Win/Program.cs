@@ -31,7 +31,7 @@ static class Program {
         var middleTierDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase!,
             @"..\..\..\..\OutlookInspired.MiddleTier\"));
         proc.StartInfo.FileName = "dotnet";
-        proc.StartInfo.Arguments="run --no-build dotnet --launch-profile \"OutlookInspired.MiddleTier\"";
+        proc.StartInfo.Arguments="run dotnet --launch-profile OutlookInspired.MiddleTier";
         proc.StartInfo.WorkingDirectory = middleTierDir;
         // proc.Start();
         

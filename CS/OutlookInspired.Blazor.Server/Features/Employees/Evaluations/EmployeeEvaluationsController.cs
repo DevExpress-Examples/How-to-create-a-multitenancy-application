@@ -1,6 +1,4 @@
 ﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Blazor.Components;
-using DevExpress.ExpressApp.Blazor.Components.Models;
 using DevExpress.ExpressApp.Blazor.Editors;
 using DevExpress.ExpressApp.Utils;
 using OutlookInspired.Module.Attributes;
@@ -20,14 +18,10 @@ namespace OutlookInspired.Blazor.Server.Features.Employees.Evaluations{
                 var evaluation = ((Evaluation)context.DataItem);
                 var memberInfo = ((IObjectSpaceLink)context.DataItem).ObjectSpace.TypesInfo.FindTypeInfo(typeof(Evaluation)).FindMember(context.DataColumn.FieldName);
                 var fontSizeDeltaAttribute = memberInfo.FindAttribute<FontSizeDeltaAttribute>();
-                var model = new EmployeeEvaluationColumnTemplateModel(){
-                    Subject = evaluation.Subject,Description = evaluation.Description,
-                    Manager = evaluation.Manager.FullName,
-                    BonusImage = ImageLoader.Instance.GetEnumValueImageName(evaluation.Bonus),
-                    RaiseImage =ImageLoader.Instance.GetEnumValueImageName(evaluation.Raise),
-                    Style = fontSizeDeltaAttribute?.Style()
-                };
-                return ComponentModelObserver.Create(model, model.GetComponentContent());
+                return EmployeeEvaluationColumnTemplate.Create(evaluation.Subject,
+                    ImageLoader.Instance.GetEnumValueImageName(evaluation.Raise),
+                    ImageLoader.Instance.GetEnumValueImageName(evaluation.Bonus),
+                    evaluation.Description, fontSizeDeltaAttribute?.Style(), evaluation.Manager.FullName);
             };
 
         }

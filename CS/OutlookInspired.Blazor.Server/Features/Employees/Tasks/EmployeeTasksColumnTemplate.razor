@@ -29,7 +29,9 @@
     [Parameter]
     public string Date { get; set; }
     
-
+public static RenderFragment Create(string subject,string description,int progress, string date) 
+    => @<EmployeeTasksColumnTemplate 
+            Subject="@subject" Description="@description" Progress="@progress" Date="@date"/>;
     
 }
 

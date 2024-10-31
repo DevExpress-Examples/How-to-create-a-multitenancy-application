@@ -24,6 +24,11 @@
     public string Style { get; set; }
     [Parameter]
     public string Manager { get; set; }
+    
+    public static RenderFragment Create(string subject,string raiseImage, string bonusImage,string description,string style, string manager) 
+        => @<EmployeeEvaluationColumnTemplate 
+                Subject="@subject" RaiseImage="@raiseImage" BonusImage="@bonusImage" Description="@description"
+                Style="@style" Manager="@manager"/>;
 }
 
 

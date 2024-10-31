@@ -4,18 +4,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl.EF;
 using OutlookInspired.Module;
-using OutlookInspired.Win.Controllers;
-using OutlookInspired.Win.Editors.DxHtmlEditor;
-using OutlookInspired.Win.Editors.GridListEditor;
-using OutlookInspired.Win.Editors.ProgressEditor;
-using OutlookInspired.Win.Features.Customers;
-using OutlookInspired.Win.Features.Employees;
-using OutlookInspired.Win.Features.Evaluations;
-using OutlookInspired.Win.Features.Maps.Sales;
-using OutlookInspired.Win.Features.Orders;
-using OutlookInspired.Win.Features.Products;
-using OutlookInspired.Win.Features.Quotes;
-using SplitterPositionController = OutlookInspired.Win.Controllers.SplitterPositionController;
 
 namespace OutlookInspired.Win;
 
@@ -32,17 +20,6 @@ public sealed class OutlookInspiredWinModule : ModuleBase {
     public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) 
         =>[new(objectSpace, versionFromDB)];
 
-    protected override IEnumerable<Type> GetDeclaredControllerTypes() 
-        =>[typeof(FontSizeController), typeof(NewItemRowHandlingModeController),
-            typeof(PaletteEntriesController),typeof(MapsTravelModeViewController),typeof(PropertyEditorController), typeof(DisableSkinsController), 
-            typeof(SplitterPositionController),typeof(MapItemListEditorController),
-            typeof(SchedulerListEditorController),typeof(BlazorWebViewKeyDownController),
-            typeof(MapItemChartListEditorController),typeof(WinQuoteMapItemListEditorController),
-            typeof(WinQuoteAnalysisPivotGridListEditorController),typeof(EmployeeColumnViewListEditorController),
-            typeof(CustomerColumnViewListEditorController),typeof(CustomerStoreColumnViewListEditorController),
-            typeof(ProductColumnViewListEditorController),typeof(OrderColumnViewListEditorController),
-            typeof(WinOpportunitiesChartListViewController)
-        ];
 
     public override void Setup(XafApplication application) {
         base.Setup(application);

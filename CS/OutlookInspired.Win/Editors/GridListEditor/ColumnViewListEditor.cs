@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DevExpress.Data;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -11,6 +12,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Win.Editors.Grid.Internal;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
+using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.Win.Editors.GridListEditor{
     [ListEditor(typeof(object),false)]

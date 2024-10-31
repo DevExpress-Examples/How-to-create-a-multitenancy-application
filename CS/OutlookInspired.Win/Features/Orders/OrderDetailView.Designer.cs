@@ -97,6 +97,7 @@
             gridView1.OptionsMenu.ShowConditionalFormattingItem = true;
             gridView1.OptionsView.ShowFooter = true;
             gridView1.OptionsView.ShowGroupPanel = false;
+            
             gridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
             gridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] { new DevExpress.XtraGrid.Columns.GridColumnSortInfo(colOrderDate, DevExpress.Data.ColumnSortOrder.Ascending) });
             // 

@@ -9,24 +9,22 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Win.Editors.Grid.Internal;
-using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 
 namespace OutlookInspired.Win.Editors.GridListEditor{
     [ListEditor(typeof(object),false)]
-    public class ColumnViewListEditor(IModelListView model) : ListEditor(model), IComplexListEditor{
+    public class ColumnViewListEditor(IModelListView model) : ListEditor(model), IComplexListEditor,IControlOrderProvider{
         private ColumnViewListEditorControlProvider _controlProvider;
         private CollectionSourceBase _collectionSource;
         private XafApplication _application;
-        private IGridViewDataRowDoubleClickAdapter _gridViewDataRowDoubleClickAdapter;
         
         public event EventHandler<ColumnViewControlCreatingArgs> ColumnViewControlCreating;
         protected override object CreateControlsCore(){
             var e = new ColumnViewControlCreatingArgs();
             OnColumnViewControlCreating(e);
             ProtectDetailViews(e.Control.ColumnView);
-            _controlProvider = new(this,e.Control.ColumnView,_collectionSource);
+            _controlProvider = new(this,e.Control.ColumnView,_collectionSource,OnProcessSelectedItem);
             return e.Control;
         }
 
@@ -34,12 +32,19 @@ namespace OutlookInspired.Win.Editors.GridListEditor{
 
         protected override void AssignDataSourceToControl(object dataSource){
             if (Control == null) return;
-            Control.ColumnView.SelectionChanged += ColumnViewOnSelectionChanged;
-            Control.ColumnView.DoubleClick += ColumnViewOnDoubleClick;
-            Control.ColumnView.DataSourceChanged+=ColumnViewOnDataSourceChanged;
-            Control.ColumnView.GridControl.DataSource = dataSource;
-            _gridViewDataRowDoubleClickAdapter = CreateGridViewDataRowDoubleClickAdapter(Control.ColumnView.GridControl, (GridView)Control.ColumnView);
-            _gridViewDataRowDoubleClickAdapter.DataRowDoubleClick+=GridViewDataRowDoubleClickAdapterOnDataRowDoubleClick;
+            var columnView = Control.ColumnView;
+            columnView.SelectionChanged += ColumnViewOnSelectionChanged;
+            columnView.DoubleClick += ColumnViewOnDoubleClick;
+            columnView.DataSourceChanged+=ColumnViewOnDataSourceChanged;
+            columnView.GridControl.DataSource = dataSource;
+            if (columnView is GridView gridView){
+                gridView.MasterRowGetRelationName+=GridViewOnMasterRowGetRelationName;
+            }
+            
+        }
+
+        private void GridViewOnMasterRowGetRelationName(object sender, MasterRowGetRelationNameEventArgs e){
+            
         }
 
         public override void BreakLinksToControls(){
@@ -48,7 +53,6 @@ namespace OutlookInspired.Win.Editors.GridListEditor{
             Control.ColumnView.SelectionChanged -= ColumnViewOnSelectionChanged;
             Control.ColumnView.DoubleClick -= ColumnViewOnDoubleClick;
             Control.ColumnView.DataSourceChanged-=ColumnViewOnDataSourceChanged;
-            _gridViewDataRowDoubleClickAdapter.DataRowDoubleClick-=GridViewDataRowDoubleClickAdapterOnDataRowDoubleClick;
         }
 
         void ProtectDetailViews(ColumnView columnView){
@@ -63,13 +67,6 @@ namespace OutlookInspired.Win.Editors.GridListEditor{
                 Control.ColumnView.GridControl.LevelTree.Nodes.Remove(gridLevelNode);
             }
         }
-
-        private void GridViewDataRowDoubleClickAdapterOnDataRowDoubleClick(object sender, EventArgs e) => OnProcessSelectedItem();
-
-        protected virtual IGridViewDataRowDoubleClickAdapter CreateGridViewDataRowDoubleClickAdapter(
-            GridControl grid,
-            GridView gridView)
-            => new GridViewDataRowDoubleClickAdapter(grid, gridView);
 
         private void ColumnViewOnDoubleClick(object sender, EventArgs e){
             // if (!IsNotGroupedRow()) return;
@@ -120,23 +117,45 @@ namespace OutlookInspired.Win.Editors.GridListEditor{
 
     }
 
-    public class ColumnViewListEditorControlProvider(ListEditor listEditor,ColumnView columnView,CollectionSourceBase collectionSource) :IControlOrderProvider{
+    public class ColumnViewListEditorControlProvider :IControlOrderProvider{
         private readonly Dictionary<object, ObjectRecord> _objectRecords = new();
+        private readonly ListEditor _listEditor;
+        private readonly ColumnView _columnView;
+        private readonly CollectionSourceBase _collectionSource;
+        private readonly GridViewDataRowDoubleClickAdapter _gridViewDataRowDoubleClickAdapter;
+
+        public ColumnViewListEditorControlProvider(ListEditor listEditor,ColumnView columnView,CollectionSourceBase collectionSource,Action onProcessSelectedItem){
+            _listEditor = listEditor;
+            _columnView = columnView;
+            _columnView.GridControl.KeyDown+= (_, e) => {
+                if (e.KeyCode!=Keys.Return)return;
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+                onProcessSelectedItem();
+            };
+            _collectionSource = collectionSource;
+            if (columnView is not GridView gridView) return;
+            _gridViewDataRowDoubleClickAdapter = new GridViewDataRowDoubleClickAdapter(columnView.GridControl, gridView);
+            _gridViewDataRowDoubleClickAdapter.DataRowDoubleClick+=(_, _) => onProcessSelectedItem();
+        }
+
+
+
         ObjectRecord CreateObjectRecord(object objectKey, int rowHandle){
-            bool isDataViewMode = DataAccessModeHelper.IsViewMode(collectionSource.DataAccessMode);
+            bool isDataViewMode = DataAccessModeHelper.IsViewMode(_collectionSource.DataAccessMode);
             var objectRecord =
-                collectionSource.DataAccessMode == CollectionSourceDataAccessMode.InstantFeedback
-                    ? new XafInstantFeedbackRecord(collectionSource.ObjectTypeInfo.Type, objectKey, rowHandle, isDataViewMode)
-                    : new ObjectRecord(collectionSource.ObjectTypeInfo.Type, objectKey, rowHandle, isDataViewMode);
+                _collectionSource.DataAccessMode == CollectionSourceDataAccessMode.InstantFeedback
+                    ? new XafInstantFeedbackRecord(_collectionSource.ObjectTypeInfo.Type, objectKey, rowHandle, isDataViewMode)
+                    : new ObjectRecord(_collectionSource.ObjectTypeInfo.Type, objectKey, rowHandle, isDataViewMode);
             objectRecord.EvaluatorContextDescriptorGetting += (_, e)
-                => e.EvaluatorContextDescriptor = new ObjectRecordContextDescriptor(columnView, e.ObjectSpace,
-                    collectionSource.ObjectTypeInfo.Type, collectionSource.DataAccessMode);
+                => e.EvaluatorContextDescriptor = new ObjectRecordContextDescriptor(_columnView, e.ObjectSpace,
+                    _collectionSource.ObjectTypeInfo.Type, _collectionSource.DataAccessMode);
             if (objectKey != null && _objectRecords != null)
                 _objectRecords[objectKey] = objectRecord;
             return objectRecord;
         }
 
-        bool IsObjectRecordMode => collectionSource != null && DataAccessModeHelper.IsObjectRecordMode(collectionSource.DataAccessMode);
+        bool IsObjectRecordMode => _collectionSource != null && DataAccessModeHelper.IsObjectRecordMode(_collectionSource.DataAccessMode);
         bool AreEqual(object firstKey, object secondKey) 
             => firstKey.Equals(secondKey) || firstKey is List<object> first && secondKey is List<object> second && first.SequenceEqual(second);
         bool TryFindObjectRecord(object obj, out ObjectRecord resultValue){
@@ -154,29 +173,29 @@ namespace OutlookInspired.Win.Editors.GridListEditor{
         
         object GetObjectKey( int rowHandle){
             object objectKey;
-            if (collectionSource.ObjectTypeInfo.KeyMembers.Count > 1){
+            if (_collectionSource.ObjectTypeInfo.KeyMembers.Count > 1){
                 objectKey = new List<object>();
-                foreach (IMemberInfo keyMember in collectionSource.ObjectTypeInfo.KeyMembers)
-                    ((IList) objectKey).Add(columnView.GetRowCellValue(rowHandle, keyMember.Name));
+                foreach (IMemberInfo keyMember in _collectionSource.ObjectTypeInfo.KeyMembers)
+                    ((IList) objectKey).Add(_columnView.GetRowCellValue(rowHandle, keyMember.Name));
             }
             else
-                objectKey = columnView.GetRowCellValue(rowHandle, collectionSource.ObjectTypeInfo.KeyMember.Name);
+                objectKey = _columnView.GetRowCellValue(rowHandle, _collectionSource.ObjectTypeInfo.KeyMember.Name);
             return objectKey;
         }
 
         public object GetObjectByIndex(int index){
-            if (columnView is not{ DataController: not null }) return null;
+            if (_columnView is not{ DataController: not null }) return null;
             object objectByIndex = null;
             if (IsObjectRecordMode){
                 var rowHandle = index;
-                if (columnView.IsDataRow(rowHandle) && columnView.IsRowLoaded(rowHandle)){
+                if (_columnView.IsDataRow(rowHandle) && _columnView.IsRowLoaded(rowHandle)){
                     object objectKey = GetObjectKey(rowHandle);
                     if (objectKey != null)
                         objectByIndex = GetObjectRecord(objectKey,  rowHandle);
                 }
             }
             else
-                objectByIndex = columnView.GetRow(index);
+                objectByIndex = _columnView.GetRow(index);
             return objectByIndex;
 
         }
@@ -197,39 +216,39 @@ namespace OutlookInspired.Win.Editors.GridListEditor{
 
         public IList GetOrderedObjects(){
             var orderedObjects = new List<object>();
-            if (columnView == null) return orderedObjects;
+            if (_columnView == null) return orderedObjects;
             if (IsObjectRecordMode){
-                for (var index = 0; index < columnView.DataRowCount; ++index){
+                for (var index = 0; index < _columnView.DataRowCount; ++index){
                     var rowHandle = index;
-                    if (columnView.IsDataRow(rowHandle) && columnView.IsRowLoaded(rowHandle)){
+                    if (_columnView.IsDataRow(rowHandle) && _columnView.IsRowLoaded(rowHandle)){
                         var objectKey = GetObjectKey( rowHandle);
                         if (objectKey != null)
                             orderedObjects.Add(GetObjectRecord(objectKey, rowHandle));
                     }
                 }
             }
-            else if (columnView.IsServerMode){
-                var num1 = columnView.GetVisibleIndex(columnView.FocusedRowHandle) -
+            else if (_columnView.IsServerMode){
+                var num1 = _columnView.GetVisibleIndex(_columnView.FocusedRowHandle) -
                            WinColumnsListEditor.PageRowCountForServerMode / 2;
                 if (num1 < 0)
                     num1 = 0;
                 var num2 = num1 + WinColumnsListEditor.PageRowCountForServerMode - 1;
-                if (num2 > columnView.RowCount - 1)
-                    num2 = columnView.RowCount - 1;
+                if (num2 > _columnView.RowCount - 1)
+                    num2 = _columnView.RowCount - 1;
                 for (var rowVisibleIndex = num1; rowVisibleIndex <= num2; ++rowVisibleIndex){
-                    int visibleRowHandle = columnView.GetVisibleRowHandle(rowVisibleIndex);
-                    if (columnView.IsDataRow(visibleRowHandle) && columnView.IsRowLoaded(visibleRowHandle)){
-                        object row = columnView.GetRow(visibleRowHandle);
+                    int visibleRowHandle = _columnView.GetVisibleRowHandle(rowVisibleIndex);
+                    if (_columnView.IsDataRow(visibleRowHandle) && _columnView.IsRowLoaded(visibleRowHandle)){
+                        object row = _columnView.GetRow(visibleRowHandle);
                         if (row != null)
                             orderedObjects.Add(row);
                     }
                 }
             }
             else{
-                for (var index = 0; index < columnView.DataRowCount; ++index){
+                for (var index = 0; index < _columnView.DataRowCount; ++index){
                     var rowHandle = index;
-                    if (columnView.IsRowLoaded(rowHandle)){
-                        object row = columnView.GetRow(rowHandle);
+                    if (_columnView.IsRowLoaded(rowHandle)){
+                        object row = _columnView.GetRow(rowHandle);
                         if (row != null)
                             orderedObjects.Add(row);
                     }
@@ -242,13 +261,13 @@ namespace OutlookInspired.Win.Editors.GridListEditor{
 
         public int GetIndexByObject(object obj){
             var indexByObject = -1;
-            if (columnView?.DataSource != null){
+            if (_columnView?.DataSource != null){
                 if (IsObjectRecordMode && obj is ObjectRecord objectRecord){
                     if (objectRecord.RowHandle.HasValue)
                         indexByObject = objectRecord.RowHandle.Value;
                 }
                 else{
-                    indexByObject = columnView.GetRowHandle(listEditor.List.IndexOf(obj));
+                    indexByObject = _columnView.GetRowHandle(_listEditor.List.IndexOf(obj));
                     if (indexByObject == int.MinValue)
                         indexByObject = -1;
                 }

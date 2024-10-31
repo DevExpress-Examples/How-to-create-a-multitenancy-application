@@ -21,6 +21,7 @@ namespace OutlookInspired.Blazor.Server.Features.Employees.Tasks{
                     Date = employeeTask.DueDate.GetValueOrDefault().ToString("MMMM dd, yyyy"),
                     Progress = employeeTask.Completion
                 };
+                
                 return ComponentModelObserver.Create(model, model.GetComponentContent());
             };
 

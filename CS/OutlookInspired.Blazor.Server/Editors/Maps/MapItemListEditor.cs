@@ -10,73 +10,84 @@ using Microsoft.AspNetCore.Components;
 using OutlookInspired.Blazor.Server.Services;
 using OutlookInspired.Module.BusinessObjects;
 
-namespace OutlookInspired.Blazor.Server.Editors.Maps{
-    [ListEditor(typeof(IMapItem),true)]
+namespace OutlookInspired.Blazor.Server.Editors.Maps {
+    [ListEditor(typeof(IMapItem), true)]
     public class MapItemListEditor(IModelListView model)
-        : ListEditor(model), IComplexListEditor, IComponentContentHolder{
-        public event EventHandler<CustomizeLayersArgs> CustomizeLayers; 
+        : ListEditor(model), IComplexListEditor, IComponentContentHolder {
+        public event EventHandler<CustomizeLayersArgs> CustomizeLayers;
         private RenderFragment _componentContent;
         private DevExtremeMap _mapInstance;
-        private List<IMapItem> _selectedItems=new();
+        private List<IMapItem> _selectedItems = new();
         private CollectionSourceBase _collectionSource;
         private IMapItem[] _mapItems;
+        private List<string> appColors = [
+            "#FF5733", // Orange-red 
+            "#33FF57", // Green
+            "#3357FF", // Blue
+            "#FF33F5", // Magenta
+            "#F5FF33", // Yellow
+            "#CCCCCC", // Light Gray 
+            "#FFB347", // Light Orange
+            "#77DD77", // Soft Green
+            "#CFCFC4"
+        ];
 
         protected override object CreateControlsCore()
-            => new DevExtremeVectorMapModel{
+            => new DevExtremeVectorMapModel {
                 SelectionChanged = EventCallback.Factory.Create<string[]>(this, items => {
-                    _selectedItems =_mapItems.Where(item => items.Contains(item.City)).ToList();
+                    _selectedItems = _mapItems.Where(item => items.Contains(item.City)).ToList();
                     OnSelectionChanged();
                 })
-        };
+            };
 
-        protected override void AssignDataSourceToControl(object dataSource){
-            if (dataSource is IBindingList bindingList){
+        protected override void AssignDataSourceToControl(object dataSource) {
+            if(dataSource is IBindingList bindingList) {
                 bindingList.ListChanged -= BindingList_ListChanged;
             }
-            if (Control is null) return;
+            if(Control is null) return;
             _mapItems = ((IEnumerable)dataSource).Cast<IMapItem>().ToArray();
             var e = new CustomizeLayersArgs(_mapItems);
             OnCustomizeLayers(e);
-            Control.Layers =e.Layers;
+            Control.Layers = e.Layers;
             Control.CustomAttributes = [nameof(IMapItem.City)];
-            if (dataSource is IBindingList newBindingList){
+            if(dataSource is IBindingList newBindingList) {
                 newBindingList.ListChanged += BindingList_ListChanged;
             }
         }
-        
+
         IEnumerable<string> GenerateAppColors(int count) {
-            var appColors = ServiceProvider.GetRequiredService<IMapColorService>().AppColors;
             return Enumerable.Range(0, count).Select(i => appColors[i % appColors.Count]);
         }
 
         public Dictionary<string, string> CreatePalette(IEnumerable<string> itemNames) {
             var distinctProducts = itemNames.Distinct().ToList();
-            var colors = GenerateAppColors(distinctProducts.Count).ToArray(); 
+            var colors = GenerateAppColors(distinctProducts.Count).ToArray();
             return distinctProducts.ToDictionary(product => product, product => colors[distinctProducts.IndexOf(product)]);
         }
 
-        protected override void OnSelectionChanged(){
+        protected override void OnSelectionChanged() {
             base.OnSelectionChanged();
             OnProcessSelectedItem();
         }
 
         private void BindingList_ListChanged(object sender, ListChangedEventArgs e) => Refresh();
 
-        public override void Refresh(){
+        public override void Refresh() {
             _collectionSource.ResetCollection();
             _mapInstance?.Refresh();
         }
-        
-        public static FeatureCollection CreateFeatureCollection(IMapItem[] mapItems, Func<IGrouping<string,IMapItem>,List<decimal>> itemsSelector) 
-            => new(){ Features = mapItems.GroupBy(item => item.City)
+
+        public static FeatureCollection CreateFeatureCollection(IMapItem[] mapItems, Func<IGrouping<string, IMapItem>, List<decimal>> itemsSelector)
+            => new() {
+                Features = mapItems.GroupBy(item => item.City)
                 .Select(items => NewFeature(items, itemsSelector)).ToList()
             };
 
-        static Feature NewFeature(IGrouping<string, IMapItem> group,Func<IGrouping<string,IMapItem>,List<decimal>> valuesSelector){
+        static Feature NewFeature(IGrouping<string, IMapItem> group, Func<IGrouping<string, IMapItem>, List<decimal>> valuesSelector) {
             var mapItem = group.First();
-            return new Feature{
-                Geometry = new Geometry{ Coordinates =[mapItem.Longitude, mapItem.Latitude] },
-                Properties = new Properties{
+            return new Feature {
+                Geometry = new Geometry { Coordinates = [mapItem.Longitude, mapItem.Latitude] },
+                Properties = new Properties {
                     Values = valuesSelector(group),
                     Tooltip = $"<span class='{mapItem.City}'>{mapItem.City} Total: {group.Sum(item => item.Total)}</span>",
                     City = mapItem.City
@@ -88,21 +99,21 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
 
         public override IList GetSelectedObjects() => _selectedItems;
 
-        public RenderFragment ComponentContent 
+        public RenderFragment ComponentContent
             => _componentContent ??= ComponentModelObserver.Create(Control, Control
                 .GetComponentContent(o => _mapInstance = (DevExtremeMap)o));
 
         public override SelectionType SelectionType => SelectionType.Full;
 
-        
 
-        public void Setup(CollectionSourceBase collectionSource, XafApplication application){
-            _collectionSource=collectionSource;
+
+        public void Setup(CollectionSourceBase collectionSource, XafApplication application) {
+            _collectionSource = collectionSource;
         }
 
-        public void ApplyColors<TItem>(TItem[] mapItems,Func<TItem,string> propertySelector) where TItem: class, IMapItem{
+        public void ApplyColors<TItem>(TItem[] mapItems, Func<TItem, string> propertySelector) where TItem : class, IMapItem {
             var palette = CreatePalette(mapItems.Select(propertySelector));
-            foreach (var item in mapItems){
+            foreach(var item in mapItems) {
                 item.Color = palette[propertySelector(item)];
             }
         }
@@ -111,8 +122,8 @@ namespace OutlookInspired.Blazor.Server.Editors.Maps{
 
     }
 
-    public class CustomizeLayersArgs(IMapItem[] mapItems){
-        public IMapItem[] MapItems{ get; } = mapItems;
-        public List<BaseLayer> Layers{ get; } = new();
+    public class CustomizeLayersArgs(IMapItem[] mapItems) {
+        public IMapItem[] MapItems { get; } = mapItems;
+        public List<BaseLayer> Layers { get; } = new();
     }
 }

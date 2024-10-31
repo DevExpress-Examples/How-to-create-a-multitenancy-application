@@ -21,7 +21,6 @@ public class Startup(IConfiguration configuration){
     public IConfiguration Configuration { get; } = configuration;
 
     public void ConfigureServices(IServiceCollection services) {
-        services.AddSingleton<IMapColorService,MapColorService>();
         services.AddSingleton(typeof(Microsoft.AspNetCore.SignalR.HubConnectionHandler<>), typeof(ProxyHubConnectionHandler<>));
         services.AddRazorPages();
         services.AddServerSideBlazor();

@@ -1,6 +1,4 @@
 ﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Blazor.Components;
-using DevExpress.ExpressApp.Blazor.Components.Models;
 using DevExpress.ExpressApp.Blazor.Editors;
 using OutlookInspired.Module.BusinessObjects;
 
@@ -16,13 +14,8 @@ namespace OutlookInspired.Blazor.Server.Features.Employees.Tasks{
             
             subjectDataColumnModel.CellDisplayTemplate = value => {
                 var employeeTask = (EmployeeTask)value.DataItem;
-                var model = new TasksColumnTemplateModel(){
-                    Subject = employeeTask.Subject,Description = employeeTask.DescriptionText,
-                    Date = employeeTask.DueDate.GetValueOrDefault().ToString("MMMM dd, yyyy"),
-                    Progress = employeeTask.Completion
-                };
-                
-                return ComponentModelObserver.Create(model, model.GetComponentContent());
+                return EmployeeTasksColumnTemplate.Create(employeeTask.Subject,employeeTask.DescriptionText,employeeTask.Completion,
+                    employeeTask.DueDate.GetValueOrDefault().ToString("MMMM dd, yyyy"));
             };
 
         }

@@ -1,7 +1,7 @@
 ﻿using DevExpress.Blazor.PdfViewer;
 using DevExpress.Blazor.Reporting.Models;
 using Microsoft.AspNetCore.Components;
-using DevExpress.ExpressApp.Blazor.Components.Models;
+using OutlookInspired.Blazor.Server.Components;
 
 namespace OutlookInspired.Blazor.Server.ComponentModels {
     public class PdfViewerModel : ComponentModelBase {

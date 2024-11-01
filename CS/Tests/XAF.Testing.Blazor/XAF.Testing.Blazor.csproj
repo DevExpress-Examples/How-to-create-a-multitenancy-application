@@ -8,10 +8,10 @@
     <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="24.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Office.Blazor" Version="24.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" Version="24.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.Blazor.EFCore" Version="24.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Blazor" />
+    <PackageReference Include="DevExpress.ExpressApp.Office.Blazor" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" />
+    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.Blazor.EFCore" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XAF.Testing\XAF.Testing.csproj" />

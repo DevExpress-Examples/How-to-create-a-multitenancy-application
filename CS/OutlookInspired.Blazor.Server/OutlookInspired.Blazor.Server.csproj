@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
@@ -21,9 +21,7 @@
     <None Remove="js\**" />
   </ItemGroup>
   <ItemGroup>
-    
     <EmbeddedResource Include="Components\DevExtreme\Maps\DxrMap.razor.js" />
-    
     <Content Include="Model.xafml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -33,17 +31,17 @@
     <Content Remove="js\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="24.1.7" />
-    <PackageReference Include="DevExpress.Blazor.PdfViewer" Version="24.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Blazor" Version="24.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Blazor" Version="24.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.Blazor.EFCore" Version="24.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Office.Blazor" Version="24.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" Version="24.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Scheduler.Blazor" Version="24.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation.Blazor" Version="24.1.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Blazor" />
+    <PackageReference Include="DevExpress.Blazor.PdfViewer" />
+    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Blazor" />
+    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Blazor" />
+    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.Blazor.EFCore" />
+    <PackageReference Include="DevExpress.ExpressApp.Office.Blazor" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler.Blazor" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation.Blazor" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OutlookInspired.Module\OutlookInspired.Module.csproj" />

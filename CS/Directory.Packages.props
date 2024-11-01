@@ -1,0 +1,77 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="DevExpress.Blazor.PdfViewer" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.Document.Processor" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.Drawing.Skia" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Api.EFCore.All" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Blazor" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Chart" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Chart.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.CodeAnalysis" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.ConditionalAppearance" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Dashboards" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Dashboards.Blazor" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Dashboards.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.EFCore" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.FileAttachment.Blazor" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.FileAttachment.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.MultiTenancy.AspNetCore.EFCore" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.MultiTenancy.Blazor.EFCore" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.MultiTenancy.EFCore" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.MultiTenancy.Win.EFCore" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Notifications" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Notifications.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Objects" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Office" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Office.Blazor" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Office.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.PivotChart" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.PivotChart.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.PivotGrid" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.PivotGrid.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.ReportsV2" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.ReportsV2.Blazor" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.ReportsV2.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Scheduler" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Scheduler.Blazor" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Scheduler.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Security.AspNetCore.EFCore" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Security.EFCore.Extensions.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.TreeListEditors" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.TreeListEditors.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Validation" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Validation.Blazor" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Validation.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.ViewVariantsModule" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Win" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.ExpressApp.Win.Design" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.Persistent.Base" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.Persistent.BaseImpl.EFCore" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.Reporting.Core" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.RichEdit.Export" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.Win.Design" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.Win.Map" Version="24.1.7" />
+    <PackageVersion Include="DevExpress.Win.PdfViewer" Version="24.1.7" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.9" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.3" />
+    <PackageVersion Include="Microsoft.JSInterop" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+    <PackageVersion Include="NUnit" Version="3.13.3" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageVersion Include="Shouldly" Version="4.2.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+    <PackageVersion Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageVersion Include="System.Linq.Async" Version="6.0.1" />
+    <PackageVersion Include="System.Reactive" Version="6.0.0" />
+  </ItemGroup>
+</Project>

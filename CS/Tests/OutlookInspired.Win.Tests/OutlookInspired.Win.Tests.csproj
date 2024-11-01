@@ -1,45 +1,44 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net6.0-windows</TargetFramework>
-        <UseWindowsForms>true</UseWindowsForms>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>OutlookInspired.Win.Tests</RootNamespace>
-        <Configurations>Debug;Release;Test</Configurations>
-        <Platforms>AnyCPU</Platforms>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.9" />
-        <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
-        <PackageReference Include="NUnit" Version="3.13.3" />
-        <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
-        <PackageReference Include="Shouldly" Version="4.2.1" />
-    </ItemGroup>
-    
-
-    <ItemGroup>
-        <ProjectReference Include="..\OutlookInspired.Tests\OutlookInspired.Tests.csproj" />
-        <ProjectReference Include="..\XAF.Testing.Win\XAF.Testing.Win.csproj" />
-        <ProjectReference Include="..\..\OutlookInspired.Win\OutlookInspired.Win.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Include="Import\devav.sqlite3" />
-      <EmbeddedResource Remove="Import\**" />
-    </ItemGroup>
-    
-    <PropertyGroup><DefineConstants>TRACE;Import</DefineConstants></PropertyGroup>
-    <ItemGroup Condition=" '$(Configuration)' == 'TEST' ">
-      <Reference Include="DevExpress.DevAV.v24.1.Data">
-          <HintPath>..\DevExpress.DevAV.v24.1.Data.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-    <ItemGroup Condition=" '$(Configuration)' != 'TEST' ">
-      <Compile Remove="Import\**" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Remove="Import\devav.sqlite3" />
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Include="Import\devav.sqlite3" />
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>OutlookInspired.Win.Tests</RootNamespace>
+    <Configurations>Debug;Release;Test</Configurations>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="Shouldly" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OutlookInspired.Tests\OutlookInspired.Tests.csproj" />
+    <ProjectReference Include="..\XAF.Testing.Win\XAF.Testing.Win.csproj" />
+    <ProjectReference Include="..\..\OutlookInspired.Win\OutlookInspired.Win.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Import\devav.sqlite3" />
+    <EmbeddedResource Remove="Import\**" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DefineConstants>TRACE;Import</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'TEST' ">
+    <Reference Include="DevExpress.DevAV.v24.1.Data">
+      <HintPath>..\DevExpress.DevAV.v24.1.Data.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' != 'TEST' ">
+    <Compile Remove="Import\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Import\devav.sqlite3" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Import\devav.sqlite3" />
+  </ItemGroup>
 </Project>

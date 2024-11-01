@@ -11,15 +11,15 @@
 
   <ItemGroup>
     <!-- Essential DevExpress Package References -->
-    <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="24.2.1-alpha-24304" />
-    <PackageReference Include="DevExpress.Blazor.PdfViewer" Version="24.2.1-alpha-24304" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Blazor" Version="24.2.1-alpha-24304" />
-    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Blazor" Version="24.2.1-alpha-24304" />
-    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.Blazor.EFCore" Version="24.2.1-alpha-24304" />
-    <PackageReference Include="DevExpress.ExpressApp.Office.Blazor" Version="24.2.1-alpha-24304" />
-    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" Version="24.2.1-alpha-24304" />
-    <PackageReference Include="DevExpress.ExpressApp.Scheduler.Blazor" Version="24.2.1-alpha-24304" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation.Blazor" Version="24.2.1-alpha-24304" />
+    <PackageReference Include="DevExpress.ExpressApp.Blazor" Version="24.2.1-alpha-24306" />
+    <PackageReference Include="DevExpress.Blazor.PdfViewer" Version="24.2.1-alpha-24306" />
+    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Blazor" Version="24.2.1-alpha-24306" />
+    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Blazor" Version="24.2.1-alpha-24306" />
+    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.Blazor.EFCore" Version="24.2.1-alpha-24306" />
+    <PackageReference Include="DevExpress.ExpressApp.Office.Blazor" Version="24.2.1-alpha-24306" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Blazor" Version="24.2.1-alpha-24306" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler.Blazor" Version="24.2.1-alpha-24306" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation.Blazor" Version="24.2.1-alpha-24306" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10" />
   </ItemGroup>

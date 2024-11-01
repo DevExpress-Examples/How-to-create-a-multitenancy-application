@@ -10,12 +10,12 @@
     <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.ExpressApp" Version="24.1.2-beta" />
-    <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="24.1.2-beta" />
-    <PackageReference Include="DevExpress.ExpressApp.ViewVariantsModule" Version="24.1.2-beta" />
-    <PackageReference Include="DevExpress.Persistent.BaseImpl.EFCore" Version="24.1.2-beta" />
-    <PackageReference Include="DevExpress.Reporting.Core" Version="24.1.2-beta" />
-    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.Blazor.EFCore" Version="24.1.2-beta" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="24.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="24.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.ViewVariantsModule" Version="24.1.7" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl.EFCore" Version="24.1.7" />
+    <PackageReference Include="DevExpress.Reporting.Core" Version="24.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.MultiTenancy.Blazor.EFCore" Version="24.1.7" />
     <PackageReference Include="System.Linq.Async" Version="6.0.1" />
     <PackageReference Include="System.Reactive" Version="6.0.0" />
 	<PackageReference Include="Microsoft.JSInterop" Version="6.0.0" />

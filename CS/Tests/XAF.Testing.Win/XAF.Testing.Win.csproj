@@ -9,11 +9,11 @@
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.ExpressApp.Office.Win" />
-    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Win" />
-    <PackageReference Include="DevExpress.ExpressApp.Win" />
-    <PackageReference Include="DevExpress.Win.Map" />
-    <PackageReference Include="DevExpress.Win.PdfViewer" />
+    <PackageReference Include="DevExpress.ExpressApp.Office.Win" Version="24.1.2-beta" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Win" Version="24.1.2-beta" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="24.1.2-beta" />
+    <PackageReference Include="DevExpress.Win.Map" Version="24.1.2-beta" />
+    <PackageReference Include="DevExpress.Win.PdfViewer" Version="24.1.2-beta" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XAF.Testing\XAF.Testing.csproj" />

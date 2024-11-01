@@ -1,21 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Configurations>Debug;Release;Test</Configurations>
-    <RootNamespace>OutlookInspired.Blazor.Tests</RootNamespace>
-    <Platforms>AnyCPU</Platforms>
-    <GenerateRuntimeConfigDevFile>true</GenerateRuntimeConfigDevFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="NUnit" />
-    <PackageReference Include="NUnit3TestAdapter" />
-    <PackageReference Include="Shouldly" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\OutlookInspired.Blazor.Server\OutlookInspired.Blazor.Server.csproj" />
-    <ProjectReference Include="..\OutlookInspired.Tests\OutlookInspired.Tests.csproj" />
-    <ProjectReference Include="..\XAF.Testing.Blazor\XAF.Testing.Blazor.csproj" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Configurations>Debug;Release;Test</Configurations>
+        <RootNamespace>OutlookInspired.Blazor.Tests</RootNamespace>
+        <Platforms>AnyCPU</Platforms>
+        <GenerateRuntimeConfigDevFile>true</GenerateRuntimeConfigDevFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+        <PackageReference Include="NUnit" Version="3.13.3" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+        <PackageReference Include="Shouldly" Version="4.2.1" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\OutlookInspired.Blazor.Server\OutlookInspired.Blazor.Server.csproj" />
+        <ProjectReference Include="..\OutlookInspired.Tests\OutlookInspired.Tests.csproj" />
+        <ProjectReference Include="..\XAF.Testing.Blazor\XAF.Testing.Blazor.csproj" />
+    </ItemGroup>
 </Project>

@@ -328,7 +328,10 @@
       </Columns>
     </ListView>
     <ListView Id="Order_ListView_Detail" EditorTypeName="OutlookInspired.Win.Editors.GridListEditor.ColumnViewListEditor" DataAccessMode="Server">
-      
+      <Columns>
+        <ColumnInfo Id="PaymentStatus" ImageEditorFixedWidth="30" />
+        <ColumnInfo Id="ShipmentStatus" ImageEditorFixedWidth="30" />
+      </Columns>
     </ListView>
     <DetailView Id="Product_Brochure_DetailView">
       <Layout>

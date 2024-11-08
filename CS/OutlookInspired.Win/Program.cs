@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
@@ -21,8 +22,23 @@ static class Program {
             Tracing.LocalUserAppDataPath = Application.LocalUserAppDataPath;
         }
         Tracing.Initialize();
+        Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
+        foreach (var process in Process.GetProcessesByName("OutlookInspired.MiddleTier")){
+            process.Kill();
+            process.WaitForExit();    
+        }
+        var proc = new Process();
+        var middleTierDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase!,
+            @"..\..\..\..\OutlookInspired.MiddleTier\"));
+        proc.StartInfo.FileName = "dotnet";
+        proc.StartInfo.Arguments="run dotnet --launch-profile OutlookInspired.MiddleTier";
+        proc.StartInfo.WorkingDirectory = middleTierDir;
+        proc.Start();
+        
+
         var winApplication = ApplicationBuilder.BuildApplication(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
         try {
+            
             winApplication.Setup();
             winApplication.Start();
         }

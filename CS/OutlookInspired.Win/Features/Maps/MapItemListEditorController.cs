@@ -2,10 +2,9 @@
 using DevExpress.XtraMap;
 using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Win.Editors.Maps;
-
 using MapItem = OutlookInspired.Module.BusinessObjects.MapItem;
 
-namespace OutlookInspired.Win.Features.Maps.Sales{
+namespace OutlookInspired.Win.Features.Maps{
     public class MapItemListEditorController:ObjectViewController<ListView,MapItem>{
         private MapItemListEditor _mapItemListEditor;
 

@@ -89,15 +89,15 @@ public class Startup(IConfiguration configuration){
                     //    e.Store = new ModelDifferenceDbStore((XafApplication)sender!, typeof(ModelDifference), true, "Win");
                     //    e.Handled = true;
                 //};
-#if DEBUG
-                if(System.Diagnostics.Debugger.IsAttached && application.CheckCompatibilityType == CheckCompatibilityType.DatabaseSchema) {
+// #if DEBUG
+                if( application.CheckCompatibilityType == CheckCompatibilityType.DatabaseSchema) {
                     application.DatabaseUpdateMode = DatabaseUpdateMode.UpdateDatabaseAlways;
                     application.DatabaseVersionMismatch += (s, e) => {
                         e.Updater.Update();
                         e.Handled = true;
                     };
                 }
-#endif
+// #endif
             });
         });
 
@@ -164,7 +164,7 @@ public class Startup(IConfiguration configuration){
             // The default HSTS value is 30 days. To change this for production scenarios, see: https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
-        app.UseHttpsRedirection();
+        // app.UseHttpsRedirection();
         app.UseRequestLocalization();
         app.UseStaticFiles();
         app.UseRouting();

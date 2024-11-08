@@ -15,7 +15,6 @@ using OutlookInspired.Module.Features.Maps;
 namespace OutlookInspired.Module.BusinessObjects{
     [XafDefaultProperty(nameof(InvoiceNumber))]
     [CloneView(CloneViewType.DetailView, ChildDetailView)]
-    [CloneView(CloneViewType.DetailView, GridViewDetailView)]
     [CloneView(CloneViewType.DetailView, MapsDetailView)]
     [CloneView(CloneViewType.DetailView, InvoiceDetailView)]
     [CloneView(CloneViewType.ListView, ListViewDetail)]
@@ -24,7 +23,6 @@ namespace OutlookInspired.Module.BusinessObjects{
         public const string MapsDetailView = "Order_DetailView_Maps";
         public const string InvoiceDetailView = "Order_Invoice_DetailView";
         public const string ChildDetailView = "Order_DetailView_Child";
-        public const string GridViewDetailView = "OrderGridView_DetailView";
         public const string ListViewDetail = "Order_ListView_Detail";
         
         [XafDisplayName("Invoice #")]

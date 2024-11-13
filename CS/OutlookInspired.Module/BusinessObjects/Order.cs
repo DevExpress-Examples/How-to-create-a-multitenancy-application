@@ -34,7 +34,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         [MaxLength(100)]
         public  virtual string PONumber { get; set; }
         public virtual Employee Employee { get; set; }
-        public  virtual DateTime OrderDate { get; set; }
+        public  virtual DateOnly OrderDate { get; set; }
         [Column(TypeName = CurrencyType)]
         public  virtual decimal SaleAmount { get; set; }
         [Column(TypeName = CurrencyType)]

@@ -46,8 +46,8 @@ namespace OutlookInspired.Module.BusinessObjects{
 
 		[HideInUI(HideInUI.ListView)]
 		public virtual EmployeeStatus Status { get; set; }
-		[VisibleInListView(false)]
-		public virtual DateTime? HireDate { get; set; }
+		
+		public virtual DateOnly? HireDate { get; set; }
 
 		[InverseProperty(nameof(EmployeeTask.AssignedEmployee))][Aggregated]
 		public virtual ObservableCollection<EmployeeTask> AssignedTasks{ get; set; } = new();

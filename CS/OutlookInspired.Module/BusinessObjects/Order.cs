@@ -67,7 +67,8 @@ namespace OutlookInspired.Module.BusinessObjects{
         
         
         [EditorAlias(EditorAliases.PdfViewerEditor)]
-        [HideInUI(HideInUI.DetailView)]
+        // [HideInUI(HideInUI.DetailView)]
+        [VisibleInDetailView(false)]
         [NotMapped]
         public virtual byte[] InvoiceDocument{ get; set; } = [];
         [EditorAlias(EditorAliases.DxHtmlPropertyEditor)]

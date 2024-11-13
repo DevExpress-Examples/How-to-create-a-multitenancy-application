@@ -56,12 +56,12 @@
     <PackageVersion Include="DevExpress.Win.Map" Version="24.2.1-alpha-24304" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="8.0.91" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Proxies" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.7.3" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.9.0" />
     <PackageVersion Include="System.Drawing.Common" Version="8.0.10" />

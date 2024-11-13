@@ -36,13 +36,13 @@ namespace OutlookInspired.Module.BusinessObjects {
 		[XafDisplayName("ZipCode")][MaxLength(20)]
 		public  virtual string HomeOfficeZipCode { get; set; }
 		[XafDisplayName("Address")]
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		[MaxLength(255)]
 		public  virtual string BillingAddressLine { get; set; }
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		[MaxLength(100)]
 		public virtual string BillingAddressCity { get; set; }
-		[ZipCode][VisibleInListView(false)][VisibleInLookupListView(false)]
+		[ZipCode][HideInUI(HideInUI.ListView)]
 		[MaxLength(20)]
 		public  virtual string BillingAddressZipCode { get; set; }
 		[RuleRequiredField][XafDisplayName(nameof(Customer))]
@@ -50,39 +50,39 @@ namespace OutlookInspired.Module.BusinessObjects {
 		public virtual string Name { get; set; }
 		[XafDisplayName("State")]
 		public virtual StateEnum HomeOfficeState { get; set; }
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual double HomeOfficeLatitude { get; set; }
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual double HomeOfficeLongitude { get; set; }
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual StateEnum BillingAddressState { get; set; }
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual double BillingAddressLatitude { get; set; }
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual double BillingAddressLongitude { get; set; }
 
 		[NotMapped]
-		[VisibleInDetailView(false)]
+		[HideInUI(HideInUI.DetailView)]
 		public virtual ObservableCollection<MapItem> CitySales{ get; set; } = new();
 
 		[Aggregated]
 		public virtual ObservableCollection<CustomerEmployee> Employees{ get; set; } = new(); 
 		[Attributes.Validation.Phone][MaxLength(20)]
 		public virtual string Phone { get; set; }
-		[Attributes.Validation.Phone][VisibleInListView(false)][VisibleInLookupListView(false)]
+		[Attributes.Validation.Phone][HideInUI(HideInUI.ListView)]
 		[MaxLength(20)]
 		public virtual string Fax { get; set; }
 		[Attributes.Validation.Url]
-		[EditorAlias(EditorAliases.HyperLinkPropertyEditor)][VisibleInListView(false)][VisibleInLookupListView(false)]
+		[EditorAlias(EditorAliases.HyperLinkPropertyEditor)][HideInUI(HideInUI.ListView)]
 		[MaxLength(255)]
 		public virtual string Website { get; set; }
-		[Column(TypeName = CurrencyType)][VisibleInListView(false)][VisibleInLookupListView(false)]
+		[Column(TypeName = CurrencyType)][HideInUI(HideInUI.ListView)]
 		public virtual decimal AnnualRevenue { get; set; }
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual int TotalStores { get; set; }
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual int TotalEmployees { get; set; }
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual CustomerStatus Status { get; set; }
 		[InverseProperty(nameof(Quote.Customer))] [Aggregated]
 		public virtual ObservableCollection<Quote> Quotes{ get; set; } = new();
@@ -90,12 +90,12 @@ namespace OutlookInspired.Module.BusinessObjects {
 		[InverseProperty(nameof(CustomerStore.Customer))]
 		[Aggregated]
 		public virtual ObservableCollection<CustomerStore> CustomerStores{ get; set; } = new();
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		[EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
 		public virtual byte[] Profile { get; set; }
 		[ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
 			DetailViewImageEditorMode = ImageEditorMode.PictureEdit,ImageSizeMode = ImageSizeMode.Zoom)]
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual byte[] Logo { get; set; }
 		string IBaseMapsMarker.Title => Name;
 		double IBaseMapsMarker.Latitude => BillingAddressLatitude;
@@ -104,11 +104,16 @@ namespace OutlookInspired.Module.BusinessObjects {
 		[InverseProperty(nameof(Order.Customer))]
 		[Aggregated]
 		public virtual ObservableCollection<Order> Orders{ get; set; } = new();
-		[VisibleInDetailView(false)][NotMapped]
-		public virtual List<Order> RecentOrders => ObjectSpace.GetObjectsQuery<Order>()
-			.Where(order => order.Customer.ID == ID && order.OrderDate > DateTime.Now.AddMonths(-2)).ToList();
+		[HideInUI(HideInUI.DetailView)][NotMapped]
+		public virtual List<Order> RecentOrders{
+			get{
+				var dateTime = DateOnly.FromDateTime(DateTime.Now.AddMonths(-2));
+				return ObjectSpace.GetObjectsQuery<Order>()
+					.Where(order => order.Customer.ID == ID && order.OrderDate > dateTime).ToList();
+			}
+		}
 
-		[VisibleInDetailView(false)]
+		[HideInUI(HideInUI.DetailView)]
 		[NotMapped]
 		public ObservableCollection<MapItem> Sales{ get; set; } = new();
 		

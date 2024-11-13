@@ -30,7 +30,7 @@ namespace OutlookInspired.Module.BusinessObjects{
 		
 		[NotMapped][Browsable(false)]
 		public new IObjectSpace ObjectSpace{ get; set; }
-		[VisibleInListView(false), VisibleInDetailView(false), VisibleInLookupListView(false)]
+		
 		object IResource.Id => ID;
 
 		[EditorAlias(EditorAliases.MapHomeOfficePropertyEditor)]
@@ -44,7 +44,7 @@ namespace OutlookInspired.Module.BusinessObjects{
 		double IBaseMapsMarker.Latitude => AddressLatitude;
 		double IBaseMapsMarker.Longitude => AddressLongitude;
 
-		[VisibleInListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual EmployeeStatus Status { get; set; }
 		[VisibleInListView(false)]
 		public virtual DateTime? HireDate { get; set; }
@@ -60,51 +60,51 @@ namespace OutlookInspired.Module.BusinessObjects{
 		public virtual ObservableCollection<Evaluation> Evaluations { get; set; }=new();
 		[NotMapped]
 		public virtual ObservableCollection<Evaluation> Events => Evaluations;
-		[VisibleInListView(false)][MaxLength(1000)]
+		[HideInUI(HideInUI.ListView)][MaxLength(1000)]
 		public virtual string PersonalProfile { get; set; }
-		[VisibleInListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual Probation ProbationReason { get; set; }
-		[RuleRequiredField][VisibleInListView(false)][MaxLength(100)]
+		[RuleRequiredField][HideInUI(HideInUI.ListView)][MaxLength(100)]
 		public virtual string FirstName { get; set; }
-		[RuleRequiredField][VisibleInListView(false)][MaxLength(100)]
+		[RuleRequiredField][HideInUI(HideInUI.ListView)][MaxLength(100)]
 		public virtual string LastName { get; set; }
 		
 		[PersistentAlias("Concat(" +nameof(FirstName) + ", ' ', " +nameof(LastName)+ ")")]
 		public string FullName => (string)EvaluateAlias();
 
 
-		[VisibleInListView(false)][VisibleInLookupListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual PersonPrefix Prefix { get; set; }
 
-		[VisibleInDetailView(false)]
+		[HideInUI(HideInUI.DetailView)]
 		[XafDisplayName(nameof(Prefix))]
 		public virtual byte[] PrefixImage => ImageLoader.Instance.GetEnumValueImageInfo(Prefix).ImageBytes;
 		
-		[Attributes.Validation.Phone][VisibleInListView(false)][MaxLength(100)]
+		[Attributes.Validation.Phone][HideInUI(HideInUI.ListView)][MaxLength(100)]
 		public virtual string HomePhone { get; set; }
-		[RuleRequiredField, Attributes.Validation.Phone][VisibleInListView(false)][MaxLength(100)]
+		[RuleRequiredField, Attributes.Validation.Phone][HideInUI(HideInUI.ListView)][MaxLength(100)]
 		public virtual string MobilePhone { get; set; }
 		[RuleRequiredField, Attributes.Validation.EmailAddress]
 		[EditorAlias(EditorAliases.HyperLinkPropertyEditor)][MaxLength(255)]
 		public virtual string Email { get; set; }
 
-		[VisibleInDetailView(false)]
+		[HideInUI(HideInUI.DetailView)]
 		[NotMapped]
 		public virtual ObservableCollection<RoutePoint> RoutePoints{ get; set; } = new();
-		[VisibleInListView(false)][MaxLength(100)]
+		[HideInUI(HideInUI.ListView)][MaxLength(100)]
 		public virtual string Skype { get; set; }
-		[VisibleInListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual DateTime? BirthDate { get; set; }
-		[VisibleInListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual Picture Picture { get; set; }
-		[NotMapped][VisibleInListView(false)][VisibleInDetailView(false)][VisibleInLookupListView(false)][XafDisplayName("A")]
+		[NotMapped][HideInUI(HideInUI.All)][VisibleInLookupListView(false)][XafDisplayName("A")]
 		public string AAddress{ get; set; }
-		[NotMapped][VisibleInListView(false)][VisibleInDetailView(false)][VisibleInLookupListView(false)][XafDisplayName("B")]
+		[NotMapped][HideInUI(HideInUI.All)][VisibleInLookupListView(false)][XafDisplayName("B")]
 		public string BAddress{ get; set; }
 		public virtual StateEnum State { get; set; }
-		[VisibleInListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual double AddressLatitude { get; set; }
-		[VisibleInListView(false)]
+		[HideInUI(HideInUI.ListView)]
 		public virtual double AddressLongitude { get; set; }
 		[RuleRequiredField][FontSizeDelta(2)][MaxLength(255)]
 		public virtual string Address { get; set; }
@@ -131,7 +131,7 @@ namespace OutlookInspired.Module.BusinessObjects{
 			}
 		}
 
-		[NotMapped][VisibleInListView(false)][VisibleInDetailView(false)][VisibleInLookupListView(false)]
+		[NotMapped][HideInUI(HideInUI.All)][VisibleInLookupListView(false)]
 		[FontSizeDelta(2)]
 		public virtual string RouteResult{ get; set; }
 

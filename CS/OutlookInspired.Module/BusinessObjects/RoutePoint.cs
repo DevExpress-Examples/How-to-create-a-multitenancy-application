@@ -7,7 +7,7 @@ namespace OutlookInspired.Module.BusinessObjects{
     public class RoutePoint {
         [DevExpress.ExpressApp.Data.Key]
         public int ID{ get; set; }
-        [VisibleInListView(false)]
+        [HideInUI(HideInUI.ListView)]
         public BingManeuverType Maneuver{ get; set; }
         [MaxLength(255)]
         public string ManeuverInstruction{ get; set; }

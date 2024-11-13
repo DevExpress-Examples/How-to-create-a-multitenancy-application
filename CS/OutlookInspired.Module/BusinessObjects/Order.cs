@@ -54,20 +54,20 @@ namespace OutlookInspired.Module.BusinessObjects{
         [EditorAlias(EditorAliases.EnumImageOnlyEditor)]
         public  virtual ShipmentStatus ShipmentStatus { get; set; }
 
-        [VisibleInDetailView(false)]
+        [HideInUI(HideInUI.DetailView)]
         [XafDisplayName(nameof(ShipmentStatus))]
         [ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
             DetailViewImageEditorMode = ImageEditorMode.PictureEdit,ImageSizeMode = ImageSizeMode.Zoom)]
         public virtual byte[] ShipmentStatusImage => ImageLoader.Instance.GetEnumValueImageInfo(@ShipmentStatus).ImageBytes;
 
         [EditorAlias(EditorAliases.PdfViewerEditor)]
-        [VisibleInDetailView(false)]
+        [HideInUI(HideInUI.DetailView)]
         [NotMapped]
         public virtual byte[] ShipmentDetail{ get; set; } = [];
         
         
         [EditorAlias(EditorAliases.PdfViewerEditor)]
-        [VisibleInDetailView(false)]
+        [HideInUI(HideInUI.DetailView)]
         [NotMapped]
         public virtual byte[] InvoiceDocument{ get; set; } = [];
         [EditorAlias(EditorAliases.DxHtmlPropertyEditor)]
@@ -86,7 +86,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         public PaymentStatus PaymentStatus 
             => Enum.TryParse(EvaluateAlias() as string, out PaymentStatus result) ? result : PaymentStatus.Other;
 
-        [VisibleInDetailView(false)]
+        [HideInUI(HideInUI.DetailView)]
         [XafDisplayName(nameof(ShipmentStatus))]
         [ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
             DetailViewImageEditorMode = ImageEditorMode.PictureEdit,ImageSizeMode = ImageSizeMode.Zoom)]

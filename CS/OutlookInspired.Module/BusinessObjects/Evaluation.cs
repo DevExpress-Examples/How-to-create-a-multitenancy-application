@@ -8,6 +8,7 @@ using DevExpress.Blazor.Internal;
 using DevExpress.Blazor.Scheduler.Internal;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.EFCore;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.Validation;
@@ -23,6 +24,7 @@ namespace OutlookInspired.Module.BusinessObjects{
     [Appearance(nameof(Rating),AppearanceItemType.ViewItem, nameof(Rating)+"='"+nameof(EvaluationRating.Good)+"'",TargetItems = "*",FontColor = "Green",Context = "Employee_Evaluations_ListView")]
     [CloneView(CloneViewType.ListView, EmployeeEvaluationsChildListView)]
     [DefaultClassOptions][ImageName("EvaluationYes")][VisibleInReports(false)]
+    [DisableDeferredDeletion]
     public class Evaluation :OutlookInspiredBaseObject,IEvent{
 	    private static readonly RichEditDocumentServer RichEditDocumentServer = new();
 	    private string _resourceId;
@@ -145,7 +147,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         public IList<Employee> Resources => Employee.Yield().ToList();
         public virtual EvaluationRating Rating{ get; set; }
 
-        [VisibleInListView(false)]
+        [HideInUI(HideInUI.ListView)]
         public virtual Raise Raise{ get; set; }
         
         [StringLength(300)]
@@ -153,7 +155,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         [DisplayName("Recurrence")]
         [FieldSize(-1)]
         public virtual string RecurrenceInfoXml { get; set; }
-        [VisibleInListView(false)]
+        [HideInUI(HideInUI.ListView)]
         public virtual Bonus Bonus{ get; set; }
         
         [Browsable(false)]

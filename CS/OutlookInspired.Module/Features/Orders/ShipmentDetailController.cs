@@ -7,8 +7,8 @@ using OutlookInspired.Module.BusinessObjects;
 using OutlookInspired.Module.Resources.Reports;
 
 namespace OutlookInspired.Module.Features.Orders{
-    public class ShipmentDetailController:ObjectViewController<DetailView,BusinessObjects.Order>{
-        public ShipmentDetailController() => TargetViewId = BusinessObjects.Order.MapsDetailView;
+    public class ShipmentDetailController:ObjectViewController<DetailView,Order>{
+        public ShipmentDetailController() => TargetViewId = Order.MapsDetailView;
         protected override void OnActivated(){
             base.OnActivated();
             using var fedExGroundLabel = new FedExGroundLabel();

@@ -32,7 +32,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         public  virtual byte[] Description { get; set; }
 
         
-        [VisibleInDetailView(false)][VisibleInListView(false)][VisibleInLookupListView(false)]
+        [HideInUI(HideInUI.All)]
         public virtual string DescriptionString{
             get{
                 RichEditDocumentServer.LoadDocument(Description,DocumentFormat.OpenXml);
@@ -57,7 +57,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         [NotMapped]
         public ObservableCollection<MapItem> Sales { get; set; } = new();
 
-        [NotMapped][VisibleInDetailView(false)]
+        [NotMapped][HideInUI(HideInUI.DetailView)]
         public virtual ObservableCollection<MapItem> CitySales{ get; set; } = new();
         public virtual Picture PrimaryImage { get; set; }
         [Column(TypeName = CurrencyType)]

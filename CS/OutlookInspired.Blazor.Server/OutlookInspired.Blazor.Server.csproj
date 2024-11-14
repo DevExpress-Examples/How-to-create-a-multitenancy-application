@@ -34,5 +34,9 @@
     <Content Include="Editors\Charts\MyDxPieChart.razor.js" />
     <None Remove="Editors\Maps\DevExtremeMap.razor.js" />
     <Content Include="Editors\Maps\DevExtremeMap.razor.js" />
+    
+    <None Remove="Editors\LayoutViewStacked\StackedLayoutView.razor.css" />
+    
+    <Content Include="Editors\LayoutViewStacked\StackedLayoutView.razor.css" />
   </ItemGroup>
 </Project>

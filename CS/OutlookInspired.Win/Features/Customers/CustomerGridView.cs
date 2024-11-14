@@ -1,5 +1,4 @@
-﻿using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Win.Editors;
+﻿using OutlookInspired.Win.Editors;
 
 namespace OutlookInspired.Win.Features.Customers
 {

@@ -15,7 +15,6 @@ using OutlookInspired.Module.Features.Maps;
 namespace OutlookInspired.Module.BusinessObjects{
     [XafDefaultProperty(nameof(InvoiceNumber))]
     [CloneView(CloneViewType.DetailView, ChildDetailView)]
-    [CloneView(CloneViewType.DetailView, GridViewDetailView)]
     [CloneView(CloneViewType.DetailView, MapsDetailView)]
     [CloneView(CloneViewType.DetailView, InvoiceDetailView)]
     [CloneView(CloneViewType.ListView, ListViewDetail)]
@@ -24,7 +23,6 @@ namespace OutlookInspired.Module.BusinessObjects{
         public const string MapsDetailView = "Order_DetailView_Maps";
         public const string InvoiceDetailView = "Order_Invoice_DetailView";
         public const string ChildDetailView = "Order_DetailView_Child";
-        public const string GridViewDetailView = "OrderGridView_DetailView";
         public const string ListViewDetail = "Order_ListView_Detail";
         
         [XafDisplayName("Invoice #")]
@@ -36,7 +34,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         [MaxLength(100)]
         public  virtual string PONumber { get; set; }
         public virtual Employee Employee { get; set; }
-        public  virtual DateTime OrderDate { get; set; }
+        public  virtual DateOnly OrderDate { get; set; }
         [Column(TypeName = CurrencyType)]
         public  virtual decimal SaleAmount { get; set; }
         [Column(TypeName = CurrencyType)]
@@ -56,19 +54,20 @@ namespace OutlookInspired.Module.BusinessObjects{
         [EditorAlias(EditorAliases.EnumImageOnlyEditor)]
         public  virtual ShipmentStatus ShipmentStatus { get; set; }
 
-        [VisibleInDetailView(false)]
+        [HideInUI(HideInUI.DetailView)]
         [XafDisplayName(nameof(ShipmentStatus))]
         [ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
             DetailViewImageEditorMode = ImageEditorMode.PictureEdit,ImageSizeMode = ImageSizeMode.Zoom)]
         public virtual byte[] ShipmentStatusImage => ImageLoader.Instance.GetEnumValueImageInfo(@ShipmentStatus).ImageBytes;
 
         [EditorAlias(EditorAliases.PdfViewerEditor)]
-        [VisibleInDetailView(false)]
+        [HideInUI(HideInUI.DetailView)]
         [NotMapped]
         public virtual byte[] ShipmentDetail{ get; set; } = [];
         
         
         [EditorAlias(EditorAliases.PdfViewerEditor)]
+        // [HideInUI(HideInUI.DetailView)]
         [VisibleInDetailView(false)]
         [NotMapped]
         public virtual byte[] InvoiceDocument{ get; set; } = [];
@@ -88,7 +87,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         public PaymentStatus PaymentStatus 
             => Enum.TryParse(EvaluateAlias() as string, out PaymentStatus result) ? result : PaymentStatus.Other;
 
-        [VisibleInDetailView(false)]
+        [HideInUI(HideInUI.DetailView)]
         [XafDisplayName(nameof(ShipmentStatus))]
         [ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
             DetailViewImageEditorMode = ImageEditorMode.PictureEdit,ImageSizeMode = ImageSizeMode.Zoom)]

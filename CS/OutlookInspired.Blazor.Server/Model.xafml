@@ -331,7 +331,7 @@
       </Layout>
     </DetailView>
     <ListView Id="Evaluation_ListView" SchedulerViewType="Month" SelectedIntervalEnd="2019-12-31" SelectedIntervalStart="2019-12-01" ResourceClass="OutlookInspired.Module.BusinessObjects.Employee" />
-    <DashboardView Id="Opportunities" MasterDetail="False" HideToolBar="False" />
+    <DashboardView Id="Opportunities" />
     <ListView Id="Opportunity_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Charts.DxChartPieListEditor" />
     <DetailView Id="Order_DetailView">
       <Layout>
@@ -444,26 +444,11 @@
     </ListView>
     <ListView Id="Order_ListView_Detail" AutoExpandAllGroups="True">
       <Columns>
-        <ColumnInfo Id="ActualWeight" Index="-1" />
-        <ColumnInfo Id="Customer" Index="-1" />
-        <ColumnInfo Id="Employee" Index="-1" />
-        <ColumnInfo Id="OrderDate" Index="-1" />
-        <ColumnInfo Id="PaymentStatusImage" Index="-1" />
-        <ColumnInfo Id="PONumber" Index="-1" />
-        <ColumnInfo Id="RefundTotal" Index="-1" />
-        <ColumnInfo Id="SaleAmount" Index="-1" />
-        <ColumnInfo Id="ShipmentCourier" Index="-1" />
-        <ColumnInfo Id="ShipmentStatusImage" Index="-1" />
-        <ColumnInfo Id="ShipMethod" Index="-1" />
-        <ColumnInfo Id="PaymentStatus" Index="0" Caption=" " PropertyEditorType="OutlookInspired.Blazor.Server.Editors.EnumPropertyEditor" Width="30" MinWidth="30" />
-        <ColumnInfo Id="ShipmentStatus" Index="1" Caption=" " PropertyEditorType="OutlookInspired.Blazor.Server.Editors.EnumPropertyEditor" Width="30" MinWidth="30" />
-        <ColumnInfo Id="Customer.Name" PropertyName="Customer.Name" Index="2" SortOrder="Ascending" GroupIndex="0" IsNewNode="True" />
-        <ColumnInfo Id="InvoiceNumber" Index="3" Width="182" />
-        <ColumnInfo Id="ShipDate" Index="4" Width="124" />
-        <ColumnInfo Id="Store" Index="5" Width="82" />
-        <ColumnInfo Id="ShippingAmount" Index="6" Width="120" />
-        <ColumnInfo Id="TotalAmount" Index="7" Width="114" />
-        <ColumnInfo Id="PaymentTotal" Index="8" Width="167" />
+        <ColumnInfo Id="PaymentStatus" PropertyName="PaymentStatus" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.EnumPropertyEditor" MinWidth="30" />
+        <ColumnInfo Id="ShipmentStatus" PropertyName="ShipmentStatus" PropertyEditorType="OutlookInspired.Blazor.Server.Editors.EnumPropertyEditor" MinWidth="30" />
+        <ColumnInfo Id="InvoiceNumber" Width="175" />
+        <ColumnInfo Id="OrderDate" Width="137" />
+        <ColumnInfo Id="ShipDate" Width="124" />
       </Columns>
     </ListView>
     <DetailView Id="Product_Brochure_DetailView">
@@ -573,7 +558,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Quote_ListView" DataAccessMode="Client" HideToolBar="False" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Pivot.PivotGridListEditor" />
+    <ListView Id="Quote_ListView" DataAccessMode="Client"  EditorTypeName="OutlookInspired.Blazor.Server.Editors.Pivot.PivotGridListEditor" />
     <ListView Id="QuoteAnalysis_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Pivot.PivotGridListEditor" />
     <ListView Id="QuoteMapItem_ListView" EditorTypeName="OutlookInspired.Blazor.Server.Editors.Maps.MapItemListEditor" />
     <ListView Id="ViewFilter_ListView" AllowEdit="False">

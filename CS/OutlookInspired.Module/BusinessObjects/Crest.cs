@@ -15,7 +15,7 @@ namespace OutlookInspired.Module.BusinessObjects{
         public virtual byte[] SmallImage { get; set; }
         [ImageEditor(ListViewImageEditorMode = ImageEditorMode.PictureEdit,
             DetailViewImageEditorMode = ImageEditorMode.PictureEdit)]
-        [XafDisplayName("Large")][VisibleInListView(false)][VisibleInLookupListView(false)]
+        [XafDisplayName("Large")][HideInUI(HideInUI.ListView)][VisibleInLookupListView(false)]
         public virtual byte[] LargeImage { get; set; }
 
         public virtual ObservableCollection<CustomerStore> CustomerStores{ get; set; } = new();

@@ -4,7 +4,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Features.Maps;
 
 namespace OutlookInspired.Module.Features.Orders{
     public class PayController:ObjectViewController<ObjectView,Order>{

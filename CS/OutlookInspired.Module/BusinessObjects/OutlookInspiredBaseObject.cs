@@ -9,7 +9,7 @@ using OutlookInspired.Module.Attributes.Appearance;
 namespace OutlookInspired.Module.BusinessObjects{
     [DeactivateAction("ShowInDocument",Context = "Any;Employee_ListView;")]
     [DeactivateAction("Save", "SaveAndClose", "SaveAndNew", "ShowAllContexts", "NextObject", "PreviousObject",
-        Context = Customer.GridViewDetailView + ";" + Customer.LayoutViewDetailView + ";" + Order.GridViewDetailView)]
+        Context = Customer.GridViewDetailView + ";" + Customer.LayoutViewDetailView )]
     [DeactivateAction("OpenObject",
         Context = Customer.MapsDetailView + ";" + Employee.MapsDetailView + ";" + Product.MapsDetailView + ";" +
                                               Order.MapsDetailView + ";")]

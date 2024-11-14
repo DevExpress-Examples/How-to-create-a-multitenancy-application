@@ -7,16 +7,8 @@ using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.ReportsV2;
 using OutlookInspired.Module.Features.CloneView;
-using OutlookInspired.Module.Features.Customers;
-using OutlookInspired.Module.Features.Employees;
-using OutlookInspired.Module.Features.Orders;
-using OutlookInspired.Module.Features.Products;
-using OutlookInspired.Module.Features.Quotes;
 using OutlookInspired.Module.ModelUpdaters;
 using OutlookInspired.Module.BusinessObjects;
-using OutlookInspired.Module.Features;
-using OutlookInspired.Module.Features.Maps;
-using OutlookInspired.Module.Features.Reports;
 using OutlookInspired.Module.Resources.Reports;
 using CustomerProfile = OutlookInspired.Module.Resources.Reports.CustomerProfile;
 using ProductProfile = OutlookInspired.Module.Resources.Reports.ProductProfile;
@@ -89,17 +81,7 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	    predefinedReportsUpdater.AddPredefinedReport<ProductSalesSummary>(Sales, typeof(Product));
 	    predefinedReportsUpdater.AddPredefinedReport<ProductTopSalesperson>(TopSalesPerson, typeof(Product));
     }
-
-    protected override IEnumerable<Type> GetDeclaredControllerTypes() 
-	    =>[typeof(MailMergeController),typeof(CustomerReportController),typeof(QuoteMapItemListViewController),
-		    typeof(CommunicationController),typeof(FollowUpController),typeof(InvoiceReportDocumentController),
-		    typeof(InvoiceController),typeof(PayController),typeof(RefundController),typeof(OrdersReportController),
-		    typeof(ShipmentDetailController), typeof(ProductReportController),typeof(MapOrderController), typeof(ViewFilterController),
-		    typeof(MapProductController),typeof(MapCustomerController),typeof(MapEmployeeController),typeof(MapOpportunitiesController),
-		    typeof(MapsSalesPeriodViewController),typeof(ProtectReportActionItemsViewController),typeof(OpportunitiesListViewController),
-		    typeof(ShowReportController),typeof(QuoteAnalysisListViewController),typeof(OpportunitiesFilterListViewController)
-	    ];
-
+    
     public override void Setup(XafApplication application) {
 	    base.Setup(application);
 	    application.ObjectSpaceCreated += Application_ObjectSpaceCreated;

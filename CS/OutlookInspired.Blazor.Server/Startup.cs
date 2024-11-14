@@ -70,7 +70,6 @@ public class Startup(IConfiguration configuration){
 #else
                     string connectionString = Configuration.GetConnectionString("ConnectionString");
 #endif
-                    ExtractDb(connectionString);
                     options.UseSqlite(connectionString);
                     options.UseChangeTrackingProxies();
                     options.UseLazyLoadingProxies();

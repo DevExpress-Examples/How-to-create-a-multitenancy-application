@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using DevExpress.Persistent.Base;
-using OutlookInspired.Module.Features.CloneView;
 
 
 namespace OutlookInspired.Module.BusinessObjects{

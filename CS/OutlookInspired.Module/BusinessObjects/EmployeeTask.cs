@@ -37,10 +37,10 @@ namespace OutlookInspired.Module.BusinessObjects{
         public virtual DateTime? StartDate { get; set; }
         public virtual DateTime? DueDate { get; set; }
         public virtual EmployeeTaskStatus Status { get; set; }
-        [VisibleInListView(false)][VisibleInLookupListView(false)]
+        [HideInUI(HideInUI.ListView)]
         public virtual EmployeeTaskPriority Priority { get; set; }
 
-        [VisibleInDetailView(false)][XafDisplayName(nameof(Priority))]
+        [HideInUI(HideInUI.DetailView)][XafDisplayName(nameof(Priority))]
         public byte[] PriorityImage => ImageLoader.Instance.GetEnumValueImageInfo(Priority).ImageBytes;
         
         [EditorAlias(EditorAliases.ProgressEditor)]
@@ -71,9 +71,9 @@ namespace OutlookInspired.Module.BusinessObjects{
         public override string ToString() => $"{Subject} - {Description}, due {DueDate}, {Status},\r\nOwner: {Owner}";
         public bool Overdue 
             => Status != EmployeeTaskStatus.Completed && DueDate.HasValue && DateTime.Now >= DueDate.Value.Date.AddDays(1);
-        [VisibleInDetailView(false)]
+        [HideInUI(HideInUI.DetailView)]
         public int AttachedFilesCount => AttachedFiles?.Count ?? 0;
-        [VisibleInDetailView(false)]
+        [HideInUI(HideInUI.DetailView)]
         public string AssignedEmployeesFullList => AssignedEmployees == null ? "" : string.Join(", ", AssignedEmployees.Select(x => x.FullName));
     }
 

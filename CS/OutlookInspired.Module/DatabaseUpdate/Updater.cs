@@ -50,17 +50,21 @@ public class Updater(IObjectSpace objectSpace, Version currentDBVersion) : Modul
             var defaultRole = EnsureDefaultRole();
             CreateAdminObjects();
             if (ObjectSpace.ModifiedObjects.Any()){
-                CreateDepartmentRoles();
+                var roles = CreateDepartmentRoles().ToArray();
                 CreateViewFilters();
                 CreateMailMergeTemplates();
-                foreach (var employee in ObjectSpace.GetObjectsQuery<Employee>()){
+                var users = ObjectSpace.GetObjectsQuery<ApplicationUser>().Where(user => user.Employee==null).ToArray();
+                var employees = ObjectSpace.GetObjectsQuery<Employee>().Where(employee => employee.User==null).ToArray();
+                for (var index = 0; index < employees.Length; index++){
+                    var employee = employees[index];
+                    employee.User = users[index];
+                    employee.User.Employee = employee;
                     var employeeName = employee.FirstName.ToLower().Concat(employee.LastName.ToLower().Take(1)).StringJoin("");
                     var userName = $"{employeeName}@{ObjectSpace.ServiceProvider.GetRequiredService<ITenantProvider>().TenantName}";
-                    employee.User = EnsureUser(userName, user => user.Employee = employee);
+                    employee.User.UserName = userName;
                     employee.User.Roles.Add(defaultRole);
-                    employee.User.Roles.Add(ObjectSpace.GetObjectsQuery<PermissionPolicyRole>().First(role => role.Name == employee.Department.ToString()));    
+                    employee.User.Roles.Add(roles.First(role => role.Name == employee.Department.ToString()));
                 }
-                
             }
             ObjectSpace.CommitChanges();
         }
@@ -151,14 +155,14 @@ public class Updater(IObjectSpace objectSpace, Version currentDBVersion) : Modul
         ((TenantNameHelperBase)ObjectSpace.ServiceProvider.GetRequiredService<ITenantNameHelper>()).ClearTenantMapCache();
     }
 
-    private void CreateDepartmentRoles(){
+    private IEnumerable<PermissionPolicyRole> CreateDepartmentRoles(){
         foreach (var department in Enum.GetValues<EmployeeDepartment>()){
-            EnsureRole(department);
+            yield return EnsureRole(department);
         }
     }
     
-    void EnsureRole(EmployeeDepartment department){
-        EnsureRole(department.ToString(), role => {
+    PermissionPolicyRole EnsureRole(EmployeeDepartment department) 
+        => EnsureRole(department.ToString(), role => {
             switch (department){
                 case EmployeeDepartment.Sales:
                     AddSalesPermissions(role);
@@ -185,7 +189,6 @@ public class Updater(IObjectSpace objectSpace, Version currentDBVersion) : Modul
                     throw new ArgumentOutOfRangeException(nameof(department), department, null);
             }
         });
-    }
 
 
     private static void AddPermissions(PermissionPolicyRole role, IEnumerable<Type> crudTypes,

@@ -41,7 +41,7 @@
       </Item>
     </Items>
   </NavigationItems>
-  <Options DataAccessMode="Server">
+  <Options DataAccessMode="Server" CustomizationFormEnabled="False">
     <Dashboards EnableCustomization="False" />
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
@@ -74,7 +74,7 @@
         <ColumnInfo Id="UserName" SortOrder="Descending" />
       </Columns>
     </ListView>
-    <ListView Id="Customer_CitySales_ListView" >
+    <ListView Id="Customer_CitySales_ListView">
       <HiddenActions>
         <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
       </HiddenActions>
@@ -91,7 +91,7 @@
         <ColumnInfo Id="Crest" Index="9" />
       </Columns>
     </ListView>
-    <DetailView Id="Customer_DetailView">
+    <DetailView Id="Customer_DetailView" CustomizationFormEnabled="True">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="14.822817631806396">
@@ -214,7 +214,7 @@
         <ColumnInfo Id="IsPurchaseAuthority" Index="5" />
       </Columns>
     </ListView>
-    <ListView Id="Customer_ListView" MasterDetailMode="ListViewAndDetailView" DataAccessMode="Client" MasterDetailView="Customer_DetailView_Child">
+    <ListView Id="Customer_ListView" MasterDetailMode="ListViewAndDetailView" DataAccessMode="Client" MasterDetailView="Customer_DetailView_Child" CustomizationFormEnabled="True">
       <SplitLayout RelativePosition="70" />
       <Variants Current="List">
         <Variant Id="List" ViewID="Customer_ListView" Caption="List" Index="0" IsNewNode="True" />
@@ -466,7 +466,6 @@
         <ColumnInfo Id="Owner" Index="-1" />
         <ColumnInfo Id="ParentId" Index="-1" />
         <ColumnInfo Id="Predecessors" Index="-1" />
-        <ColumnInfo Id="Priority" Index="-1" />
         <ColumnInfo Id="Private" Index="-1" />
         <ColumnInfo Id="Reminder" Index="-1" />
         <ColumnInfo Id="ReminderDateTime" Index="-1" />
@@ -493,7 +492,6 @@
         <ColumnInfo Id="Owner" Index="-1" />
         <ColumnInfo Id="ParentId" Index="-1" />
         <ColumnInfo Id="Predecessors" Index="-1" />
-        <ColumnInfo Id="Priority" Index="-1" />
         <ColumnInfo Id="Private" Index="-1" />
         <ColumnInfo Id="Reminder" Index="-1" />
         <ColumnInfo Id="ReminderDateTime" Index="-1" />
@@ -508,7 +506,7 @@
         <ActionLink ActionId="Unlink" IsNewNode="True" />
       </HiddenActions>
     </ListView>
-    <DetailView Id="Employee_DetailView" FreezeLayout="True">
+    <DetailView Id="Employee_DetailView" FreezeLayout="True" CustomizationFormEnabled="True">
       <Items>
         <PropertyEditor Id="AssignedTasks" Caption="Tasks" />
         <ActionContainerViewItem Id="EmailCategory" ActionContainer="Email" Caption="EmailCategory(46)" IsNewNode="True" />
@@ -590,7 +588,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="Employee_DetailView_Child" FreezeLayout="True">
+    <DetailView Id="Employee_DetailView_Child" FreezeLayout="True" CustomizationFormEnabled="True">
       <Items>
         <PropertyEditor Id="AssignedTasks" View="Employee_AssignedTasks_ListView_Child" />
         <ActionContainerViewItem Id="EmailCategory" ActionContainer="Email" Caption="EmailCategory(46)" IsNewNode="True" />
@@ -670,9 +668,7 @@
     </DetailView>
     <ListView Id="Employee_Evaluations_ListView">
       <Columns>
-        <ColumnInfo Id="Bonus" Index="-1" />
         <ColumnInfo Id="Employee" Index="-1" />
-        <ColumnInfo Id="Raise" Index="-1" />
         <ColumnInfo Id="Rating" Index="-1" />
         <ColumnInfo Id="Subject" Index="1" SortIndex="-1" SortOrder="None" />
         <ColumnInfo Id="Manager" Index="2" />
@@ -689,8 +685,6 @@
         <ColumnInfo Id="Rating" Index="-1" />
         <ColumnInfo Id="Subject" Index="1" />
         <ColumnInfo Id="Manager" Index="2" />
-        <ColumnInfo Id="Bonus" Index="3" />
-        <ColumnInfo Id="Raise" Index="4" />
       </Columns>
       <HiddenActions>
         <ActionLink ActionId="Link" IsNewNode="True" />
@@ -722,7 +716,7 @@
         <Variant Id="Card" ViewID="EmployeeLayoutView_ListView" Caption="Card" Index="1" IsNewNode="True" />
       </Variants>
     </ListView>
-    <ListView Id="Employee_RoutePoints_ListView" >
+    <ListView Id="Employee_RoutePoints_ListView">
       <HiddenActions>
         <ActionLink ActionId="Delete" IsNewNode="True" />
         <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
@@ -1064,7 +1058,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Product_CitySales_ListView" >
+    <ListView Id="Product_CitySales_ListView">
       <HiddenActions>
         <ActionLink ActionId="FullTextSearch" IsNewNode="True" />
       </HiddenActions>

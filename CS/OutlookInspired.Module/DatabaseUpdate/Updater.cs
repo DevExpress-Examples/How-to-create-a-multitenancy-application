@@ -38,8 +38,9 @@ public class Updater(IObjectSpace objectSpace, Version currentDBVersion) : Modul
     public override void UpdateDatabaseAfterUpdateSchema() {
         base.UpdateDatabaseAfterUpdateSchema();
         if (!ObjectSpace.CanInstantiate(typeof(ApplicationUser))) return;
-        
-        if (ObjectSpace.ServiceProvider.GetRequiredService<ITenantProvider>().TenantName == null) {
+
+        var tenantName = ObjectSpace.ServiceProvider.GetRequiredService<ITenantProvider>().TenantName;
+        if (tenantName == null) {
             if (!ObjectSpace.CanInstantiate(typeof(Tenant))) return;
             CreateAdminObjects();
             CreateTenant("company1.com", "OutlookInspired_company1");
@@ -49,22 +50,24 @@ public class Updater(IObjectSpace objectSpace, Version currentDBVersion) : Modul
         else {
             var defaultRole = EnsureDefaultRole();
             CreateAdminObjects();
+            var departments = Enum.GetValues<EmployeeDepartment>().Select(department => department.ToString());
+            var roles = ObjectSpace.GetObjectsQuery<PermissionPolicyRole>()
+                .Where(role => departments.Contains(role.Name)).ToArray();
             if (ObjectSpace.ModifiedObjects.Any()){
-                var roles = CreateDepartmentRoles().ToArray();
+                roles = CreateDepartmentRoles().ToArray();
                 CreateViewFilters();
                 CreateMailMergeTemplates();
-                var users = ObjectSpace.GetObjectsQuery<ApplicationUser>().Where(user => user.Employee==null).ToArray();
-                var employees = ObjectSpace.GetObjectsQuery<Employee>().Where(employee => employee.User==null).ToArray();
-                for (var index = 0; index < employees.Length; index++){
-                    var employee = employees[index];
-                    employee.User = users[index];
-                    employee.User.Employee = employee;
-                    var employeeName = employee.FirstName.ToLower().Concat(employee.LastName.ToLower().Take(1)).StringJoin("");
-                    var userName = $"{employeeName}@{ObjectSpace.ServiceProvider.GetRequiredService<ITenantProvider>().TenantName}";
-                    employee.User.UserName = userName;
-                    employee.User.Roles.Add(defaultRole);
-                    employee.User.Roles.Add(roles.First(role => role.Name == employee.Department.ToString()));
-                }
+            }
+            var employees = ObjectSpace.GetObjectsQuery<Employee>().Where(employee => employee.User==null).ToArray();
+            foreach (var employee in employees){
+                employee.User = EnsureUser($"{employee.FirstName}{employee.LastName.Substring(0,1)}@{tenantName}".ToLower());
+                employee.User.Employee = employee;
+                var employeeName = employee.FirstName.ToLower().Concat(employee.LastName.ToLower().Take(1)).StringJoin("");
+                var userName = $"{employeeName}@{tenantName}";
+                employee.User.UserName = userName;
+                employee.User.Roles.Add(defaultRole);
+                var employee1 = employee;
+                employee.User.Roles.Add(roles.First(role => role.Name == employee1.Department.ToString()));
             }
             ObjectSpace.CommitChanges();
         }

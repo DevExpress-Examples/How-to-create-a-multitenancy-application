@@ -24,18 +24,8 @@ static class Program {
         }
         Tracing.Initialize();
         Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
-        foreach (var process in Process.GetProcessesByName("OutlookInspired.MiddleTier")){
-            process.Kill();
-            process.WaitForExit();    
-        }
-        var proc = new Process();
-        var middleTierDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase!,
-            @"..\..\..\..\OutlookInspired.MiddleTier\"));
-        proc.StartInfo.FileName = "dotnet";
-        proc.StartInfo.Arguments="run dotnet --launch-profile OutlookInspired.MiddleTier";
-        proc.StartInfo.WorkingDirectory = middleTierDir;
-        proc.Start();
         
+        Initialization.RunSecurityServer(args);
 
         var winApplication = ApplicationBuilder.BuildApplication(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
         try {

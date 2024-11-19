@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OutlookInspired.Module", "OutlookInspired.Module\OutlookInspired.Module.csproj", "{643013D7-4626-445D-9253-D82C3884960D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OutlookInspired.Win", "OutlookInspired.Win\OutlookInspired.Win.csproj", "{D2C06B0F-84D5-4C14-95BD-AAC45F1E3E79}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1B1E9717-33E5-4683-9DF7-048520DDF83E} = {1B1E9717-33E5-4683-9DF7-048520DDF83E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OutlookInspired.Blazor.Server", "OutlookInspired.Blazor.Server\OutlookInspired.Blazor.Server.csproj", "{466379A7-EE43-4524-AAF1-C461C3893537}"
 EndProject

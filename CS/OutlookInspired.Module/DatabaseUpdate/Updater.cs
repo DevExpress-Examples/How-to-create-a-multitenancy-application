@@ -67,7 +67,8 @@ public class Updater(IObjectSpace objectSpace, Version currentDBVersion) : Modul
                 employee.User.UserName = userName;
                 employee.User.Roles.Add(defaultRole);
                 var employee1 = employee;
-                employee.User.Roles.Add(roles.First(role => role.Name == employee1.Department.ToString()));
+                var policyRole = roles.FirstOrDefault(role => role.Name == employee1.Department.ToString());
+                employee.User.Roles.Add(policyRole);
             }
             ObjectSpace.CommitChanges();
         }

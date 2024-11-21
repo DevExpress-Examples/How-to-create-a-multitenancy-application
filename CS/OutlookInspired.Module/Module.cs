@@ -17,10 +17,6 @@ using ProductProfile = OutlookInspired.Module.Resources.Reports.ProductProfile;
 [assembly:InternalsVisibleTo("OutlookInspired.Win")]
 [assembly:InternalsVisibleTo("OutlookInspired.Blazor.Server")]
 namespace OutlookInspired.Module;
-public interface IModelListViewSplitterRelativePosition{
-	[Category(OutlookInspiredModule.ModelCategory)]
-	int RelativePosition{ get; set; }
-}
 
 public sealed class OutlookInspiredModule : ModuleBase{
 	public const string ModelCategory = "OutlookInspired";
@@ -81,7 +77,7 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	    predefinedReportsUpdater.AddPredefinedReport<ProductSalesSummary>(Sales, typeof(Product));
 	    predefinedReportsUpdater.AddPredefinedReport<ProductTopSalesperson>(TopSalesPerson, typeof(Product));
     }
-    
+
     public override void Setup(XafApplication application) {
 	    base.Setup(application);
 	    application.ObjectSpaceCreated += Application_ObjectSpaceCreated;
@@ -98,7 +94,6 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
 		base.ExtendModelInterfaces(extenders);
 		extenders.Add<IModelOptions,IModelOptionsHomeOffice>();
-		extenders.Add<IModelListViewSplitLayout, IModelListViewSplitterRelativePosition>();
 	}
 
 	public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {

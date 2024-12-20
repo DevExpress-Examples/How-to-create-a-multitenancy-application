@@ -17,10 +17,6 @@ using ProductProfile = OutlookInspired.Module.Resources.Reports.ProductProfile;
 [assembly:InternalsVisibleTo("OutlookInspired.Win")]
 [assembly:InternalsVisibleTo("OutlookInspired.Blazor.Server")]
 namespace OutlookInspired.Module;
-public interface IModelListViewSplitterRelativePosition{
-	[Category(OutlookInspiredModule.ModelCategory)]
-	int RelativePosition{ get; set; }
-}
 
 public sealed class OutlookInspiredModule : ModuleBase{
 	public const string ModelCategory = "OutlookInspired";
@@ -98,7 +94,6 @@ public sealed class OutlookInspiredModule : ModuleBase{
 	public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
 		base.ExtendModelInterfaces(extenders);
 		extenders.Add<IModelOptions,IModelOptionsHomeOffice>();
-		extenders.Add<IModelListViewSplitLayout, IModelListViewSplitterRelativePosition>();
 	}
 
 	public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {

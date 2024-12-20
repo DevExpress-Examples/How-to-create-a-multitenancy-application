@@ -28,6 +28,7 @@ public class Startup(IConfiguration configuration){
         services.AddScoped<CircuitHandler, CircuitHandlerProxy>();
         services.AddXaf(Configuration, builder => {
             builder.UseApplication<OutlookInspiredBlazorApplication>();
+            builder.Services.AddDevExpressServerSideBlazorPdfViewer();
             builder.Modules
                 .AddConditionalAppearance()
                 .AddFileAttachments()

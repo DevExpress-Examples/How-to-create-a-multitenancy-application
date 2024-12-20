@@ -38,6 +38,11 @@
     <Compile Update="Editors\ColumnViewUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+  
+    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Using Include="DevExpress.ExpressApp.ListView" Alias="ListView" />

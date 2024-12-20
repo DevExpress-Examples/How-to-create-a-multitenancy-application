@@ -23,6 +23,11 @@
     <None Remove="Images\_NotStarted.png" />
     <None Remove="Model.DesignedDiffs.xafml" />
     <None Remove="UnusableNodes16.xml" />
+  
+    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

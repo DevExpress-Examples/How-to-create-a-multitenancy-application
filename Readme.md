@@ -9,7 +9,7 @@
 
 This demo app is built using XAF Blazor and WinForms (powered by the EF Core ORM). The demo includes [reusable XAF modules](https://docs.devexpress.com/eXpressAppFramework/118046/app-shell-and-base-infrastructure/application-solution-components/modules) such as Multi-Tenancy, Security System, Reports, Scheduler, Dashboards, Office, and many [custom list and property editors](https://docs.devexpress.com/eXpressAppFramework/113014/business-model-design-orm/data-types-supported-by-built-in-editors?#examples-of-custom-property-editors-for-popular-scenarios) for real-world scenarios (charts, pivot grids, maps, data grids with master-detail and layout views). 
 
-The example application serves as the central data management hub for the fictitious company, overseeing various business entities such as Employees, Products, Orders, Quotes, Customers, and Stores. This example application is a modern [multi-tenant](https://docs.devexpress.com/eXpressAppFramework/404436/multitenancy) iteration of our [non-XAF WinForms Outlook-Inspired Application](dxdemo://Win/OutlookInspiredDemo) (dxdemo://Win/OutlookInspiredDemo - requires the DevExpress Unified Component Installer).
+The example application serves as the central data management hub for the fictitious company, overseeing various business entities such as Employees, Products, Orders, Quotes, Customers, and Stores. This example application is a modern [multi-tenant](https://docs.devexpress.com/eXpressAppFramework/404436/multitenancy) iteration of our non-XAF WinForms Outlook-Inspired Application (dxdemo://Win/OutlookInspiredDemo - requires the DevExpress Unified Component Installer).
 
 ![](./Images/ManageTenants.png)
 
@@ -25,11 +25,11 @@ This multitenant application also supports the following built-in features:
 
 ## Run the Application
 
-When you launch the WinForms or Blazor application for the first time (, you can login using the **Admin** account and a blank password. The application will execute in [Host User Interface mode]([url](https://docs.devexpress.com/eXpressAppFramework/404669/multitenancy/create-new-multitenant-application#create-and-initialize-the-host-database)) (used to view, create and edit Tenants).
+When you launch the WinForms or Blazor application for the first time (, you can login using the **Admin** account and a blank password. The application will execute in [Host User Interface mode](https://docs.devexpress.com/eXpressAppFramework/404669/multitenancy/create-new-multitenant-application#create-and-initialize-the-host-database) (used to view, create and edit Tenants).
 
 ![Host UI](./Images/HostUI.png)
 
-Once you log in, [two tenants are created]([url](https://docs.devexpress.com/eXpressAppFramework/404669/multitenancy/create-new-multitenant-application#create-and-initialize-tenants)) in the system: `company1.com` and `company2.com`. You can view the tenant list in the Host User Interface List View. 
+Once you log in, [two tenants are created](https://docs.devexpress.com/eXpressAppFramework/404669/multitenancy/create-new-multitenant-application#create-and-initialize-tenants) in the system: `company1.com` and `company2.com`. You can view the tenant list in the Host User Interface List View. 
 
 After the Host Database is initialized, you can log in to the Tenant User Interface using one of the following Tenant Administrator accounts: **Admin@company1.com** and **Admin@company2.com** and a blank password. A Tenant Administrator has full access to all data stored in the Tenant Database but no access to other Tenant data. Users and permissions are managed in each tenant independently.
 
@@ -575,22 +575,7 @@ This folder contains XAF custom editors. Examples include:
       }
   }
 
-- `BlazorPropertyEditor` - An abstract property editor that serves as a basis for editors such as `ProgressPropertyEditor` or `PdfViewEditor`. The latter uses the PdfViewer component from the _Components_ folder.
 
-  [Editors/BlazorPropertyEditor.cs](https://github.com/DevExpress-Examples/xaf-create-multitenant-application/blob/24.1.2%2B/CS/OutlookInspired.Blazor.Server/Editors/BlazorPropertyEditor.cs):
-
-  ```cs
-  [PropertyEditor(typeof(byte[]),EditorAliases.PdfViewerEditor)]
-  public class PdfViewerEditor:BlazorPropertyEditor<PdfViewer,PdfModel>{
-      public PdfViewerEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model){
-      }
-
-      protected override void ReadValueCore(){
-          base.ReadValueCore();
-          ComponentModel.Bytes = (byte[])PropertyValue;
-      }
-  }
-  ```
 - `EnumPropertyEditor` - Inherits from XAF's native _EnumPropertyEditor_, but only displays an image (like its WinForms counterpart).
 
 - `DisplayTestPropertyEditors` - Displays raw text (like the WinForms _LabelPropertyEditor_).

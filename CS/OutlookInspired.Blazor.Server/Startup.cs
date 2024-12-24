@@ -65,7 +65,7 @@ public class Startup(IConfiguration configuration){
                     options.IsSupportChangePassword = true;
                 });
             builder.AddMultiTenancy()
-                .WithHostDbContext((_, options) => {
+                .WithHostDbContext((serviceProvider, options) => {
 #if EASYTEST
                     string connectionString = configuration.GetConnectionString("EasyTestConnectionString");
 #else

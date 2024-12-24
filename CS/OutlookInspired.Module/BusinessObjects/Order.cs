@@ -77,13 +77,11 @@ namespace OutlookInspired.Module.BusinessObjects{
         public  virtual decimal RefundTotal { get; set; }
         [Column(TypeName = CurrencyType)]
         public  virtual decimal PaymentTotal { get; set; }
-        
 
-        [PersistentAlias("Iif(" + nameof(PaymentTotal) + " = 0 AND " + nameof(RefundTotal) + " = 0, '" +
-                         nameof(PaymentStatus.Unpaid) + "', Iif(" + nameof(RefundTotal) + " = " + nameof(TotalAmount) +
-                         ", '" + nameof(PaymentStatus.RefundInFull) + "', Iif(" + nameof(PaymentTotal) + " = " +
-                         nameof(TotalAmount) + ", '" + nameof(PaymentStatus.PaidInFull) + "', '" +
-                         nameof(PaymentStatus.Other) + "')))")]
+
+        [PersistentAlias("Iif(" + nameof(PaymentTotal) + "=0 AND " + nameof(RefundTotal) + "=0,0,Iif(" +
+                         nameof(RefundTotal) + "=" + nameof(TotalAmount) + ",3,Iif(" + nameof(PaymentTotal) + "=" +
+                         nameof(TotalAmount) + ",1,2)))")]
         public PaymentStatus PaymentStatus 
             => Enum.TryParse(EvaluateAlias() as string, out PaymentStatus result) ? result : PaymentStatus.Other;
 

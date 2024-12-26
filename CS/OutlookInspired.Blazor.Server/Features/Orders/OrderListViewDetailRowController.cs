@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Blazor.Components;
 using DevExpress.ExpressApp.Blazor.Components.Models;
 using DevExpress.ExpressApp.Blazor.Editors;
+using DevExpress.ExpressApp.EFCore;
 using OutlookInspired.Blazor.Server.Components.DxGrid;
 using OutlookInspired.Module.BusinessObjects;
 
@@ -16,10 +17,16 @@ namespace OutlookInspired.Blazor.Server.Features.Orders {
             editor.GridModel.AutoCollapseDetailRow = true;
             var orderItemModel = OrderItemModel();
             editor.GridModel.DetailRowTemplate = value => {
-                orderItemModel.Data = ObjectSpace.GetObjectByKey<Order>(((ObjectRecord)value.DataItem).ObjectKeyValue).OrderItems;
-                var orderItemsContent = orderItemModel.GetComponentContent();
-                var detailRowModel = new DxGridDetailRowModel{ RenderFragment = orderItemsContent };
-                return ComponentModelObserver.Create(detailRowModel, detailRowModel.GetComponentContent());
+                if(value.DataItem is EFCoreServerModeViewRecord viewRecord) {
+                    if(viewRecord.ContainsMember("ID")) {
+                        var keyValue = viewRecord["ID"];
+                        orderItemModel.Data = ObjectSpace.GetObjectByKey<Order>(keyValue).OrderItems;
+                        var orderItemsContent = orderItemModel.GetComponentContent();
+                        var detailRowModel = new DxGridDetailRowModel { RenderFragment = orderItemsContent };
+                        return ComponentModelObserver.Create(detailRowModel, detailRowModel.GetComponentContent());
+                    }
+                }
+                return null;
             };
         }
 

@@ -7,7 +7,7 @@ using DevExpress.Persistent.Base;
 using OutlookInspired.Module.BusinessObjects;
 
 namespace OutlookInspired.Module.Features.Orders{
-    public class MapOrderController:ObjectViewController<ObjectView,Order>{
+     class MapOrderController:ObjectViewController<ObjectView,Order>{
         public const string MapItActionId = "MapOrder";
         public MapOrderController(){
             MapOrderAction = new PopupWindowShowAction(this, MapItActionId, PredefinedCategory.View){

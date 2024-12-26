@@ -24,6 +24,7 @@ namespace OutlookInspired.Module.Features.Products{
                 },
                 ItemType = SingleChoiceActionItemType.ItemIsOperation
             };
+            ReportAction.SelectionDependencyType = SelectionDependencyType.RequireSingleObject;
             ReportAction.Executed+=ReportActionOnExecuted;
         }
 
